@@ -44,7 +44,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		ClearDrawScreen();
 
 		player.Move();
-		player.CheckHit(map);
+		map.CheckHitCharactor(&player);
+		//player.CheckHit(map);
 
 		block.CheckHit(&player);
 

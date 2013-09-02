@@ -60,77 +60,7 @@ void ExplosionManager::CheckHitExplosion(Player *player)
 void ExplosionManager::CheckHitObject(MapObstacle *mapobstacle)
 {
 	const int num = (vex->size() - 1) / 4; //上下左右に広がる火のうち、中心を除く各列の個数
-	/*
-	for(int i=0; i<num; i++)//画面下に広がる火
-	{
-		(*vex)[1+4*i]->CheckHitObject(mapobstacle);
-
-		if( (*vex)[1+4*i]->GetFlag() == 0)//一つでも火が壁にぶつかったら、その列のそれ以降の火は全部消す
-		//if(mapobstacle->GetFlag(vex[1+4*i]->y / 32)[] == FALSE)
-		{
-			if(i+1 <= num)
-			{
-				for(int j=i+1; j<num; j++)
-				{
-					(*vex)[1+4*j]->SetFlag(FALSE);
-				}
-			}	
-			break;
-		}
-	}
-
-	for(int i=0; i<num; i++)//画面上に広がる火
-	{
-		(*vex)[2+4*i]->CheckHitObject(mapobstacle);
-
-		if( (*vex)[2+4*i]->GetFlag() == 0)//一つでも火が壁にぶつかったら、その列のそれ以降の火は全部消す
-		{
-			if(i+1 <= num)//もう次にも火があるなら
-			{
-				for(int j=i+1; j<num; j++)
-				{
-					(*vex)[2+4*j]->SetFlag(FALSE);
-				}
-			}
-			break;
-		}
-	}
-
-	for(int i=0; i<num; i++)//画面右に広がる火
-	{
-		(*vex)[3+4*i]->CheckHitObject(mapobstacle);
-
-		if( (*vex)[3+4*i]->GetFlag() == 0)//一つでも火が壁にぶつかったら、その列のそれ以降の火は全部消す
-		{
-			if(i+1 <= num)//もう次にも火があるなら
-			{
-				for(int j=i+1; j<num; j++)
-				{
-					(*vex)[3+4*j]->SetFlag(FALSE);
-				}
-			}
-			break;
-		}
-	}
-
-	for(int i=0; i<num; i++)//画面左に広がる火
-	{
-		(*vex)[4+4*i]->CheckHitObject(mapobstacle);
-
-		if( (*vex)[4+4*i]->GetFlag() == FALSE)//一つでも火が壁にぶつかったら、その列のそれ以降の火は全部消す
-		{
-			if(i+1 <= num)//もう次にも火があるなら
-			{
-				for(int j=i+1; j<num; j++)
-				{
-					(*vex)[4+4*j]->SetFlag(FALSE);
-				}
-			}
-			break;
-		}
-	}
-	*/
-
+	
 	for(int k=1; k<5; k++)//kは初期位置(中心の火のすぐ隣の火)
 	{
 		for(int i=0; i<num; i++)//画面左に広がる火

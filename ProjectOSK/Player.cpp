@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Map.h"
 #include "Item.h"
+#include "ItemManager.h"
 #include "DxLib.h"
 #define MV 1
 #define HABA 0
@@ -116,64 +117,6 @@ void Player::Move()
 	this->rx = this->x+32;
 	this->dy = this->y+32;
 }
-
-/*
-void Player::CheckHit(Map &map)
-{
-	int lx, rx, uy, dy;
-
-	lx = (x+HABA) / 32;
-	rx = (x+32-HABA) / 32;
-	uy = (y+HABA) / 32;
-	dy = (y+32-HABA) / 32;
-
-	//□←
-	if( (map.rx[uy][lx]-DHIT <= this->x && this->x <= map.rx[uy][lx]) && (map.y[uy][lx]+DHIT <= this->y && this->y < map.dy[uy][lx]-DHIT) && map.ID[uy][lx] == 1)this->x = map.x[uy][lx] + map.width;//途中
-	if( (map.rx[dy][lx]-DHIT <= this->x && this->x <= map.rx[dy][lx]) && (map.y[dy][lx]+DHIT <= this->dy && this->dy < map.dy[dy][lx]-DHIT) && map.ID[dy][lx] == 1)this->x = map.x[dy][lx] + map.width;//上いった
-	
-	//→□
-	if((map.x[uy][lx] <= this->x && this->x < map.x[uy][lx]+DHIT) && (map.y[uy][rx]+DHIT <= this->y && this->y < map.dy[uy][rx]-DHIT) && map.ID[uy][rx] == 1)this->x = map.x[uy][rx]- map.width ;//途中
-	if((map.x[dy][lx] <= this->x && this->x < map.x[dy][lx]+DHIT) && (map.y[dy][rx]+DHIT <=this->dy && this->dy < map.dy[dy][rx]-DHIT) && map.ID[dy][rx] == 1)this->x = map.x[dy][rx] - map.width;//上いった
-	
-	//□
-	//↑
-	if( (map.dy[uy][lx]-DHIT < this->y && this->y <= map.dy[uy][lx]) && (map.x[uy][lx]+DHIT <= this->x && this->x < map.rx[uy][lx]-DHIT) && map.ID[uy][lx] == 1)this->y = map.dy[uy][lx];//左行く
-	if( (map.dy[uy][rx]-DHIT < this->y && this->y <= map.dy[uy][rx]) && (map.x[uy][rx]+DHIT <= this->rx && this->rx < map.rx[uy][rx]-DHIT) && map.ID[uy][rx] == 1)this->y = map.dy[uy][rx];//右行く
-
-	//↓
-	//□
-	if( (map.y[dy][lx] < this->dy && this->dy <= map.y[dy][lx]+DHIT) && (map.x[dy][lx]+DHIT <= this->x && this->x < map.rx[dy][lx]-DHIT) && map.ID[dy][lx] == 1)this->y = map.y[dy][lx]-32;//左行く
-	if( (map.y[dy][rx] < this->dy && this->dy <= map.y[dy][rx]+DHIT) && (map.x[dy][rx]+DHIT <= this->rx && this->rx < map.rx[dy][rx]-DHIT) && map.ID[dy][rx] == 1)this->y = map.y[dy][rx]-32;//右行く
-
-	//真左
-	if( (map.y[uy][lx] <= this->y && this->y < map.y[uy][lx]+DHIT) && (map.rx[uy][lx]-DHIT < this->x && this->x <= map.rx[uy][lx]) && map.ID[uy][lx] == 1)this->x = map.x[uy][lx] + map.width;
-	if( (map.dy[dy][lx]-DHIT <= this->dy && this->dy <= map.dy[dy][lx]) && (map.rx[dy][lx]-DHIT < this->x && this->x <= map.rx[dy][lx]) && map.ID[dy][lx] == 1 )this->x = map.x[dy][lx] + map.width;
-
-	//真右
-	if( (map.y[uy][rx] <= this->y && this->y < map.y[uy][rx]+DHIT) && (map.x[uy][rx] <= this->rx && this->rx < map.x[uy][rx]+DHIT) && map.ID[uy][rx] == 1)this->x = map.x[uy][rx]- map.width;
-	if( (map.dy[dy][rx]-DHIT <= this->dy && this->dy <= map.dy[dy][rx]) && (map.x[dy][rx] <= this->rx && this->rx < map.x[dy][rx]+DHIT) && map.ID[dy][rx] == 1)this->x = map.x[dy][rx] - map.width;
-
-	//真上
-	if( (map.x[uy][lx] <= this->x && this->x < map.x[uy][lx]+DHIT) && (map.dy[uy][lx]-DHIT < this->y && this->y <= map.dy[uy][lx]) && map.ID[uy][lx] == 1)this->y = map.dy[uy][lx];
-	if( (map.rx[uy][rx]-DHIT <= this->rx && this->rx <= map.rx[uy][rx]) && (map.dy[uy][rx]-DHIT < this->y && this->y <= map.dy[uy][rx]) && map.ID[uy][rx] == 1)this->y = map.dy[uy][rx];
-
-	//真下
-	if( (map.x[dy][lx] <= this->x && this->x < map.x[dy][lx]+DHIT) && (map.y[dy][lx] < this->dy && this->dy <= map.y[dy][lx]+DHIT) && map.ID[dy][lx] == 1)this->y = map.y[dy][lx] - map.width;
-	if( (map.rx[dy][rx]-DHIT <= this->rx && this->rx <= map.rx[dy][rx]) && (map.y[dy][rx] < this->dy && this->dy <= map.y[dy][rx]+DHIT) && map.ID[dy][rx] == 1)this->y = map.y[dy][rx] - map.width;
-
-	//角
-	if(this->x == map.rx[uy][lx] && this->y == map.dy[uy][lx])
-	{
-		this->x = map.rx[uy][lx];
-		this->y = map.dy[uy][lx];
-	}
-
-	if(this->x < 64)this->x = 64;
-	if(this->x > 32*14)this->x = 32*14;
-	if(this->y < 32)this->y = 32;
-	if(this->y > 32*11)this->y = 32*11;
-}
-*/
 
 int Player::GetStateFire(const Item &item)//存在がFALSE の物の数を数えればよい。その数を戻り値にする。
 {

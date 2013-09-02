@@ -14,8 +14,8 @@ private:
 	int graph[PLAYERDEVIDENUMBER];
 	int muki;
 public:	
-	void CheckHit(Map &map);
-	virtual void SetCharactorState(int flag);
+	//void CheckHit(Map &map);
+	//virtual void SetCharactorState(int flag);
 	virtual void Move();
 	virtual void Draw(Map &map, int g_lasttime);
 	int GetStateFire(const Item &item);
