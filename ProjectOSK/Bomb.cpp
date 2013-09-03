@@ -2,7 +2,6 @@
 #include "Map.h"
 #include "Bomb.h"
 #include "Charactor.h"
-
 #include "DxLib.h"
 #include <iostream>
 
@@ -32,18 +31,46 @@ void Bomb::BombSet(const Charactor &charactor)
 		this->y = 32 * yMasuNum;
 		this->flag = 1;
 	}
-
+	/*
 	if(this->flag == 1)
 	{
 		if(Timer(3000))
-		{}//this->flag = 1;
+			this->flag = 1;
 		else
 			this->flag = 0;
+	}
+	*/
+}
+
+void Bomb::MaintainBomb(int time)
+{
+	static int startTime;
+	static int reset = 1;
+	if(this->flag == 1)
+	{
+		if(reset == 1)
+		{
+			startTime = GetNowCount();
+			reset = 0;
+		}
+
+		if(GetNowCount() - startTime < time)
+			this->flag = 1;
+		else
+		{
+			this->flag = 0;
+			reset = 1;
+		}
 	}
 }
 
 void Bomb::Draw()
 {
+
+	if(key.CheckOnePushKey(KEY_INPUT_A))
+	{
+		this->flag = 0;
+	}
 	/*
 	if( this->flag == 1)//zが押されて、またその時から3秒以内なら、爆弾を表示し続ける
 	{
@@ -94,7 +121,7 @@ int Bomb::Timer(int time)//この関数が呼び出されてから、規定時間たったら知らせる
 		resetTime = false;
 		count = 0;
 	}
-	/*
+	
 	if(GetNowCount() - startTime < time && resetTime == false)//3秒間はスタート時間をリセットしない
 	{
 		return TRUE;		//爆弾を表示させる
@@ -104,21 +131,21 @@ int Bomb::Timer(int time)//この関数が呼び出されてから、規定時間たったら知らせる
 		resetTime = true;//3秒たったらスタート時間をリセットする
 		return FALSE;		//爆弾を消す
 	}
-	*/
+	
 
-	if(resetTime == false)
-	{
-		++count;
-			if(count > 180)
-			{
-				resetTime = true;
-				return false;
-			}
-			else
-				return true;
-	}
-	else
-		return false;
+	//if(resetTime == false)
+	//{
+	//	++count;
+	//		if(count > 180)
+	//		{
+	//			resetTime = true;
+	//			return false;
+	//		}
+	//		else
+	//			return true;
+	//}
+	//else
+	//	return false;
 
 
 }

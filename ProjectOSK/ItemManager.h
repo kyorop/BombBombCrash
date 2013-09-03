@@ -11,6 +11,7 @@ private:
 	Item *item[ITEMNUM];
 
 public:
+
 	Item* GetFirstItemPointa();
 	void SetItem(const Block &block);
 	void Draw();

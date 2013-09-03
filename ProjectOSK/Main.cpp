@@ -50,6 +50,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 
 		manageBomb.AddBomb(manageItem);
 		manageBomb.BombSet(player);
+		manageBomb.MaintainBomb(3000);
 
 		manageExplosion.AddExplosion(manageItem,player);
 		manageExplosion.SetExplosion(bomb);
@@ -70,9 +71,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		
 		manageExplosion.DrawExplosion(bomb);
 	
-		static int color = GetColor(255,255,255);
+		int color = GetColor(255,255,255);
 		DrawFormatString(640,0,color,"ボムアップ獲得数 %d 個",manageItem.GetBombState());
-
+		DrawFormatString(640,20,color,"フレームタイム　%f　秒",g_frametime);
+		DrawFormatString(640,40,color,"出せるボム総数数　%d　個",manageBomb.size);
+		DrawFormatString(640,60,color,"出せるボム数あと　%d　個",manageBomb.size-manageBomb.GetBombNum());
 		ScreenFlip();
 		if(ProcessMessage() == -1)
 			break;

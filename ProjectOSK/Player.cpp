@@ -3,7 +3,7 @@
 #include "Item.h"
 #include "ItemManager.h"
 #include "DxLib.h"
-#define MV 1
+#define MV 3
 #define HABA 0
 #define DHIT 5
 enum

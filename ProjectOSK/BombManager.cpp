@@ -37,16 +37,48 @@ void BombManager::BombSet(const Charactor &charactor)
 {
 	for(int i=0, size=vbomb->size(); i<size; ++i)
 	{
-		(*vbomb)[i]->BombSet(charactor);
+		if( (*vbomb)[i]->GetFlag() == 0)
+		{
+			(*vbomb)[i]->BombSet(charactor);
+		}
+		else
+			continue;
+		if((*vbomb)[i]->GetFlag() == 1)
+			break;
+	}
+	//for(int i=vbomb->size()-1, size=vbomb->size(); i>=0; --i)
+	//{
+	//	(*vbomb)[i]->BombSet(charactor);
+	//}
+}
+
+void BombManager::MaintainBomb(int time)
+{
+	for(int i=0, size=vbomb->size(); i<size; ++i)
+	//for(int i=vbomb->size()-1, size=vbomb->size(); i>=0; --i)
+	{
+		(*vbomb)[i]->MaintainBomb(time);
 	}
 }
 
 void BombManager::Draw()
 {
+	this->size = vbomb->size();
 	for(int i=0, size=vbomb->size(); i<size; ++i) 
 	{
 		(*vbomb)[i]->Draw();
 	}
+}
+
+int BombManager::GetBombNum()
+{
+	int num=0;
+	for(int i=0, size=vbomb->size(); i<size; ++i) 
+	{
+		if((*vbomb)[i]->GetFlag()==1)
+			++num;
+	}
+	return num;
 }
 
 BombManager::~BombManager(void)

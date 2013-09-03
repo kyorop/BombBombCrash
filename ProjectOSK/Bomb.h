@@ -1,19 +1,21 @@
 #pragma once
+#include "Object.h"
 #include "Key.h"
 #define BOMBDEVIDENUMBER 60
 
 class Player;
 class Map;
 class Charactor;
-class Bomb
+class Bomb:
+	public Object
 {
 	friend class Explosion;
 private:
-	int x;
-	int y;
+	//int x;
+	//int y;
 	int graph[BOMBDEVIDENUMBER];
 	int explosion;
-	int flag;
+	//int flag;
 	Key key;
 
 public:
@@ -21,6 +23,7 @@ public:
 	~Bomb();
 	void BombSet(const Charactor &charactor);
 	void Draw();
+	void MaintainBomb(int time);
 	int CheckBombExplosion();
 
 private:
