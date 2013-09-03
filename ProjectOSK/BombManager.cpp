@@ -10,17 +10,34 @@ BombManager::BombManager(void):
 	(*vbomb)[0] = new Bomb;
 }
 
-void BombManager::AddBomb(const ItemManager &manageItem, Player &player)
+void BombManager::AddBomb(const ItemManager &itemManager)
 {
-	if(manageItem.CheckHitCharactor(player) == BOMB)
+	static int bombUpNum;//獲得したボムアイテムの数
+	if(itemManager.GetBombState() > bombUpNum)//新たにボムアイテムを獲得したら、ボム数を増やす
+	{
 		vbomb->push_back(new Bomb);
+		++bombUpNum;
+	}
+	
+	//if(manageItem.CheckHitCharactor(player) == BOMB)
+	//static int count;
+	//if(count == 0)
+	//{
+	//	vbomb->push_back(new Bomb);
+	//	count = 1;
+	//}
+	
+	//if(itemManager.CheckHitCharactor(player) == BOMB)
+	//{
+	//	vbomb->push_back(new Bomb);
+	//}
 }
 
-void BombManager::BombSet(const Player &player,const Map &map)
+void BombManager::BombSet(const Charactor &charactor)
 {
 	for(int i=0, size=vbomb->size(); i<size; ++i)
 	{
-		(*vbomb)[i]->BombSet(player, map);
+		(*vbomb)[i]->BombSet(charactor);
 	}
 }
 

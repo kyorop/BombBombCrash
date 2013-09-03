@@ -1,4 +1,5 @@
 #pragma once
+#include "Key.h"
 #define BOMBDEVIDENUMBER 60
 
 class Player;
@@ -13,11 +14,12 @@ private:
 	int graph[BOMBDEVIDENUMBER];
 	int explosion;
 	int flag;
+	Key key;
 
 public:
 	Bomb();
 	~Bomb();
-	void BombSet(const Charactor &charactor, const Map &map);
+	void BombSet(const Charactor &charactor);
 	void Draw();
 	int CheckBombExplosion();
 

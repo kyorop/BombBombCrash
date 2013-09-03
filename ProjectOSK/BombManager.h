@@ -5,13 +5,14 @@ class Bomb;
 class Player;
 class Map;
 class ItemManager;
+class Charactor;
 class BombManager
 {
 private:
 	std::vector<Bomb*> *vbomb;
 public:
-	void AddBomb(const ItemManager &manageItem, Player &player);
-	void BombSet(const Player &player,const Map &map);
+	void AddBomb(const ItemManager &manageItem);
+	void BombSet(const Charactor &charactor);
 	void Draw();
 	BombManager(void);
 	~BombManager(void);

@@ -8,7 +8,6 @@
 #define BOMB 1
 #define SPEED 2
 
-
 ItemManager::ItemManager(void)
 {
 	for(int i=0; i<ITEMNUM; i++)
@@ -33,14 +32,14 @@ void ItemManager::SetItem(const Block &block)
 	}
 }
 
-int ItemManager::CheckHitCharactor(Player &player)const
+int ItemManager::CheckHitCharactor(Charactor &charctor)const
 {
-	int hitGraph;
-	for(int i=0; i<ITEMNUM; i++)
+	int hitGraph = -1;
+	for(int i=0; i<ITEMNUM; ++i)
 	{
-		if(this->item[i]->CheckHItCharactor(player)==0 || this->item[i]->CheckHItCharactor(player)==1 || this->item[i]->CheckHItCharactor(player)==2 || this->item[i]->CheckHItCharactor(player)==-1)
+		if(this->item[i]->CheckHItCharactor(charctor)==0 || this->item[i]->CheckHItCharactor(charctor)==1 || this->item[i]->CheckHItCharactor(charctor)==2 /*|| this->item[i]->CheckHItCharactor(charctor)==-1*/)
 		{
-			hitGraph = this->item[i]->CheckHItCharactor(player);
+			hitGraph = this->item[i]->CheckHItCharactor(charctor);
 			break;
 		}
 	}
@@ -49,7 +48,7 @@ int ItemManager::CheckHitCharactor(Player &player)const
 
 void ItemManager::Draw()
 {
-	for(int i=0; i<ITEMNUM; i++)
+	for(int i=0; i<ITEMNUM; ++i)
 		item[i]->Draw();
 }
 
@@ -58,31 +57,31 @@ Item* ItemManager::GetFirstItemPointa()
 	return this->item[0];
 }
 
-int ItemManager::GetNowBombNum()
+int ItemManager::GetBombState()const
 {
-	static int bombNum;
-	for(int i=0; i<ITEMNUM; i++)
+	int bombNum=0;
+	for(int i=0; i<ITEMNUM; ++i)
 	{
-		if(this->item[i]->GetFlag() == 0 && this->item[i]->GetKindGraph() == BOMB)
+		if(this->item[i]->GetKindGraph() == BOMB && this->item[i]->GetFlag() == 0)
 			bombNum++;
 	}
 	return bombNum;
 }
 
-int ItemManager::GetNowFireNum()
+int ItemManager::GetFireState()const
 {
-	static int fireNum;
+	int fireNum=0;
 	for(int i=0; i<ITEMNUM; i++)
 	{
-		if(this->item[i]->GetFlag() == 0 && this->item[i]->GetKindGraph() == FIRE)
+		if(this->item[i]->GetKindGraph() == FIRE && this->item[i]->GetFlag() == 0)
 			fireNum++;
 	}
 	return fireNum;
 }
 
-int ItemManager::GetNowSpeedNum()
+int ItemManager::GetSpeedState()const
 {
-	static int speedNum;
+	int speedNum=0;
 	for(int i=0; i<ITEMNUM; i++)
 	{
 		if(this->item[i]->GetFlag() == 0 && this->item[i]->GetKindGraph() == SPEED)

@@ -14,7 +14,7 @@
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nCmdShow)
 {
-	//SetGraphMode(1024,768,16);
+	SetGraphMode(1024,768,16);
 	ChangeWindowMode(true);
 	if(DxLib_Init() == -1)
 		return -1;
@@ -25,12 +25,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 	Bomb bomb;
 	ExplosionManager manageExplosion;
 	Block block;
-	//Item item;
 	ItemManager manageItem;
 	BombManager manageBomb;
 
 	manageItem.SetItem(block);
-	//item.SetItem(block);
 	int upfire = 1;
 	int count = 0;
 	int g_lasttime = 0;
@@ -45,14 +43,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 
 		player.Move();
 		map.CheckHitCharactor(&player);
-		//player.CheckHit(map);
 
-		block.CheckHit(&player);
+		//block.CheckHit(&player);
 
 		manageItem.CheckHitCharactor(player);
 
-		manageBomb.AddBomb(manageItem,player);
-		manageBomb.BombSet(player,map);
+		manageBomb.AddBomb(manageItem);
+		manageBomb.BombSet(player);
 
 		manageExplosion.AddExplosion(manageItem,player);
 		manageExplosion.SetExplosion(bomb);
@@ -64,7 +61,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		
 		manageItem.Draw();
 		
-		block.Draw();
+		//block.Draw();
 		
 		manageBomb.Draw();
 		//bomb.Draw();
@@ -73,6 +70,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		
 		manageExplosion.DrawExplosion(bomb);
 	
+		static int color = GetColor(255,255,255);
+		DrawFormatString(640,0,color,"ボムアップ獲得数 %d 個",manageItem.GetBombState());
 
 		ScreenFlip();
 		if(ProcessMessage() == -1)
