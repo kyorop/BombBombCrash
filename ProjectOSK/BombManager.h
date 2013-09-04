@@ -7,7 +7,7 @@ class Charactor;
 class BombManager
 {
 private:
-	std::vector<Bomb*> *vbomb;
+	
 public:
 	int size;
 	void AddBomb(const ItemManager &manageItem);
@@ -17,5 +17,7 @@ public:
 	int GetBombNum();
 	BombManager(void);
 	~BombManager(void);
+	
+	std::vector<Bomb*> *vbomb;
 };
 

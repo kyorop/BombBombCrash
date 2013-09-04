@@ -13,6 +13,7 @@ class Bomb:
 private:
 	//int x;
 	//int y;
+	int count;
 	int graph[BOMBDEVIDENUMBER];
 	int explosion;
 	//int flag;

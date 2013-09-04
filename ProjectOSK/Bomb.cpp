@@ -4,11 +4,13 @@
 #include "Charactor.h"
 #include "DxLib.h"
 #include <iostream>
+//#include <cstdio>
 
 
 //コンストラクタ
 Bomb::Bomb()
 {
+	this->count=0;
 	this->explosion = 0;
 	this->flag = 0;
 	this->x = 0;
@@ -46,6 +48,24 @@ void Bomb::MaintainBomb(int time)
 {
 	static int startTime;
 	static int reset = 1;
+	//static int count;
+
+	if(this->flag == 1)
+	{
+		++this->count;
+		if(this->count < 180)
+		{
+			this->flag = 1;
+		}
+		else
+		{
+			this->flag = 0;
+			this->count = 0;
+		}
+	}
+	
+
+	/*
 	if(this->flag == 1)
 	{
 		if(reset == 1)
@@ -62,6 +82,7 @@ void Bomb::MaintainBomb(int time)
 			reset = 1;
 		}
 	}
+	*/
 }
 
 void Bomb::Draw()

@@ -76,6 +76,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		DrawFormatString(640,20,color,"フレームタイム　%f　秒",g_frametime);
 		DrawFormatString(640,40,color,"出せるボム総数数　%d　個",manageBomb.size);
 		DrawFormatString(640,60,color,"出せるボム数あと　%d　個",manageBomb.size-manageBomb.GetBombNum());
+
+
+
+		for(int i=0;i<manageBomb.vbomb->size();++i)
+		{
+			DrawFormatString(640,80+20*i,color,"[%d]ボムフラグ　%d",i+1,(*manageBomb.vbomb)[i]->GetFlag());
+		}
+		
 		ScreenFlip();
 		if(ProcessMessage() == -1)
 			break;
