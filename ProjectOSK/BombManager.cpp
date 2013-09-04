@@ -37,12 +37,12 @@ void BombManager::BombSet(const Charactor &charactor)
 {
 	for(int i=0, size=vbomb->size(); i<size; ++i)
 	{
-		if( (*vbomb)[i]->GetFlag() == 0)
-		{
+		//if( (*vbomb)[i]->GetFlag() == 0)
+		//{
 			(*vbomb)[i]->BombSet(charactor);
-		}
-		else
-			continue;
+		//}
+		//else
+			//continue;
 		if((*vbomb)[i]->GetFlag() == 1)
 			break;
 	}

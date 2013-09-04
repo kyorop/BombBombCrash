@@ -19,7 +19,7 @@ int Key::CheckOnePushKey(int keyCode)
 			this->key[i] = 0;
 	}
 
-	if(this->key[keyCode] == 1)
+	if(this->key[keyCode] == 1)//‰Ÿ‚³‚ê‚½‚ÌƒtƒŒ[ƒ€‚¾‚¯TRUE‚ğ•Ô‚·
 		return TRUE;
 	else
 		return FALSE;
