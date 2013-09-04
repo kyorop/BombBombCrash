@@ -1,6 +1,7 @@
 #pragma once
 #include "Object.h"
 #include "Key.h"
+#include "Timer.h"
 #define BOMBDEVIDENUMBER 60
 
 class Player;
@@ -11,23 +12,17 @@ class Bomb:
 {
 	friend class Explosion;
 private:
-	//int x;
-	//int y;
 	int count;
 	int graph[BOMBDEVIDENUMBER];
 	int explosion;
-	//int flag;
 	Key key;
-
+	Timer time;
 public:
 	Bomb();
 	~Bomb();
 	void BombSet(const Charactor &charactor);
 	void Draw();
-	void MaintainBomb(int time);
+	void MaintainBomb();
 	int CheckBombExplosion();
-
-private:
-	int Timer(int time);
 };
 

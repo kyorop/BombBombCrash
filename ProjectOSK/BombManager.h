@@ -12,7 +12,7 @@ public:
 	int size;
 	void AddBomb(const ItemManager &manageItem);
 	void BombSet(const Charactor &charactor);
-	void MaintainBomb(int time);
+	void MaintainBomb();
 	void Draw();
 	int GetBombNum();
 	BombManager(void);

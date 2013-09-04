@@ -1,5 +1,5 @@
 #pragma once
-#define ITEMNUM 10
+#define ITEMNUM 30
 
 class Item;
 class Block;

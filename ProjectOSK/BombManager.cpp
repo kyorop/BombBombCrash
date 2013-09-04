@@ -52,12 +52,12 @@ void BombManager::BombSet(const Charactor &charactor)
 	//}
 }
 
-void BombManager::MaintainBomb(int time)
+void BombManager::MaintainBomb()
 {
 	for(int i=0, size=vbomb->size(); i<size; ++i)
 	//for(int i=vbomb->size()-1, size=vbomb->size(); i>=0; --i)
 	{
-		(*vbomb)[i]->MaintainBomb(time);
+		(*vbomb)[i]->MaintainBomb();
 	}
 }
 

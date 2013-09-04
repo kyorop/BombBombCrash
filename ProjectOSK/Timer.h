@@ -6,7 +6,7 @@ private:
 	bool reset;
 	int startTime;
 public:
-	bool CountDown();
+	bool CountDown(int time);
 	Timer(void);
 	~Timer(void);
 };
