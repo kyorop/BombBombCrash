@@ -85,6 +85,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BlastManager.cpp" />
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="BombManager.cpp" />
@@ -102,6 +103,7 @@
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BlastManager.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="BombManager.h" />

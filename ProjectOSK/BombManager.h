@@ -7,7 +7,7 @@ class Charactor;
 class BombManager
 {
 private:
-	
+	int nowBombNum;
 public:
 	int size;
 	void AddBomb(const ItemManager &manageItem);

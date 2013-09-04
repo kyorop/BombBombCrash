@@ -23,6 +23,8 @@ int Object::CheckHItCharactor(Charactor &charactor)
 		else
 			return false;
 	}
+	else
+		return false;
 }
 
 Object::~Object(void)

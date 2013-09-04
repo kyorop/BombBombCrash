@@ -12,6 +12,8 @@
 #include "DxLib.h"
 #include <iostream>
 
+
+
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nCmdShow)
 {
 	SetGraphMode(1024,768,16);
@@ -22,7 +24,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 	
 	Map map;
 	Player player;
-	Bomb bomb;
+	//Bomb bomb;
 	ExplosionManager manageExplosion;
 	Block block;
 	ItemManager manageItem;
@@ -50,10 +52,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 
 		manageBomb.AddBomb(manageItem);
 		manageBomb.BombSet(player);
-		manageBomb.MaintainBomb(3000);
+		//manageBomb.MaintainBomb();
 
-		manageExplosion.AddExplosion(manageItem,player);
-		manageExplosion.SetExplosion(bomb);
+		manageExplosion.AddExplosion(manageItem);
+		//manageExplosion.SetExplosion(bomb);
 		manageExplosion.CheckHitObject(&block);//ブロックとのあたり判定//アップキャスト
 		manageExplosion.CheckHitObject(&map);//マップブロックとのあたり判定//アップキャスト
 		manageExplosion.CheckHitExplosion(&player);//プレイヤーとのあたり判定
@@ -69,7 +71,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		
 		player.Draw(map, g_lasttime);
 		
-		manageExplosion.DrawExplosion(bomb);
+		manageExplosion.DrawExplosion();
 	
 		int color = GetColor(255,255,255);
 		DrawFormatString(640,0,color,"ボムアップ獲得数 %d 個",manageItem.GetBombState());
@@ -78,8 +80,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		DrawFormatString(640,60,color,"出せるボム数あと　%d　個",manageBomb.size-manageBomb.GetBombNum());
 
 
-
-		for(int i=0;i<manageBomb.vbomb->size();++i)
+		
+		for(int i=0,size=manageBomb.vbomb->size();i<size;++i)
 		{
 			DrawFormatString(640,80+20*i,color,"[%d]ボムフラグ　%d",i+1,(*manageBomb.vbomb)[i]->GetFlag());
 		}

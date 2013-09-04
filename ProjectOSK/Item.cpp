@@ -11,7 +11,7 @@
 int Item::graph[KINDITEMNUM];
 
 Item::Item(void):
-	i_graph(1)
+	i_graph(BOMB)
 	//i_graph(GetRand(KINDITEMNUM-1))//何のアイテムを出すか決める
 {
 	LoadDivGraph("itemup.bmp", 3, 3, 1, 32, 32, Item::graph, FALSE);
@@ -60,6 +60,8 @@ int Item::CheckHItCharactor(const Charactor &charactor)
 		else
 			return -1;
 	}
+	else
+		return -1;
 }
 
 Item::~Item(void)

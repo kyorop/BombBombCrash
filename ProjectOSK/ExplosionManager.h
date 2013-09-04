@@ -11,14 +11,16 @@ class ExplosionManager
 private:
 	std::vector<Explosion*> *vex;//vectorクラスのオブジェクト生成
 	bool Timer(int time);
+	int addFireNum;
+	int nowFireLevel;
 
 public:
 	void SetExplosion(const Bomb &bomb);
 	void CheckHitObject(MapObstacle *mapobstacle);
 	void SetZahyou(const Bomb &bomb);
-	void AddExplosion(const ItemManager &manageItem,Player &player);	
+	void AddExplosion(const ItemManager &manageItem);	
 	void CheckHitExplosion(Player *player);
-	void DrawExplosion(const Bomb &bomb);
+	void DrawExplosion();
 	ExplosionManager();
 	~ExplosionManager(void);
 };
