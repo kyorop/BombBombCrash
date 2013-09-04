@@ -5,7 +5,7 @@ class Explosion;
 class Bomb;
 class MapObstacle;
 class Player;
-class ItemManager;
+
 class ExplosionManager
 {
 private:
@@ -16,7 +16,7 @@ public:
 	void SetExplosion(const Bomb &bomb);
 	void CheckHitObject(MapObstacle *mapobstacle);
 	void SetZahyou(const Bomb &bomb);
-	void AddExplosion(const ItemManager &manageItem,Player &player);	
+	void AddExplosion(int level);	
 	void CheckHitExplosion(Player *player);
 	void DrawExplosion(const Bomb &bomb);
 	ExplosionManager();

@@ -3,8 +3,6 @@
 #define KINDITEMNUM 3
 
 class Block;
-class Player;
-class Charactor;
 class Item:
 	public Object  //class ObjcetÇåpè≥
 {
@@ -13,13 +11,10 @@ protected:
 private:
 	int i_graph;
 public:
-	int CheckHItCharactor(const Charactor &charactor);
-	int GetKindGraph();
 	void SetItem(const Block &block);
 	void Draw();
 	Item(void);
 	~Item(void);
 	bool operator== (const Item &other);
-	bool operator== (const Player &player);
 };
 

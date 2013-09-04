@@ -2,11 +2,7 @@
 #include "Item.h"
 #include "Block.h"
 #include "Player.h"
-#include "Charactor.h"
 #include "DxLib.h"
-#define FIRE 0
-#define BOMB 1
-#define SPEED 2
 
 ItemManager::ItemManager(void)
 {
@@ -32,62 +28,16 @@ void ItemManager::SetItem(const Block &block)
 	}
 }
 
-int ItemManager::CheckHitCharactor(Charactor &charctor)const
+void ItemManager::CheckHitCharactor(Player *player)
 {
-	int hitGraph = -1;
-	for(int i=0; i<ITEMNUM; ++i)
-	{
-		if(this->item[i]->CheckHItCharactor(charctor)==0 || this->item[i]->CheckHItCharactor(charctor)==1 || this->item[i]->CheckHItCharactor(charctor)==2 /*|| this->item[i]->CheckHItCharactor(charctor)==-1*/)
-		{
-			hitGraph = this->item[i]->CheckHItCharactor(charctor);
-			break;
-		}
-	}
-	return hitGraph;
+	for(int i=0; i<ITEMNUM; i++)
+		this->item[i]->CheckHItCharactor(player);
 }
 
 void ItemManager::Draw()
 {
-	for(int i=0; i<ITEMNUM; ++i)
+	for(int i=0; i<ITEMNUM; i++)
 		item[i]->Draw();
-}
-
-Item* ItemManager::GetFirstItemPointa()
-{
-	return this->item[0];
-}
-
-int ItemManager::GetBombState()const
-{
-	int bombNum=0;
-	for(int i=0; i<ITEMNUM; ++i)
-	{
-		if(this->item[i]->GetKindGraph() == BOMB && this->item[i]->GetFlag() == 0)
-			bombNum++;
-	}
-	return bombNum;
-}
-
-int ItemManager::GetFireState()const
-{
-	int fireNum=0;
-	for(int i=0; i<ITEMNUM; i++)
-	{
-		if(this->item[i]->GetKindGraph() == FIRE && this->item[i]->GetFlag() == 0)
-			fireNum++;
-	}
-	return fireNum;
-}
-
-int ItemManager::GetSpeedState()const
-{
-	int speedNum=0;
-	for(int i=0; i<ITEMNUM; i++)
-	{
-		if(this->item[i]->GetFlag() == 0 && this->item[i]->GetKindGraph() == SPEED)
-			speedNum++;
-	}
-	return speedNum;
 }
 
 ItemManager::~ItemManager(void)

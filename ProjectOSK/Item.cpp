@@ -1,12 +1,9 @@
 #include "Item.h"
 #include "Block.h"
-#include "Player.h"
-#include "Charactor.h"
 #include"DxLib.h"
 #define FIRE 0
 #define BOMB 1
 #define SPEED 2
-#define DHIT 10
 
 int Item::graph[KINDITEMNUM];
 
@@ -36,28 +33,11 @@ void Item::SetItem(const Block &block)
 
 void Item::Draw()
 {
+	//int i_graph = GetRand(2);
+
 	if(this->flag == 1)
 	{
 		DrawGraph(this->x, this->y, this->graph[i_graph],FALSE);
-	}
-}
-
-int Item::GetKindGraph()
-{
-	return this->i_graph;
-}
-
-int Item::CheckHItCharactor(const Charactor &charactor)
-{
-	if(this->flag == 1)//•¨‘Ì‚ª•\Ž¦‚³‚ê‚Ä‚¢‚é‚Æ‚«
-	{
-		if(this->x+32-DHIT > charactor.GetX() && this->x+DHIT < charactor.GetRX() && this->y+DHIT < charactor.GetDY() && charactor.GetY() < this->y+32-DHIT)
-		{
-			this->flag = 0;
-			return this->i_graph;
-		}
-		else
-			return -1;
 	}
 }
 
@@ -72,9 +52,4 @@ bool Item::operator==(const Item &other)
 		return true;
 	else
 		return false;
-}
-
-bool Item::operator==(const Player &player)
-{
-	return 0;
 }

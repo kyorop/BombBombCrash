@@ -1,4 +1,3 @@
-#include "BombManager.h"
 #include "ItemManager.h"
 #include "MapObstacle.h"
 #include "Item.h"
@@ -14,7 +13,6 @@
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nCmdShow)
 {
-	SetGraphMode(1024,768,16);
 	ChangeWindowMode(true);
 	if(DxLib_Init() == -1)
 		return -1;
@@ -25,10 +23,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 	Bomb bomb;
 	ExplosionManager manageExplosion;
 	Block block;
+	//Item item;
 	ItemManager manageItem;
-	BombManager manageBomb;
 
 	manageItem.SetItem(block);
+	//item.SetItem(block);
 	int upfire = 1;
 	int count = 0;
 	int g_lasttime = 0;
@@ -42,40 +41,40 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		ClearDrawScreen();
 
 		player.Move();
-		map.CheckHitCharactor(&player);
+		player.CheckHit(map);
+		block.CheckHit(&player);
+		bomb.BombSet(player,map);
 
-		//block.CheckHit(&player);
+		manageItem.CheckHitCharactor(&player);
 
-		manageItem.CheckHitCharactor(player);
-
-		manageBomb.AddBomb(manageItem);
-		manageBomb.BombSet(player);
-		manageBomb.MaintainBomb(3000);
-
-		manageExplosion.AddExplosion(manageItem,player);
+		if(upfire == 1)
+		{
+			manageExplosion.AddExplosion(upfire);
+			upfire++;
+		}
+		/*
+		if(player.GetStateFire(item) == TRUE && count == 0)
+		{
+			manageExplosion.AddExplosion(upfire);
+			upfire++;
+			count++;
+		}
+		*/
+		manageExplosion.SetZahyou(bomb);
 		manageExplosion.SetExplosion(bomb);
 		manageExplosion.CheckHitObject(&block);//ブロックとのあたり判定//アップキャスト
 		manageExplosion.CheckHitObject(&map);//マップブロックとのあたり判定//アップキャスト
 		manageExplosion.CheckHitExplosion(&player);//プレイヤーとのあたり判定
 
-		map.Draw();
-		
+		map.DrawMap();
+		//item.Draw();
 		manageItem.Draw();
-		
-		//block.Draw();
-		
-		manageBomb.Draw();
-		//bomb.Draw();
-		
-		player.Draw(map, g_lasttime);
-		
+		block.Draw();
+		bomb.Draw();
+		player.Draw(4,map, g_lasttime);
 		manageExplosion.DrawExplosion(bomb);
 	
-		int color = GetColor(255,255,255);
-		DrawFormatString(640,0,color,"ボムアップ獲得数 %d 個",manageItem.GetBombState());
-		DrawFormatString(640,20,color,"フレームタイム　%f　秒",g_frametime);
-		DrawFormatString(640,40,color,"出せるボム総数数　%d　個",manageBomb.size);
-		DrawFormatString(640,60,color,"出せるボム数あと　%d　個",manageBomb.size-manageBomb.GetBombNum());
+
 		ScreenFlip();
 		if(ProcessMessage() == -1)
 			break;

@@ -2,10 +2,17 @@
 #include "Bomb.h"
 #include "Player.h"
 #include "Map.h"
-#include "Charactor.h"
 #include "DxLib.h"
 #define DHIT 6
-
+/*
+void Explosion::SetRange(int upx,int downx,int upy,int downy)
+{
+	this->upx = upx;
+	this->downx = downx;
+	this->upy = upy;
+	this->downy = downy;
+}
+*/
 /*
 void Explosion::Draw(const Map &map, const Bomb &bomb)
 {
@@ -62,35 +69,32 @@ void Explosion::SetExplosion(const Bomb &bomb)//爆弾のあとExplosionManagerの中で
 		this->flag = 1;
 
 	else if(bomb.flag == 0 && this->flag == 1)//ボムが爆発した
-	{
 		this->flag = 2;
-		this->x = bomb.x + 32*upx - 32*downx;//中心からの広がり
-		this->y = bomb.y + 32*upy - 32*downy;
-	}
 }
 
 //火が存在しているならば、座標を与える
 void Explosion::SetZahyou(const Bomb &bomb)//中心座標
 {
+	//this->x = bomb.x;
+	//this->y = bomb.y;
+	//this->xHZ = this->x+32*upx-32*downx;//中心からの広がり
+	//this->yHZ = this->y+32*upy-32*downy;
 	this->x = bomb.x + 32*upx - 32*downx;//中心からの広がり
 	this->y = bomb.y + 32*upy - 32*downy;
+
 }
 
 //プレイヤーとのあたり判定
-int Explosion::CheckHItCharactor(Charactor *charactor)//ObjectのCheckHitをオーバーライド
+void Explosion::CheckHItCharactor(Player *player)//ObjectのCheckHitをオーバーライド
 {
 	if(this->flag == 2)//火が存在しているとき
 	{
-		if(this->x+32-DHIT > charactor->GetX() && this->x+DHIT < charactor->GetRX() && this->y+DHIT < charactor->GetDY() && charactor->GetY() < this->y+32-DHIT)
+		//if(this->x+32 > player->x && this->x < player->rx && this->y < player->dy && player->y < this->y+32)
+		if(this->x+32-DHIT > player->x && this->x+DHIT < player->rx && this->y+DHIT < player->dy && player->y < this->y+32-DHIT)
 		{
-			charactor->SetCharactorState(FALSE);
-			return true;
+			player->SetFlag(FALSE);
 		}
-		else
-			return false;
 	}
-	else
-		return false;
 }
 
 //壁とのあたり判定
@@ -117,9 +121,26 @@ void Explosion::CheckHitObject(MapObstacle *mapobstacle)
 //火が存在していれば、描く
 void Explosion::Draw(const Bomb &bomb)
 {
+	//this->x = bomb.x;
+	//this->y = bomb.y;
+
+	//if(bomb.flag == 1)//ボムが置かれた
+	//	this->flag = 1;
+	//
+	//if(bomb.flag == 0)//ボムが爆発した
+	//{
+	//	if(this->flag == 1)
+	//		this->flag = 2;
+	//}
 	if(this->flag == 2)
 	{
-		DrawGraph(this->x, this->y,this->graph,FALSE);
+		//if(Timer(3000))
+		//{
+			//DrawGraph(this->xHZ, this->yHZ,this->graph,FALSE);//中心
+			DrawGraph(this->x, this->y,this->graph,FALSE);//中心
+		//}
+		//else
+			//this->flag = 0;
 	}
 }
 

@@ -4,7 +4,7 @@
 class Bomb;
 class MapObstacle;
 class Player;
-class Charactor;
+
 class Explosion:
 	public Object
 {
@@ -18,7 +18,7 @@ private:
 public:
 	void SetExplosion(const Bomb &bomb);
 	void CheckHitObject(MapObstacle *mapobstacle);
-	virtual int CheckHItCharactor(Charactor *charactor);//オーバーライド
+	void CheckHItCharactor(Player *player);//オーバーライド
 	void SetZahyou(const Bomb &bomb);
 	void Draw(const Bomb &bomb);
 	Explosion(int upx,int downx,int upy,int downy);
