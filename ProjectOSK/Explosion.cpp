@@ -18,12 +18,13 @@ enum firestate
 Explosion::Explosion(int upx,int downx,int upy,int downy):
 	graph( LoadGraph("fire.bmp") ), upx(upx), downx(downx), upy(upy), downy(downy)
 {
+	this->flag = EXPLOSION;
 }
 
 //ボムが置かれて、それが爆発すると、火を存在させる
 void Explosion::SetExplosion(int x, int y)//爆弾のあとExplosionManagerの中で一番初めに描く
 {
-	if(this->flag == EXPLOSION)
+	//if(this->flag == EXPLOSION)
 	{
 		this->x = x + 32*upx - 32*downx;//中心からの広がり
 		this->y = y + 32*upy - 32*downy;
@@ -50,7 +51,7 @@ void Explosion::SetExplosion(int x, int y)//爆弾のあとExplosionManagerの中で一番
 //プレイヤーとのあたり判定
 int Explosion::CheckHItCharactor(Charactor *charactor)//ObjectのCheckHitをオーバーライド
 {
-	if(this->flag == EXPLOSION)//火が存在しているとき
+	//if(this->flag == EXPLOSION)//火が存在しているとき
 	{
 		if(this->x+32-DHIT > charactor->GetX() && this->x+DHIT < charactor->GetRX() && this->y+DHIT < charactor->GetDY() && charactor->GetY() < this->y+32-DHIT)
 		{
@@ -60,8 +61,8 @@ int Explosion::CheckHItCharactor(Charactor *charactor)//ObjectのCheckHitをオーバ
 		else
 			return false;
 	}
-	else
-		return false;
+	//else
+	//	return false;
 }
 
 //壁とのあたり判定
@@ -70,7 +71,7 @@ void Explosion::CheckHitObject(MapObstacle *mapobstacle)
 	int i = this->y / 32;
 	int j = this->x / 32;
 
-	if(this->flag == EXPLOSION)
+	//if(this->flag == EXPLOSION)
 	{
 		if(mapobstacle->GetID(i, j) == 1)//火が描かれる予定の場所の識別値がマップの壁なら、火を書かないようにする。
 		{
@@ -87,7 +88,7 @@ void Explosion::CheckHitObject(MapObstacle *mapobstacle)
 //火が存在していれば、描く
 void Explosion::Draw()
 {
-	if(this->flag == EXPLOSION)
+	//if(this->flag == EXPLOSION)
 	{
 		DrawGraph(this->x, this->y,this->graph,FALSE);
 	}

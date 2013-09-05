@@ -21,7 +21,7 @@ public:
 	void Set(Bomb &bomb);
 	void Maintain();
 	void CheckHitObject(MapObstacle *mapobstacle);
-	void Add(const ItemManager &manageItem);	
+	void FireUp(const ItemManager &manageItem);	
 	void CheckHitExplosion(Player *player);
 	void Draw();
 	void SetFlag(firestate flag);

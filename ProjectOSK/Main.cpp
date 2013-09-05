@@ -55,8 +55,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		manageBomb.BombSet(player);
 		manageBomb.MaintainBomb();
 
+		blastManager.FireUp(manageItem);
 		blastManager.Add(manageItem);
 		blastManager.Set(manageBomb);
+		blastManager.Maintain();
 	
 		/*
 		manageExplosion.AddExplosion(manageItem);

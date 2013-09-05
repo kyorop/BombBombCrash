@@ -20,6 +20,14 @@ BlastManager::BlastManager(void):
 	this->nowBlastNum = 0;
 }
 
+void BlastManager::FireUp(const ItemManager &itemManager)
+{
+	for(int i=0,size=vblast->size(); i<size; ++i)
+	{
+		(*vblast)[i]->FireUp(itemManager);
+	}
+}
+
 void BlastManager::Add(const ItemManager &manageItem)
 {
 	if(manageItem.GetBombState() > this->nowBlastNum)
@@ -62,6 +70,14 @@ void BlastManager::Set(const BombManager &bombManager)
 
 
 
+}
+
+void BlastManager::Maintain()
+{
+	for(int i=0,size=vblast->size(); i<size; ++i)
+	{
+		(*vblast)[i]->Maintain();
+	}
 }
 
 void BlastManager::Draw()

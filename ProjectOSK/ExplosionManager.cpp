@@ -28,7 +28,7 @@ ExplosionManager::ExplosionManager():
 	this->flag = FIREOFF;
 }
 
-void ExplosionManager::Add(const ItemManager &manageItem)
+void ExplosionManager::FireUp(const ItemManager &manageItem)
 {
 	if(manageItem.GetFireState() > this->addFireNum)
 	{
