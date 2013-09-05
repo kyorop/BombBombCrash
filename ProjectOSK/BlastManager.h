@@ -1,5 +1,5 @@
 #pragma once
-#include "Timer.h"
+
 #include <vector>
 
 class ExplosionManager;
@@ -12,7 +12,7 @@ class BlastManager
 private:
 	std::vector<ExplosionManager*> *vblast;
 	int nowBlastNum;
-	Timer time;
+	
 	
 public:
 	void Add(const ItemManager &manageItem);

@@ -19,6 +19,7 @@ public:
 	int GetBombFlag(int index)const;
 	int GetBombX(int index)const;
 	int GetBombY(int index)const;
+	Bomb* GetBombObject(int index)const;
 	BombManager(void);
 	~BombManager(void);
 	

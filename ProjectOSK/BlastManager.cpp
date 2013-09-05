@@ -31,6 +31,7 @@ void BlastManager::Add(const ItemManager &manageItem)
 
 void BlastManager::Set(const BombManager &bombManager)
 {
+	/*
 	for(int i=0,size=vblast->size(); i<size; ++i)
 	{
 		if(bombManager.GetBombFlag(i) == true)
@@ -41,7 +42,7 @@ void BlastManager::Set(const BombManager &bombManager)
 		if(bombManager.GetBombFlag(i) == false && (*vblast)[i]->GetFlag() == FIREON)
 		{
 			(*vblast)[i]->SetFlag(EXPLOSION);
-			(*vblast)[i]->SetExplosion(bombManager.GetBombX(i), bombManager.GetBombY(i));
+			(*vblast)[i]->Set(bombManager.GetBombX(i), bombManager.GetBombY(i));
 		}
 
 		if((*vblast)[i]->GetFlag() == EXPLOSION)
@@ -53,13 +54,21 @@ void BlastManager::Set(const BombManager &bombManager)
 				(*vblast)[i]->SetFlag(FIREOFF);
 		}
 	}
+	*/
+	for(int i=0,size=vblast->size(); i<size; ++i)
+	{
+		(*vblast)[i]->Set(*bombManager.GetBombObject(i));
+	}
+
+
+
 }
 
 void BlastManager::Draw()
 {
 	for(int i=0,size=vblast->size(); i<size; ++i)
 	{
-		(*vblast)[i]->DrawExplosion();
+		(*vblast)[i]->Draw();
 	}
 }
 

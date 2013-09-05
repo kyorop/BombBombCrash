@@ -23,9 +23,12 @@ Explosion::Explosion(int upx,int downx,int upy,int downy):
 //ボムが置かれて、それが爆発すると、火を存在させる
 void Explosion::SetExplosion(int x, int y)//爆弾のあとExplosionManagerの中で一番初めに描く
 {
-	this->x = x + 32*upx - 32*downx;//中心からの広がり
-	this->y = y + 32*upy - 32*downy;
-
+	if(this->flag == EXPLOSION)
+	{
+		this->x = x + 32*upx - 32*downx;//中心からの広がり
+		this->y = y + 32*upy - 32*downy;
+	}
+}
 	/*
 	if(bombManager.GetBombFlag() == 1)//ボムが置かれた
 		this->flag = FIREON;
@@ -42,7 +45,7 @@ void Explosion::SetExplosion(int x, int y)//爆弾のあとExplosionManagerの中で一番
 			this->flag = FIREOFF;
 	}
 	*/
-}
+//}
 
 //プレイヤーとのあたり判定
 int Explosion::CheckHItCharactor(Charactor *charactor)//ObjectのCheckHitをオーバーライド

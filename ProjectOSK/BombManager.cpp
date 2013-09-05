@@ -36,13 +36,13 @@ void BombManager::BombSet(const Charactor &charactor)
 {
 	for(int i=0, size=vbomb->size(); i<size; ++i)
 	{
-		if( (*vbomb)[i]->GetFlag() == 0 )
+		if( (*vbomb)[i]->GetFlag() == false)
 		{
 			(*vbomb)[i]->BombSet(charactor);
 		}
 		else
 			continue;
-		if((*vbomb)[i]->GetFlag() == 1)
+		if((*vbomb)[i]->GetFlag() == true)
 			break;
 	}
 	//for(int i=vbomb->size()-1, size=vbomb->size(); i>=0; --i)
@@ -105,4 +105,9 @@ int BombManager::GetBombX(int index)const
 int BombManager::GetBombY(int index)const
 {
 	return (*this->vbomb)[index]->GetY();
+}
+
+Bomb* BombManager::GetBombObject(int index)const
+{
+	return (*this->vbomb)[index];
 }

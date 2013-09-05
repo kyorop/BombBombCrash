@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-
+#include "Timer.h"
 class Explosion;
 class Bomb;
 class MapObstacle;
@@ -15,14 +15,15 @@ private:
 	int addFireNum;
 	int nowFireLevel;
 	firestate flag;
-
+	Timer time;
 public:
 	//void SetExplosion(const BombManager &bombManager);
-	void SetExplosion(int x, int y);
+	void Set(Bomb &bomb);
+	void Maintain();
 	void CheckHitObject(MapObstacle *mapobstacle);
-	void AddExplosion(const ItemManager &manageItem);	
+	void Add(const ItemManager &manageItem);	
 	void CheckHitExplosion(Player *player);
-	void DrawExplosion();
+	void Draw();
 	void SetFlag(firestate flag);
 	firestate GetFlag()const;
 	ExplosionManager();
