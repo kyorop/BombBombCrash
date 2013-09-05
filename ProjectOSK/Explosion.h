@@ -18,7 +18,7 @@ private:
 	firestate flag;
 
 public:
-	void SetExplosion(int x, int y);
+	void SetExplosion(Bomb &bomb);
 	void CheckHitObject(MapObstacle *mapobstacle);
 	virtual int CheckHItCharactor(Charactor *charactor);//オーバーライド
 	void Draw();

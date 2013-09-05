@@ -45,17 +45,32 @@ void ExplosionManager::FireUp(const ItemManager &manageItem)
 
 void ExplosionManager::Set(Bomb &bomb)
 {
-	if(bomb.GetFlag() == true)
+	if(bomb.GetFlag() == 1)
+	{
 		this->flag = FIREON;
+		for(int i=0,size=vex->size(); i<size; i++ )
+		{
+			(*vex)[i]->SetFlag(FIREON);
+		}
+	}
 
-	if(this->flag == FIREON && bomb.GetFlag() == false)
+	if(this->flag == FIREON && bomb.GetFlag() == 0)
+	{
+		this->flag = EXPLOSION;
+		for(int i=0,size=vex->size(); i<size; i++ )
+		{
+			(*vex)[i]->SetFlag(EXPLOSION);
+		}
+	}
+
+	if(this->flag == EXPLOSION)
 	{
 		for(int i=0,size=vex->size(); i<size; i++ )
 		{
-			(*vex)[i]->SetExplosion(bomb.GetX(), bomb.GetY());
+			(*vex)[i]->SetExplosion(bomb);
 		}
-		this->flag = EXPLOSION;
 	}
+
 }
 
 void ExplosionManager::Maintain()
@@ -65,7 +80,13 @@ void ExplosionManager::Maintain()
 		if(time.CountDown(1000) == false)
 			this->flag = EXPLOSION;
 		else
+		{
 			this->flag = FIREOFF;
+			for(int i=0,size=vex->size(); i<size; i++ )
+			{
+				(*vex)[i]->SetFlag(FIREOFF);
+			}
+		}
 	}
 }
 
@@ -112,7 +133,7 @@ void ExplosionManager::CheckHitObject(MapObstacle *mapobstacle)
 
 void ExplosionManager::Draw()
 {
-	if(this->flag)
+	if(this->flag == EXPLOSION)
 	{
 		for(int i=0,size=vex->size(); i<size; i++ )
 		{

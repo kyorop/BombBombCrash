@@ -80,6 +80,14 @@ void BlastManager::Maintain()
 	}
 }
 
+void BlastManager::CheckHitObject(MapObstacle *mapObstacle)
+{
+	for(int i=0,size=vblast->size(); i<size; ++i)
+	{
+		(*vblast)[i]->CheckHitObject(mapObstacle);
+	}
+}
+
 void BlastManager::Draw()
 {
 	for(int i=0,size=vblast->size(); i<size; ++i)
