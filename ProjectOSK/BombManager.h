@@ -8,6 +8,7 @@ class BombManager
 {
 private:
 	int nowBombNum;
+
 public:
 	int size;
 	void AddBomb(const ItemManager &manageItem);
@@ -15,6 +16,9 @@ public:
 	void MaintainBomb();
 	void Draw();
 	int GetBombNum();
+	int GetBombFlag(int index)const;
+	int GetBombX(int index)const;
+	int GetBombY(int index)const;
 	BombManager(void);
 	~BombManager(void);
 	

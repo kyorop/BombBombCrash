@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Map.h"
 #include "Charactor.h"
+#include "BombManager.h"
 #include "DxLib.h"
 #define DHIT 6
 enum firestate
@@ -20,9 +21,13 @@ Explosion::Explosion(int upx,int downx,int upy,int downy):
 }
 
 //ボムが置かれて、それが爆発すると、火を存在させる
-void Explosion::SetExplosion(const Bomb &bomb)//爆弾のあとExplosionManagerの中で一番初めに描く
+void Explosion::SetExplosion(int x, int y)//爆弾のあとExplosionManagerの中で一番初めに描く
 {
-	if(bomb.flag == 1)//ボムが置かれた
+	this->x = x + 32*upx - 32*downx;//中心からの広がり
+	this->y = y + 32*upy - 32*downy;
+
+	/*
+	if(bombManager.GetBombFlag() == 1)//ボムが置かれた
 		this->flag = FIREON;
 
 	else if(bomb.flag == 0 && this->flag == FIREON)//ボムが爆発した
@@ -36,6 +41,7 @@ void Explosion::SetExplosion(const Bomb &bomb)//爆弾のあとExplosionManagerの中で
 		else
 			this->flag = FIREOFF;
 	}
+	*/
 }
 
 //プレイヤーとのあたり判定

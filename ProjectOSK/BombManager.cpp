@@ -12,7 +12,6 @@ BombManager::BombManager(void):
 
 void BombManager::AddBomb(const ItemManager &itemManager)
 {
-
 	if(itemManager.GetBombState() > nowBombNum)//新たにボムアイテムを獲得したら、ボム数を増やす
 	{
 		vbomb->push_back(new Bomb);
@@ -72,13 +71,15 @@ void BombManager::Draw()
 
 int BombManager::GetBombNum()
 {
+	/*
 	int num=0;
 	for(int i=0, size=vbomb->size(); i<size; ++i) 
 	{
 		if((*vbomb)[i]->GetFlag()==1)
 			++num;
 	}
-	return num;
+	*/
+	return this->nowBombNum;
 }
 
 BombManager::~BombManager(void)
@@ -89,4 +90,19 @@ BombManager::~BombManager(void)
 		delete *it;
 	}
 	delete vbomb;
+}
+
+int BombManager::GetBombFlag(int index)const
+{
+	return (*this->vbomb)[index]->GetFlag();
+}
+
+int BombManager::GetBombX(int index)const
+{
+	return (*this->vbomb)[index]->GetX();
+}
+
+int BombManager::GetBombY(int index)const
+{
+	return (*this->vbomb)[index]->GetY();
 }

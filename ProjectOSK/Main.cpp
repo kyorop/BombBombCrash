@@ -9,6 +9,7 @@
 #include "Player.h"
 #include "Explosion.h"
 #include "Bomb.h"
+#include "BlastManager.h"
 #include "DxLib.h"
 #include <iostream>
 
@@ -24,11 +25,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 	
 	Map map;
 	Player player;
-	//Bomb bomb;
 	ExplosionManager manageExplosion;
 	Block block;
 	ItemManager manageItem;
 	BombManager manageBomb;
+	BlastManager blastManager;
 
 	manageItem.SetItem(block);
 	int upfire = 1;
@@ -52,13 +53,19 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 
 		manageBomb.AddBomb(manageItem);
 		manageBomb.BombSet(player);
-		//manageBomb.MaintainBomb();
+		manageBomb.MaintainBomb();
 
+		blastManager.Add(manageItem);
+		blastManager.Set(manageBomb);
+	
+		/*
 		manageExplosion.AddExplosion(manageItem);
-		//manageExplosion.SetExplosion(bomb);
+		manageExplosion.SetExplosion(bomb);
 		manageExplosion.CheckHitObject(&block);//ブロックとのあたり判定//アップキャスト
 		manageExplosion.CheckHitObject(&map);//マップブロックとのあたり判定//アップキャスト
 		manageExplosion.CheckHitExplosion(&player);//プレイヤーとのあたり判定
+		*/
+
 
 		map.Draw();
 		
@@ -71,7 +78,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		
 		player.Draw(map, g_lasttime);
 		
-		manageExplosion.DrawExplosion();
+		blastManager.Draw();
 	
 		int color = GetColor(255,255,255);
 		DrawFormatString(640,0,color,"ボムアップ獲得数 %d 個",manageItem.GetBombState());

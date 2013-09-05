@@ -9,6 +9,8 @@ protected:
 	int flag;
 public:
 	virtual int CheckHItCharactor(Charactor &charactor);
+	int GetX()const;
+	int GetY()const;
 	int GetFlag()const;
 	void SetFlag(int flag);
 	Object();

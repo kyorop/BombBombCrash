@@ -6,6 +6,7 @@ class Bomb;
 class MapObstacle;
 class Player;
 class Charactor;
+class BombManager;
 enum firestate;
 class Explosion:
 	public Object
@@ -17,7 +18,7 @@ private:
 	firestate flag;
 
 public:
-	void SetExplosion(const Bomb &bomb);
+	void SetExplosion(int x, int y);
 	void CheckHitObject(MapObstacle *mapobstacle);
 	virtual int CheckHItCharactor(Charactor *charactor);//オーバーライド
 	void Draw();

@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "MapObstacle.h"
 #include "ItemManager.h"
+#include "BombManager.h"
 #include "DxLib.h"
 enum firestate
 {
@@ -24,6 +25,7 @@ ExplosionManager::ExplosionManager():
 
 	addFireNum = 0;
 	nowFireLevel = 1;
+	this->flag = FIREOFF;
 }
 
 void ExplosionManager::AddExplosion(const ItemManager &manageItem)
@@ -42,23 +44,13 @@ void ExplosionManager::AddExplosion(const ItemManager &manageItem)
 	}
 }
 
-void ExplosionManager::SetExplosion(const Bomb &bomb)
+void ExplosionManager::SetExplosion(int x, int y)
 {
 	for(int i=0,size=vex->size(); i<size; i++ )
 	{
-		(*vex)[i]->SetExplosion(bomb);//ボムが置かれ、それが爆発したら、火を存在させる
+		(*vex)[i]->SetExplosion(x, y);//ボムが置かれ、それが爆発したら、火を存在させる
 	}
 }
-
-/*
-void ExplosionManager::SetZahyou(const Bomb &bomb)
-{
-	for(int i=0,size=vex->size(); i<size; i++ )
-	{
-		(*vex)[i]->SetZahyou(bomb);//ボムの置かれた位置から火の座標を定める
-	}
-}
-*/
 
 void ExplosionManager::CheckHitExplosion(Player *player)
 {
@@ -113,27 +105,7 @@ void ExplosionManager::DrawExplosion()
 	//}
 }
 
-bool ExplosionManager::Timer(int time)
-{
-	static bool resetTime = true;
-	static int startTime;
 
-	if(resetTime == true)
-	{
-		startTime = GetNowCount();
-		resetTime = false;
-	}
-
-	if(GetNowCount() - startTime < time)//3秒間はスタート時間をリセットしない
-	{
-		return TRUE;		//爆弾を表示させる
-	}
-	else
-	{
-		resetTime = true;//3秒たったらスタート時間をリセットする
-		return FALSE;		//爆弾を消す
-	}
-}
 
 ExplosionManager::~ExplosionManager(void)
 {
@@ -144,4 +116,14 @@ ExplosionManager::~ExplosionManager(void)
 		delete *it;
 	}
 	delete vex;
+}
+
+void ExplosionManager::SetFlag(firestate flag)
+{
+	this->flag = flag;
+}
+
+firestate ExplosionManager::GetFlag()const
+{
+	return this->flag;
 }

@@ -40,3 +40,13 @@ void Object::SetFlag(int flag)
 {
 	this->flag = flag;
 }
+
+int Object::GetX()const
+{
+	return this->x;
+}
+
+int Object::GetY()const
+{
+	return this->y;
+}
