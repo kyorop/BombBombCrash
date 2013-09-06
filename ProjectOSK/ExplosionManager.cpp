@@ -6,12 +6,7 @@
 #include "ItemManager.h"
 #include "BombManager.h"
 #include "DxLib.h"
-enum firestate
-{
-	FIREOFF,
-	FIREON,
-	EXPLOSION,
-};
+
 
 ExplosionManager::ExplosionManager():
 	vex(new std::vector<Explosion*>(5))
@@ -23,9 +18,11 @@ ExplosionManager::ExplosionManager():
 	(*vex)[3] = new Explosion(0,0,1,0);
 	(*vex)[4] = new Explosion(0,0,0,1);
 
-	addFireNum = 0;
-	nowFireLevel = 1;
-	this->flag = FIREOFF;
+	this->fuse = 0;
+	this->explosion = 0;
+	this->addFireNum = 0;
+	this->nowFireLevel = 1;
+	
 }
 
 void ExplosionManager::FireUp(const ItemManager &manageItem)
@@ -45,25 +42,26 @@ void ExplosionManager::FireUp(const ItemManager &manageItem)
 
 void ExplosionManager::Set(Bomb &bomb)
 {
-	if(bomb.GetFlag() == 1)
+	if(bomb.GetFlag() == TRUE)
 	{
-		this->flag = FIREON;
-		for(int i=0,size=vex->size(); i<size; i++ )
+		this->fuse = TRUE;
+		//for(int i=0,size=vex->size(); i<size; i++ )
+		//{
+		//	(*vex)[i]->Set(FIREON);
+		//}
+	}
+
+	if(this->fuse == TRUE && bomb.GetFlag() == FALSE)
+	{
+		this->fuse = FALSE;
+		this->explosion = TRUE;
+		for(int i=0,size=vex->size(); i<size; ++i )
 		{
-			(*vex)[i]->SetFlag(FIREON);
+			(*vex)[i]->SetExplosion(TRUE);
 		}
 	}
 
-	if(this->flag == FIREON && bomb.GetFlag() == 0)
-	{
-		this->flag = EXPLOSION;
-		for(int i=0,size=vex->size(); i<size; i++ )
-		{
-			(*vex)[i]->SetFlag(EXPLOSION);
-		}
-	}
-
-	if(this->flag == EXPLOSION)
+	if(this->explosion == TRUE && bomb.GetFlag() == FALSE)
 	{
 		for(int i=0,size=vex->size(); i<size; i++ )
 		{
@@ -75,16 +73,16 @@ void ExplosionManager::Set(Bomb &bomb)
 
 void ExplosionManager::Maintain()
 {
-	if(this->flag == EXPLOSION)
+	if(this->explosion == TRUE)
 	{
 		if(time.CountDown(1000) == false)
-			this->flag = EXPLOSION;
+			this->explosion = TRUE;
 		else
 		{
-			this->flag = FIREOFF;
+			this->explosion = FALSE;
 			for(int i=0,size=vex->size(); i<size; i++ )
 			{
-				(*vex)[i]->SetFlag(FIREOFF);
+				(*vex)[i]->SetExplosion(FALSE);
 			}
 		}
 	}
@@ -93,7 +91,7 @@ void ExplosionManager::Maintain()
 void ExplosionManager::CheckHitExplosion(Player *player)
 {
 	//this->explosion.CheckHIt(*player);
-	if(this->flag == EXPLOSION)
+	if(this->explosion == TRUE)
 	{
 		for(int i=0,size=vex->size(); i<size; i++ )
 		{
@@ -104,7 +102,7 @@ void ExplosionManager::CheckHitExplosion(Player *player)
 
 void ExplosionManager::CheckHitObject(MapObstacle *mapobstacle)
 {
-	if(this->flag == EXPLOSION)
+	if(this->explosion == TRUE)
 	{
 		const int num = (vex->size() - 1) / 4; //上下左右に広がる火のうち、中心を除く各列の個数
 		
@@ -120,7 +118,7 @@ void ExplosionManager::CheckHitObject(MapObstacle *mapobstacle)
 					{
 						for(int j=i+1; j<num; j++)//その列のそれ以降の火は全部消す
 						{
-							(*vex)[k+4*j]->SetFlag(FIREOFF);
+							(*vex)[k+4*j]->SetExplosion(FALSE);
 						}
 					}
 				break;
@@ -133,7 +131,7 @@ void ExplosionManager::CheckHitObject(MapObstacle *mapobstacle)
 
 void ExplosionManager::Draw()
 {
-	if(this->flag == EXPLOSION)
+	if(this->explosion == TRUE)
 	{
 		for(int i=0,size=vex->size(); i<size; i++ )
 		{
@@ -155,6 +153,7 @@ ExplosionManager::~ExplosionManager(void)
 	delete vex;
 }
 
+/*
 void ExplosionManager::SetFlag(firestate flag)
 {
 	this->flag = flag;
@@ -164,3 +163,4 @@ firestate ExplosionManager::GetFlag()const
 {
 	return this->flag;
 }
+*/

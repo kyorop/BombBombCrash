@@ -6,19 +6,13 @@
 #include "BombManager.h"
 #include "DxLib.h"
 #define DHIT 6
-enum firestate
-{
-	FIREOFF,
-	FIREON,
-	EXPLOSION,
-};
-
 
 //コンストラクタ
 Explosion::Explosion(int upx,int downx,int upy,int downy):
 	graph( LoadGraph("fire.bmp") ), upx(upx), downx(downx), upy(upy), downy(downy)
 {
-	this->flag = FIREOFF;
+	this->fuse = 0;
+	this->explosion = 0;
 }
 
 //ボムが置かれて、それが爆発すると、火を存在させる
@@ -62,7 +56,7 @@ void Explosion::SetExplosion(Bomb &bomb)//爆弾のあとExplosionManagerの中で一番初
 //プレイヤーとのあたり判定
 int Explosion::CheckHItCharactor(Charactor *charactor)//ObjectのCheckHitをオーバーライド
 {
-	if(this->flag == EXPLOSION)//火が存在しているとき
+	if(this->explosion == TRUE)//火が存在しているとき
 	{
 		if(this->x+32-DHIT > charactor->GetX() && this->x+DHIT < charactor->GetRX() && this->y+DHIT < charactor->GetDY() && charactor->GetY() < this->y+32-DHIT)
 		{
@@ -82,16 +76,16 @@ void Explosion::CheckHitObject(MapObstacle *mapobstacle)
 	int i = this->y / 32;
 	int j = this->x / 32;
 
-	if(this->flag == EXPLOSION)
+	if(this->explosion == TRUE)
 	{
 		if(mapobstacle->GetID(i, j) == 1)//火が描かれる予定の場所の識別値がマップの壁なら、火を書かないようにする。
 		{
-			this->flag = FIREOFF;
+			this->explosion = FALSE;
 		}
 		else if(mapobstacle->GetFlag(i, j) == TRUE)//火が描かれる予定の場所の識別値が、壊れるブロックなら、そのブロックを壊して、火は描かない
 		{
 			mapobstacle->SetFlag(i, j, FALSE);//ブロックを消す
-			this->flag = FIREOFF;//火は消す
+			this->explosion = FALSE;//火は消す
 		}
 	}
 }
@@ -99,7 +93,7 @@ void Explosion::CheckHitObject(MapObstacle *mapobstacle)
 //火が存在していれば、描く
 void Explosion::Draw()
 {
-	if(this->flag == EXPLOSION)
+	if(this->explosion == TRUE)
 	{
 		DrawGraph(this->x, this->y,this->graph,FALSE);
 	}
@@ -110,12 +104,13 @@ Explosion::~Explosion(void)
 {
 }
 
-firestate Explosion::GetFlag()const
+
+void Explosion::SetExplosion(int flag)
 {
-	return this->flag;
+	this->explosion = flag;
 }
 
-void Explosion::SetFlag(firestate flag)
+int Explosion::GetExplosion()
 {
-	this->flag = flag;
+	return this->explosion;
 }

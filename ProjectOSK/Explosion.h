@@ -15,7 +15,8 @@ private:
 	const int graph;
 	const int upx,downx,upy,downy;
 	Timer time;
-	firestate flag;
+	int fuse;
+	int explosion;
 
 public:
 	void SetExplosion(Bomb &bomb);
@@ -26,7 +27,8 @@ public:
 	~Explosion(void);
 
 public:
-	firestate GetFlag()const;
-	void SetFlag(firestate flag);
+	int GetExplosion();
+	void SetFuse(int flag);
+	void SetExplosion(int flag);
 };
 

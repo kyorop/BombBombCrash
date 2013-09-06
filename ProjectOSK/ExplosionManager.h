@@ -11,10 +11,11 @@ enum firestate;
 class ExplosionManager
 {
 private:
-	std::vector<Explosion*> *vex;//vectorクラスのオブジェクト生成
+	
 	int addFireNum;
 	int nowFireLevel;
-	firestate flag;
+	int fuse;
+	int explosion;
 	Timer time;
 public:
 	//void SetExplosion(const BombManager &bombManager);
@@ -24,9 +25,15 @@ public:
 	void FireUp(const ItemManager &manageItem);	
 	void CheckHitExplosion(Player *player);
 	void Draw();
-	void SetFlag(firestate flag);
-	firestate GetFlag()const;
+	//void SetFlag(firestate flag);
 	ExplosionManager();
 	~ExplosionManager(void);
+
+
+std::vector<Explosion*> *vex;//vectorクラスのオブジェクト生成
+
+
+
+
 };
 

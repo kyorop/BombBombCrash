@@ -10,7 +10,7 @@ class ItemManager;
 class BlastManager
 {
 private:
-	std::vector<ExplosionManager*> *vblast;
+	
 	int nowBlastNum;
 	
 	
@@ -24,5 +24,8 @@ public:
 	void Draw();
 	BlastManager(void);
 	~BlastManager(void);
+
+
+	std::vector<ExplosionManager*> *vblast;
 };
 
