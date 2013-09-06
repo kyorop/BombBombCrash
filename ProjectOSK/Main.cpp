@@ -47,7 +47,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		player.Move();
 		map.CheckHitCharactor(&player);
 
-		//block.CheckHit(&player);
+		block.CheckHit(&player);
 
 		manageItem.CheckHitCharactor(player);
 
@@ -60,7 +60,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		blastManager.FireUp(manageItem);
 		blastManager.Set(manageBomb);
 		blastManager.Maintain();
-		//blastManager.CheckHitObject(&block);
+		blastManager.CheckHitObject(&block);
 		blastManager.CheckHitObject(&map);
 
 	
@@ -77,7 +77,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		
 		manageItem.Draw();
 		
-		//block.Draw();
+		block.Draw();
 		
 		manageBomb.Draw();
 		//bomb.Draw();
@@ -97,7 +97,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		{
 			for(int j=0,size=(*blastManager.vblast)[i]->vex->size();j<size;++j)
 			{
-				DrawFormatString(640+20*i,80+20*j,color,"%d"   , (*(*blastManager.vblast)[i]->vex)[j]->GetExplosion());
+				DrawFormatString(640+20*i,80+20*j,color,"%d"   , (*(*blastManager.vblast)[i]->vex)[j]->GetX());
+				//DrawFormatString(640+20*i,80+20*j,color,"%d"   , (*(*blastManager.vblast)[i]->vex)[j]->GetExplosion());
 				//DrawFormatString(640+20*i,80+20*j,color,"%d"   , (*blastManager.vblast)[i]->vex->size());
 			}
 		}

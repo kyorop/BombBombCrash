@@ -16,7 +16,7 @@ Explosion::Explosion(int upx,int downx,int upy,int downy):
 }
 
 //ƒ{ƒ€‚ª’u‚©‚ê‚ÄA‚»‚ê‚ª”š”­‚·‚é‚ÆA‰Î‚ð‘¶Ý‚³‚¹‚é
-void Explosion::SetExplosion(Bomb &bomb)//”š’e‚Ì‚ ‚ÆExplosionManager‚Ì’†‚Åˆê”Ô‰‚ß‚É•`‚­
+void Explosion::Set(Bomb &bomb)//”š’e‚Ì‚ ‚ÆExplosionManager‚Ì’†‚Åˆê”Ô‰‚ß‚É•`‚­
 {
 	/*
 	if(bomb.GetFlag() == true)
@@ -31,6 +31,7 @@ void Explosion::SetExplosion(Bomb &bomb)//”š’e‚Ì‚ ‚ÆExplosionManager‚Ì’†‚Åˆê”Ô‰
 		this->y = bomb.GetY() + 32*upy - 32*downy;
 	}
 	*/
+	//this->explosion = TRUE;
 	this->x = bomb.GetX() + 32*upx - 32*downx;//’†S‚©‚ç‚ÌL‚ª‚è
 	this->y = bomb.GetY() + 32*upy - 32*downy;
 

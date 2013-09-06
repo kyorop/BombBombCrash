@@ -42,30 +42,26 @@ void ExplosionManager::FireUp(const ItemManager &manageItem)
 
 void ExplosionManager::Set(Bomb &bomb)
 {
-	if(bomb.GetFlag() == TRUE)
+	if(bomb.GetFlag() == TRUE)//爆弾が置かれたら、
 	{
-		this->fuse = TRUE;
-		//for(int i=0,size=vex->size(); i<size; i++ )
-		//{
-		//	(*vex)[i]->Set(FIREON);
-		//}
+		this->fuse = TRUE;//導火線に火がつく
 	}
 
-	if(this->fuse == TRUE && bomb.GetFlag() == FALSE)
+	if(this->fuse == TRUE && bomb.GetFlag() == FALSE)//導火線に火がついたボムが消えたら
 	{
 		this->fuse = FALSE;
-		this->explosion = TRUE;
+		this->explosion = TRUE;//爆発
 		for(int i=0,size=vex->size(); i<size; ++i )
 		{
 			(*vex)[i]->SetExplosion(TRUE);
 		}
 	}
 
-	if(this->explosion == TRUE && bomb.GetFlag() == FALSE)
-	{
-		for(int i=0,size=vex->size(); i<size; i++ )
+	if(this->explosion == TRUE && bomb.GetFlag() == FALSE)//爆発したフレームのボムフラグはFALSEなので、爆発した後かつ爆発が終了する前に、ボムが置かれた時の爆風の座標の再取得を防げる
+	{                                                                                          //爆発中にボムが置かれても座標の再取得が起こらないようにしている
+		for(int i=0,size=vex->size(); i<size; ++i )
 		{
-			(*vex)[i]->SetExplosion(bomb);
+			(*vex)[i]->Set(bomb);
 		}
 	}
 
@@ -112,7 +108,7 @@ void ExplosionManager::CheckHitObject(MapObstacle *mapobstacle)
 			{
 				(*vex)[k+4*i]->CheckHitObject(mapobstacle);//火は4枚周期
 
-				if( (*vex)[k+4*i]->GetFlag() == FALSE)//一つでも火が壁にぶつかって、
+				if( (*vex)[k+4*i]->GetExplosion() == FALSE)//一つでも火が壁にぶつかって、
 				{
 					if(i+1 <= num)//もう次にも火があるなら
 					{
@@ -133,7 +129,7 @@ void ExplosionManager::Draw()
 {
 	if(this->explosion == TRUE)
 	{
-		for(int i=0,size=vex->size(); i<size; i++ )
+		for(int i=0,size=vex->size(); i<size; ++i )
 		{
 			(*vex)[i]->Draw();
 		}

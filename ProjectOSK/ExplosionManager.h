@@ -19,10 +19,10 @@ private:
 	Timer time;
 public:
 	//void SetExplosion(const BombManager &bombManager);
+	void FireUp(const ItemManager &manageItem);	
 	void Set(Bomb &bomb);
 	void Maintain();
 	void CheckHitObject(MapObstacle *mapobstacle);
-	void FireUp(const ItemManager &manageItem);	
 	void CheckHitExplosion(Player *player);
 	void Draw();
 	//void SetFlag(firestate flag);
