@@ -1,9 +1,10 @@
 #pragma once
 #include "MapObstacle.h"
+#include "IDrawable.h"
 
 class Charactor;
 class Map:
-	public MapObstacle
+	public MapObstacle, public IDrawable
 {
 	friend class Explosion;
 	friend class Bomb;

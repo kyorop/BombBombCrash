@@ -12,7 +12,7 @@
 #include "BlastManager.h"
 #include "DxLib.h"
 #include <iostream>
-
+#define DRAWNUM 6
 
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nCmdShow)
@@ -27,14 +27,23 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 	Player player;
 	ExplosionManager manageExplosion;
 	Block block;
-	ItemManager manageItem;
-	BombManager manageBomb;
+	ItemManager itemManager;
+	BombManager bombManager;
 	BlastManager blastManager;
+	IDrawable *iDraw[DRAWNUM]=
+	{
+		&map,
+		&itemManager,
+		&block,
+		&bombManager,
+		&player,
+		&blastManager,
+	};
 
 	int g_lasttime = 0;
 	float g_frametime = 0;
 
-	manageItem.SetItem(block);
+	itemManager.SetItem(block);
 	while(CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
 		int curtime = GetNowCount() & INT_MAX;
@@ -48,40 +57,40 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		map.CheckHitCharactor(&player);
 		//block.CheckHit(&player);
 
-		manageItem.CheckHitCharactor(player);
+		itemManager.CheckHitCharactor(player);
 
-		manageBomb.AddBomb(manageItem);
-		manageBomb.BombSet(player);
-		manageBomb.MaintainBomb();
+		bombManager.AddBomb(itemManager);
+		bombManager.BombSet(player);
+		bombManager.MaintainBomb();
 		
-		blastManager.Add(manageItem);
-		blastManager.FireUp(manageItem);
-		blastManager.Set(manageBomb);
+		blastManager.Add(itemManager);
+		blastManager.FireUp(itemManager);
+		blastManager.Set(bombManager);
 		blastManager.Maintain();
 		//blastManager.CheckHitObject(&block);
 		blastManager.CheckHitObject(&map);
 		//blastManager.CheckHitCharactor(&player);
-		blastManager.CheckHitBomb(&manageBomb);
+		blastManager.CheckHitBomb(&bombManager);
 
 		//描画
-		map.Draw();
-		
-		manageItem.Draw();
-		
+		for(int i=0; i<DRAWNUM; ++i)
+		{
+			if(i != 2)
+			iDraw[i]->Draw();
+		}
+		//map.Draw();
+		//manageItem.Draw();
 		//block.Draw();
-		
-		manageBomb.Draw();
-		
-		player.Draw();
-		
-		blastManager.Draw();
+		//bombManager.Draw();
+		//player.Draw();
+		//blastManager.Draw();
 	
 		int color = GetColor(255,255,255);
-		DrawFormatString(640,0,color,"ボムアップ獲得数 %d 個",manageItem.GetBombState());
-		DrawFormatString(850,0,color,"火力アップ獲得数 %d 個",manageItem.GetFireState());
+		DrawFormatString(640,0,color,"ボムアップ獲得数 %d 個",itemManager.GetBombState());
+		DrawFormatString(850,0,color,"火力アップ獲得数 %d 個",itemManager.GetFireState());
 		DrawFormatString(640,20,color,"フレームタイム　%f　秒",g_frametime);
-		DrawFormatString(640,40,color,"出せるボム総数　%d　個",manageBomb.size);
-		DrawFormatString(640,60,color,"出せるボム数あと　%d　個",manageBomb.size-manageBomb.GetBombNum());
+		DrawFormatString(640,40,color,"出せるボム総数　%d　個",bombManager.size);
+		DrawFormatString(640,60,color,"出せるボム数あと　%d　個",bombManager.size-bombManager.GetBombNum());
 		
 		//for(int i=0,size=blastManager.vblast->size();i<size;++i)
 		//{
@@ -94,9 +103,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		//}
 
 		
-		for(int i=0,size=manageBomb.vbomb->size();i<size;++i)
+		for(int i=0,size=bombManager.vbomb->size();i<size;++i)
 		{
-			DrawFormatString(640,80+20*i,color,"[%d]ボムフラグ　%d",i+1,(*manageBomb.vbomb)[i]->GetFlag());
+			DrawFormatString(640,80+20*i,color,"[%d]ボムフラグ　%d",i+1,(*bombManager.vbomb)[i]->GetFlag());
 		}
 		
 		ScreenFlip();

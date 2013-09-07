@@ -18,19 +18,6 @@ void BombManager::AddBomb(const ItemManager &itemManager)
 		vbomb->push_back(new Bomb);
 		++this->nowBombNum;
 	}
-	
-	//if(manageItem.CheckHitCharactor(player) == BOMB)
-	//static int count;
-	//if(count == 0)
-	//{
-	//	vbomb->push_back(new Bomb);
-	//	count = 1;
-	//}
-	
-	//if(itemManager.CheckHitCharactor(player) == BOMB)
-	//{
-	//	vbomb->push_back(new Bomb);
-	//}
 }
 
 void BombManager::BombSet(const Charactor &charactor)
@@ -46,10 +33,6 @@ void BombManager::BombSet(const Charactor &charactor)
 		if((*vbomb)[i]->GetFlag() == true)
 			break;
 	}
-	//for(int i=vbomb->size()-1, size=vbomb->size(); i>=0; --i)
-	//{
-	//	(*vbomb)[i]->BombSet(charactor);
-	//}
 }
 
 void BombManager::MaintainBomb()
@@ -58,8 +41,12 @@ void BombManager::MaintainBomb()
 	{
 		for(int i=0, size=vbomb->size(); i<size; ++i)
 		{
-			(*vbomb)[i]->MaintainBomb();
-				//break;
+			if((*vbomb)[i]->GetFlag()==TRUE)
+			{
+				(*vbomb)[i]->MaintainBomb();
+				if((*vbomb)[i]->GetFlag()==FALSE)
+					break;
+			}
 		}
 	}
 }

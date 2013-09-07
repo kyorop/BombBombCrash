@@ -1,5 +1,5 @@
 #pragma once
-
+#include "IDrawable.h"
 #include <vector>
 
 class ExplosionManager;
@@ -9,7 +9,8 @@ class Player;
 class ItemManager;
 class Charactor;
 class Bomb;
-class BlastManager
+class BlastManager:
+	public IDrawable
 {
 private:
 	

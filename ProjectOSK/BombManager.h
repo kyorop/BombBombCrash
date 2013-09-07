@@ -1,11 +1,13 @@
 #pragma once
+#include "IDrawable.h"
 #include <vector>
 #include "Key.h"
 
 class Bomb;
 class ItemManager;
 class Charactor;
-class BombManager
+class BombManager:
+	public IDrawable
 {
 private:
 	int nowBombNum;

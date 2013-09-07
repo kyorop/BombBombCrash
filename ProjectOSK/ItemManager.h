@@ -1,11 +1,13 @@
 #pragma once
+#include "IDrawable.h"
 #define ITEMNUM 30
 
 class Item;
 class Block;
 class Player;
 class Charactor;
-class ItemManager
+class ItemManager:
+	public IDrawable
 {
 private:
 	Item *item[ITEMNUM];
