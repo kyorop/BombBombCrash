@@ -31,12 +31,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 	BombManager manageBomb;
 	BlastManager blastManager;
 
-	manageItem.SetItem(block);
-	int upfire = 1;
-	int count = 0;
 	int g_lasttime = 0;
 	float g_frametime = 0;
 
+	manageItem.SetItem(block);
 	while(CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
 		int curtime = GetNowCount() & INT_MAX;
@@ -44,10 +42,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		g_lasttime = curtime;
 		ClearDrawScreen();
 
-		player.Move();
-		map.CheckHitCharactor(&player);
+		//計算
+		player.Move(g_lasttime);
 
-		block.CheckHit(&player);
+		map.CheckHitCharactor(&player);
+		//block.CheckHit(&player);
 
 		manageItem.CheckHitCharactor(player);
 
@@ -55,34 +54,25 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		manageBomb.BombSet(player);
 		manageBomb.MaintainBomb();
 		
-		
 		blastManager.Add(manageItem);
 		blastManager.FireUp(manageItem);
 		blastManager.Set(manageBomb);
 		blastManager.Maintain();
-		blastManager.CheckHitObject(&block);
+		//blastManager.CheckHitObject(&block);
 		blastManager.CheckHitObject(&map);
+		//blastManager.CheckHitCharactor(&player);
+		blastManager.CheckHitBomb(&manageBomb);
 
-	
-		/*
-		manageExplosion.AddExplosion(manageItem);
-		manageExplosion.SetExplosion(bomb);
-		manageExplosion.CheckHitObject(&block);//ブロックとのあたり判定//アップキャスト
-		manageExplosion.CheckHitObject(&map);//マップブロックとのあたり判定//アップキャスト
-		manageExplosion.CheckHitExplosion(&player);//プレイヤーとのあたり判定
-		*/
-
-
+		//描画
 		map.Draw();
 		
 		manageItem.Draw();
 		
-		block.Draw();
+		//block.Draw();
 		
 		manageBomb.Draw();
-		//bomb.Draw();
 		
-		player.Draw(map, g_lasttime);
+		player.Draw();
 		
 		blastManager.Draw();
 	
@@ -90,25 +80,25 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		DrawFormatString(640,0,color,"ボムアップ獲得数 %d 個",manageItem.GetBombState());
 		DrawFormatString(850,0,color,"火力アップ獲得数 %d 個",manageItem.GetFireState());
 		DrawFormatString(640,20,color,"フレームタイム　%f　秒",g_frametime);
-		DrawFormatString(640,40,color,"出せるボム総数数　%d　個",manageBomb.size);
+		DrawFormatString(640,40,color,"出せるボム総数　%d　個",manageBomb.size);
 		DrawFormatString(640,60,color,"出せるボム数あと　%d　個",manageBomb.size-manageBomb.GetBombNum());
 		
-		for(int i=0,size=blastManager.vblast->size();i<size;++i)
-		{
-			for(int j=0,size=(*blastManager.vblast)[i]->vex->size();j<size;++j)
-			{
-				DrawFormatString(640+20*i,80+20*j,color,"%d"   , (*(*blastManager.vblast)[i]->vex)[j]->GetX());
-				//DrawFormatString(640+20*i,80+20*j,color,"%d"   , (*(*blastManager.vblast)[i]->vex)[j]->GetExplosion());
-				//DrawFormatString(640+20*i,80+20*j,color,"%d"   , (*blastManager.vblast)[i]->vex->size());
-			}
-		}
+		//for(int i=0,size=blastManager.vblast->size();i<size;++i)
+		//{
+		//	for(int j=0,size=(*blastManager.vblast)[i]->vex->size();j<size;++j)
+		//	{
+		//		DrawFormatString(640+20*i,80+20*j,color,"%d"   , (*(*blastManager.vblast)[i]->vex)[j]->GetX());
+		//		//DrawFormatString(640+20*i,80+20*j,color,"%d"   , (*(*blastManager.vblast)[i]->vex)[j]->GetExplosion());
+		//		//DrawFormatString(640+20*i,80+20*j,color,"%d"   , (*blastManager.vblast)[i]->vex->size());
+		//	}
+		//}
 
-		/*
+		
 		for(int i=0,size=manageBomb.vbomb->size();i<size;++i)
 		{
 			DrawFormatString(640,80+20*i,color,"[%d]ボムフラグ　%d",i+1,(*manageBomb.vbomb)[i]->GetFlag());
 		}
-		*/
+		
 		ScreenFlip();
 		if(ProcessMessage() == -1)
 			break;

@@ -7,6 +7,8 @@ class BombManager;
 class MapObstacle;
 class Player;
 class ItemManager;
+class Charactor;
+class Bomb;
 class BlastManager
 {
 private:
@@ -20,7 +22,8 @@ public:
 	void Set(const BombManager &bombManager);
 	void Maintain();
 	void CheckHitObject(MapObstacle *mapobstacle);
-	void CheckHitExplosion(Player *player);
+	void CheckHitCharactor(Charactor *charactor);
+	void CheckHitBomb(BombManager *bombManager);
 	void Draw();
 	BlastManager(void);
 	~BlastManager(void);

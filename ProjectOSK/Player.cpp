@@ -3,7 +3,7 @@
 #include "Item.h"
 #include "ItemManager.h"
 #include "DxLib.h"
-#define MV 3
+#define MV 2
 #define HABA 0
 #define DHIT 5
 enum
@@ -24,10 +24,63 @@ Player::Player()
 	this->dy = this->y+32;
 	this->muki = DOWN;
 	this->flag =1;
+	this->animpat = 0;
 }
 
-void Player::Draw(Map &map, int g_lasttime)
+void Player::Draw()
 {
+	//int animpat = (g_lasttime / (1000 / 12)) % 4;
+	if(this->flag == 1)
+	{
+		if(CheckHitKey(KEY_INPUT_LEFT) == 1)	DrawGraph(this->x, this->y, this->graph[animpat+8], TRUE);//動いているときはアニメーション
+		else if(CheckHitKey(KEY_INPUT_RIGHT) == 1)	DrawGraph(this->x, this->y, this->graph[animpat+12], TRUE);
+		else if(CheckHitKey(KEY_INPUT_UP) == 1)		DrawGraph(this->x, this->y, this->graph[animpat+0], TRUE);
+		else if(CheckHitKey(KEY_INPUT_DOWN) == 1)	DrawGraph(this->x, this->y, this->graph[animpat+4], TRUE);	
+		else if(this->muki == LEFT)DrawGraph(this->x, this->y, this->graph[8], TRUE);//止まっているときは最後の向きを表示
+		else if(this->muki == RIGHT)DrawGraph(this->x, this->y, this->graph[12], TRUE);
+		else if(this->muki == UP)DrawGraph(this->x, this->y, this->graph[0], TRUE);
+		else if(this->muki == DOWN)DrawGraph(this->x, this->y, this->graph[4], TRUE);
+	}
+}
+
+void Player::Move(int g_lastTime)
+{
+	if(CheckHitKey(KEY_INPUT_LEFT) == 1 && CheckHitKey(KEY_INPUT_DOWN) == 0 && CheckHitKey(KEY_INPUT_UP) == 0 && CheckHitKey(KEY_INPUT_RIGHT) == 0)
+	{
+		this->x -=	MV;
+		this->muki = LEFT;
+		if(CheckHitKey(KEY_INPUT_UP) == 1)this->y -= MV;			
+		if(CheckHitKey(KEY_INPUT_DOWN) == 1)this->y += MV;
+		
+	}	
+	else if(CheckHitKey(KEY_INPUT_RIGHT) == 1 && CheckHitKey(KEY_INPUT_DOWN) == 0 && CheckHitKey(KEY_INPUT_UP) == 0)	
+	{
+		this->x += MV;
+		this->muki = RIGHT;
+		if(CheckHitKey(KEY_INPUT_UP) == 1)this->y -= MV;			
+		if(CheckHitKey(KEY_INPUT_DOWN) == 1)this->y += MV;
+		
+	}			
+	else if(CheckHitKey(KEY_INPUT_UP) == 1  && CheckHitKey(KEY_INPUT_DOWN) == 0)
+	{
+		this->y	-=	MV;
+		this->muki = UP; 
+		if(CheckHitKey(KEY_INPUT_LEFT) == 1) this->x -= MV;
+		if(CheckHitKey(KEY_INPUT_RIGHT) == 1) this->x += MV;
+		
+	}				
+	else if(CheckHitKey(KEY_INPUT_DOWN) == 1)
+	{
+		this->y	+=	MV;
+		this->muki = DOWN; 
+		if(CheckHitKey(KEY_INPUT_LEFT) == 1) this->x -= MV;
+		if(CheckHitKey(KEY_INPUT_RIGHT) == 1) this->x += MV;
+		
+	}
+
+	this->rx = this->x+32;
+	this->dy = this->y+32;
+
 	if(CheckHitKey(KEY_INPUT_Q) == 1)
 	{
 		this->x = 32*2;
@@ -65,57 +118,7 @@ void Player::Draw(Map &map, int g_lasttime)
 	if(this->y < 32)this->y = 32;
 	if(this->y > 32*11)this->y = 32*11;
 
-	int animpat = (g_lasttime / (1000 / 12)) % 4;
-	if(this->flag == 1)
-	{
-		if(CheckHitKey(KEY_INPUT_LEFT) == 1)	DrawGraph(this->x, this->y, this->graph[animpat+8], TRUE);//動いているときはアニメーション
-		else if(CheckHitKey(KEY_INPUT_RIGHT) == 1)	DrawGraph(this->x, this->y, this->graph[animpat+12], TRUE);
-		else if(CheckHitKey(KEY_INPUT_UP) == 1)		DrawGraph(this->x, this->y, this->graph[animpat+0], TRUE);
-		else if(CheckHitKey(KEY_INPUT_DOWN) == 1)	DrawGraph(this->x, this->y, this->graph[animpat+4], TRUE);	
-		else if(this->muki == LEFT)DrawGraph(this->x, this->y, this->graph[8], TRUE);//止まっているときは最後の向きを表示
-		else if(this->muki == RIGHT)DrawGraph(this->x, this->y, this->graph[12], TRUE);
-		else if(this->muki == UP)DrawGraph(this->x, this->y, this->graph[0], TRUE);
-		else if(this->muki == DOWN)DrawGraph(this->x, this->y, this->graph[4], TRUE);
-	}
-}
-
-void Player::Move()
-{
-	if(CheckHitKey(KEY_INPUT_LEFT) == 1 && CheckHitKey(KEY_INPUT_DOWN) == 0 && CheckHitKey(KEY_INPUT_UP) == 0 && CheckHitKey(KEY_INPUT_RIGHT) == 0)
-	{
-		this->x -=	MV;
-		this->muki = LEFT;
-		if(CheckHitKey(KEY_INPUT_UP) == 1)this->y -= MV;			
-		if(CheckHitKey(KEY_INPUT_DOWN) == 1)this->y += MV;
-		
-	}	
-	else if(CheckHitKey(KEY_INPUT_RIGHT) == 1 && CheckHitKey(KEY_INPUT_DOWN) == 0 && CheckHitKey(KEY_INPUT_UP) == 0)	
-	{
-		this->x += MV;
-		this->muki = RIGHT;
-		if(CheckHitKey(KEY_INPUT_UP) == 1)this->y -= MV;			
-		if(CheckHitKey(KEY_INPUT_DOWN) == 1)this->y += MV;
-		
-	}			
-	else if(CheckHitKey(KEY_INPUT_UP) == 1  && CheckHitKey(KEY_INPUT_DOWN) == 0)
-	{
-		this->y	-=	MV;
-		this->muki = UP; 
-		if(CheckHitKey(KEY_INPUT_LEFT) == 1) this->x -= MV;
-		if(CheckHitKey(KEY_INPUT_RIGHT) == 1) this->x += MV;
-		
-	}				
-	else if(CheckHitKey(KEY_INPUT_DOWN) == 1)
-	{
-		this->y	+=	MV;
-		this->muki = DOWN; 
-		if(CheckHitKey(KEY_INPUT_LEFT) == 1) this->x -= MV;
-		if(CheckHitKey(KEY_INPUT_RIGHT) == 1) this->x += MV;
-		
-	}
-
-	this->rx = this->x+32;
-	this->dy = this->y+32;
+	animpat = (g_lastTime / (1000 / 12)) % 4;
 }
 
 int Player::GetStateFire(const Item &item)//存在がFALSE の物の数を数えればよい。その数を戻り値にする。

@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include "Key.h"
 
 class Bomb;
 class ItemManager;
@@ -8,7 +9,7 @@ class BombManager
 {
 private:
 	int nowBombNum;
-
+	Key key;
 public:
 	int size;
 	void AddBomb(const ItemManager &manageItem);

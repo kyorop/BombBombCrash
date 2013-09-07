@@ -7,7 +7,7 @@ class MapObstacle;
 class Player;
 class ItemManager;
 class BombManager;
-enum firestate;
+class Charactor;
 class ExplosionManager
 {
 private:
@@ -23,7 +23,8 @@ public:
 	void Set(Bomb &bomb);
 	void Maintain();
 	void CheckHitObject(MapObstacle *mapobstacle);
-	void CheckHitExplosion(Player *player);
+	void CheckHitCharactor(Charactor *charactor);
+	void CheckHitBomb(Bomb *bomb);
 	void Draw();
 	//void SetFlag(firestate flag);
 	ExplosionManager();
@@ -31,6 +32,7 @@ public:
 
 
 std::vector<Explosion*> *vex;//vectorクラスのオブジェクト生成
+
 
 
 

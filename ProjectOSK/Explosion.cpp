@@ -16,43 +16,11 @@ Explosion::Explosion(int upx,int downx,int upy,int downy):
 }
 
 //ボムが置かれて、それが爆発すると、火を存在させる
-void Explosion::Set(Bomb &bomb)//爆弾のあとExplosionManagerの中で一番初めに描く
+void Explosion::Set(const Bomb &bomb)//爆弾のあとExplosionManagerの中で一番初めに描く
 {
-	/*
-	if(bomb.GetFlag() == true)
-		this->flag = FIREON;
-
-	if(this->flag == FIREON && bomb.GetFlag() == false)
-		this->flag = EXPLOSION;
-
-	if(this->flag == EXPLOSION)
-	{
-		this->x = bomb.GetX() + 32*upx - 32*downx;//中心からの広がり
-		this->y = bomb.GetY() + 32*upy - 32*downy;
-	}
-	*/
-	//this->explosion = TRUE;
 	this->x = bomb.GetX() + 32*upx - 32*downx;//中心からの広がり
 	this->y = bomb.GetY() + 32*upy - 32*downy;
-
 }
-	/*
-	if(bombManager.GetBombFlag() == 1)//ボムが置かれた
-		this->flag = FIREON;
-
-	else if(bomb.flag == 0 && this->flag == FIREON)//ボムが爆発した
-	{
-		if(time.CountDown(1000) == false)
-		{
-			this->x = bomb.x + 32*upx - 32*downx;//中心からの広がり
-			this->y = bomb.y + 32*upy - 32*downy;
-			this->flag = EXPLOSION;
-		}
-		else
-			this->flag = FIREOFF;
-	}
-	*/
-//}
 
 //プレイヤーとのあたり判定
 int Explosion::CheckHItCharactor(Charactor *charactor)//ObjectのCheckHitをオーバーライド
@@ -87,6 +55,18 @@ void Explosion::CheckHitObject(MapObstacle *mapobstacle)
 		{
 			mapobstacle->SetFlag(i, j, FALSE);//ブロックを消す
 			this->explosion = FALSE;//火は消す
+		}
+	}
+}
+
+void Explosion::CheckHitBomb(Bomb *bomb)
+{
+	if(this->explosion == TRUE && bomb->GetFlag() == TRUE)
+	{
+		if(this->x+32-DHIT > bomb->GetX() && this->x+DHIT < bomb->GetX()+32 && this->y+DHIT < bomb->GetY()+32 && bomb->GetY() < this->y+32-DHIT)
+		{
+			this->explosion = FALSE;
+			bomb->SetFlag(FALSE);
 		}
 	}
 }

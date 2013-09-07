@@ -19,9 +19,10 @@ private:
 	int explosion;
 
 public:
-	void Set(Bomb &bomb);
+	void Set(const Bomb &bomb);
 	void CheckHitObject(MapObstacle *mapobstacle);
 	virtual int CheckHItCharactor(Charactor *charactor);//オーバーライド
+	void CheckHitBomb(Bomb *bomb);
 	void Draw();
 	Explosion(int upx,int downx,int upy,int downy);
 	~Explosion(void);

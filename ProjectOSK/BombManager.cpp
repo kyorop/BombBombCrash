@@ -2,6 +2,7 @@
 #include "Bomb.h"
 #include "ItemManager.h"
 #include "Player.h"
+#include "DxLib.h"
 #define BOMB 1
 
 BombManager::BombManager(void):
@@ -15,7 +16,7 @@ void BombManager::AddBomb(const ItemManager &itemManager)
 	if(itemManager.GetBombState() > nowBombNum)//新たにボムアイテムを獲得したら、ボム数を増やす
 	{
 		vbomb->push_back(new Bomb);
-		++nowBombNum;
+		++this->nowBombNum;
 	}
 	
 	//if(manageItem.CheckHitCharactor(player) == BOMB)
@@ -53,10 +54,13 @@ void BombManager::BombSet(const Charactor &charactor)
 
 void BombManager::MaintainBomb()
 {
-	for(int i=0, size=vbomb->size(); i<size; ++i)
-	//for(int i=vbomb->size()-1, size=vbomb->size(); i>=0; --i)
+	if(key.CheckOnePushKey(KEY_INPUT_SPACE))
 	{
-		(*vbomb)[i]->MaintainBomb();
+		for(int i=0, size=vbomb->size(); i<size; ++i)
+		{
+			(*vbomb)[i]->MaintainBomb();
+				//break;
+		}
 	}
 }
 
@@ -71,15 +75,15 @@ void BombManager::Draw()
 
 int BombManager::GetBombNum()
 {
-	/*
+	
 	int num=0;
 	for(int i=0, size=vbomb->size(); i<size; ++i) 
 	{
 		if((*vbomb)[i]->GetFlag()==1)
 			++num;
 	}
-	*/
-	return this->nowBombNum;
+	return num;
+	//return this->nowBombNum;
 }
 
 BombManager::~BombManager(void)

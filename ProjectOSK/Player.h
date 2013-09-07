@@ -13,11 +13,12 @@ class Player:
 private:
 	int graph[PLAYERDEVIDENUMBER];
 	int muki;
+	int animpat;
 public:	
 	//void CheckHit(Map &map);
 	//virtual void SetCharactorState(int flag);
-	virtual void Move();
-	virtual void Draw(Map &map, int g_lasttime);
+	virtual void Move(int g_lastTime);
+	virtual void Draw();
 	int GetStateFire(const Item &item);
 	int GetStateBomb(const ItemManager &manageItem);
 	Player();//コンストラクタ

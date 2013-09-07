@@ -3,15 +3,11 @@
 #include "BombManager.h"
 #include "MapObstacle.h"
 #include "Player.h"
+#include "Charactor.h"
 #include "ItemManager.h"
+#include "Bomb.h"
 #include "DxLib.h"
 
-enum firestate
-{
-	FIREOFF,
-	FIREON,
-	EXPLOSION,
-};
 
 BlastManager::BlastManager(void):
 	vblast(new std::vector<ExplosionManager*>(1))
@@ -85,6 +81,25 @@ void BlastManager::CheckHitObject(MapObstacle *mapObstacle)
 	for(int i=0,size=vblast->size(); i<size; ++i)
 	{
 		(*vblast)[i]->CheckHitObject(mapObstacle);
+	}
+}
+
+void BlastManager::CheckHitCharactor(Charactor *charactor)
+{
+	for(int i=0,size=vblast->size(); i<size; ++i)
+	{
+		(*vblast)[i]->CheckHitCharactor(charactor);
+	}
+}
+
+void BlastManager::CheckHitBomb(BombManager *bombManager)
+{
+	for(int i=0,size=vblast->size(); i<size; ++i)
+	{
+		for(int j=0,sizebomb=bombManager->vbomb->size(); j<sizebomb; ++j)
+		{
+			(*vblast)[i]->CheckHitBomb(bombManager->GetBombObject(j));
+		}
 	}
 }
 
