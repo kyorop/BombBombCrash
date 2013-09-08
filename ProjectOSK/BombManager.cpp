@@ -2,62 +2,52 @@
 #include "Bomb.h"
 #include "ItemManager.h"
 #include "Player.h"
+#include "DxLib.h"
 #define BOMB 1
 
 BombManager::BombManager(void):
-	vbomb(new std::vector<Bomb*>(1))
+	vbomb(new std::vector<Bomb*>(1)), nowBombNum(0)
 {
 	(*vbomb)[0] = new Bomb;
 }
 
 void BombManager::AddBomb(const ItemManager &itemManager)
 {
-	static int bombUpNum;//獲得したボムアイテムの数
-	if(itemManager.GetBombState() > bombUpNum)//新たにボムアイテムを獲得したら、ボム数を増やす
+	if(itemManager.GetBombState() > nowBombNum)//新たにボムアイテムを獲得したら、ボム数を増やす
 	{
 		vbomb->push_back(new Bomb);
-		++bombUpNum;
+		++this->nowBombNum;
 	}
-	
-	//if(manageItem.CheckHitCharactor(player) == BOMB)
-	//static int count;
-	//if(count == 0)
-	//{
-	//	vbomb->push_back(new Bomb);
-	//	count = 1;
-	//}
-	
-	//if(itemManager.CheckHitCharactor(player) == BOMB)
-	//{
-	//	vbomb->push_back(new Bomb);
-	//}
 }
 
 void BombManager::BombSet(const Charactor &charactor)
 {
 	for(int i=0, size=vbomb->size(); i<size; ++i)
 	{
-		if( (*vbomb)[i]->GetFlag() == 0)
+		if( (*vbomb)[i]->GetFlag() == false)
 		{
 			(*vbomb)[i]->BombSet(charactor);
 		}
 		else
 			continue;
-		if((*vbomb)[i]->GetFlag() == 1)
+		if((*vbomb)[i]->GetFlag() == true)
 			break;
 	}
-	//for(int i=vbomb->size()-1, size=vbomb->size(); i>=0; --i)
-	//{
-	//	(*vbomb)[i]->BombSet(charactor);
-	//}
 }
 
-void BombManager::MaintainBomb(int time)
+void BombManager::MaintainBomb()
 {
-	for(int i=0, size=vbomb->size(); i<size; ++i)
-	//for(int i=vbomb->size()-1, size=vbomb->size(); i>=0; --i)
+	if(key.CheckOnePushKey(KEY_INPUT_SPACE))
 	{
-		(*vbomb)[i]->MaintainBomb(time);
+		for(int i=0, size=vbomb->size(); i<size; ++i)
+		{
+			if((*vbomb)[i]->GetFlag()==TRUE)
+			{
+				(*vbomb)[i]->MaintainBomb();
+				if((*vbomb)[i]->GetFlag()==FALSE)
+					break;
+			}
+		}
 	}
 }
 
@@ -72,6 +62,7 @@ void BombManager::Draw()
 
 int BombManager::GetBombNum()
 {
+	
 	int num=0;
 	for(int i=0, size=vbomb->size(); i<size; ++i) 
 	{
@@ -79,6 +70,7 @@ int BombManager::GetBombNum()
 			++num;
 	}
 	return num;
+	//return this->nowBombNum;
 }
 
 BombManager::~BombManager(void)
@@ -89,4 +81,24 @@ BombManager::~BombManager(void)
 		delete *it;
 	}
 	delete vbomb;
+}
+
+int BombManager::GetBombFlag(int index)const
+{
+	return (*this->vbomb)[index]->GetFlag();
+}
+
+int BombManager::GetBombX(int index)const
+{
+	return (*this->vbomb)[index]->GetX();
+}
+
+int BombManager::GetBombY(int index)const
+{
+	return (*this->vbomb)[index]->GetY();
+}
+
+Bomb* BombManager::GetBombObject(int index)const
+{
+	return (*this->vbomb)[index];
 }

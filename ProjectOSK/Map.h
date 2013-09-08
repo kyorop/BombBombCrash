@@ -1,28 +1,20 @@
 #pragma once
 #include "MapObstacle.h"
-#define MAPSIZE_X 17
-#define MAPSIZE_Y 13
-#define MAPCHIPNUM 3
+#include "IDrawable.h"
 
+class Charactor;
 class Map:
-	public MapObstacle
+        public MapObstacle, public IDrawable
 {
-	friend class Explosion;
-	friend class Player;
-	friend class Bomb;
+        friend class Explosion;
+        friend class Bomb;
 
 private:
-	//int x[MAPSIZE_Y][MAPSIZE_X];
-	int rx[MAPSIZE_Y][MAPSIZE_X];
-	//int y[MAPSIZE_Y][MAPSIZE_X];
-	int dy[MAPSIZE_Y][MAPSIZE_X];
-	int graph[MAPCHIPNUM];
-	int width;
-	int height;
+        int graph[2];
 
 public:
-	void DrawMap();
-	Map(void);
-	~Map(void);
+        void CheckHitCharactor(Charactor *charactor);
+        void Draw();
+        Map(void);
+        ~Map(void);
 };
-

@@ -2,185 +2,179 @@
 #include "Explosion.h"
 #include "Bomb.h"
 #include "Player.h"
+#include "Charactor.h"
 #include "MapObstacle.h"
+#include "ItemManager.h"
+#include "BombManager.h"
 #include "DxLib.h"
 
+
 ExplosionManager::ExplosionManager():
-	vex(new std::vector<Explosion*>(1))
+	vex(new std::vector<Explosion*>(5))
 {
-	(*vex)[0] = new Explosion(0,0,0,0);//実体の生成が必要
-	//vex[0] = new Explosion(0,0,0,0);
+	//初期火力レベル、中心とその周り一マス
+	(*vex)[0] = new Explosion(0,0,0,0);
+	(*vex)[1] = new Explosion(1,0,0,0);
+	(*vex)[2] = new Explosion(0,1,0,0);
+	(*vex)[3] = new Explosion(0,0,1,0);
+	(*vex)[4] = new Explosion(0,0,0,1);
+
+	this->fuse = 0;
+	this->explosion = 0;
+	this->addFireNum = 0;
+	this->nowFireLevel = 1;
+	
 }
 
-void ExplosionManager::AddExplosion(int level)
+void ExplosionManager::FireUp(const ItemManager &manageItem)
 {
-	//一度に4枚増やす(四方に広がるから)
-	vex->push_back(new Explosion(level,0,0,0));
-	vex->push_back(new Explosion(0,level,0,0));
-	vex->push_back(new Explosion(0,0,level,0));
-	vex->push_back(new Explosion(0,0,0,level));
-}
-
-void ExplosionManager::SetExplosion(const Bomb &bomb)
-{
-	for(int i=0,size=vex->size(); i<size; i++ )
+	if(manageItem.GetFireState() > this->addFireNum)
 	{
-		(*vex)[i]->SetExplosion(bomb);//ボムが置かれ、それが爆発したら、火を存在させる
+		++this->addFireNum;
+		++this->nowFireLevel;//次増やすときは、一個隣に増やす
+
+		//一度に4枚増やす(四方に広がるから)
+		vex->push_back(new Explosion(this->nowFireLevel,0,0,0));
+		vex->push_back(new Explosion(0,this->nowFireLevel,0,0));
+		vex->push_back(new Explosion(0,0,this->nowFireLevel,0));
+		vex->push_back(new Explosion(0,0,0,this->nowFireLevel));
 	}
 }
 
-void ExplosionManager::SetZahyou(const Bomb &bomb)
+void ExplosionManager::Set(Bomb &bomb)
 {
-	for(int i=0,size=vex->size(); i<size; i++ )
+	if(bomb.GetFlag() == TRUE)//爆弾が置かれたら、
 	{
-		(*vex)[i]->SetZahyou(bomb);//ボムの置かれた位置から火の座標を定める
+		this->fuse = TRUE;//導火線に火がつく
+	}
+
+	if(this->fuse == TRUE && bomb.GetFlag() == FALSE)//導火線に火がついたボムが消えたら
+	{
+		this->fuse = FALSE;
+		this->explosion = TRUE;//爆発
+		for(int i=0,size=vex->size(); i<size; ++i )
+		{
+			(*vex)[i]->SetExplosion(TRUE);
+		}
+	}
+
+	if(this->explosion == TRUE && bomb.GetFlag() == FALSE)//爆発したフレームのボムフラグはFALSEなので、爆発した後かつ爆発が終了する前に、ボムが置かれた時の爆風の座標の再取得を防げる
+	{                                                                                          //爆発中にボムが置かれても座標の再取得が起こらないようにしている
+		for(int i=0,size=vex->size(); i<size; ++i )
+		{
+			(*vex)[i]->Set(bomb);
+		}
+	}
+
+}
+
+void ExplosionManager::Maintain()
+{
+	if(this->explosion == TRUE)
+	{
+		if(time.CountDown(500) == false)
+			this->explosion = TRUE;
+		else
+		{
+			this->explosion = FALSE;
+			for(int i=0,size=vex->size(); i<size; i++ )
+			{
+				(*vex)[i]->SetExplosion(FALSE);
+			}
+		}
 	}
 }
 
-void ExplosionManager::CheckHitExplosion(Player *player)
+void ExplosionManager::CheckHitCharactor(Charactor *charactor)
 {
 	//this->explosion.CheckHIt(*player);
-	for(int i=0,size=vex->size(); i<size; i++ )
+	if(this->explosion == TRUE)
 	{
-		(*vex)[i]->CheckHItCharactor(player);//プレイヤーとのあたり判定
+		for(int i=0,size=vex->size(); i<size; i++ )
+		{
+			(*vex)[i]->CheckHItCharactor(charactor);//プレイヤーとのあたり判定
+		}
 	}
 }
 
 void ExplosionManager::CheckHitObject(MapObstacle *mapobstacle)
 {
-	const int num = (vex->size() - 1) / 4; //上下左右に広がる火のうち、中心を除く各列の個数
+	if(this->explosion == TRUE)
+	{
+		const int num = (vex->size() - 1) / 4; //上下左右に広がる火のうち、中心を除く各列の個数
+		
+		for(int k=1; k<5; k++)//kは初期位置(中心の火のすぐ隣の火); kは4本の爆風を回る
+		{
+			for(int i=0; i<num; i++)
+			{
+				(*vex)[k+4*i]->CheckHitObject(mapobstacle);//火は4枚周期
+
+				if( (*vex)[k+4*i]->GetExplosion() == FALSE)//一つでも火が壁にぶつかって、
+				{
+					if(i+1 <= num)//もう次にも火があるなら
+					{
+						for(int j=i+1; j<num; j++)//その列のそれ以降の火は全部消す
+						{
+							(*vex)[k+4*j]->SetExplosion(FALSE);
+						}
+					}
+				break;
+				//continue;//次の火の列に移る
+				}
+			}//for(i)
+		}//for(k)
+	}
+}
+
+void ExplosionManager::CheckHitBomb(Bomb *bomb)
+{
 	/*
-	for(int i=0; i<num; i++)//画面下に広がる火
+	for(int i=0,size=vex->size(); i<size; ++i)
 	{
-		(*vex)[1+4*i]->CheckHitObject(mapobstacle);
-
-		if( (*vex)[1+4*i]->GetFlag() == 0)//一つでも火が壁にぶつかったら、その列のそれ以降の火は全部消す
-		//if(mapobstacle->GetFlag(vex[1+4*i]->y / 32)[] == FALSE)
-		{
-			if(i+1 <= num)
-			{
-				for(int j=i+1; j<num; j++)
-				{
-					(*vex)[1+4*j]->SetFlag(FALSE);
-				}
-			}	
-			break;
-		}
-	}
-
-	for(int i=0; i<num; i++)//画面上に広がる火
-	{
-		(*vex)[2+4*i]->CheckHitObject(mapobstacle);
-
-		if( (*vex)[2+4*i]->GetFlag() == 0)//一つでも火が壁にぶつかったら、その列のそれ以降の火は全部消す
-		{
-			if(i+1 <= num)//もう次にも火があるなら
-			{
-				for(int j=i+1; j<num; j++)
-				{
-					(*vex)[2+4*j]->SetFlag(FALSE);
-				}
-			}
-			break;
-		}
-	}
-
-	for(int i=0; i<num; i++)//画面右に広がる火
-	{
-		(*vex)[3+4*i]->CheckHitObject(mapobstacle);
-
-		if( (*vex)[3+4*i]->GetFlag() == 0)//一つでも火が壁にぶつかったら、その列のそれ以降の火は全部消す
-		{
-			if(i+1 <= num)//もう次にも火があるなら
-			{
-				for(int j=i+1; j<num; j++)
-				{
-					(*vex)[3+4*j]->SetFlag(FALSE);
-				}
-			}
-			break;
-		}
-	}
-
-	for(int i=0; i<num; i++)//画面左に広がる火
-	{
-		(*vex)[4+4*i]->CheckHitObject(mapobstacle);
-
-		if( (*vex)[4+4*i]->GetFlag() == FALSE)//一つでも火が壁にぶつかったら、その列のそれ以降の火は全部消す
-		{
-			if(i+1 <= num)//もう次にも火があるなら
-			{
-				for(int j=i+1; j<num; j++)
-				{
-					(*vex)[4+4*j]->SetFlag(FALSE);
-				}
-			}
-			break;
-		}
+		(*vex)[i]->CheckHitBomb(bomb);
 	}
 	*/
 
-	for(int k=1; k<5; k++)//kは初期位置(中心の火のすぐ隣の火)
+	if(this->explosion == TRUE)
 	{
-		for(int i=0; i<num; i++)//画面左に広がる火
+		const int num = (vex->size() - 1) / 4; //上下左右に広がる火のうち、中心を除く各列の個数
+		
+		for(int k=1; k<5; k++)//kは初期位置(中心の火のすぐ隣の火); kは4本の爆風を回る
 		{
-			(*vex)[k+4*i]->CheckHitObject(mapobstacle);//火は4枚周期
-
-			if( (*vex)[k+4*i]->GetFlag() == FALSE)//一つでも火が壁にぶつかったら、その列のそれ以降の火は全部消す
+			for(int i=0; i<num; i++)
 			{
-				if(i+1 <= num)//もう次にも火があるなら
+				(*vex)[k+4*i]->CheckHitBomb(bomb);//火は4枚周期
+
+				if( (*vex)[k+4*i]->GetExplosion() == FALSE)//一つでも火が壁にぶつかって、
 				{
-					for(int j=i+1; j<num; j++)
+					if(i+1 <= num)//もう次にも火があるなら
 					{
-						(*vex)[k+4*j]->SetFlag(FALSE);
+						for(int j=i+1; j<num; j++)//その列のそれ以降の火は全部消す
+						{
+							(*vex)[k+4*j]->SetExplosion(FALSE);
+						}
 					}
+				break;
+				//continue;//次の火の列に移る
 				}
-				continue;//次の火の列に移る
-			}
-		}
+			}//for(i)
+		}//for(k)
 	}
+
 }
 
-void ExplosionManager::DrawExplosion(const Bomb &bomb)
+void ExplosionManager::Draw()
 {
-	//this->explosion.Draw(map,bomb);
-	if(Timer(1000))
+	if(this->explosion == TRUE)
 	{
-		for(int i=0,size=vex->size(); i<size; i++ )
+		for(int i=0,size=vex->size(); i<size; ++i )
 		{
-			(*vex)[i]->Draw(bomb);//flagが2ならボムを描く
-		}
-	}
-	else//時間がたったら消す
-	{
-		for(int i=0,size=vex->size(); i<size; i++ )
-		{
-			(*vex)[i]->SetFlag(FALSE);
+			(*vex)[i]->Draw();
 		}
 	}
 }
 
-bool ExplosionManager::Timer(int time)
-{
-	static bool resetTime = true;
-	static int startTime;
 
-	if(resetTime == true)
-	{
-		startTime = GetNowCount();
-		resetTime = false;
-	}
-
-	if(GetNowCount() - startTime < time)//3秒間はスタート時間をリセットしない
-	{
-		return TRUE;		//爆弾を表示させる
-	}
-	else
-	{
-		resetTime = true;//3秒たったらスタート時間をリセットする
-		return FALSE;		//爆弾を消す
-	}
-}
 
 ExplosionManager::~ExplosionManager(void)
 {
@@ -192,3 +186,17 @@ ExplosionManager::~ExplosionManager(void)
 	}
 	delete vex;
 }
+
+/*
+void ExplosionManager::SetFlag(firestate flag)
+{
+	this->flag = flag;
+}
+
+firestate ExplosionManager::GetFlag()const
+{
+	return this->flag;
+}
+*/
+
+

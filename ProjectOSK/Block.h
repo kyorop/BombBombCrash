@@ -1,11 +1,12 @@
 #pragma once
 #include "MapObstacle.h"
+#include "IDrawable.h"
 #define MAPSIZE_X 17
 #define MAPSIZE_Y 13
 
 class Player;
 class Block:
-	public MapObstacle
+	public MapObstacle, public IDrawable
 {
 private:
 	//int x[MAPSIZE_Y][MAPSIZE_X];
