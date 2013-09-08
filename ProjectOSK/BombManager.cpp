@@ -37,16 +37,16 @@ void BombManager::BombSet(const Charactor &charactor)
 
 void BombManager::MaintainBomb()
 {
-	if(key.CheckOnePushKey(KEY_INPUT_SPACE))
+	//if(key.CheckOnePushKey(KEY_INPUT_SPACE))
 	{
 		for(int i=0, size=vbomb->size(); i<size; ++i)
 		{
-			if((*vbomb)[i]->GetFlag()==TRUE)
-			{
+			//if((*vbomb)[i]->GetFlag()==TRUE)
+			//{
 				(*vbomb)[i]->MaintainBomb();
-				if((*vbomb)[i]->GetFlag()==FALSE)
-					break;
-			}
+				//if((*vbomb)[i]->GetFlag()==FALSE)
+					//break;
+			//}
 		}
 	}
 }

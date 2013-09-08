@@ -37,15 +37,15 @@ void Bomb::BombSet(const Charactor &charactor)
 
 void Bomb::MaintainBomb()
 {	
-	/*
-	if(this->flag == 1)
+	
+	if(this->flag == TRUE)
 	{
 		if(this->time.CountDown(BOMBEXISTTIME) == false)
-			this->flag = 1;
+			this->flag = TRUE;
 		else
-			this->flag = 0;	
+			this->flag = FALSE;	
 	}
-	*/
+	/*
 	if(this->flag == 1)
 	{
 		if(key.CheckOnePushKey(KEY_INPUT_SPACE) == TRUE)
@@ -53,6 +53,7 @@ void Bomb::MaintainBomb()
 		else
 			this->flag = TRUE;
 	}
+	*/
 }
 
 void Bomb::Draw()

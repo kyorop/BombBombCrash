@@ -8,6 +8,7 @@ class Player;
 class ItemManager;
 class BombManager;
 class Charactor;
+class Item;
 class ExplosionManager
 {
 private:
@@ -19,12 +20,14 @@ private:
 	Timer time;
 public:
 	//void SetExplosion(const BombManager &bombManager);
-	void FireUp(const ItemManager &manageItem);	
+	void FireUp(const ItemManager &itemManager);	
 	void Set(Bomb &bomb);
 	void Maintain();
 	void CheckHitObject(MapObstacle *mapobstacle);
 	void CheckHitCharactor(Charactor *charactor);
 	void CheckHitBomb(Bomb *bomb);
+	void CheckHitItem(Item *item);
+	void CheckHit(MapObstacle *mapobstacle1, MapObstacle *mapobstacle2, Charactor *charactor, BombManager *bombManager, ItemManager *itemManager);
 	void Draw();
 	//void SetFlag(firestate flag);
 	ExplosionManager();

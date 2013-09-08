@@ -67,10 +67,21 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		blastManager.FireUp(itemManager);
 		blastManager.Set(bombManager);
 		blastManager.Maintain();
-		blastManager.CheckHitObject(&block);
-		blastManager.CheckHitObject(&map);
-		blastManager.CheckHitCharactor(&player);
-		blastManager.CheckHitBomb(&bombManager);
+
+		//blastManager.CheckHitObject(&map);
+		//blastManager.CheckHitObject(&block);
+		//blastManager.CheckHitItem(&itemManager);
+		//blastManager.CheckHitBomb(&bombManager);
+		//blastManager.CheckHitCharactor(&player);
+		
+		blastManager.CheckHit(&block, &map, &player, &bombManager, &itemManager);
+		
+		
+
+		
+		
+		
+		
 
 		//•`‰æ
 		for(int i=0; i<DRAWNUM; ++i)

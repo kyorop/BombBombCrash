@@ -16,6 +16,7 @@ Item::Item(void):
 {
 	LoadDivGraph("itemup.bmp", 3, 3, 1, 32, 32, Item::graph, FALSE);
 	this->flag = 1;
+	this->charactorHit = 0;
 }
 
 void Item::SetItem(const Block &block)
@@ -48,12 +49,18 @@ int Item::GetKindGraph()
 	return this->i_graph;
 }
 
+int Item::GetCharactorHit()
+{
+	return this->charactorHit;
+}
+
 int Item::CheckHItCharactor(const Charactor &charactor)
 {
 	if(this->flag == 1)//•¨‘Ì‚ª•\Ž¦‚³‚ê‚Ä‚¢‚é‚Æ‚«
 	{
 		if(this->x+32-DHIT > charactor.GetX() && this->x+DHIT < charactor.GetRX() && this->y+DHIT < charactor.GetDY() && charactor.GetY() < this->y+32-DHIT)
 		{
+			this->charactorHit = 1;
 			this->flag = 0;
 			return this->i_graph;
 		}

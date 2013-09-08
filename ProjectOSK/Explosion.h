@@ -7,7 +7,7 @@ class MapObstacle;
 class Player;
 class Charactor;
 class BombManager;
-enum firestate;
+class Item;
 class Explosion:
 	public Object
 {
@@ -23,6 +23,7 @@ public:
 	void CheckHitObject(MapObstacle *mapobstacle);
 	virtual int CheckHItCharactor(Charactor *charactor);//オーバーライド
 	void CheckHitBomb(Bomb *bomb);
+	void CheckHitItem(Item *item);
 	void Draw();
 	Explosion(int upx,int downx,int upy,int downy);
 	~Explosion(void);

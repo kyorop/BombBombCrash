@@ -4,6 +4,7 @@
 #include "Map.h"
 #include "Charactor.h"
 #include "BombManager.h"
+#include "Item.h"
 #include "DxLib.h"
 #define DHIT 6
 
@@ -67,6 +68,18 @@ void Explosion::CheckHitBomb(Bomb *bomb)
 		{
 			this->explosion = FALSE;
 			bomb->SetFlag(FALSE);
+		}
+	}
+}
+
+void Explosion::CheckHitItem(Item *item)
+{
+	if(this->explosion == TRUE && item->GetFlag() == TRUE)
+	{
+		if( this->x+32 > item->GetX() && this->x < item->GetX()+32 && this->y < item->GetY()+32 && this->y+32 > item->GetY() )
+		{
+			this->explosion = FALSE;
+			item->SetFlag(FALSE);
 		}
 	}
 }

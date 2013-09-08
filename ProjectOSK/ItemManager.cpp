@@ -52,9 +52,9 @@ void ItemManager::Draw()
 		item[i]->Draw();
 }
 
-Item* ItemManager::GetFirstItemPointa()
+Item* ItemManager::GetItemInstance(int index)const
 {
-	return this->item[0];
+	return this->item[index];
 }
 
 int ItemManager::GetBombState()const
@@ -65,7 +65,7 @@ int ItemManager::GetBombState()const
 		if(this->item[i]->GetKindGraph() == BOMB && this->item[i]->GetFlag() == 0)
 			bombNum++;
 	}
-	return bombNum;
+	return bombNum; 
 }
 
 int ItemManager::GetFireState()const
@@ -85,6 +85,29 @@ int ItemManager::GetSpeedState()const
 	for(int i=0; i<ITEMNUM; i++)
 	{
 		if(this->item[i]->GetFlag() == 0 && this->item[i]->GetKindGraph() == SPEED)
+			speedNum++;
+	}
+	return speedNum;
+}
+
+int ItemManager::GetCharactorHitBombNum()const
+{
+	int bombNum=0;
+	for(int i=0; i<ITEMNUM; ++i)
+	{
+		if(this->item[i]->GetKindGraph() == BOMB && this->item[i]->GetCharactorHit() == TRUE)
+			bombNum++;
+	}
+	return bombNum;
+}
+
+
+int ItemManager::GetCharactorHitSpeedNum()const
+{
+	int speedNum=0;
+	for(int i=0; i<ITEMNUM; ++i)
+	{
+		if(this->item[i]->GetKindGraph() == SPEED && this->item[i]->GetCharactorHit() == TRUE)
 			speedNum++;
 	}
 	return speedNum;

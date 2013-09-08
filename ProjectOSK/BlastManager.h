@@ -25,6 +25,8 @@ public:
 	void CheckHitObject(MapObstacle *mapobstacle);
 	void CheckHitCharactor(Charactor *charactor);
 	void CheckHitBomb(BombManager *bombManager);
+	void CheckHitItem(ItemManager *itemManager);
+	void CheckHit(MapObstacle *mapobstacle1, MapObstacle *mapobstacle2, Charactor *charactor, BombManager *bombManager, ItemManager *itemManager);
 	void Draw();
 	BlastManager(void);
 	~BlastManager(void);

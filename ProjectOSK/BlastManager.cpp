@@ -35,37 +35,11 @@ void BlastManager::Add(const ItemManager &manageItem)
 
 void BlastManager::Set(const BombManager &bombManager)
 {
-	/*
-	for(int i=0,size=vblast->size(); i<size; ++i)
-	{
-		if(bombManager.GetBombFlag(i) == true)
-		{
-			(*vblast)[i]->SetFlag(FIREON);
-		}
-
-		if(bombManager.GetBombFlag(i) == false && (*vblast)[i]->GetFlag() == FIREON)
-		{
-			(*vblast)[i]->SetFlag(EXPLOSION);
-			(*vblast)[i]->Set(bombManager.GetBombX(i), bombManager.GetBombY(i));
-		}
-
-		if((*vblast)[i]->GetFlag() == EXPLOSION)
-		{
-			if(time.CountDown(1000))
-			{
-			}
-			else
-				(*vblast)[i]->SetFlag(FIREOFF);
-		}
-	}
-	*/
+	
 	for(int i=0,size=vblast->size(); i<size; ++i)
 	{
 		(*vblast)[i]->Set(*bombManager.GetBombObject(i));
 	}
-
-
-
 }
 
 void BlastManager::Maintain()
@@ -100,6 +74,25 @@ void BlastManager::CheckHitBomb(BombManager *bombManager)
 		{
 			(*vblast)[i]->CheckHitBomb(bombManager->GetBombObject(j));
 		}
+	}
+}
+
+void BlastManager::CheckHitItem(ItemManager *itemManager)
+{
+	for(int i=0,size=vblast->size(); i<size; ++i)
+	{
+		for(int j=0; j<ITEMNUM; ++j)
+		{
+			(*vblast)[i]->CheckHitItem(itemManager->GetItemInstance(j));
+		}
+	}
+}
+
+void BlastManager::CheckHit(MapObstacle *mapobstacle1, MapObstacle *mapobstacle2, Charactor *charactor, BombManager *bombManager, ItemManager *itemManager)
+{
+	for(int i=0,size=vblast->size(); i<size; ++i)
+	{
+		(*vblast)[i]->CheckHit(mapobstacle1, mapobstacle2, charactor, bombManager,itemManager);
 	}
 }
 

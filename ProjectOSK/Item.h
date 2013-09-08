@@ -11,10 +11,12 @@ class Item:
 protected:
 	static int graph[KINDITEMNUM];//アイテムはこれを共用する
 private:
+	int charactorHit;
 	int i_graph;
 public:
 	int CheckHItCharactor(const Charactor &charactor);
 	int GetKindGraph();
+	int GetCharactorHit();
 	void SetItem(const Block &block);
 	void Draw();
 	Item(void);
