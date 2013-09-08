@@ -8,6 +8,7 @@
 #include "Bomb.h"
 #include "DxLib.h"
 
+
 BlastManager::BlastManager(void):
 	vblast(new std::vector<ExplosionManager*>(1))
 {
@@ -34,10 +35,37 @@ void BlastManager::Add(const ItemManager &manageItem)
 
 void BlastManager::Set(const BombManager &bombManager)
 {
+	/*
+	for(int i=0,size=vblast->size(); i<size; ++i)
+	{
+		if(bombManager.GetBombFlag(i) == true)
+		{
+			(*vblast)[i]->SetFlag(FIREON);
+		}
+
+		if(bombManager.GetBombFlag(i) == false && (*vblast)[i]->GetFlag() == FIREON)
+		{
+			(*vblast)[i]->SetFlag(EXPLOSION);
+			(*vblast)[i]->Set(bombManager.GetBombX(i), bombManager.GetBombY(i));
+		}
+
+		if((*vblast)[i]->GetFlag() == EXPLOSION)
+		{
+			if(time.CountDown(1000))
+			{
+			}
+			else
+				(*vblast)[i]->SetFlag(FIREOFF);
+		}
+	}
+	*/
 	for(int i=0,size=vblast->size(); i<size; ++i)
 	{
 		(*vblast)[i]->Set(*bombManager.GetBombObject(i));
 	}
+
+
+
 }
 
 void BlastManager::Maintain()
@@ -82,6 +110,7 @@ void BlastManager::Draw()
 		(*vblast)[i]->Draw();
 	}
 }
+
 
 BlastManager::~BlastManager(void)
 {

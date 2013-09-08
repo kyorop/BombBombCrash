@@ -6,7 +6,9 @@ class MapObstacle
 {
 protected:
 	int x[MAPSIZE_Y][MAPSIZE_X];
+	int rx[MAPSIZE_Y][MAPSIZE_X];
 	int y[MAPSIZE_Y][MAPSIZE_X];
+	int dy[MAPSIZE_Y][MAPSIZE_X];
 	int flag[MAPSIZE_Y][MAPSIZE_X];
 	int ID[MAPSIZE_Y][MAPSIZE_X];
 

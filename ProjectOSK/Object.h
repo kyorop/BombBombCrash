@@ -1,15 +1,12 @@
 #pragma once
 
-class Player;
+class Charactor;
 class Object
 {
 protected:
 	int x;
 	int y;
-	//int graph;
 	int flag;
-	
-
 public:
 	virtual int CheckHItCharactor(Charactor &charactor);
 	int GetX()const;

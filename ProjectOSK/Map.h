@@ -4,17 +4,18 @@
 
 class Charactor;
 class Map:
-        public MapObstacle, public IDrawable
+	public MapObstacle, public IDrawable
 {
-        friend class Explosion;
-        friend class Bomb;
+	friend class Explosion;
+	friend class Bomb;
 
 private:
-        int graph[2];
+	int graph[2];
 
 public:
-        void CheckHitCharactor(Charactor *charactor);
-        void Draw();
-        Map(void);
-        ~Map(void);
+	void CheckHitCharactor(Charactor *charactor);
+	void Draw();
+	Map(void);
+	~Map(void);
 };
+

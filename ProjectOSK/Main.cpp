@@ -55,7 +55,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		player.Move(g_lasttime);
 
 		map.CheckHitCharactor(&player);
-		//block.CheckHit(&player);
+		block.CheckHit(&player);
 
 		itemManager.CheckHitCharactor(player);
 
@@ -67,15 +67,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		blastManager.FireUp(itemManager);
 		blastManager.Set(bombManager);
 		blastManager.Maintain();
-		//blastManager.CheckHitObject(&block);
+		blastManager.CheckHitObject(&block);
 		blastManager.CheckHitObject(&map);
-		//blastManager.CheckHitCharactor(&player);
+		blastManager.CheckHitCharactor(&player);
 		blastManager.CheckHitBomb(&bombManager);
 
 		//•`‰æ
 		for(int i=0; i<DRAWNUM; ++i)
 		{
-			if(i != 2)
 			iDraw[i]->Draw();
 		}
 		//map.Draw();
