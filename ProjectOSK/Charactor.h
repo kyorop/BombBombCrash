@@ -10,8 +10,8 @@ protected:
 	int dy;
 	int flag;
 public:
-	virtual void Draw()=0;
-	virtual void Move(int g_lastTime)=0;
+	//virtual void Draw();
+	//virtual void Move();
 	virtual int GetX()const;
 	virtual int GetY()const;
 	virtual int GetRX()const;

@@ -90,6 +90,7 @@
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="BombManager.cpp" />
     <ClCompile Include="Charactor.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="IDrawable.cpp" />
     <ClCompile Include="Key.cpp" />
     <ClCompile Include="Explosion.cpp" />
@@ -110,6 +111,7 @@
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="BombManager.h" />
     <ClInclude Include="Charactor.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="IDrawable.h" />
     <ClInclude Include="Key.h" />
     <ClInclude Include="Explosion.h" />

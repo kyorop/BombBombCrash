@@ -10,9 +10,10 @@
 #include "Explosion.h"
 #include "Bomb.h"
 #include "BlastManager.h"
+#include "Enemy.h"
 #include "DxLib.h"
 #include <iostream>
-#define DRAWNUM 6
+#define DRAWNUM 7
 
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nCmdShow)
@@ -25,6 +26,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 	
 	Map map;
 	Player player;
+	Enemy enemy(32*14,32*11);
 	ExplosionManager manageExplosion;
 	Block block;
 	ItemManager itemManager;
@@ -37,6 +39,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		&block,
 		&bombManager,
 		&player,
+		&enemy,
 		&blastManager,
 	};
 
@@ -52,7 +55,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		ClearDrawScreen();
 
 		//ŒvŽZ
-		player.Move(g_lasttime);
+		
+		enemy.Move(g_lasttime, player);
+		map.CheckHitCharactor(&enemy);
+		block.CheckHit(&enemy);
+		itemManager.CheckHitCharactor(enemy);
 
 		bombManager.CheckHit(&player);
 		map.CheckHitCharactor(&player);

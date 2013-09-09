@@ -5,7 +5,7 @@
 #include <cstring>
 #define MAPSIZE_X 17
 #define MAPSIZE_Y 13
-#define DHIT 5
+#define DHIT 7
 #define HABA 0
 #define KBHABA 16//(DHIT+1)
 #define MV 4
