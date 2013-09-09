@@ -7,13 +7,6 @@
       <FileName>Timer.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Block" Collapsed="true">
-    <Position X="6.5" Y="5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAEAAAAAABAAgAAAAAAAAAACAAAAAAAAAAAAAAAAAE=</HashCode>
-      <FileName>Block.h</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Bomb">
     <Position X="5.25" Y="8" Width="1.5" />
     <TypeIdentifier>
@@ -22,7 +15,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="BombManager" Collapsed="true">
-    <Position X="11" Y="3" Width="1.5" />
+    <Position X="15.75" Y="11.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AADAAAACAAAIQgAAAIBlAAAAAAAAEASAAAAgAAAAAAA=</HashCode>
       <FileName>BombManager.h</FileName>
@@ -50,9 +43,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="IDrawable" Collapsed="true">
-    <Position X="6.5" Y="1.75" Width="1.5" />
+    <Position X="15" Y="8.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAQAAAAAAAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAQAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IDrawable.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -63,8 +56,8 @@
       <FileName>Item.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ItemManager" Collapsed="true">
-    <Position X="6.5" Y="3" Width="1.5" />
+  <Class Name="ItemManager">
+    <Position X="11.5" Y="10.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ABAAAEAgAAAARwAAAAQAAAAAAAQAACAAAAAAAAAIgAA=</HashCode>
       <FileName>ItemManager.h</FileName>
@@ -98,7 +91,7 @@
       <FileName>Object.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Player" Collapsed="true">
+  <Class Name="Player">
     <Position X="3.5" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAABAAAIAAggAAAAAAAAAACAAAAAAAAAAAASAAQBA=</HashCode>
@@ -106,10 +99,17 @@
     </TypeIdentifier>
   </Class>
   <Class Name="BlastManager" Collapsed="true">
-    <Position X="15.5" Y="3" Width="1.5" />
+    <Position X="17.25" Y="11.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ARYAAAAAAABgBgAABAAgAAQAAAAAAAAAAAAAAAAGACA=</HashCode>
       <FileName>BlastManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Block" Collapsed="true">
+    <Position X="12.25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAABAAgAAAAAAAAAACAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Block.h</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Meiryo UI" Size="9" />

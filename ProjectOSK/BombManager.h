@@ -7,7 +7,7 @@ class Bomb;
 class ItemManager;
 class Charactor;
 class BombManager:
-	public IDrawable
+	virtual public IDrawable
 {
 private:
 	int nowBombNum;

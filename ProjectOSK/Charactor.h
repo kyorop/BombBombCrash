@@ -22,7 +22,7 @@ public:
 	//virtual void SetDY();
 	virtual void SetCharactorState(int flag);
 	Charactor(void);
-	~Charactor(void);
+	virtual ~Charactor(void);
 
 };
 

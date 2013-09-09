@@ -7,7 +7,7 @@ class Block;
 class Player;
 class Charactor;
 class ItemManager:
-	public IDrawable
+	virtual public IDrawable
 {
 private:
 	Item *item[ITEMNUM];

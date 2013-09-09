@@ -9,7 +9,7 @@ class Map;
 class Item;
 class ItemManager;
 class Player:
-	public Charactor,public IDrawable 
+	public Charactor,virtual public IDrawable 
 {
 private:
 	int graph[PLAYERDEVIDENUMBER];

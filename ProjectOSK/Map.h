@@ -4,7 +4,7 @@
 
 class Charactor;
 class Map:
-	public MapObstacle, public IDrawable
+	public MapObstacle, virtual public IDrawable
 {
 	friend class Explosion;
 	friend class Bomb;

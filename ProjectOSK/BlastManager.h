@@ -10,7 +10,7 @@ class ItemManager;
 class Charactor;
 class Bomb;
 class BlastManager:
-	public IDrawable
+	virtual public IDrawable
 {
 private:
 	

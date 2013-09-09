@@ -6,7 +6,7 @@
 
 class Charactor;
 class Block:
-	public MapObstacle, public IDrawable
+	public MapObstacle, virtual public IDrawable
 {
 private:
 	int graph;

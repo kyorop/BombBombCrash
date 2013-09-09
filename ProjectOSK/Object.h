@@ -14,6 +14,6 @@ public:
 	int GetFlag()const;
 	void SetFlag(int flag);
 	Object();
-	~Object(void);
+	virtual ~Object(void);
 };
 
