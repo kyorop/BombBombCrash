@@ -42,90 +42,47 @@ void ExplosionManager::FireUp(const Charactor &charactor)
 	}
 }
 
-//void ExplosionManager::Set(Bomb &bomb)
-//{
-//	if(bomb.GetFlag() == TRUE)//爆弾が置かれたら、
-//	{
-//		this->fuse = TRUE;//導火線に火がつく
-//		for(int i=0,size=vex->size(); i<size; ++i )
-//		{
-//			(*vex)[i]->Set(bomb);
-//		}
-//	}
-//
-//	if(this->fuse == TRUE && bomb.GetFlag() == FALSE)//導火線に火がついたボムが消えたら
-//	{
-//		this->fuse = FALSE;
-//		this->explosion = TRUE;//爆発
-//		//for(int i=0,size=vex->size(); i<size; ++i )
-//		//{
-//		//	(*vex)[i]->SetExplosion(TRUE);
-//		//}
-//		//for(int i=0,size=vex->size(); i<size; ++i )
-//		//{
-//		//	(*vex)[i]->Set(bomb);
-//		//}
-//		for(int i=0,size=vex->size(); i<size; ++i )
-//		{
-//			(*vex)[i]->SetExplosion(TRUE);
-//		}
-//	}
-//	if(this->explosion == TRUE && bomb.GetFlag() == FALSE)//爆発したフレームのボムフラグはFALSEなので、爆発した後かつ爆発が終了する前に、ボムが置かれた時の爆風の座標の再取得を防げる
-//	{                                                                                          //爆発中にボムが置かれても座標の再取得が起こらないようにしている
-//		//for(int i=0,size=vex->size(); i<size; ++i )
-//		//{
-//		//	(*vex)[i]->Set(bomb);
-//		//}
-//		
-//	}
-//}
-//
-//void ExplosionManager::Maintain()
-//{
-//	if(this->explosion == TRUE)
-//	{
-//		//if(time.CountDown(200) == false)
-//		//	this->explosion = TRUE;
-//		//else
-//		if(time.CountDown(200) == true)
-//		{
-//			this->explosion = FALSE;
-//			for(int i=0,size=vex->size(); i<size; i++ )
-//			{
-//				(*vex)[i]->SetExplosion(FALSE);
-//			}
-//		}
-//	}
-//}
-
 void ExplosionManager::Set(Bomb &bomb)
 {
-	if(bomb.GetFlag() == 1 && bomb.GetExplosion() == 0)//ボムが置かれた時点で座標は決まる、かつその座標はその爆風が消えるまで変わらない
+	if(bomb.GetFlag() == TRUE && this->explosion == 0)//爆弾が置かれたら、
 	{
-		for(int i=0,size=this->vex->size(); i<size; ++i)
+		this->fuse = TRUE;//導火線に火がつく
+		for(int i=0,size=vex->size(); i<size; ++i )
+		{
 			(*vex)[i]->Set(bomb);
+		}
 	}
 
-	if(bomb.GetExplosion() == 1)
+	if(this->fuse == TRUE && bomb.GetFlag() == FALSE)//導火線に火がついたボムが消えたら
 	{
-		this->explosion = 1;
-		for(int i=0,size=this->vex->size(); i<size; ++i)
-			(*vex)[i]->SetExplosion(1);
+		this->fuse = FALSE;
+		this->explosion = TRUE;//爆発
+		for(int i=0,size=vex->size(); i<size; ++i )
+		{
+			(*vex)[i]->SetExplosion(TRUE);
+		}
 	}
+if(this->explosion == TRUE && bomb.GetFlag() == FALSE)//爆発したフレームのボムフラグはFALSEなので、爆発した後かつ爆発が終了する前に、ボムが置かれた時の爆風の座標の再取得を防げる
+	{                                                                                          //爆発中にボムが置かれても座標の再取得が起こらないようにしている
+		
+	}
+	
+
 }
 
-void ExplosionManager::Maintain(Bomb &bomb)
+void ExplosionManager::Maintain()
 {
-	if(this->explosion == 1)
+	if(this->explosion == TRUE)
 	{
-		if(time.CountDown(200) == true)//200ms経ったら
+		if(time.CountDown(200) == false)
+			this->explosion = TRUE;
+		else
 		{
-			this->explosion = 0;
+			this->explosion = FALSE;
 			for(int i=0,size=vex->size(); i<size; i++ )
 			{
-				(*vex)[i]->SetExplosion(0);
+				(*vex)[i]->SetExplosion(FALSE);
 			}
-			bomb.SetExplosion(0);
 		}
 	}
 }
@@ -141,6 +98,7 @@ void ExplosionManager::CheckHitCharactor(Charactor *charactor)
 		}
 	}
 }
+
 void ExplosionManager::CheckHitObject(MapObstacle *mapobstacle)
 {
 	if(this->explosion == TRUE)
@@ -169,6 +127,7 @@ void ExplosionManager::CheckHitObject(MapObstacle *mapobstacle)
 		}//for(k)
 	}
 }
+
 void ExplosionManager::CheckHitBomb(Bomb *bomb)
 {
 	/*
@@ -205,6 +164,7 @@ void ExplosionManager::CheckHitBomb(Bomb *bomb)
 	}
 
 }
+
 void ExplosionManager::CheckHitItem(Item *item)
 {
 	if(this->explosion == TRUE)
@@ -245,12 +205,11 @@ void ExplosionManager::CheckHit(MapObstacle *mapobstacle1, MapObstacle *mapobsta
 			{
 				(*vex)[k+4*i]->CheckHitObject(mapobstacle1);
 				(*vex)[k+4*i]->CheckHitObject(mapobstacle2);
-				(*vex)[k+4*i]->CheckHItCharactor(charactor);
 				for(int j=0; j<ITEMNUM; ++j)
 					(*vex)[k+4*i]->CheckHitItem(itemManager->GetItemInstance(j) );//火は4枚周期
 				for(int j=0,sizebomb=bombManager->vbomb->size(); j<sizebomb; ++j)
 					(*vex)[k+4*i]->CheckHitBomb(bombManager->GetBombObject(j) );
-
+				(*vex)[k+4*i]->CheckHItCharactor(charactor);
 
 				if( (*vex)[k+4*i]->GetExplosion() == FALSE)//一つでも火が壁にぶつかって、
 				{
@@ -280,6 +239,7 @@ void ExplosionManager::Draw()
 }
 
 
+
 ExplosionManager::~ExplosionManager(void)
 {
 	std::vector<Explosion*>::iterator it = vex->begin();
@@ -291,7 +251,16 @@ ExplosionManager::~ExplosionManager(void)
 	delete vex;
 }
 
-void ExplosionManager::SetFuse(int flag)
+/*
+void ExplosionManager::SetFlag(firestate flag)
 {
-	this->fuse = flag;
+	this->flag = flag;
 }
+
+firestate ExplosionManager::GetFlag()const
+{
+	return this->flag;
+}
+*/
+
+
