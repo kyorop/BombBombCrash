@@ -21,7 +21,7 @@ Bomb::Bomb()
 void Bomb::BombSet(const Charactor &charactor)
 {
 	//if( CheckHitKey(KEY_INPUT_Z) == 1 && this->flag == 0 )//爆弾のない時にzが押されたら//zを押した時のプレイヤーの座標の取得
-	if(key.CheckOnePushKey(KEY_INPUT_Z) && this->flag == 0 )
+	if(CheckHitKey(KEY_INPUT_Z) && this->flag == 0 )
 	{
 		this->explosion = 0;
 
@@ -32,12 +32,14 @@ void Bomb::BombSet(const Charactor &charactor)
 		this->x = 32 * xMasuNum;
 		this->y = 32 * yMasuNum;
 		this->flag = 1;
+
+		//if(bomb.GetFlag() == TRUE && this->x == bomb.GetX() && this->y == bomb.GetY())
+		//	this->flag = 0;
 	}
 }
 
 void Bomb::MaintainBomb()
 {	
-	
 	if(this->flag == TRUE)
 	{
 		if(this->time.CountDown(BOMBEXISTTIME) == false)
@@ -86,4 +88,23 @@ int Bomb::CheckBombExplosion()
 
 Bomb::~Bomb()
 {
+}
+
+void Bomb::CheckBombOverlap(const Bomb &bomb)
+{
+	if(bomb.GetFlag() == TRUE && this->x == bomb.GetX() && this->y == bomb.GetY())
+	{
+		this->flag = 0;
+		this->time.TurnReset();
+	}
+}
+
+
+void Bomb::SetFlag(int flag)
+{
+	this->flag = flag;
+	if(flag = FALSE)
+	{
+		this->time.TurnReset();
+	}
 }

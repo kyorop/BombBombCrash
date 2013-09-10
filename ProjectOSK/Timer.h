@@ -9,5 +9,6 @@ public:
 	bool CountDown(int time);
 	Timer(void);
 	~Timer(void);
+	void TurnReset(void);
 };
 

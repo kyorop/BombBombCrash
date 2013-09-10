@@ -55,7 +55,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		player.Move(g_lasttime);
 
 		map.CheckHitCharactor(&player);
-		//block.CheckHit(&player);
+		block.CheckHit(&player);
 
 		itemManager.CheckHitCharactor(&player);
 

@@ -18,11 +18,14 @@ private:
 	Key key;
 	Timer time;
 public:
+	
 	Bomb();
 	~Bomb();
 	void BombSet(const Charactor &charactor);
 	void Draw();
 	void MaintainBomb();
 	int CheckBombExplosion();
+	void CheckBombOverlap(const Bomb & bomb);
+	virtual void SetFlag(int flag);
 };
 

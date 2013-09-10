@@ -27,3 +27,9 @@ bool Timer::CountDown(int time)
 Timer::~Timer(void)
 {
 }
+
+
+void Timer::TurnReset(void)
+{
+	this->reset = true;
+}

@@ -24,14 +24,18 @@ void BombManager::BombSet(const Charactor &charactor)
 {
 	for(int i=0, size=vbomb->size(); i<size; ++i)
 	{
-		if( (*vbomb)[i]->GetFlag() == false)
+		(*vbomb)[i]->BombSet(charactor);
+		for(int j=0,size=vbomb->size(); j<size; ++j)
 		{
-			(*vbomb)[i]->BombSet(charactor);
+			if(i != j)
+			{
+				(*vbomb)[i]->CheckBombOverlap(*(*vbomb)[j]);
+			}
 		}
-		else
-			continue;
-		if((*vbomb)[i]->GetFlag() == true)
-			break;
+		//else
+		//	continue;
+		//if((*vbomb)[i]->GetFlag() == true)
+		//	break;
 	}
 }
 
