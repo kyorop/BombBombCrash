@@ -54,21 +54,26 @@ int Item::GetCharactorHit()
 	return this->charactorHit;
 }
 
-int Item::CheckHItCharactor(const Charactor &charactor)
+void Item::CheckHItCharactor(Charactor *charactor)
 {
-	if(this->flag == 1)//物体が表示されているとき
+	if(this->flag == 1)//アイテムが表示されているとき
 	{
-		if(this->x+32-DHIT > charactor.GetX() && this->x+DHIT < charactor.GetRX() && this->y+DHIT < charactor.GetDY() && charactor.GetY() < this->y+32-DHIT)
+		if(this->x+32-DHIT > charactor->GetX() && this->x+DHIT < charactor->GetRX() && this->y+DHIT < charactor->GetDY() && charactor->GetY() < this->y+32-DHIT)
 		{
-			this->charactorHit = 1;
 			this->flag = 0;
-			return this->i_graph;
+			switch(i_graph)
+			{
+			case BOMB:
+				charactor->AddBombNum();
+				break;
+			case FIRE:
+				charactor->AddFireLevel();
+			case SPEED:
+				charactor->AddMV();
+			}
+			this->charactorHit = 1;
 		}
-		else
-			return -1;
-	}
-	else
-		return -1;
+	}	
 }
 
 Item::~Item(void)

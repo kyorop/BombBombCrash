@@ -6,14 +6,14 @@
 #define BOMB 1
 
 BombManager::BombManager(void):
-	vbomb(new std::vector<Bomb*>(1)), nowBombNum(0)
+	vbomb(new std::vector<Bomb*>(1)), nowBombNum(1)
 {
 	(*vbomb)[0] = new Bomb;
 }
 
-void BombManager::AddBomb(const ItemManager &itemManager)
+void BombManager::AddBomb(const Charactor &charactor)
 {
-	if(itemManager.GetBombState() > nowBombNum)//新たにボムアイテムを獲得したら、ボム数を増やす
+	if(charactor.GetBombNum() > nowBombNum)//新たにボムアイテムを獲得したら、ボム数を増やす
 	{
 		vbomb->push_back(new Bomb);
 		++this->nowBombNum;

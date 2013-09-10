@@ -8,6 +8,9 @@ Charactor::Charactor(void)
 	y = 0;
 	this->dy = 0;
 	this->flag = 0;
+	this->mv = 1;
+	this->bombNum = 1;
+	this->fireLevel = 1;
 }
 
 int Charactor::GetX()const
@@ -42,6 +45,7 @@ void Charactor::SetY(int y)
 	this->dy = y + 32;
 }
 
+
 void Charactor::SetCharactorState(int flag)
 {
 	this->flag = flag;
@@ -49,4 +53,38 @@ void Charactor::SetCharactorState(int flag)
 
 Charactor::~Charactor(void)
 {
+}
+
+int Charactor::GetMV(void)const
+{
+	return this->mv;
+}
+
+int Charactor::GetBombNum(void)const
+{
+	return this->bombNum;
+}
+
+
+int Charactor::GetFireLevel(void)const
+{
+	return this->fireLevel;
+}
+
+
+void Charactor::AddBombNum(void)
+{
+	++this->bombNum;
+}
+
+
+void Charactor::AddFireLevel(void)
+{
+	++this->fireLevel;
+}
+
+
+void Charactor::AddMV(void)
+{
+	++this->mv;
 }

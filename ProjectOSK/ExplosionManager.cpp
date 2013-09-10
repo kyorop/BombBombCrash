@@ -22,14 +22,14 @@ ExplosionManager::ExplosionManager():
 
 	this->fuse = 0;
 	this->explosion = 0;
-	this->addFireNum = 0;
+	this->addFireNum = 1;
 	this->nowFireLevel = 1;
 	
 }
 
-void ExplosionManager::FireUp(const ItemManager &manageItem)
+void ExplosionManager::FireUp(const Charactor &charactor)
 {
-	if(manageItem.GetFireState() > this->addFireNum)
+	if(charactor.GetFireLevel() > this->addFireNum)
 	{
 		++this->addFireNum;
 		++this->nowFireLevel;//ŽŸ‘‚â‚·‚Æ‚«‚ÍAˆêŒÂ—×‚É‘‚â‚·
@@ -73,7 +73,7 @@ void ExplosionManager::Maintain()
 {
 	if(this->explosion == TRUE)
 	{
-		if(time.CountDown(500) == false)
+		if(time.CountDown(200) == false)
 			this->explosion = TRUE;
 		else
 		{

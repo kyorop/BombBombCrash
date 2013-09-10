@@ -18,8 +18,8 @@ private:
 	
 	
 public:
-	void FireUp(const ItemManager &itemManager);
-	void Add(const ItemManager &manageItem);
+	void FireUp(const Charactor &charactor)const;
+	void Add(const Charactor &charactor);
 	void Set(const BombManager &bombManager);
 	void Maintain();
 	void CheckHitObject(MapObstacle *mapobstacle);

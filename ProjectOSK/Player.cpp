@@ -3,7 +3,7 @@
 #include "Item.h"
 #include "ItemManager.h"
 #include "DxLib.h"
-#define MV 2
+#define MV 3
 #define HABA 0
 #define DHIT 5
 enum
@@ -76,6 +76,31 @@ void Player::Move(int g_lastTime)
 		if(CheckHitKey(KEY_INPUT_LEFT) == 1) this->x -= MV;
 		if(CheckHitKey(KEY_INPUT_RIGHT) == 1) this->x += MV;
 		
+	}
+	
+	if(CheckHitKey(KEY_INPUT_BACKSLASH)==1)
+	{
+		this->x += MV;
+		this->y += MV;
+		this->muki = LEFT;
+	}
+	else if(CheckHitKey(KEY_INPUT_SLASH)==1)
+	{
+		this->x -= MV;
+		this->y += MV;
+		this->muki = RIGHT;
+	}
+	else if(CheckHitKey(KEY_INPUT_SEMICOLON)==1)
+	{
+		this->x -= MV;
+		this->y -= MV;
+		this->muki = LEFT;
+	}
+	else if(CheckHitKey(KEY_INPUT_COLON)==1)
+	{
+		this->x += MV;
+		this->y -= MV;
+		this->muki = RIGHT;
 	}
 
 	this->rx = this->x+32;

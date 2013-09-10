@@ -20,7 +20,7 @@ private:
 	Timer time;
 public:
 	//void SetExplosion(const BombManager &bombManager);
-	void FireUp(const ItemManager &itemManager);	
+	void FireUp(const Charactor &charactor);	
 	void Set(Bomb &bomb);
 	void Maintain();
 	void CheckHitObject(MapObstacle *mapobstacle);

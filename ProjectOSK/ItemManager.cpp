@@ -32,18 +32,12 @@ void ItemManager::SetItem(const Block &block)
 	}
 }
 
-int ItemManager::CheckHitCharactor(Charactor &charctor)const
+void ItemManager::CheckHitCharactor(Charactor *charctor)const
 {
-	int hitGraph = -1;
 	for(int i=0; i<ITEMNUM; ++i)
 	{
-		if(this->item[i]->CheckHItCharactor(charctor)==0 || this->item[i]->CheckHItCharactor(charctor)==1 || this->item[i]->CheckHItCharactor(charctor)==2 /*|| this->item[i]->CheckHItCharactor(charctor)==-1*/)
-		{
-			hitGraph = this->item[i]->CheckHItCharactor(charctor);
-			break;
-		}
+		this->item[i]->CheckHItCharactor(charctor);
 	}
-	return hitGraph;
 }
 
 void ItemManager::Draw()

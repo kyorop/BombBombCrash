@@ -13,20 +13,20 @@ BlastManager::BlastManager(void):
 	vblast(new std::vector<ExplosionManager*>(1))
 {
 	(*vblast)[0] = new ExplosionManager;
-	this->nowBlastNum = 0;
+	this->nowBlastNum = 1;
 }
 
-void BlastManager::FireUp(const ItemManager &itemManager)
+void BlastManager::FireUp(const Charactor &charactor)const
 {
 	for(int i=0,size=vblast->size(); i<size; ++i)
 	{
-		(*vblast)[i]->FireUp(itemManager);
+		(*vblast)[i]->FireUp(charactor);
 	}
 }
 
-void BlastManager::Add(const ItemManager &manageItem)
+void BlastManager::Add(const Charactor &charactor)
 {
-	if(manageItem.GetBombState() > this->nowBlastNum)
+	if(charactor.GetBombNum() > this->nowBlastNum)
 	{
 		vblast->push_back(new ExplosionManager);
 		++this->nowBlastNum;
@@ -114,3 +114,4 @@ BlastManager::~BlastManager(void)
 	}
 	delete vblast;
 }
+

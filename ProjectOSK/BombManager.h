@@ -14,7 +14,7 @@ private:
 	Key key;
 public:
 	int size;
-	void AddBomb(const ItemManager &manageItem);
+	void AddBomb(const Charactor &charactor);
 	void BombSet(const Charactor &charactor);
 	void MaintainBomb();
 	void Draw();
