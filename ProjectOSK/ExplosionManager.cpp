@@ -44,9 +44,13 @@ void ExplosionManager::FireUp(const Charactor &charactor)
 
 void ExplosionManager::Set(Bomb &bomb)
 {
-	if(bomb.GetFlag() == TRUE)//爆弾が置かれたら、
+	if(bomb.GetFlag() == TRUE && this->explosion == 0)//爆弾が置かれたら、
 	{
 		this->fuse = TRUE;//導火線に火がつく
+		for(int i=0,size=vex->size(); i<size; ++i )
+		{
+			(*vex)[i]->Set(bomb);
+		}
 	}
 
 	if(this->fuse == TRUE && bomb.GetFlag() == FALSE)//導火線に火がついたボムが消えたら
@@ -60,10 +64,7 @@ void ExplosionManager::Set(Bomb &bomb)
 	}
 if(this->explosion == TRUE && bomb.GetFlag() == FALSE)//爆発したフレームのボムフラグはFALSEなので、爆発した後かつ爆発が終了する前に、ボムが置かれた時の爆風の座標の再取得を防げる
 	{                                                                                          //爆発中にボムが置かれても座標の再取得が起こらないようにしている
-		for(int i=0,size=vex->size(); i<size; ++i )
-		{
-			(*vex)[i]->Set(bomb);
-		}
+		
 	}
 	
 
