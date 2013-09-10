@@ -21,7 +21,7 @@ public:
 	void FireUp(const Charactor &charactor)const;
 	void Add(const Charactor &charactor);
 	void Set(const BombManager &bombManager);
-	void Maintain();
+	void Maintain(const BombManager &bombManager);
 	void CheckHitObject(MapObstacle *mapobstacle);
 	void CheckHitCharactor(Charactor *charactor);
 	void CheckHitBomb(BombManager *bombManager);

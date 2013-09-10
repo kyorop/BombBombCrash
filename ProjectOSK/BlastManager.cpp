@@ -35,18 +35,17 @@ void BlastManager::Add(const Charactor &charactor)
 
 void BlastManager::Set(const BombManager &bombManager)
 {
-	
 	for(int i=0,size=vblast->size(); i<size; ++i)
 	{
-		(*vblast)[i]->Set(*bombManager.GetBombObject(i));
+		(*vblast)[i]->Set( *bombManager.GetBombObject(i) );
 	}
 }
 
-void BlastManager::Maintain()
+void BlastManager::Maintain(const BombManager &bombManager)
 {
 	for(int i=0,size=vblast->size(); i<size; ++i)
 	{
-		(*vblast)[i]->Maintain();
+		(*vblast)[i]->Maintain(*bombManager.GetBombObject(i));
 	}
 }
 

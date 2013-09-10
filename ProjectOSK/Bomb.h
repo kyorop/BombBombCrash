@@ -27,5 +27,12 @@ public:
 	int CheckBombExplosion();
 	void CheckBombOverlap(const Bomb & bomb);
 	virtual void SetFlag(int flag);
+private:
+	int fuse;
+public:
+	int GetFuse(void);
+	void SetFuse(int fuse);
+	int GetExplosion(void);
+	void SetExplosion(int explosion);
 };
 

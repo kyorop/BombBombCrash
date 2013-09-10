@@ -23,6 +23,8 @@ void Explosion::Set(const Bomb &bomb)//”š’e‚Ì‚ ‚ÆExplosionManager‚Ì’†‚Åˆê”Ô‰‚ß‚
 	this->y = bomb.GetY() + 32*upy - 32*downy;
 }
 
+
+
 //ƒvƒŒƒCƒ„[‚Æ‚Ì‚ ‚½‚è”»’è
 int Explosion::CheckHItCharactor(Charactor *charactor)//Object‚ÌCheckHit‚ðƒI[ƒo[ƒ‰ƒCƒh
 {
@@ -68,6 +70,7 @@ void Explosion::CheckHitBomb(Bomb *bomb)
 		{
 			this->explosion = FALSE;
 			bomb->SetFlag(FALSE);
+			bomb->SetFuse(1);
 		}
 	}
 }
@@ -97,7 +100,6 @@ void Explosion::Draw()
 Explosion::~Explosion(void)
 {
 }
-
 
 void Explosion::SetExplosion(int flag)
 {
