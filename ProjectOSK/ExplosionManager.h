@@ -22,7 +22,7 @@ public:
 	//void SetExplosion(const BombManager &bombManager);
 	void FireUp(const Charactor &charactor);	
 	void Set(Bomb &bomb);
-	void Maintain(Bomb &bomb);
+	void Maintain();
 	void CheckHitObject(MapObstacle *mapobstacle);
 	void CheckHitCharactor(Charactor *charactor);
 	void CheckHitBomb(Bomb *bomb);

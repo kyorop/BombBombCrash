@@ -24,11 +24,7 @@ void ItemManager::SetItem(const Block &block)
 		do
 		{
 			item[i]->SetItem(block);
-
-			if(ProcessMessage() == -1)//念のため
-			break;
-
-		}while( *(item[0]) == *(item[i]) );//初期アイテムと比べる座標が同じなら違うところに描かせる
+		}while( *(item[i-1]) == *(item[i]) );//初期アイテムと比べる座標が同じなら違うところに描かせる
 	}
 }
 
