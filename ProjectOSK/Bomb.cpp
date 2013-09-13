@@ -6,6 +6,8 @@
 #include <iostream>
 //#include <cstdio>
 #define BOMBEXISTTIME 3000
+#define DHIT 5
+#define KBHABA 16
 
 //コンストラクタ
 Bomb::Bomb()
@@ -15,8 +17,62 @@ Bomb::Bomb()
 	this->flag = 0;
 	this->x = 0;
 	this->y = 0;
+	this->rx = this->x+32;
+	this->dy = this->y+32;
 	LoadDivGraph("bomb.png", 60, 6, 10, 32, 32, this->graph, FALSE);
 	this->fuse = 1;
+}
+
+void Bomb::CheckHit(Charactor *charactor)
+{
+	//□←
+			if( (this->rx-DHIT <= charactor->GetX() && charactor->GetX() <= this->rx) && (this->y+DHIT <= charactor->GetY() && charactor->GetY() < this->dy-DHIT) && this->flag == TRUE)charactor->SetX(this->x + 32);//途中
+			if( (this->rx-DHIT <= charactor->GetX() && charactor->GetX() <= this->rx) && (this->y+DHIT <= charactor->GetDY() && charactor->GetDY() < this->dy-DHIT) && this->flag == TRUE)charactor->SetX(this->x + 32);//上いった
+	
+			////→□
+			//if((this->x[uy][lx] <= charactor->GetX() && charactor->GetX() < this->x[uy][lx]+DHIT) && (this->y[uy][rx]+DHIT <= charactor->GetY() && charactor->GetY() < this->dy[uy][rx]-DHIT) && this->flag[uy][rx] == TRUE)charactor->SetX(this->x[uy][rx]- 32) ;//途中
+			//if((this->x[dy][lx] <= charactor->GetX() && charactor->GetX() < this->x[dy][lx]+DHIT) && (this->y[dy][rx]+DHIT <=charactor->GetDY() && charactor->GetDY() < this->dy[dy][rx]-DHIT) && this->flag[dy][rx] == TRUE)charactor->SetX(this->x[dy][rx] - 32);//上いった
+	
+			//→□
+			if((this->x <= charactor->GetRX() && charactor->GetRX() <= this->x+DHIT) && (this->y+DHIT <= charactor->GetY() && charactor->GetY() <= this->dy-DHIT) && this->flag == 1)charactor->SetX(this->x- 32);//途中
+			if((this->x <= charactor->GetRX() && charactor->GetRX() <= this->x+DHIT) && (this->y+DHIT <=charactor->GetDY() && charactor->GetDY() <= this->dy-DHIT) && this->flag == 1)charactor->SetX(this->x - 32);//上いった
+
+					
+			//□
+			//↑
+			if( (this->dy-DHIT < charactor->GetY() && charactor->GetY() <= this->dy) && (this->x+DHIT <= charactor->GetX() && charactor->GetX() < this->rx-DHIT) && this->flag == TRUE)charactor->SetY(this->dy);//左行く
+			if( (this->dy-DHIT < charactor->GetY() && charactor->GetY() <= this->dy) && (this->x+DHIT <= charactor->GetRX() && charactor->GetRX() < this->rx-DHIT) && this->flag == TRUE)charactor->SetY(this->dy);//右行く
+
+			//↓
+			//□
+			if( (this->y< charactor->GetDY() && charactor->GetDY() <= this->y+DHIT) && (this->x+DHIT <= charactor->GetX() && charactor->GetX() < this->rx-DHIT) && this->flag == TRUE)charactor->SetY(this->y-32);//左行く
+			if( (this->y < charactor->GetDY() && charactor->GetDY() <= this->y+DHIT) && (this->x+DHIT <= charactor->GetRX() && charactor->GetRX() < this->rx-DHIT) && this->flag== TRUE)charactor->SetY(this->y-32);//右行く
+
+			//真左
+			if( (this->y <= charactor->GetY() && charactor->GetY() < this->y+DHIT) && (this->rx-DHIT < charactor->GetX() && charactor->GetX() <= this->rx) && this->flag == TRUE)charactor->SetX(this->x + 32);
+			if( (this->dy-DHIT <= charactor->GetDY() && charactor->GetDY() <= this->dy) && (this->rx-DHIT < charactor->GetX() && charactor->GetX() <= this->rx) && this->flag == TRUE )charactor->SetX(this->x + 32);
+
+			//真右
+			if( (this->y <= charactor->GetY() && charactor->GetY() < this->y+DHIT) && (this->x <= charactor->GetRX() && charactor->GetRX() < this->x+DHIT) && this->flag == TRUE)charactor->SetX(this->x- 32);
+			if( (this->dy-DHIT <= charactor->GetDY() && charactor->GetDY() <= this->dy) && (this->x <= charactor->GetRX() && charactor->GetRX() < this->x+DHIT) && this->flag == TRUE)charactor->SetX(this->x - 32);
+
+			//真上
+			if( (this->x <= charactor->GetX() && charactor->GetX() < this->x+DHIT) && (this->dy-DHIT < charactor->GetY() && charactor->GetY() <= this->dy) && this->flag == TRUE)charactor->SetY(this->dy);
+			if( (this->rx-DHIT <= charactor->GetRX() && charactor->GetRX() <= this->rx) && (this->dy-DHIT < charactor->GetY() && charactor->GetY() <= this->dy) && this->flag == TRUE)charactor->SetY(this->dy);
+
+			//真下
+			if( (this->x <= charactor->GetX() && charactor->GetX() < this->x+DHIT) && (this->y < charactor->GetDY() && charactor->GetDY() <= this->y+DHIT) && this->flag == TRUE)charactor->SetY(this->y - 32);
+			if( (this->rx-DHIT <= charactor->GetRX() && charactor->GetRX() <= this->rx) && (this->y < charactor->GetDY() && charactor->GetDY() <= this->y+DHIT) && this->flag == TRUE)charactor->SetY(this->y - 32);
+
+			//壁の左上角
+			if( (this->x+DHIT < charactor->GetRX() && charactor->GetRX() < this->x+KBHABA) && (this->y+DHIT < charactor->GetDY() && charactor->GetDY() < this->y+KBHABA) && this->flag == 1)charactor->SetX(this->x-32+DHIT-charactor->GetMV());
+			//壁の右上角
+			if( (this->rx-KBHABA < charactor->GetX() && charactor->GetX() < this->rx-DHIT) && (this->y+DHIT < charactor->GetDY() && charactor->GetDY() < this->y+KBHABA) && this->flag == 1)charactor->SetX(this->rx-DHIT+charactor->GetMV());
+			//壁の左下角
+			if( (this->x+DHIT < charactor->GetRX() && charactor->GetRX() < this->x+KBHABA) && (this->dy-KBHABA < charactor->GetY() && charactor->GetY() < this->dy-DHIT) && this->flag == 1)charactor->SetX(this->x-32+DHIT-charactor->GetMV());
+			//壁の右下角
+			if( (this->rx-KBHABA < charactor->GetX() && charactor->GetX() < this->rx-DHIT) && (this->dy-KBHABA < charactor->GetY() && charactor->GetY() < this->dy-DHIT) && this->flag == 1)charactor->SetX(this->rx-DHIT+charactor->GetMV());
+	
 }
 
 void Bomb::BombSet(const Charactor &charactor)
@@ -31,6 +87,8 @@ void Bomb::BombSet(const Charactor &charactor)
 		
 		this->x = 32 * xMasuNum;
 		this->y = 32 * yMasuNum;
+		this->rx = this->x+32;
+		this->dy = this->y+32;
 		this->flag = 1;
 
 		//if(bomb.GetFlag() == TRUE && this->x == bomb.GetX() && this->y == bomb.GetY())

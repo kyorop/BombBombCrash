@@ -54,6 +54,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		//ŒvŽZ
 		player.Move(g_lasttime);
 
+		bombManager.CheckHit(&player);
 		map.CheckHitCharactor(&player);
 		block.CheckHit(&player);
 
@@ -78,6 +79,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		//•`‰æ
 		for(int i=0; i<DRAWNUM; ++i)
 		{
+		//	if(i != 2)
 			iDraw[i]->Draw();
 		}
 		//map.Draw();

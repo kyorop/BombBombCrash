@@ -39,6 +39,14 @@ void BombManager::BombSet(const Charactor &charactor)
 	}
 }
 
+void BombManager::CheckHit(Charactor *charactor)
+{
+	for(int i=0, size=vbomb->size(); i<size; ++i)
+	{
+		(*vbomb)[i]->CheckHit(charactor);
+	}
+}
+
 void BombManager::MaintainBomb()
 {
 	//if(key.CheckOnePushKey(KEY_INPUT_SPACE))

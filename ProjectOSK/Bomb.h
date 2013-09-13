@@ -12,6 +12,8 @@ class Bomb:
 {
 	friend class Explosion;
 private:
+	int rx;
+	int dy;
 	int count;
 	int graph[BOMBDEVIDENUMBER];
 	int explosion;
@@ -21,6 +23,7 @@ public:
 	
 	Bomb();
 	~Bomb();
+	void CheckHit(Charactor *charactor);
 	void BombSet(const Charactor &charactor);
 	void Draw();
 	void MaintainBomb();

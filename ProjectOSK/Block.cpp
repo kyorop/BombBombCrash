@@ -5,6 +5,7 @@
 #include <cstring>
 #define HABA 0
 #define DHIT 5
+#define KBHABA 16
 
 Block::Block(void)
 {
@@ -73,18 +74,19 @@ void Block::CheckHit(Charactor *charactor)
 	uy = (charactor->GetY()+HABA) / 32;
 	dy = (charactor->GetY()+32-HABA) / 32;
 
-	for(int i=0; i<MAPSIZE_Y; i++)
-	{
-		for(int j=0; j<MAPSIZE_X; j++)
-		{
 			// ©
 			if( (this->rx[uy][lx]-DHIT <= charactor->GetX() && charactor->GetX() <= this->rx[uy][lx]) && (this->y[uy][lx]+DHIT <= charactor->GetY() && charactor->GetY() < this->dy[uy][lx]-DHIT) && this->flag[uy][lx] == TRUE)charactor->SetX(this->x[uy][lx] + 32);//“r’†
 			if( (this->rx[dy][lx]-DHIT <= charactor->GetX() && charactor->GetX() <= this->rx[dy][lx]) && (this->y[dy][lx]+DHIT <= charactor->GetDY() && charactor->GetDY() < this->dy[dy][lx]-DHIT) && this->flag[dy][lx] == TRUE)charactor->SetX(this->x[dy][lx] + 32);//ã‚¢‚Á‚½
 	
-			//¨ 
-			if((this->x[uy][lx] <= charactor->GetX() && charactor->GetX() < this->x[uy][lx]+DHIT) && (this->y[uy][rx]+DHIT <= charactor->GetY() && charactor->GetY() < this->dy[uy][rx]-DHIT) && this->flag[uy][rx] == TRUE)charactor->SetX(this->x[uy][rx]- 32) ;//“r’†
-			if((this->x[dy][lx] <= charactor->GetX() && charactor->GetX() < this->x[dy][lx]+DHIT) && (this->y[dy][rx]+DHIT <=charactor->GetDY() && charactor->GetDY() < this->dy[dy][rx]-DHIT) && this->flag[dy][rx] == TRUE)charactor->SetX(this->x[dy][rx] - 32);//ã‚¢‚Á‚½
+			////¨ 
+			//if((this->x[uy][lx] <= charactor->GetX() && charactor->GetX() < this->x[uy][lx]+DHIT) && (this->y[uy][rx]+DHIT <= charactor->GetY() && charactor->GetY() < this->dy[uy][rx]-DHIT) && this->flag[uy][rx] == TRUE)charactor->SetX(this->x[uy][rx]- 32) ;//“r’†
+			//if((this->x[dy][lx] <= charactor->GetX() && charactor->GetX() < this->x[dy][lx]+DHIT) && (this->y[dy][rx]+DHIT <=charactor->GetDY() && charactor->GetDY() < this->dy[dy][rx]-DHIT) && this->flag[dy][rx] == TRUE)charactor->SetX(this->x[dy][rx] - 32);//ã‚¢‚Á‚½
 	
+			//¨ 
+			if((this->x[uy][rx] <= charactor->GetRX() && charactor->GetRX() <= this->x[uy][rx]+DHIT) && (this->y[uy][rx]+DHIT <= charactor->GetY() && charactor->GetY() <= this->dy[uy][rx]-DHIT) && this->flag[uy][rx] == 1)charactor->SetX(this->x[uy][rx]- 32);//“r’†
+			if((this->x[dy][rx] <= charactor->GetRX() && charactor->GetRX() <= this->x[dy][rx]+DHIT) && (this->y[dy][rx]+DHIT <=charactor->GetDY() && charactor->GetDY() <= this->dy[dy][rx]-DHIT) && this->flag[dy][rx] == 1)charactor->SetX(this->x[dy][rx] - 32);//ã‚¢‚Á‚½
+
+					
 			// 
 			//ª
 			if( (this->dy[uy][lx]-DHIT < charactor->GetY() && charactor->GetY() <= this->dy[uy][lx]) && (this->x[uy][lx]+DHIT <= charactor->GetX() && charactor->GetX() < this->rx[uy][lx]-DHIT) && this->flag[uy][lx] == TRUE)charactor->SetY(this->dy[uy][lx]);//¶s‚­
@@ -110,8 +112,16 @@ void Block::CheckHit(Charactor *charactor)
 			//^‰º
 			if( (this->x[dy][lx] <= charactor->GetX() && charactor->GetX() < this->x[dy][lx]+DHIT) && (this->y[dy][lx] < charactor->GetDY() && charactor->GetDY() <= this->y[dy][lx]+DHIT) && this->flag[dy][lx] == TRUE)charactor->SetY(this->y[dy][lx] - 32);
 			if( (this->rx[dy][rx]-DHIT <= charactor->GetRX() && charactor->GetRX() <= this->rx[dy][rx]) && (this->y[dy][rx] < charactor->GetDY() && charactor->GetDY() <= this->y[dy][rx]+DHIT) && this->flag[dy][rx] == TRUE)charactor->SetY(this->y[dy][rx] - 32);
-		}
-	}
+
+			//•Ç‚Ì¶ãŠp
+			if( (this->x[dy][rx]+DHIT < charactor->GetRX() && charactor->GetRX() < this->x[dy][rx]+KBHABA) && (this->y[dy][rx]+DHIT < charactor->GetDY() && charactor->GetDY() < this->y[dy][rx]+KBHABA) && this->flag[dy][rx] == 1)charactor->SetX(this->x[dy][rx]-32+DHIT-charactor->GetMV());
+			//•Ç‚Ì‰EãŠp
+			if( (this->rx[dy][lx]-KBHABA < charactor->GetX() && charactor->GetX() < this->rx[dy][lx]-DHIT) && (this->y[dy][lx]+DHIT < charactor->GetDY() && charactor->GetDY() < this->y[dy][lx]+KBHABA) && this->flag[dy][lx] == 1)charactor->SetX(this->rx[dy][lx]-DHIT+charactor->GetMV());
+			//•Ç‚Ì¶‰ºŠp
+			if( (this->x[uy][rx]+DHIT < charactor->GetRX() && charactor->GetRX() < this->x[uy][rx]+KBHABA) && (this->dy[uy][rx]-KBHABA < charactor->GetY() && charactor->GetY() < this->dy[uy][rx]-DHIT) && this->flag[uy][rx] == 1)charactor->SetX(this->x[uy][rx]-32+DHIT-charactor->GetMV());
+			//•Ç‚Ì‰E‰ºŠp
+			if( (this->rx[uy][lx]-KBHABA < charactor->GetX() && charactor->GetX() < this->rx[uy][lx]-DHIT) && (this->dy[uy][lx]-KBHABA < charactor->GetY() && charactor->GetY() < this->dy[uy][lx]-DHIT) && this->flag[uy][lx] == 1)charactor->SetX(this->rx[uy][lx]-DHIT+charactor->GetMV());
+	
 }
 
 Block::~Block(void)

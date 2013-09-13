@@ -5,10 +5,10 @@
 #include <cstring>
 #define MAPSIZE_X 17
 #define MAPSIZE_Y 13
-#define DHIT 7
+#define DHIT 5
 #define HABA 0
 #define KBHABA 16//(DHIT+1)
-#define MV 3
+#define MV 4
 
 Map::Map(void)
 {
@@ -76,10 +76,7 @@ void Map::CheckHitCharactor(Charactor *charactor)
 	if( (this->rx[uy][lx]-DHIT <= charactor->GetX() && charactor->GetX() <= this->rx[uy][lx]) && (this->y[uy][lx]+DHIT <= charactor->GetY() && charactor->GetY() <= this->dy[uy][lx]-DHIT) && this->ID[uy][lx] == 1)charactor->SetX(this->rx[uy][lx]);//“r’†
 	if( (this->rx[dy][lx]-DHIT <= charactor->GetX() && charactor->GetX() <= this->rx[dy][lx]) && (this->y[dy][lx]+DHIT <= charactor->GetDY() && charactor->GetDY() <= this->dy[dy][lx]-DHIT) && this->ID[dy][lx] == 1)charactor->SetX(this->x[dy][lx] + 32);//ã‚¢‚Á‚½
 	
-	//¨ ////
-	//if((this->x[uy][lx] <= charactor->GetX() && charactor->GetX() < this->x[uy][lx]+DHIT) && (this->y[uy][rx]+DHIT <= charactor->GetY() && charactor->GetY() < this->dy[uy][rx]-DHIT) && this->ID[uy][rx] == 1)charactor->SetX(this->x[uy][rx]- 32);//“r’†
-	//if((this->x[dy][lx] <= charactor->GetX() && charactor->GetX() < this->x[dy][lx]+DHIT) && (this->y[dy][rx]+DHIT <=charactor->GetDY() && charactor->GetDY() < this->dy[dy][rx]-DHIT) && this->ID[dy][rx] == 1)charactor->SetX(this->x[dy][rx] - 32);//ã‚¢‚Á‚½
-	
+	//¨ 
 	if((this->x[uy][rx] <= charactor->GetRX() && charactor->GetRX() <= this->x[uy][rx]+DHIT) && (this->y[uy][rx]+DHIT <= charactor->GetY() && charactor->GetY() <= this->dy[uy][rx]-DHIT) && this->ID[uy][rx] == 1)charactor->SetX(this->x[uy][rx]- 32);//“r’†
 	if((this->x[dy][rx] <= charactor->GetRX() && charactor->GetRX() <= this->x[dy][rx]+DHIT) && (this->y[dy][rx]+DHIT <=charactor->GetDY() && charactor->GetDY() <= this->dy[dy][rx]-DHIT) && this->ID[dy][rx] == 1)charactor->SetX(this->x[dy][rx] - 32);//ã‚¢‚Á‚½
 
@@ -111,26 +108,19 @@ void Map::CheckHitCharactor(Charactor *charactor)
 	if( (this->x[dy][lx] <= charactor->GetX() && charactor->GetX() <= this->x[dy][lx]+DHIT) && (this->y[dy][lx] <= charactor->GetDY() && charactor->GetDY() <= this->y[dy][lx]+DHIT) && this->ID[dy][lx] == 1)charactor->SetY(this->y[dy][lx] - 32);
 	if( (this->rx[dy][rx]-DHIT <= charactor->GetRX() && charactor->GetRX() <= this->rx[dy][rx]) && (this->y[dy][rx] <= charactor->GetDY() && charactor->GetDY() <= this->y[dy][rx]+DHIT) && this->ID[dy][rx] == 1)charactor->SetY(this->y[dy][rx] - 32);
 
-	/*
-	//¶ãŠp
-	if( (this->x[dy][rx]+DHIT < charactor->GetRX() && charactor->GetRX() && this->rx[dy][rx]-DHIT) && (this->y[dy][rx]+DHIT < charactor->GetDY() && charactor->GetDY() < this->dy[dy][rx]) && this->ID[dy][rx] == 1)charactor->SetY(this->y[dy][rx]-32);
+	
+	//•Ç‚Ì¶ãŠp
+	if( (this->x[dy][rx]+DHIT < charactor->GetRX() && charactor->GetRX() < this->x[dy][rx]+KBHABA) && (this->y[dy][rx]+DHIT < charactor->GetDY() && charactor->GetDY() < this->y[dy][rx]+KBHABA) && this->ID[dy][rx] == 1)charactor->SetX(this->x[dy][rx]-32+DHIT-charactor->GetMV());
+	//•Ç‚Ì‰EãŠp
+	if( (this->rx[dy][lx]-KBHABA < charactor->GetX() && charactor->GetX() < this->rx[dy][lx]-DHIT) && (this->y[dy][lx]+DHIT < charactor->GetDY() && charactor->GetDY() < this->y[dy][lx]+KBHABA) && this->ID[dy][lx] == 1)charactor->SetX(this->rx[dy][lx]-DHIT+charactor->GetMV());
+	//•Ç‚Ì¶‰ºŠp
+	if( (this->x[uy][rx]+DHIT < charactor->GetRX() && charactor->GetRX() < this->x[uy][rx]+KBHABA) && (this->dy[uy][rx]-KBHABA < charactor->GetY() && charactor->GetY() < this->dy[uy][rx]-DHIT) && this->ID[uy][rx] == 1)charactor->SetX(this->x[uy][rx]-32+DHIT-charactor->GetMV());
+	//•Ç‚Ì‰E‰ºŠp
+	if( (this->rx[uy][lx]-KBHABA < charactor->GetX() && charactor->GetX() < this->rx[uy][lx]-DHIT) && (this->dy[uy][lx]-KBHABA < charactor->GetY() && charactor->GetY() < this->dy[uy][lx]-DHIT) && this->ID[uy][lx] == 1)charactor->SetX(this->rx[uy][lx]-DHIT+charactor->GetMV());
+	
 
-	//‰EãŠp
-	if( (this->x[dy][lx]+DHIT < charactor->GetX() && charactor->GetX() && this->rx[dy][lx]-DHIT) && (this->y[dy][lx]+DHIT < charactor->GetDY() && charactor->GetDY() < this->dy[dy][lx]) && this->ID[dy][lx] == 1)charactor->SetX(this->rx[dy][lx]);
+	
 
-	//¶‰ºŠp
-	if( (this->x[uy][rx]+DHIT < charactor->GetRX() && charactor->GetRX() && this->rx[uy][rx]-DHIT) && (this->y[uy][rx]+DHIT < charactor->GetY() && charactor->GetY() < this->dy[uy][rx]) && this->ID[uy][rx] == 1)charactor->SetX(this->x[uy][rx]-32);
-
-	//‰E‰ºŠp
-	if( (this->x[uy][lx]+DHIT < charactor->GetX() && charactor->GetX() && this->rx[uy][lx]-DHIT) && (this->y[uy][lx]+DHIT < charactor->GetY() && charactor->GetY() < this->dy[uy][lx]) && this->ID[uy][lx] == 1)charactor->SetY(this->dy[uy][lx]);
-	*/
-	/*
-	if(this->x[dy][rx]+DHIT == charactor->GetRX() && this->y[dy][rx]+DHIT == charactor->GetDY() && this->ID[dy][rx] == 1)charactor->SetY(this->y[dy][rx]-32);
-	if(this->rx[dy][lx]-DHIT == charactor->GetX() && this->y[dy][lx]+DHIT == charactor->GetDY() && this->ID[dy][lx] == 1)charactor->SetX(this->rx[dy][lx]);
-	if(this->x[uy][rx]+DHIT == charactor->GetRX() && this->dy[uy][rx]-DHIT == charactor->GetY() && this->ID[uy][rx] == 1)charactor->SetX(this->x[uy][rx]-32);
-	if(this->rx[uy][lx]-DHIT == charactor->GetX() && this->dy[uy][lx]-DHIT == charactor->GetY() && this->ID[uy][lx] == 1)charactor->SetY(this->dy[uy][lx]);
-	*/
-	if( (this->rx[uy][lx]-KBHABA < charactor->GetX() && charactor->GetX() < this->rx[uy][lx]-DHIT) && (this->dy[uy][lx]-KBHABA < charactor->GetY() && charactor->GetY() < this->dy[uy][lx]-DHIT) )charactor->SetX(this->rx[uy][lx]-DHIT+charactor->GetMV());
 
 }
 
