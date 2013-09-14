@@ -13,6 +13,7 @@ private:
 
 public:
 	void CheckHit(Charactor *charactor);
+	void Register();
 	void Draw();
 
 	Block(void);

@@ -1,6 +1,7 @@
 #include "Block.h"
 #include "Player.h"
 #include "Charactor.h"
+#include "MapState.h"
 #include "DxLib.h"
 #include <cstring>
 #define HABA 0
@@ -122,6 +123,20 @@ void Block::CheckHit(Charactor *charactor)
 			//•Ç‚Ì‰E‰ºŠp
 			if( (this->rx[uy][lx]-KBHABA < charactor->GetX() && charactor->GetX() < this->rx[uy][lx]-DHIT) && (this->dy[uy][lx]-KBHABA < charactor->GetY() && charactor->GetY() < this->dy[uy][lx]-DHIT) && this->flag[uy][lx] == 1)charactor->SetX(this->rx[uy][lx]-DHIT+charactor->GetMV());
 	
+}
+
+void Block::Register()
+{
+	for(int i=0; i<MAPSIZE_Y; i++)
+	{
+		for(int j=0; j<MAPSIZE_X; j++)
+		{
+			if(this->ID[i][j] == 2 && this->flag[i][j] == 1)
+				MapState::GetInstance()->SetBlockState(this->x[i][j], this->y[i][j], 1);
+			else if(this->ID[i][j] == 2 && this->flag[i][j] == 0)
+				MapState::GetInstance()->SetBlockState(this->x[i][j], this->y[i][j], 0);
+		}
+	}
 }
 
 Block::~Block(void)

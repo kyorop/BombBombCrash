@@ -34,7 +34,7 @@ void Player::Draw()
 	{
 		if(CheckHitKey(KEY_INPUT_LEFT) == 1)	DrawGraph(this->x, this->y, this->graph[animpat+8], TRUE);//動いているときはアニメーション
 		else if(CheckHitKey(KEY_INPUT_RIGHT) == 1)DrawGraph(this->x, this->y, this->graph[animpat+12], TRUE);
-		else if(CheckHitKey(KEY_INPUT_UP) == 1)DrawGraph(this->x, this->y, this->graph[animpat+12], TRUE);
+		else if(CheckHitKey(KEY_INPUT_UP) == 1)DrawGraph(this->x, this->y, this->graph[animpat], TRUE);
 		else if(CheckHitKey(KEY_INPUT_DOWN) == 1)	DrawGraph(this->x, this->y, this->graph[animpat+4], TRUE);	
 		else if(this->muki == LEFT)DrawGraph(this->x, this->y, this->graph[8], TRUE);//止まっているときは最後の向きを表示
 		else if(this->muki == RIGHT)DrawGraph(this->x, this->y, this->graph[12], TRUE);

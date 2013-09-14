@@ -10,12 +10,12 @@ private:
 	int graph[20];
 	int muki;
 	int animpat;
-	int preX;
-	int preY;
+	int resetRoutine;
 public:
 	Enemy(int x, int y);
 	~Enemy(void);
-	virtual void Move(int g_lastTime, const Player &player);
-	virtual void Draw();
+	void Analyse();
+	void Move(int g_lastTime, const Player &player);
+	void Draw();
 };
 

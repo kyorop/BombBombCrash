@@ -1,10 +1,25 @@
 #include "Enemy.h"
 #include "Player.h"
+#include "MapState.h"
 #include "DxLib.h"
-#define MV 1
+#define MV 3
 #define HABA 10
+#define ROW 13
+#define LINE 17
+
+enum object
+{
+	MAP,
+	BLOCK,
+	ITEM,
+	CHARACTOR,
+	BOMB,
+	FIRE,
+};
+
 enum
 {
+	STOP,
 	LEFT,
 	RIGHT,
 	UP,
@@ -13,12 +28,13 @@ enum
 
 Enemy::Enemy(int x, int y)
 {
+	this->mv = MV;
 	this->flag = TRUE;
 	LoadDivGraph("redbombman.png", 20, 4, 5, 32, 32, this->graph, FALSE);
 	this->x = x;
 	this->y = y;
-	this->preX = x;
-	this->preY = y;
+	this->resetRoutine = 1;
+	this->muki = STOP;
 }
 
 
@@ -26,80 +42,52 @@ Enemy::~Enemy(void)
 {
 }
 
+void Enemy::Analyse()
+{
+	MapState *ms = MapState::GetInstance();
+	for(int k=-1; k<2; ++k)
+	{
+		//if( !(this->x/32+k < 0 || LINE < this->x/32+k || this->y/32+k < 0 || ROW < this->y/32+k) )
+		{
+			if( MapState::GetInstance()->GetState(this->y/32,this->x/32+k, BLOCK) == 0 ||ms->GetState(this->x/32+k,this->y/32, MAP) == 0)
+			{
+				if(k>0)
+					this->muki = RIGHT;
+				else
+					this->muki = LEFT;
+			}
+			if( MapState::GetInstance()->GetState(this->y/32+k, this->x/32, BLOCK) == 0 || ms->GetState(this->y/32+k, this->x/32, MAP) == 0)
+			{
+				if(k>0)
+					this->muki = DOWN;
+				else
+					this->muki = UP;
+			}
+		}
+	}
+
+	this->resetRoutine = 0;
+}
 
 void Enemy::Move(int g_lastTime, const Player &player)
 {
-	if(player.GetX() - this->x >= 0)
+	if(this->resetRoutine == 0)
 	{
-		this->x += MV;
-		this->muki = RIGHT;
-	}
-	else
-	{
-		this->x -= MV;
-		this->muki = LEFT;
-	}
-	if(player.GetY() - this->y >= 0)
-	{
-		this->y += MV;
-		this->muki = DOWN;
-	}
-	else
-	{
-		this->y -= MV;
-		this->muki = UP;
-	}
-	/*
-	switch((g_lastTime / 1000*3) % 4)
-	{
-	case 0:
-		this->x += MV;
-		this->muki = RIGHT;
+		switch(this->muki)
+		{
+		case UP:this->y -= this->mv;break;
+		case DOWN:this->y += this->mv;break;
+		case LEFT:this->x -= this->mv;break;
+		case RIGHT:this->x += this->mv;break;
+		}
 		
-	case 1:
-		this->x -= MV;
-		this->muki = LEFT;
-		break;
-
-	case 2:
-		this->y += MV;
-		this->muki = DOWN;
-		break;
-
-	case 3:
-		this->y -= MV;
-		this->muki = UP;
-		break;
+		if(this->x % 32 == 0 && this->y % 32 == 0)
+		{
+			this->muki = STOP;
+			this->resetRoutine = 1;
+		}
 	}
-	*/
-
-	/*
-	this->preX = this->x;
-	this->preY = this->y;
-	++this->x;
-	if(this->x >= preX)
-	{
-		++this->x;
-		this->muki = RIGHT;
-	}
-	
-	if(this->x == this->preX)
-	{
-		--this->x;
-		this->muki = LEFT;
-	}
-	if(this->preY - HABA <this->y && this->y < this->preY + HABA)
-	{
-		--this->y;
-		this->muki = UP;
-	}
-	else
-	{
-		++this->y;
-		this->muki = DOWN;
-	}
-	*/
-
+		
 	if(this->x < 64)this->x = 64;
 	if(this->x > 32*14)this->x = 32*14;
 	if(this->y < 32)this->y = 32;

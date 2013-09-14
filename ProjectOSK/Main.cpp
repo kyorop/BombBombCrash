@@ -11,6 +11,7 @@
 #include "Bomb.h"
 #include "BlastManager.h"
 #include "Enemy.h"
+#include "MapState.h"
 #include "DxLib.h"
 #include <iostream>
 #define DRAWNUM 7
@@ -24,6 +25,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		return -1;
 	SetDrawScreen(DX_SCREEN_BACK);
 	
+	MapState::GetInstance()->Initialize();
 	Map map;
 	Player player;
 	Enemy enemy(32*14,32*11);
@@ -46,7 +48,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 	int g_lasttime = 0;
 	float g_frametime = 0;
 
+	map.Register();
 	itemManager.SetItem(block);
+
 	while(CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
 		int curtime = GetNowCount() & INT_MAX;
@@ -55,16 +59,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		ClearDrawScreen();
 
 		//ŒvŽZ
-		
+		player.Move(g_lasttime);
+
+		enemy.Analyse();
 		enemy.Move(g_lasttime, player);
 		map.CheckHitCharactor(&enemy);
 		block.CheckHit(&enemy);
-		itemManager.CheckHitCharactor(enemy);
+		itemManager.CheckHitCharactor(&enemy);
 
 		bombManager.CheckHit(&player);
 		map.CheckHitCharactor(&player);
 		block.CheckHit(&player);
-
 		itemManager.CheckHitCharactor(&player);
 
 		bombManager.AddBomb(player);
@@ -83,6 +88,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		//blastManager.CheckHitBomb(&bombManager);
 		//blastManager.CheckHitCharactor(&player);
 		
+		block.Register();
+
 		//•`‰æ
 		for(int i=0; i<DRAWNUM; ++i)
 		{

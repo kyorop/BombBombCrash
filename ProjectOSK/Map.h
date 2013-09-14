@@ -14,6 +14,7 @@ private:
 
 public:
 	void CheckHitCharactor(Charactor *charactor);
+	void Register();
 	void Draw();
 	Map(void);
 	~Map(void);

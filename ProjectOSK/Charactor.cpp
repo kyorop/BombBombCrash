@@ -8,7 +8,7 @@ Charactor::Charactor(void)
 	y = 0;
 	this->dy = 0;
 	this->flag = 0;
-	this->mv = 1;
+	this->mv = 3;
 	this->bombNum = 1;
 	this->fireLevel = 1;
 }

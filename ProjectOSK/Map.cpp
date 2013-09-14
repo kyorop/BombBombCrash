@@ -2,10 +2,11 @@
 #include "Player.h"
 #include "DxLib.h"
 #include "Charactor.h"
+#include "MapState.h"
 #include <cstring>
 #define MAPSIZE_X 17
 #define MAPSIZE_Y 13
-#define DHIT 7
+#define DHIT 5
 #define HABA 0
 #define KBHABA 16//(DHIT+1)
 #define MV 4
@@ -117,12 +118,20 @@ void Map::CheckHitCharactor(Charactor *charactor)
 	if( (this->x[uy][rx]+DHIT < charactor->GetRX() && charactor->GetRX() < this->x[uy][rx]+KBHABA) && (this->dy[uy][rx]-KBHABA < charactor->GetY() && charactor->GetY() < this->dy[uy][rx]-DHIT) && this->ID[uy][rx] == 1)charactor->SetX(this->x[uy][rx]-32+DHIT-charactor->GetMV());
 	//•Ç‚Ì‰E‰ºŠp
 	if( (this->rx[uy][lx]-KBHABA < charactor->GetX() && charactor->GetX() < this->rx[uy][lx]-DHIT) && (this->dy[uy][lx]-KBHABA < charactor->GetY() && charactor->GetY() < this->dy[uy][lx]-DHIT) && this->ID[uy][lx] == 1)charactor->SetX(this->rx[uy][lx]-DHIT+charactor->GetMV());
-	
-
-	
-
-
 }
+
+void Map::Register()
+{
+	for(int i=0; i<MAPSIZE_Y; i++)
+	{
+		for(int j=0; j<MAPSIZE_X; j++)
+		{
+			if(this->ID[i][j] == 1)
+				MapState::GetInstance()->SetMapState(this->x[i][j], this->y[i][j], 1);
+		}
+	}
+}
+
 
 Map::~Map(void)
 {
