@@ -33,5 +33,6 @@ public:
 
 
 	std::vector<ExplosionManager*> *vblast;
+	
 };
 
