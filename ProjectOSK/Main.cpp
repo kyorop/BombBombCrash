@@ -25,7 +25,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		return -1;
 	SetDrawScreen(DX_SCREEN_BACK);
 	
-	MapState::GetInstance()->Initialize();
+	//MapState::Initialize();
 	Map map;
 	Player player;
 	Enemy enemy(32*14,32*11);
@@ -44,11 +44,18 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		&enemy,
 		&blastManager,
 	};
+	IRegister *ir[3]=
+	{
+		&map,
+		&block,
+		&player,
+	};
+
 
 	int g_lasttime = 0;
 	float g_frametime = 0;
 
-	map.Register();
+	//map.Register();
 	itemManager.SetItem(block);
 
 	while(CheckHitKey(KEY_INPUT_ESCAPE) == 0)
@@ -58,24 +65,31 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		g_lasttime = curtime;
 		ClearDrawScreen();
 
-		//ŒvZ
-		player.Move(g_lasttime);
+		//ŒvZ•”
 
+		//ƒLƒƒƒ‰‚ÌˆÚ“®
+		player.Move(g_lasttime);
 		enemy.Analyse();
-		enemy.Move(g_lasttime, player);
-		map.CheckHitCharactor(&enemy);
-		block.CheckHit(&enemy);
+		enemy.Move(g_lasttime);
+
+		//Enemy‚Ì‚ ‚½‚è”»’è
+		bombManager.CheckHit(&enemy);
+		//map.CheckHitCharactor(&enemy);
+		//block.CheckHit(&enemy);
 		itemManager.CheckHitCharactor(&enemy);
 
+		//Player‚Ì‚ ‚½‚è”»’è
 		bombManager.CheckHit(&player);
 		map.CheckHitCharactor(&player);
 		block.CheckHit(&player);
 		itemManager.CheckHitCharactor(&player);
 
+		//BombŠÇ—
 		bombManager.AddBomb(player);
 		bombManager.BombSet(player);
 		bombManager.MaintainBomb();
 		
+		//BlastŠÇ—
 		blastManager.Add(player);
 		blastManager.FireUp(player);
 		blastManager.Set(bombManager);
@@ -88,9 +102,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		//blastManager.CheckHitBomb(&bombManager);
 		//blastManager.CheckHitCharactor(&player);
 		
+		//“o˜^•”
+		for(int i=0; i<3; ++i)
+		{
+			ir[i]->Register();
+		}
 		block.Register();
 
-		//•`‰æ
+		//•`‰æ•”
 		for(int i=0; i<DRAWNUM; ++i)
 		{
 		//	if(i != 2)

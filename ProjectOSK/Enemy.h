@@ -3,7 +3,7 @@
 #include "IDrawable.h"
 
 class Player;
-class Enemy :
+class Enemy:
 	public Charactor, virtual public IDrawable
 {
 private:
@@ -11,11 +11,13 @@ private:
 	int muki;
 	int animpat;
 	int resetRoutine;
+	int bombSet;
 public:
 	Enemy(int x, int y);
 	~Enemy(void);
 	void Analyse();
-	void Move(int g_lastTime, const Player &player);
+	void Move(int g_lastTime);
 	void Draw();
+	int GetBombSet(void)const;
 };
 

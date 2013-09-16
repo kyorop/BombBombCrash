@@ -4,12 +4,13 @@
 #include "Key.h"
 
 class Bomb;
+class PlayerBomb;
 class ItemManager;
 class Charactor;
 class BombManager:
 	virtual public IDrawable
 {
-private:
+protected:
 	int nowBombNum;
 	Key key;
 public:

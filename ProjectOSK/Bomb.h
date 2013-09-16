@@ -11,7 +11,7 @@ class Bomb:
 	public Object
 {
 	friend class Explosion;
-private:
+protected:
 	int rx;
 	int dy;
 	int count;
@@ -24,7 +24,7 @@ public:
 	Bomb();
 	~Bomb();
 	void CheckHit(Charactor *charactor);
-	void BombSet(const Charactor &charactor);
+	virtual void BombSet(const Charactor &charactor) = 0;
 	void Draw();
 	void MaintainBomb();
 	int CheckBombExplosion();

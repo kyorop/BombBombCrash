@@ -1,5 +1,5 @@
 #include "BombManager.h"
-#include "Bomb.h"
+#include "PlayerBomb.h"
 #include "ItemManager.h"
 #include "Player.h"
 #include "DxLib.h"
@@ -8,14 +8,14 @@
 BombManager::BombManager(void):
 	vbomb(new std::vector<Bomb*>(1)), nowBombNum(1)
 {
-	(*vbomb)[0] = new Bomb;
+	(*vbomb)[0] = new PlayerBomb;
 }
 
 void BombManager::AddBomb(const Charactor &charactor)
 {
 	if(charactor.GetBombNum() > nowBombNum)//新たにボムアイテムを獲得したら、ボム数を増やす
 	{
-		vbomb->push_back(new Bomb);
+		vbomb->push_back(new PlayerBomb);
 		++this->nowBombNum;
 	}
 }

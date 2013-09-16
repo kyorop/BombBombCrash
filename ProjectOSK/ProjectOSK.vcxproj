@@ -91,7 +91,10 @@
     <ClCompile Include="BombManager.cpp" />
     <ClCompile Include="Charactor.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyBomb.cpp" />
+    <ClCompile Include="EnemyBombManager.cpp" />
     <ClCompile Include="IDrawable.cpp" />
+    <ClCompile Include="IRegister.cpp" />
     <ClCompile Include="Key.cpp" />
     <ClCompile Include="Explosion.cpp" />
     <ClCompile Include="ExplosionManager.cpp" />
@@ -103,6 +106,7 @@
     <ClCompile Include="MapState.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerBomb.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -112,7 +116,10 @@
     <ClInclude Include="BombManager.h" />
     <ClInclude Include="Charactor.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyBomb.h" />
+    <ClInclude Include="EnemyBombManager.h" />
     <ClInclude Include="IDrawable.h" />
+    <ClInclude Include="IRegister.h" />
     <ClInclude Include="Key.h" />
     <ClInclude Include="Explosion.h" />
     <ClInclude Include="ExplosionManager.h" />
@@ -123,6 +130,7 @@
     <ClInclude Include="MapState.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerBomb.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -133,6 +141,7 @@
     <None Include="ClassDiagram4.cd" />
     <None Include="ClassDiagram5.cd" />
     <None Include="ClassDiagram6.cd" />
+    <None Include="ClassDiagram7.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

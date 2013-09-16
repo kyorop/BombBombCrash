@@ -88,3 +88,8 @@ void Charactor::AddMV(void)
 {
 	++this->mv;
 }
+
+int Charactor::GetBombSet()const
+{
+	return 0;
+}

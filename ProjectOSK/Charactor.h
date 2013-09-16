@@ -34,5 +34,6 @@ public:
 	virtual void AddBombNum(void);
 	virtual void AddFireLevel(void);
 	virtual void AddMV(void);
+	virtual int GetBombSet(void)const;
 };
 

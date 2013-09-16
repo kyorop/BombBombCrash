@@ -1,12 +1,13 @@
 #pragma once
 #include "MapObstacle.h"
 #include "IDrawable.h"
+#include "IRegister.h"
 #define MAPSIZE_X 17
 #define MAPSIZE_Y 13
 
 class Charactor;
 class Block:
-	public MapObstacle, virtual public IDrawable
+	public MapObstacle, virtual public IDrawable, virtual public IRegister
 {
 private:
 	int graph;

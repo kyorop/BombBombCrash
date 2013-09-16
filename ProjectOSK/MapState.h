@@ -1,22 +1,26 @@
 #pragma once
 #define ROW 13
 #define LINE 17
-#define OBJECT 6
+#define ELEMENT 6
 #define TOPIC 2
 
 class MapState
 {
 private:
-	static int mapState[ROW][LINE][OBJECT][TOPIC];
+ 	static int mapState[ROW][LINE][ELEMENT][TOPIC];
+
 private:
 	MapState(void);
 	MapState(const MapState &ms);
 	~MapState(void);
-private:
-	void SetState(int x, int y, int object, int state, int option=0);
+	static void SetState(int x, int y, int object, int state, int option=0);
 public:
-	void Initialize();
-	static MapState* GetInstance();
+	static void Initialize();
+	static MapState *GetInstance()
+	{
+		static MapState msInstance;
+		return &msInstance;
+	}
 	void SetMapState(int x, int y, int flag, int option=0);
 	void SetBlockState(int x, int y, int state, int option=0);
 	void SetItemState(int x, int y, int state, int option=0);

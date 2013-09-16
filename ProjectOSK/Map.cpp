@@ -33,8 +33,8 @@ Map::Map(void)
 	std::memcpy(this->ID, temp, sizeof temp);
 
 	this->graph[0] = LoadGraph("yuka.bmp");
-	//this->graph[1] = LoadGraph("rimblock.bmp");
-	this->graph[1] = LoadGraph("redblock.bmp");
+	this->graph[1] = LoadGraph("rimblock.bmp");
+	//this->graph[1] = LoadGraph("redblock.bmp");
 	
 	//壁の座標セット
 	for(int i=0; i<MAPSIZE_Y; i++)

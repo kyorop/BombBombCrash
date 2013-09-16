@@ -1,10 +1,11 @@
 #pragma once
 #include "MapObstacle.h"
 #include "IDrawable.h"
+#include "IRegister.h"
 
 class Charactor;
 class Map:
-	public MapObstacle, virtual public IDrawable
+	public MapObstacle, virtual public IDrawable, virtual public IRegister
 {
 	friend class Explosion;
 	friend class Bomb;

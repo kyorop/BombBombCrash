@@ -2,6 +2,7 @@
 #include "Map.h"
 #include "Item.h"
 #include "ItemManager.h"
+#include "MapState.h"
 #include "DxLib.h"
 #define MV 4
 #define HABA 0
@@ -164,6 +165,11 @@ int Player::GetStateBomb(const ItemManager &manageItem)
 	static int bombNum;
 	return 0;
 
+}
+
+void Player::Register()
+{
+	MapState::GetInstance()->SetCharactorState(this->x, this->y, this->flag);
 }
 
 Player::~Player(void)
