@@ -7,6 +7,7 @@
 #include "ItemManager.h"
 #include "BombManager.h"
 #include "Item.h"
+#include "MapState.h"
 #include "DxLib.h"
 
 
@@ -264,3 +265,15 @@ firestate ExplosionManager::GetFlag()const
 */
 
 
+
+
+void ExplosionManager::Register(void)
+{
+	for(int i=0,size=vex->size(); i<size; ++i )
+	{
+		if((*vex)[i]->GetFlag() == 1)
+			MapState::GetInstance()->SetFireState((*vex)[i]->GetX(), (*vex)[i]->GetY(), 1);
+		else if((*vex)[i]->GetFlag() == 0)
+			MapState::GetInstance()->SetFireState((*vex)[i]->GetX(), (*vex)[i]->GetY(), 0);
+	}
+}

@@ -1,5 +1,6 @@
 #pragma once
 #include "IDrawable.h"
+#include "IRegister.h"
 #include <vector>
 #include "Key.h"
 
@@ -8,7 +9,7 @@ class PlayerBomb;
 class ItemManager;
 class Charactor;
 class BombManager:
-	virtual public IDrawable
+	virtual public IDrawable, virtual public IRegister
 {
 protected:
 	int nowBombNum;
@@ -29,5 +30,6 @@ public:
 	~BombManager(void);
 	
 	std::vector<Bomb*> *vbomb;
+	void Register(void);
 };
 

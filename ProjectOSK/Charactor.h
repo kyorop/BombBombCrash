@@ -1,7 +1,9 @@
 #pragma once
+#include "IRegister.h"
 
 class Map;
-class Charactor
+class Charactor:
+	virtual public IRegister
 {
 protected:
 	int x;
@@ -9,6 +11,8 @@ protected:
 	int y;
 	int dy;
 	int flag;
+	int preX;
+	int preY;
 public:
 	//virtual void Draw();
 	//virtual void Move();
@@ -35,5 +39,6 @@ public:
 	virtual void AddFireLevel(void);
 	virtual void AddMV(void);
 	virtual int GetBombSet(void)const;
+	virtual void Register();
 };
 

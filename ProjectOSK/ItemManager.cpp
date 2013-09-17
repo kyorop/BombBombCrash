@@ -3,6 +3,7 @@
 #include "Block.h"
 #include "Player.h"
 #include "Charactor.h"
+#include "MapState.h"
 #include "DxLib.h"
 #define FIRE 0
 #define BOMB 1
@@ -107,4 +108,16 @@ ItemManager::~ItemManager(void)
 {
 	for(int i=0; i<ITEMNUM; i++)
 		delete item[i];
+}
+
+
+void ItemManager::Register(void)
+{
+	for(int i=0; i<ITEMNUM; ++i)
+	{
+		if(this->item[i]->GetFlag() == 1)
+			MapState::GetInstance()->SetItemState(this->item[i]->GetX(), this->item[i]->GetY(),1);
+		else if(this->item[i]->GetFlag() == 0)
+			MapState::GetInstance()->SetItemState(this->item[i]->GetX(), this->item[i]->GetY(),0);
+	}
 }

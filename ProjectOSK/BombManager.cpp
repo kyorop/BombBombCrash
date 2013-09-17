@@ -2,6 +2,7 @@
 #include "PlayerBomb.h"
 #include "ItemManager.h"
 #include "Player.h"
+#include "MapState.h"
 #include "DxLib.h"
 #define BOMB 1
 
@@ -113,4 +114,17 @@ int BombManager::GetBombY(int index)const
 Bomb* BombManager::GetBombObject(int index)const
 {
 	return (*this->vbomb)[index];
+}
+
+
+
+void BombManager::Register(void)
+{
+	for(int i=0, size=vbomb->size(); i<size; ++i)
+	{
+		if((*vbomb)[i]->GetFlag() == 1)
+			MapState::GetInstance()->SetBombState((*vbomb)[i]->GetX(), (*vbomb)[i]->GetY(), 1);
+		else if((*vbomb)[i]->GetFlag() == 0)
+			MapState::GetInstance()->SetBombState((*vbomb)[i]->GetX(), (*vbomb)[i]->GetY(), 0);
+	}
 }

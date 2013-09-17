@@ -10,12 +10,22 @@
 #include "Explosion.h"
 #include "Bomb.h"
 #include "BlastManager.h"
-#include "Enemy.h"
 #include "MapState.h"
+#include "Enemy.h"
+#include "EnemyBombManager.h"
 #include "DxLib.h"
 #include <iostream>
-#define DRAWNUM 7
-
+#define DRAWNUM 9
+#define REGISTERNUM 9
+enum object
+{
+	MAP,
+	BLOCK,
+	ITEM,
+	CHARACTOR,
+	BOMB,
+	FIRE,
+};
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nCmdShow)
 {
@@ -25,30 +35,39 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		return -1;
 	SetDrawScreen(DX_SCREEN_BACK);
 	
-	//MapState::Initialize();
 	Map map;
 	Player player;
 	Enemy enemy(32*14,32*11);
-	ExplosionManager manageExplosion;
 	Block block;
 	ItemManager itemManager;
 	BombManager bombManager;
+	EnemyBombManager enemyBombManager;
 	BlastManager blastManager;
+	BlastManager enemyBlastManager;
+	
 	IDrawable *iDraw[DRAWNUM]=
 	{
 		&map,
 		&itemManager,
 		&block,
 		&bombManager,
+		&enemyBombManager,
 		&player,
 		&enemy,
 		&blastManager,
+		&enemyBlastManager,
 	};
-	IRegister *ir[3]=
+	IRegister *ir[REGISTERNUM]=
 	{
 		&map,
 		&block,
 		&player,
+		&enemy,
+		&bombManager,
+		&enemyBombManager,
+		&blastManager,
+		&enemyBlastManager,
+		&itemManager,
 	};
 
 
@@ -84,17 +103,31 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		block.CheckHit(&player);
 		itemManager.CheckHitCharactor(&player);
 
-		//Bomb管理
+		//PlayerのBomb管理
 		bombManager.AddBomb(player);
 		bombManager.BombSet(player);
 		bombManager.MaintainBomb();
+
+		//EnemyのBomb管理
+		enemyBombManager.AddBomb(enemy);
+		enemyBombManager.BombSet(enemy);
+		enemyBombManager.MaintainBomb();
+
 		
-		//Blast管理
+		//PlayerのBlast管理
 		blastManager.Add(player);
 		blastManager.FireUp(player);
 		blastManager.Set(bombManager);
 		blastManager.Maintain(bombManager);
 		blastManager.CheckHit(&block, &map, &player, &bombManager, &itemManager);
+
+
+		//EnemyのBlast管理
+		enemyBlastManager.Add(enemy);
+		enemyBlastManager.FireUp(enemy);
+		enemyBlastManager.Set(enemyBombManager);
+		enemyBlastManager.Maintain(enemyBombManager);
+		enemyBlastManager.CheckHit(&block, &map, &player, &enemyBombManager, &itemManager);
 
 		//blastManager.CheckHitObject(&map);
 		//blastManager.CheckHitObject(&block);
@@ -103,11 +136,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		//blastManager.CheckHitCharactor(&player);
 		
 		//登録部
-		for(int i=0; i<3; ++i)
+		for(int i=0; i<REGISTERNUM; ++i)
 		{
 			ir[i]->Register();
 		}
-		block.Register();
 
 		//描画部
 		for(int i=0; i<DRAWNUM; ++i)
@@ -115,12 +147,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		//	if(i != 2)
 			iDraw[i]->Draw();
 		}
-		//map.Draw();
-		//manageItem.Draw();
-		//block.Draw();
-		//bombManager.Draw();
-		//player.Draw();
-		//blastManager.Draw();
 	
 		int color = GetColor(255,255,255);
 		DrawFormatString(640,0,color,"ボムアップ獲得数 %d 個",itemManager.GetBombState());
@@ -140,10 +166,25 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		//}
 
 		
-		for(int i=0,size=bombManager.vbomb->size();i<size;++i)
+		//for(int i=0,size=bombManager.vbomb->size();i<size;++i)
+		//{
+		//	DrawFormatString(640,80+20*i,color,"[%d]ボムフラグ　%d",i+1,(*bombManager.vbomb)[i]->GetFlag());
+		//}
+
+		for(int i=0; i<ROW; ++i)
 		{
-			DrawFormatString(640,80+20*i,color,"[%d]ボムフラグ　%d",i+1,(*bombManager.vbomb)[i]->GetFlag());
+			for(int j=0; j<LINE; ++j)
+			{
+				DrawFormatString(640+15*j,80+15*i,color,"%d",MapState::GetInstance()->GetState(i,j,CHARACTOR));
+			}
 		}
+		//for(int i=0; i<ROW; ++i)
+		//{
+		//	for(int j=0; j<LINE; ++j)
+		//	{
+		//		DrawFormatString(640+15*j,80+15*i,color,"%d",MapState::GetInstance()->GetState(i,j,CHARACTOR));
+		//	}
+		//}
 		
 		ScreenFlip();
 		if(ProcessMessage() == -1)

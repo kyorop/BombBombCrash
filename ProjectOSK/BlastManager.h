@@ -1,5 +1,6 @@
 #pragma once
 #include "IDrawable.h"
+#include "IRegister.h"
 #include <vector>
 
 class ExplosionManager;
@@ -10,13 +11,10 @@ class ItemManager;
 class Charactor;
 class Bomb;
 class BlastManager:
-	virtual public IDrawable
+	virtual public IDrawable, virtual public IRegister
 {
 private:
-	
 	int nowBlastNum;
-	
-	
 public:
 	void FireUp(const Charactor &charactor)const;
 	void Add(const Charactor &charactor);
@@ -28,6 +26,7 @@ public:
 	void CheckHitItem(ItemManager *itemManager);
 	void CheckHit(MapObstacle *mapobstacle1, MapObstacle *mapobstacle2, Charactor *charactor, BombManager *bombManager, ItemManager *itemManager);
 	void Draw();
+	void Register();
 	BlastManager(void);
 	~BlastManager(void);
 

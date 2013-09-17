@@ -25,7 +25,7 @@ public:
 	void SetBlockState(int x, int y, int state, int option=0);
 	void SetItemState(int x, int y, int state, int option=0);
 	void SetCharactorState(int x, int y, int flag, int option=0);
-	void SetBombState(int x, int y, int state, int fireLevel);
+	void SetBombState(int x, int y, int state, int option=0);
 	void SetFireState(int x, int y, int state, int option=0);
 	int GetState(int i, int j, int object, int option=0);
 };

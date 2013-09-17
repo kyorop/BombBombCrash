@@ -6,6 +6,7 @@
 #include "Charactor.h"
 #include "ItemManager.h"
 #include "Bomb.h"
+#include "MapState.h"
 #include "DxLib.h"
 
 
@@ -112,6 +113,14 @@ BlastManager::~BlastManager(void)
 		delete *it;
 	}
 	delete vblast;
+}
+
+void BlastManager::Register()
+{
+	for(int i=0,size=vblast->size(); i<size; ++i)
+	{
+		(*vblast)[i]->Register();
+	}
 }
 
 

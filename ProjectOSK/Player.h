@@ -16,6 +16,7 @@ private:
 	int graph[PLAYERDEVIDENUMBER];
 	int muki;
 	int animpat;
+	
 public:	
 	//void CheckHit(Map &map);
 	//virtual void SetCharactorState(int flag);

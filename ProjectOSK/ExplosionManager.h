@@ -41,5 +41,6 @@ std::vector<Explosion*> *vex;//vectorクラスのオブジェクト生成
 
 
 void SetFuse(int flag);
+void Register(void);
 };
 

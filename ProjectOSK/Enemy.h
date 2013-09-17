@@ -1,10 +1,11 @@
 #pragma once
 #include "Charactor.h"
 #include "IDrawable.h"
+#include "IRegister.h"
 
 class Player;
 class Enemy:
-	public Charactor, virtual public IDrawable
+	public Charactor, virtual public IDrawable, virtual public IRegister
 {
 private:
 	int graph[20];
@@ -12,6 +13,8 @@ private:
 	int animpat;
 	int resetRoutine;
 	int bombSet;
+	int action[10];
+	int actionloop;
 public:
 	Enemy(int x, int y);
 	~Enemy(void);

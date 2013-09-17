@@ -71,10 +71,10 @@ void MapState::SetCharactorState(int x, int y, int state,int option)
 	SetState(x, y, CHARACTOR, state);
 }
 
-void MapState::SetBombState(int x, int y, int state, int fireLevel)
+void MapState::SetBombState(int x, int y, int state, int option)
 {
 	SetState(x, y, BOMB,state);
-	MapState::mapState[y/32][x/32][BOMB][1] = fireLevel;
+	//MapState::mapState[y/32][x/32][BOMB][1] = fireLevel;
 }
 
 void MapState::SetFireState(int x, int y, int state, int option)

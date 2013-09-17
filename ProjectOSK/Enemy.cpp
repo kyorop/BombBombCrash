@@ -6,6 +6,7 @@
 #define HABA 10
 #define ROW 13
 #define LINE 17
+#define BLOCK(y, q, x, p) MapState::GetInstance()->GetState(y/32+q, x/32+p, BLOCK)
 
 enum object
 {
@@ -24,6 +25,7 @@ enum
 	RIGHT,
 	UP,
 	DOWN,
+	BOMBSET,
 };
 
 Enemy::Enemy(int x, int y)
@@ -36,6 +38,7 @@ Enemy::Enemy(int x, int y)
 	this->resetRoutine = 1;
 	this->muki = STOP;
 	this->bombSet = 0;
+	this->actionloop = 0;
 }
 
 
@@ -58,44 +61,62 @@ void Enemy::Analyse()
 			}
 		}
 		
-		for(int k=-1; k<2; ++k)
-		{
-				if( MapState::GetInstance()->GetState(this->y/32,this->x/32+k, BLOCK) == 0 && MapState::GetInstance()->GetState(this->x/32+k,this->y/32, MAP) == 0)
-				{
-					if(k == 1)
-					{
-						this->muki = RIGHT;
-						break;
-					}
-					else if(k == -1)
-					{
-						this->muki = LEFT;
-						break;
-					}
-				}
-				else
-				{
-					this->muki = STOP;
-				}
-		}
-		for(int k=-1; k<2; ++k)
-		{
-			if( MapState::GetInstance()->GetState(this->y/32+k, this->x/32, BLOCK) == 0 && MapState::GetInstance()->GetState(this->y/32+k, this->x/32, MAP) == 0)
+		//if(MapState::GetInstance()->GetState(this->y/32-1,this->x/32, BLOCK) == 0 && MapState::GetInstance()->GetState(this->y/32,this->x/32-1, BLOCK) == 0 )
+		//{
+		//	action[0] = LEFT;
+		//	action[1] = BOMBSET;
+		//	action[2] = RIGHT;
+		//	action[3] = UP;
+		//	action[4] = STOP;
+		//}
+
+
+			if(BLOCK(this->y,0,this->x,0) == 0)
 			{
-				if(k == 1)
+				if(BLOCK(this->y,-1,this->x,0) == 1 || BLOCK(this->y,1,this->x,0) == 1 || BLOCK(this->y,0,this->x,-1) == 1 || BLOCK(this->y,0,this->x,1) == 1)
 				{
-					this->muki = DOWN;
-					break;
-				}
-				else if(k == -1)
-				{
-					this->muki = UP;
-					break;
+					this->bombSet = 1;
 				}
 			}
-			else
-				this->muki = STOP;
-			}
+		
+		//for(int k=-1; k<2; ++k)
+		//{
+		//		if( MapState::GetInstance()->GetState(this->y/32,this->x/32+k, BLOCK) == 0 && MapState::GetInstance()->GetState(this->x/32+k,this->y/32, MAP) == 0)
+		//		{
+		//			if(k == 1)
+		//			{
+		//				this->muki = RIGHT;
+		//				break;
+		//			}
+		//			else if(k == -1)
+		//			{
+		//				this->muki = LEFT;
+		//				break;
+		//			}
+		//		}
+		//		else
+		//		{
+		//			this->muki = STOP;
+		//		}
+		//}
+		//for(int k=-1; k<2; ++k)
+		//{
+		//	if( MapState::GetInstance()->GetState(this->y/32+k, this->x/32, BLOCK) == 0 && MapState::GetInstance()->GetState(this->y/32+k, this->x/32, MAP) == 0)
+		//	{
+		//		if(k == 1)
+		//		{
+		//			this->muki = DOWN;
+		//			break;
+		//		}
+		//		else if(k == -1)
+		//		{
+		//			this->muki = UP;
+		//			break;
+		//		}
+		//	}
+		//	else
+		//		this->muki = STOP;
+		//	}
 		this->resetRoutine = 0;
 	}
 }
@@ -104,19 +125,23 @@ void Enemy::Move(int g_lastTime)
 {
 	if(this->resetRoutine == 0)
 	{
-		switch(this->muki)
+		switch(this->action[this->actionloop])
 		{
 		case STOP:break;
 		case UP:this->y -= this->mv;break;
 		case DOWN:this->y += this->mv;break;
 		case LEFT:this->x -= this->mv;break;
 		case RIGHT:this->x += this->mv;break;
+		case BOMBSET:this->bombSet = 1;
 		}
 		
 		if(this->x % 32 == 0 && this->y % 32 == 0)
 		{
 			this->muki = STOP;
-			this->resetRoutine = 1;
+			//this->resetRoutine = 1;
+			++this->actionloop;
+			if(this->actionloop == 5)
+				this->resetRoutine = 1;
 		}
 	}
 		
@@ -150,3 +175,4 @@ int Enemy::GetBombSet(void)const
 {
 	return this->bombSet;
 }
+

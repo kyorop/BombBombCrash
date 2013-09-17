@@ -1,5 +1,6 @@
 #include "Charactor.h"
 #include "Map.h"
+#include "MapState.h"
 
 Charactor::Charactor(void)
 {
@@ -92,4 +93,15 @@ void Charactor::AddMV(void)
 int Charactor::GetBombSet()const
 {
 	return 0;
+}
+
+void Charactor::Register()
+{
+	MapState::GetInstance()->SetCharactorState(this->preX, this->preY, 0);
+	if(this->flag == 1)
+		MapState::GetInstance()->SetCharactorState(this->x, this->y, 1);
+	else if(this->flag == 0)
+		MapState::GetInstance()->SetCharactorState(this->x, this->y, 0);
+	this->preX = this->x;
+	this->preY = this->y;
 }
