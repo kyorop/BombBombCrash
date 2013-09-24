@@ -25,7 +25,6 @@ ExplosionManager::ExplosionManager():
 	this->explosion = 0;
 	this->addFireNum = 1;
 	this->nowFireLevel = 1;
-	
 }
 
 void ExplosionManager::FireUp(const Charactor &charactor)
@@ -271,9 +270,9 @@ void ExplosionManager::Register(void)
 {
 	for(int i=0,size=vex->size(); i<size; ++i )
 	{
-		if((*vex)[i]->GetFlag() == 1)
-			MapState::GetInstance()->SetFireState((*vex)[i]->GetX(), (*vex)[i]->GetY(), 1);
-		else if((*vex)[i]->GetFlag() == 0)
+		if((*vex)[i]->GetFlag() == 0)
 			MapState::GetInstance()->SetFireState((*vex)[i]->GetX(), (*vex)[i]->GetY(), 0);
+		else if((*vex)[i]->GetFlag() == 1)
+			MapState::GetInstance()->SetFireState((*vex)[i]->GetX(), (*vex)[i]->GetY(), 1);
 	}
 }

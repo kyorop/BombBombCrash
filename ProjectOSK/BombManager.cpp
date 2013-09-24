@@ -122,9 +122,12 @@ void BombManager::Register(void)
 {
 	for(int i=0, size=vbomb->size(); i<size; ++i)
 	{
+		if((*vbomb)[i]->GetFlag() == 0)
+			MapState::GetInstance()->SetBombState((*vbomb)[i]->GetX(), (*vbomb)[i]->GetY(), 0);
+	}
+	for(int i=0, size=vbomb->size(); i<size; ++i)
+	{
 		if((*vbomb)[i]->GetFlag() == 1)
 			MapState::GetInstance()->SetBombState((*vbomb)[i]->GetX(), (*vbomb)[i]->GetY(), 1);
-		else if((*vbomb)[i]->GetFlag() == 0)
-			MapState::GetInstance()->SetBombState((*vbomb)[i]->GetX(), (*vbomb)[i]->GetY(), 0);
 	}
 }

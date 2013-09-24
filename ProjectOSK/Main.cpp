@@ -57,7 +57,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		&blastManager,
 		&enemyBlastManager,
 	};
-	IRegister *ir[REGISTERNUM]=
+	IRegister *iRegister[REGISTERNUM]=
 	{
 		&map,
 		&block,
@@ -88,8 +88,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 
 		//ƒLƒƒƒ‰‚ÌˆÚ“®
 		player.Move(g_lasttime);
-		enemy.Analyse();
-		enemy.Move(g_lasttime);
+		//enemy.Analyse();
+		//enemy.Move(g_lasttime);
+		enemy.SetDestination(14,11);
 
 		//Enemy‚Ì‚ ‚½‚è”»’è
 		bombManager.CheckHit(&enemy);
@@ -138,7 +139,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		//“o˜^•”
 		for(int i=0; i<REGISTERNUM; ++i)
 		{
-			ir[i]->Register();
+			iRegister[i]->Register();
 		}
 
 		//•`‰æ•”
@@ -175,9 +176,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		{
 			for(int j=0; j<LINE; ++j)
 			{
-				DrawFormatString(640+15*j,80+15*i,color,"%d",MapState::GetInstance()->GetState(i,j,CHARACTOR));
+				DrawFormatString(640+15*j,80+15*i,color,"%d",MapState::GetInstance()->GetState(i,j,BLOCK));
 			}
 		}
+
+		for(int n=0,size=enemy.vecGoal.size(); n<size; ++n)
+		{
+			DrawFormatString(640, 80+15*15+15*n, color, "%d", 3454);
+		}
+		
 		//for(int i=0; i<ROW; ++i)
 		//{
 		//	for(int j=0; j<LINE; ++j)
@@ -190,6 +197,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		if(ProcessMessage() == -1)
 			break;
 	}
+	enemy.DeleteComponent();
 	DxLib_End();
 	return 0;
 }

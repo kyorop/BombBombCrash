@@ -6,7 +6,8 @@
 #define HABA 10
 #define ROW 13
 #define LINE 17
-#define BLOCK(y, q, x, p) MapState::GetInstance()->GetState(y/32+q, x/32+p, BLOCK)
+#define BLOCK(i, p, j, q) MapState::GetInstance()->GetState(y+p, x+q, BLOCK)
+#define MAP(i, p, j, q) MapState::GetInstance()->GetState(y+p, x+q, MAP)
 
 enum object
 {
@@ -26,6 +27,7 @@ enum
 	UP,
 	DOWN,
 	BOMBSET,
+	BOMBSETOFF,
 };
 
 Enemy::Enemy(int x, int y)
@@ -46,20 +48,90 @@ Enemy::~Enemy(void)
 {
 }
 
+void Enemy::SetDestination(const int i, const int j)
+{
+	int branchNum = 0;
+
+	visited[i][j] = 1;
+
+	//目的地になるか調査
+	for(int p=0; p<=2; p+=2)//-1と1をチェック
+	{
+		int escape = 0;
+		for(int q=0; q<=2; q+=2)//-1と1をチェック
+		{
+			if(BLOCK(i,p-1,j,q-1) == 1)	//ブロックがあればボムを置く意味が生じる
+			{
+				//Component goal={ i+p-1, j+q-1 };
+				vecGoal.push_back(new Component( i+p-1,  j+q-1) );
+				escape = 1;
+				break;
+			}
+		}
+		if(escape == 1)break;
+	}
+
+	//注目ノードを中心とする分岐数の調査
+	for(int p=0; p<=2; p+=2)//-1と1をチェック
+	{
+		for(int q=0; q<=2; q+=2)//-1と1をチェック
+		{
+			if(visited[i][j] == 0 && MAP(i, p-1, j, q-1) == 0 && BLOCK(i, p-1, j, q-1) == 0)	//訪れていなく壁もブロックもない時
+			{
+				++branchNum;
+			}
+		}
+	}
+	if(branchNum > 1)	//分岐するならあとで戻れるように値を保存
+	{
+		for (int n= 0; n < branchNum; n++)
+		{
+			vecBranch.push_back(new Component(i, j));
+		}
+	}
+
+	//目的地探索
+	for(int p=0; p<=2; p+=2)//-1と1をチェック
+	{
+		int escape = 0;
+		for(int q=0; q<=2; q+=2)//-1と1をチェック
+		{
+			if(visited[i+p-1][j+q-1] == 0 && MAP(i, p-1, j, q-1) == 0 && BLOCK(i, p-1, j, q-1) == 0)	//通れるところがあるなら
+			{
+				SetDestination(i+p-1, j+q-1);
+				escape = 1;
+				break;
+			}
+		}
+		if(escape == 1)break;
+	}
+}
+
+void Enemy::DeleteComponent()
+{
+	std::vector<Component*>::iterator itBranch = vecBranch.begin();
+	for(itBranch ; itBranch != vecBranch.end(); ++itBranch)
+		delete *itBranch;
+
+	std::vector<Component*>::iterator itGoal = vecGoal.begin();
+	for(itGoal; itGoal != vecGoal.end(); ++itGoal)
+		delete *itGoal;
+}
+
 void Enemy::Analyse()
 {
 	if(this->resetRoutine == 1)
 	{
-		int charaX, charaY;
-		for(int i=0; i<ROW; ++i)
-		{
-			for(int j=0; j<LINE; ++j)
-			{
-				MapState::GetInstance()->GetState(i, j, CHARACTOR) == 1;
-				charaX = 32 * j;
-				charaY = 32 * i;
-			}
-		}
+	//	int charaX, charaY;
+	//	for(int i=0; i<ROW; ++i)
+	//	{
+	//		for(int j=0; j<LINE; ++j)
+	//		{
+	//			MapState::GetInstance()->GetState(i, j, CHARACTOR) == 1;
+	//			charaX = 32 * j;
+	//			charaY = 32 * i;
+	//		}
+	//	}
 		
 		//if(MapState::GetInstance()->GetState(this->y/32-1,this->x/32, BLOCK) == 0 && MapState::GetInstance()->GetState(this->y/32,this->x/32-1, BLOCK) == 0 )
 		//{
@@ -79,6 +151,20 @@ void Enemy::Analyse()
 				}
 			}
 		
+		//マスの上下左右を調べる
+		if(BLOCK(this->y,0,this->x,0) == 0)
+		{
+			for(int i=-1; i<=1; i+=2)//-1と1をチェック
+			{
+				for(int j=-1; j<=1; j+=2)//-1と1をチェック
+				{
+					if(BLOCK(y,i,x,j) == 0)
+					{
+						
+					}
+				}
+			}
+		}
 		//for(int k=-1; k<2; ++k)
 		//{
 		//		if( MapState::GetInstance()->GetState(this->y/32,this->x/32+k, BLOCK) == 0 && MapState::GetInstance()->GetState(this->x/32+k,this->y/32, MAP) == 0)
@@ -118,7 +204,46 @@ void Enemy::Analyse()
 		//		this->muki = STOP;
 		//	}
 		this->resetRoutine = 0;
+
+
+		if(MAP(y,-1,x,0) == 0)
+		{
+			if(BLOCK(y,-1,x,0) == 0)
+			{
+				if(BLOCK(y,0,x,-2) == 0)
+				{
+					
+				}
+			}
+			else
+			{
+
+			}
+		}
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	}
+}
+
+int Enemy::CheckAbleBombSet()
+{
+	return 0;
 }
 
 void Enemy::Move(int g_lastTime)
@@ -128,11 +253,12 @@ void Enemy::Move(int g_lastTime)
 		switch(this->action[this->actionloop])
 		{
 		case STOP:break;
-		case UP:this->y -= this->mv;break;
-		case DOWN:this->y += this->mv;break;
-		case LEFT:this->x -= this->mv;break;
-		case RIGHT:this->x += this->mv;break;
+		case UP:		this->muki=UP;		this->y -= this->mv;break;
+		case DOWN:this->muki=DOWN;this->y += this->mv;break;
+		case LEFT:	this->muki=LEFT;	this->x -= this->mv;break;
+		case RIGHT:this->muki=RIGHT;	this->x += this->mv;break;
 		case BOMBSET:this->bombSet = 1;
+		case BOMBSETOFF:this->bombSet = 0;
 		}
 		
 		if(this->x % 32 == 0 && this->y % 32 == 0)
