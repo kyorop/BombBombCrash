@@ -6,9 +6,6 @@
 #define HABA 10
 #define ROW 13
 #define LINE 17
-#define BLOCK(i, p, j, q) MapState::GetInstance()->GetState(y+p, x+q, BLOCK)
-#define MAP(i, p, j, q) MapState::GetInstance()->GetState(y+p, x+q, MAP)
-
 enum object
 {
 	MAP,
@@ -18,7 +15,6 @@ enum object
 	BOMB,
 	FIRE,
 };
-
 enum
 {
 	STOP,
@@ -29,6 +25,10 @@ enum
 	BOMBSET,
 	BOMBSETOFF,
 };
+#define BLOCK(i, p, j, q) MapState::GetInstance()->GetState(i+p, j+q, BLOCK)
+#define MAP(i, p, j, q) MapState::GetInstance()->GetState(i+p, j+q, MAP)
+
+
 
 Enemy::Enemy(int x, int y)
 {
@@ -41,6 +41,13 @@ Enemy::Enemy(int x, int y)
 	this->muki = STOP;
 	this->bombSet = 0;
 	this->actionloop = 0;
+	for (int i = 0; i < ROW; i++)
+	{
+		for (int j = 0; j < LINE; j++)
+		{
+			this->visited[i][j] = 0;
+		}
+	}
 }
 
 
@@ -48,63 +55,21 @@ Enemy::~Enemy(void)
 {
 }
 
-void Enemy::SetDestination(const int i, const int j)
+void Enemy::SetGoal(const int i, const int j)
 {
-	int branchNum = 0;
-
+	//一度通ったところにまた通らないように通過フラグを立てる
 	visited[i][j] = 1;
 
 	//目的地になるか調査
-	for(int p=0; p<=2; p+=2)//-1と1をチェック
-	{
-		int escape = 0;
-		for(int q=0; q<=2; q+=2)//-1と1をチェック
-		{
-			if(BLOCK(i,p-1,j,q-1) == 1)	//ブロックがあればボムを置く意味が生じる
-			{
-				//Component goal={ i+p-1, j+q-1 };
-				vecGoal.push_back(new Component( i+p-1,  j+q-1) );
-				escape = 1;
-				break;
-			}
-		}
-		if(escape == 1)break;
-	}
+	if(BLOCK(i, -1, j, 0) || BLOCK(i, 1, j, 0) || BLOCK(i, 0, j, -1) || BLOCK(i, 0, j, 1))
+		vecGoal.push_back(new Component(i,  j));
 
-	//注目ノードを中心とする分岐数の調査
-	for(int p=0; p<=2; p+=2)//-1と1をチェック
-	{
-		for(int q=0; q<=2; q+=2)//-1と1をチェック
-		{
-			if(visited[i][j] == 0 && MAP(i, p-1, j, q-1) == 0 && BLOCK(i, p-1, j, q-1) == 0)	//訪れていなく壁もブロックもない時
-			{
-				++branchNum;
-			}
-		}
-	}
-	if(branchNum > 1)	//分岐するならあとで戻れるように値を保存
-	{
-		for (int n= 0; n < branchNum; n++)
-		{
-			vecBranch.push_back(new Component(i, j));
-		}
-	}
+	//通れるところに進む
+	if( visited[i-1][j] == 0 && MAP(i, -1, j, 0) == 0 && BLOCK(i, -1, j, 0) == 0 ) SetGoal(i-1, j);
+	if( visited[i+1][j] == 0 && MAP(i, 1, j, 0) == 0 && BLOCK(i, 1, j, 0) == 0 ) SetGoal(i+1, j);
+	if( visited[i][j-1] == 0 && MAP(i, 0, j, -1) == 0 && BLOCK(i, 0, j, -1) == 0 ) SetGoal(i, j-1);
+	if( visited[i][j+1] == 0 && MAP(i, 0, j, 1) == 0 && BLOCK(i, 0, j, 1) == 0 ) SetGoal(i, j+1);
 
-	//目的地探索
-	for(int p=0; p<=2; p+=2)//-1と1をチェック
-	{
-		int escape = 0;
-		for(int q=0; q<=2; q+=2)//-1と1をチェック
-		{
-			if(visited[i+p-1][j+q-1] == 0 && MAP(i, p-1, j, q-1) == 0 && BLOCK(i, p-1, j, q-1) == 0)	//通れるところがあるなら
-			{
-				SetDestination(i+p-1, j+q-1);
-				escape = 1;
-				break;
-			}
-		}
-		if(escape == 1)break;
-	}
 }
 
 void Enemy::DeleteComponent()
@@ -220,24 +185,6 @@ void Enemy::Analyse()
 
 			}
 		}
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	}
 }
 

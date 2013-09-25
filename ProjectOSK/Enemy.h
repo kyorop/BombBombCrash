@@ -43,7 +43,7 @@ public:
 	void Move(int g_lastTime);
 	void Draw();
 	int GetBombSet(void)const;
-	void SetDestination(const int i, const int j);
+	void SetGoal(const int i, const int j);
 	int CheckAbleBombSet();
 };
 
