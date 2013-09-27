@@ -1,25 +1,17 @@
 #include "MapState.h"
-enum object
-{
-	MAP,
-	BLOCK,
-	ITEM,
-	CHARACTOR,
-	BOMB,
-	FIRE,
-};
 
-int MapState::mapState[ROW][LINE][ELEMENT][TOPIC];
+
+int MapState::mapState[row][line][objects][topic];
 
 MapState::MapState(void)
 {
-	for(int i=0;i<ROW;++i)
+	for(int i=0;i<row;++i)
 	{
-		for(int j=0; j<LINE; ++j)
+		for(int j=0; j<line; ++j)
 		{
-			for(int k=0; j<ELEMENT; ++j)
+			for(int k=0; j<objects; ++j)
 			{
-				for(int l=0; l<TOPIC; ++l)
+				for(int l=0; l<topic; ++l)
 					mapState[i][j][k][l] = 0;
 			}
 		}
@@ -45,9 +37,10 @@ void MapState::SetState(int x, int y, int object, int state, int option)
 {
 	int i=y/32;
 	int j=x/32;
-	if( !(i < 0 || ROW < i || j < 0 || LINE < j) )
+	if( !(i < 0 || row < i || j < 0 || line < j) )
 	{
-		MapState::mapState[i][j][object][option] = state;
+		//MapState::mapState[i][j][object][option] = state;
+		mapState[i][j][object][option] = state;
 	}
 }
 
@@ -84,7 +77,7 @@ void MapState::SetFireState(int x, int y, int state, int option)
 
 int MapState::GetState(int i, int j, int object, int option)
 {
-	if(i < 0 || ROW < i || j < 0 || LINE < j)
+	if(i < 0 || row < i || j < 0 || line < j)
 		return -1;
 	else
 		return MapState::mapState[i][j][object][option];

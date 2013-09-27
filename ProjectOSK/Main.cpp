@@ -15,20 +15,20 @@
 #include "EnemyBombManager.h"
 #include "DxLib.h"
 #include <iostream>
+#include <vector>
 #define DRAWNUM 9
 #define REGISTERNUM 9
-enum object
-{
-	MAP,
-	BLOCK,
-	ITEM,
-	CHARACTOR,
-	BOMB,
-	FIRE,
-};
+
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+#define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
+
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nCmdShow)
 {
+
+	_CrtSetDbgFlag(_CRTDBG_LEAK_CHECK_DF | _CRTDBG_ALLOC_MEM_DF);
 	SetGraphMode(1024,768,16);
 	ChangeWindowMode(true);
 	if(DxLib_Init() == -1)
@@ -75,7 +75,18 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 	float g_frametime = 0;
 
 	//map.Register();
+	//ìoò^ïî
+		for(int i=0; i<REGISTERNUM; ++i)
+		{
+			iRegister[i]->Register();
+		}
+
 	itemManager.SetItem(block);
+
+	enemy.SetGoal(11,14);
+	int rNum = GetRand(enemy.i_goal.size()-1);
+	enemy.Initialize();
+	enemy.SetRoute(11,14,enemy.i_goal[rNum], enemy.j_goal[rNum]);
 
 	while(CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
@@ -83,18 +94,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		g_frametime = (float)(curtime - g_lasttime) / 1000.0f;
 		g_lasttime = curtime;
 		ClearDrawScreen();
-		//ìoò^ïî
-		for(int i=0; i<REGISTERNUM; ++i)
-		{
-			iRegister[i]->Register();
-		}
+		
 		//åvéZïî
 
 		//ÉLÉÉÉâÇÃà⁄ìÆ
 		player.Move(g_lasttime);
 		//enemy.Analyse();
 		//enemy.Move(g_lasttime);
-		enemy.SetGoal(11,14);
+		
+		
 
 		//EnemyÇÃÇ†ÇΩÇËîªíË
 		bombManager.CheckHit(&enemy);
@@ -145,7 +153,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		//ï`âÊïî
 		for(int i=0; i<DRAWNUM; ++i)
 		{
-		//	if(i != 2)
+			if(i != 6)
 			iDraw[i]->Draw();
 		}
 	
@@ -172,20 +180,35 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		//	DrawFormatString(640,80+20*i,color,"[%d]É{ÉÄÉtÉâÉOÅ@%d",i+1,(*bombManager.vbomb)[i]->GetFlag());
 		//}
 
-		for(int i=0; i<ROW; ++i)
+		for(int i=0; i<MapState::row; ++i)
 		{
-			for(int j=0; j<LINE; ++j)
+			for(int j=0; j<MapState::line; ++j)
 			{
 				DrawFormatString(640+15*j,80+15*i,color,"%d",MapState::GetInstance()->GetState(i,j,MAP));
 			}
 		}
 
-		for(int n=0,size=enemy.vecGoal.size(); n<size; ++n)
+		for(int n=0,size=enemy.i_goal.size(); n<size; ++n)
 		{
-			DrawFormatString(640, 80+15*15+15*n, color, "ëÊ%dçs", enemy.vecGoal[n]->i);
-			DrawFormatString(640+15*5, 80+15*15+15*n, color, "ëÊ%dóÒ", enemy.vecGoal[n]->j);
+			DrawFormatString(640, 80+15*15+15*n, color, "ëÊ%dçs", enemy.i_goal[n]);
+			DrawFormatString(640+15*5, 80+15*15+15*n, color, "ëÊ%dóÒ", enemy.j_goal[n]);
 		}
 		
+		int n=0;
+		std::list<int>::iterator it = enemy.route.begin();
+		for (it; it != enemy.route.end(); ++it)
+		{
+			switch(*it)
+			{
+			case 1:DrawFormatString(640+15*4*n++, 80+15*15+15*8, color, "LEFT->");continue;
+			case 2:DrawFormatString(640+15*4*n++, 80+15*15+15*8, color, "RIGHT->");continue;
+			case 3:DrawFormatString(640+15*4*n++, 80+15*15+15*8, color, "UP->");continue;
+			case 4:DrawFormatString(640+15*4*n++, 80+15*15+15*8, color, "DOWN->");continue;
+			}
+		}
+
+
+
 		//for(int i=0; i<ROW; ++i)
 		//{
 		//	for(int j=0; j<LINE; ++j)
@@ -198,7 +221,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		if(ProcessMessage() == -1)
 			break;
 	}
-	enemy.DeleteComponent();
+
 	DxLib_End();
 	return 0;
 }

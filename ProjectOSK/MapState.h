@@ -1,14 +1,23 @@
 #pragma once
-#define ROW 13
-#define LINE 17
-#define ELEMENT 6
-#define TOPIC 2
+enum object
+{
+	MAP,
+	BLOCK,
+	ITEM,
+	CHARACTOR,
+	BOMB,
+	FIRE,
+};
 
 class MapState
 {
+public:
+	static const int row = 13;
+	static const int line = 17;
 private:
- 	static int mapState[ROW][LINE][ELEMENT][TOPIC];
-
+	static const int objects = 6;
+	static const int topic = 2;
+	static int mapState[row][line][objects][topic];
 private:
 	MapState(void);
 	MapState(const MapState &ms);
