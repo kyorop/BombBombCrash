@@ -28,9 +28,6 @@ void Item::SetItem(const Block &block)
 	{
 		i = GetRand(MAPSIZE_Y);
 		j = GetRand(MAPSIZE_X);
-
-		if(ProcessMessage() == -1)//”O‚Ì‚½‚ß
-			break;
 	}
 	this->x = 32 * j;
 	this->y = 32 * i;
@@ -68,8 +65,10 @@ void Item::CheckHItCharactor(Charactor *charactor)
 				break;
 			case FIRE:
 				charactor->AddFireLevel();
+				break;
 			case SPEED:
 				charactor->AddMV();
+				break;
 			}
 			this->charactorHit = 1;
 		}
