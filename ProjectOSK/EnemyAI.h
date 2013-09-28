@@ -25,6 +25,7 @@ private:
 	void SetRoute(const int i, const int j, const int goal_i, const int goal_j);
 public:
 	int CheckAbleToEscapeFromBomb(const int i, const int j);
+	void CheckBomb();
 	void Analyse(int i, int j);
 	std::vector<int> i_goal, j_goal;
 	std::vector<int> route;

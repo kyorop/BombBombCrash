@@ -144,6 +144,11 @@ int EnemyAI::CheckAbleToEscapeFromBomb(const int i, const int j)
 	return success;
 }
 
+void CheckBomb()
+{
+
+}
+
 void EnemyAI::Analyse(int i, int j)
 {
 	int n = 0;
