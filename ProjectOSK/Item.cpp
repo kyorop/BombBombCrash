@@ -12,7 +12,7 @@ int Item::graph[KINDITEMNUM];
 
 Item::Item(void):
 	//i_graph(BOMB)
-	i_graph(GetRand(KINDITEMNUM-2))//何のアイテムを出すか決める
+	i_graph(GetRand(KINDITEMNUM-1))//何のアイテムを出すか決める
 {
 	LoadDivGraph("itemup.bmp", 3, 3, 1, 32, 32, Item::graph, FALSE);
 	this->flag = 1;
@@ -28,9 +28,6 @@ void Item::SetItem(const Block &block)
 	{
 		i = GetRand(MAPSIZE_Y);
 		j = GetRand(MAPSIZE_X);
-
-		if(ProcessMessage() == -1)//念のため
-			break;
 	}
 	this->x = 32 * j;
 	this->y = 32 * i;
@@ -68,8 +65,10 @@ void Item::CheckHItCharactor(Charactor *charactor)
 				break;
 			case FIRE:
 				charactor->AddFireLevel();
+				break;
 			case SPEED:
 				charactor->AddMV();
+				break;
 			}
 			this->charactorHit = 1;
 		}

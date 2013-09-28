@@ -75,19 +75,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 	float g_frametime = 0;
 
 	//map.Register();
-	//ìoò^ïî
-		for(int i=0; i<REGISTERNUM; ++i)
-		{
-			iRegister[i]->Register();
-		}
+	
 
+	//enemy.SetGoal(11,14);
+	//int rNum = GetRand(enemy.i_goal.size()-1);
+	//enemy.Initialize();
+	//enemy.SetRoute(11,14,enemy.i_goal[rNum], enemy.j_goal[rNum]);
 	itemManager.SetItem(block);
-
-	enemy.SetGoal(11,14);
-	int rNum = GetRand(enemy.i_goal.size()-1);
-	enemy.Initialize();
-	enemy.SetRoute(11,14,enemy.i_goal[rNum], enemy.j_goal[rNum]);
-
 	while(CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
 		int curtime = GetNowCount() & INT_MAX;
@@ -96,14 +90,18 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		ClearDrawScreen();
 		
 		//åvéZïî
-
+		
+		//ìoò^ïî
+		for(int i=0; i<REGISTERNUM; ++i)
+		{
+			iRegister[i]->Register();
+		}
+	
 		//ÉLÉÉÉâÇÃà⁄ìÆ
 		player.Move(g_lasttime);
-		//enemy.Analyse();
-		//enemy.Move(g_lasttime);
-		
-		
-
+		enemy.Order();
+		enemy.Move(g_lasttime);
+	
 		//EnemyÇÃÇ†ÇΩÇËîªíË
 		bombManager.CheckHit(&enemy);
 		//map.CheckHitCharactor(&enemy);
@@ -126,14 +124,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		enemyBombManager.BombSet(enemy);
 		enemyBombManager.MaintainBomb();
 
-		
 		//PlayerÇÃBlastä«óù
 		blastManager.Add(player);
 		blastManager.FireUp(player);
 		blastManager.Set(bombManager);
 		blastManager.Maintain(bombManager);
 		blastManager.CheckHit(&block, &map, &player, &bombManager, &itemManager);
-
 
 		//EnemyÇÃBlastä«óù
 		enemyBlastManager.Add(enemy);
@@ -148,12 +144,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		//blastManager.CheckHitBomb(&bombManager);
 		//blastManager.CheckHitCharactor(&player);
 		
-		
 
 		//ï`âÊïî
 		for(int i=0; i<DRAWNUM; ++i)
 		{
-			if(i != 6)
+			//if(i != 6)
 			iDraw[i]->Draw();
 		}
 	
@@ -188,25 +183,26 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 			}
 		}
 
-		for(int n=0,size=enemy.i_goal.size(); n<size; ++n)
+		
+		for(int n=0,size=enemy.AI.i_goal.size(); n<size; ++n)
 		{
-			DrawFormatString(640, 80+15*15+15*n, color, "ëÊ%dçs", enemy.i_goal[n]);
-			DrawFormatString(640+15*5, 80+15*15+15*n, color, "ëÊ%dóÒ", enemy.j_goal[n]);
+			DrawFormatString(640, 80+15*15+15*n, color, "ëÊ%dçs", enemy.AI.i_goal[n]);
+			DrawFormatString(640+15*5, 80+15*15+15*n, color, "ëÊ%dóÒ", enemy.AI.j_goal[n]);
 		}
 		
-		int n=0;
-		std::list<int>::iterator it = enemy.route.begin();
-		for (it; it != enemy.route.end(); ++it)
+		//int n=0;
+		//std::list<int>::iterator it = enemy.AI.route.begin();
+		for (int n=0, size=enemy.AI.route.size(); n<size; ++n)
 		{
-			switch(*it)
+			switch(enemy.AI.route[n])
 			{
-			case 1:DrawFormatString(640+15*4*n++, 80+15*15+15*8, color, "LEFT->");continue;
-			case 2:DrawFormatString(640+15*4*n++, 80+15*15+15*8, color, "RIGHT->");continue;
-			case 3:DrawFormatString(640+15*4*n++, 80+15*15+15*8, color, "UP->");continue;
-			case 4:DrawFormatString(640+15*4*n++, 80+15*15+15*8, color, "DOWN->");continue;
+			case 1:DrawFormatString(15*4*n, 80+15*15+15*8, color, "LEFT->");continue;
+			case 2:DrawFormatString(15*4*n, 80+15*15+15*8, color, "RIGHT->");continue;
+			case 3:DrawFormatString(15*4*n, 80+15*15+15*8, color, "UP->");continue;
+			case 4:DrawFormatString(15*4*n, 80+15*15+15*8, color, "DOWN->");continue;
 			}
 		}
-
+		
 
 
 		//for(int i=0; i<ROW; ++i)
