@@ -20,8 +20,7 @@ enum
 Enemy::Enemy(int x, int y):
 	AI(),
 	nextAction(0),
-	//moveNow(0),
-	exploration(0)
+	moveNow(0)
 {
 	this->mv = MV;
 	this->flag = TRUE;
@@ -33,6 +32,7 @@ Enemy::Enemy(int x, int y):
 	this->bombSet = 0;
 }
 
+
 Enemy::~Enemy(void)
 {
 }
@@ -42,38 +42,30 @@ int Enemy::CheckAbleBombSet()
 	return 0;
 }
 
-void Enemy::Order()
-{
-	if(exploration == 0)
-	{
-		AI.Analyse(this->y/32, this->x/32);
-		exploration = 1;
-		nextAction = 0;
-	}
-}
-
 void Enemy::Move(int g_lastTime)
 {
-	if(exploration == 1)
+	if(moveNow == 0)
+	{
+		AI.Analyse(this->y/32, this->x/32);
+		moveNow = 1;
+	}
+
+	if(moveNow == 1)
 	{
 		switch(AI.GetAction(nextAction))
 		{
 		case STOP:
 			break;
 		case UP:
-			this->muki = UP;
 			this->y -= this->mv;
 			break;
 		case DOWN:
-			this->muki = DOWN;
 			this->y += this->mv;
 			break;
 		case LEFT:
-			this->muki = LEFT;
 			this->x -= this->mv;
 			break;
 		case RIGHT:
-			this->muki = RIGHT;
 			this->x += this->mv;
 			break;
 		case BOMBSET:
@@ -82,25 +74,20 @@ void Enemy::Move(int g_lastTime)
 		case BOMBSETOFF:
 			this->bombSet = 0;
 			break;
-		case -1:
-			exploration = 0;
-			break;
+		default:
+			moveNow = 0;
 		}
+		nextAction = 0;
 
-		//nextAction = 0;
-		
 		if(this->x % 32 == 0 && this->y % 32 == 0)
 		{
-			++nextAction;
+			nextAction = 1;
 		}
 		
 		if(this->x < 64)this->x = 64;
 		if(this->x > 32*14)this->x = 32*14;
 		if(this->y < 32)this->y = 32;
 		if(this->y > 32*11)this->y = 32*11;
-
-		this->rx = this->x+32;
-		this->dy = this->y+32;
 	}
 
 	this->animpat = (g_lastTime / (1000 / 12)) % 4;

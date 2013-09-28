@@ -18,13 +18,12 @@ private:
 	int bombSet;
 	int action[10];
 	int nextAction;
-	//int moveNow;
-	int exploration;
+	int moveNow;
+	EnemyAI AI;
 public:
 	Enemy(int x, int y);
 	~Enemy(void);
-	EnemyAI AI;
-	void Order();
+	
 	void Move(int g_lastTime);
 	void Draw();
 	int GetBombSet(void)const;

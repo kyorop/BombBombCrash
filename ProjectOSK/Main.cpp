@@ -16,17 +16,19 @@
 #include "DxLib.h"
 #include <iostream>
 #include <vector>
+#define DRAWNUM 9
+#define REGISTERNUM 9
 
-//#define _CRTDBG_MAP_ALLOC
-//#include <stdlib.h>
-//#include <crtdbg.h>
-//#define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+#define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
 
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nCmdShow)
 {
 
-	//_CrtSetDbgFlag(_CRTDBG_LEAK_CHECK_DF | _CRTDBG_ALLOC_MEM_DF);
+	_CrtSetDbgFlag(_CRTDBG_LEAK_CHECK_DF | _CRTDBG_ALLOC_MEM_DF);
 	SetGraphMode(1024,768,16);
 	ChangeWindowMode(true);
 	if(DxLib_Init() == -1)
@@ -35,72 +37,56 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 	
 	Map map;
 	Player player;
-	//Enemy enemy(32*14,32*11);
-	const int enemyNum = 4;
-
-	
-
-	Enemy *enemy[enemyNum] = 
-	{
-		new Enemy(32*14, 32*1),
-		new Enemy(32*2, 32*11),
-		new Enemy(32*14, 32*11),
-		new Enemy(32*8, 32*5)
-	};
+	Enemy enemy(32*14,32*11);
 	Block block;
 	ItemManager itemManager;
-	BombManager pBomb;
-	//EnemyBombManager enemyBombManager;
-	EnemyBombManager eBomb[enemyNum];
-	BlastManager pBlast;
-	BlastManager eBlast[enemyNum];
-	const int drawNum = 18;
-	IDrawable *iDraw[drawNum];
-	iDraw[0] = &map;
-	iDraw[1] = &itemManager;
-	iDraw[2] = &block;
-	iDraw[3] = &pBomb;
-
-	for (int i = 4,j = 0; i < 4+enemyNum && j<enemyNum; ++i, ++j)
-	{
-		iDraw[i] = &eBomb[j];
-	}
-
-	iDraw[4+enemyNum] = &player;
-
-	for (int i = 4+enemyNum+1, j = 0; i < 4+enemyNum+1+4 && j<enemyNum; ++i, ++j)
-	{
-		iDraw[i] = enemy[j];
-	}
-
-	iDraw[4+enemyNum+1+4] = &pBlast;
+	BombManager bombManager;
+	EnemyBombManager enemyBombManager;
+	BlastManager blastManager;
+	BlastManager enemyBlastManager;
 	
-	for (int i = 4+enemyNum+1+4+1, j = 0; i < 4+enemyNum+1+4+1+4 && j<enemyNum; ++i, ++j)
+	IDrawable *iDraw[DRAWNUM]=
 	{
-		iDraw[i] = &eBlast[j];
-	}
-		
-	const int registerNum = 8;
-	IRegister *iRegister[registerNum]=
+		&map,
+		&itemManager,
+		&block,
+		&bombManager,
+		&enemyBombManager,
+		&player,
+		&enemy,
+		&blastManager,
+		&enemyBlastManager,
+	};
+	IRegister *iRegister[REGISTERNUM]=
 	{
 		&map,
 		&block,
 		&player,
-		&pBomb,
-		&eBomb[0],
-		&pBlast,
-		&eBlast[0],
+		&enemy,
+		&bombManager,
+		&enemyBombManager,
+		&blastManager,
+		&enemyBlastManager,
 		&itemManager,
 	};
+
 
 	int g_lasttime = 0;
 	float g_frametime = 0;
 
-	//enemy.SetGoal(11,14);
-	//int rNum = GetRand(enemy.i_goal.size()-1);
-	//enemy.Initialize();
-	//enemy.SetRoute(11,14,enemy.i_goal[rNum], enemy.j_goal[rNum]);
+	//map.Register();
+	//登録部
+		for(int i=0; i<REGISTERNUM; ++i)
+		{
+			iRegister[i]->Register();
+		}
+
 	itemManager.SetItem(block);
+
+	enemy.SetGoal(11,14);
+	int rNum = GetRand(enemy.i_goal.size()-1);
+	enemy.Initialize();
+	enemy.SetRoute(11,14,enemy.i_goal[rNum], enemy.j_goal[rNum]);
 
 	while(CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
@@ -110,83 +96,64 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		ClearDrawScreen();
 		
 		//計算部
-		
-		//登録部
-		for(int i=0; i<registerNum; ++i)
-		{
-			iRegister[i]->Register();
-		}
-	
+
 		//キャラの移動
 		player.Move(g_lasttime);
-		for (int i = 0; i < enemyNum; i++)
-		{
-			enemy[i]->Order();
-			enemy[i]->Move(g_lasttime);
-		}
-	
+		//enemy.Analyse();
+		//enemy.Move(g_lasttime);
+		
+		
+
 		//Enemyのあたり判定
-		for(int i=0; i<enemyNum; ++i)
-		{
-			for(int j=0; j<enemyNum; ++j)
-			{
-				//eBomb[i].CheckHit(enemy[j]);
-			}
-		}
-		for (int i = 0; i < enemyNum; i++)
-		{
-			//map.CheckHitCharactor(enemy[i]);
-			//block.CheckHit(enemy[i]);
-			itemManager.CheckHitCharactor(enemy[i]);
-		}
+		bombManager.CheckHit(&enemy);
+		//map.CheckHitCharactor(&enemy);
+		//block.CheckHit(&enemy);
+		itemManager.CheckHitCharactor(&enemy);
 
 		//Playerのあたり判定
-		pBomb.CheckHit(&player);
+		bombManager.CheckHit(&player);
 		map.CheckHitCharactor(&player);
 		block.CheckHit(&player);
 		itemManager.CheckHitCharactor(&player);
 
 		//PlayerのBomb管理
-		pBomb.AddBomb(player);
-		pBomb.BombSet(player);
-		pBomb.MaintainBomb();
+		bombManager.AddBomb(player);
+		bombManager.BombSet(player);
+		bombManager.MaintainBomb();
 
 		//EnemyのBomb管理
-		for (int i = 0; i < enemyNum; i++)
-		{
-			eBomb[i].AddBomb(*enemy[i]);
-			eBomb[i].BombSet(*enemy[i]);
-			eBomb[i].MaintainBomb();
-		}
-		
+		enemyBombManager.AddBomb(enemy);
+		enemyBombManager.BombSet(enemy);
+		enemyBombManager.MaintainBomb();
 
+		
 		//PlayerのBlast管理
-		pBlast.Add(player);
-		pBlast.FireUp(player);
-		pBlast.Set(pBomb);
-		pBlast.Maintain(pBomb);
-		pBlast.CheckHit(&block, &map, &player, &pBomb, &itemManager);
+		blastManager.Add(player);
+		blastManager.FireUp(player);
+		blastManager.Set(bombManager);
+		blastManager.Maintain(bombManager);
+		blastManager.CheckHit(&block, &map, &player, &bombManager, &itemManager);
+
 
 		//EnemyのBlast管理
-		for (int i = 0; i < enemyNum; i++)
-		{
-			eBlast[i].Add(*enemy[i]);
-			eBlast[i].FireUp(*enemy[i]);
-			eBlast[i].Set(eBomb[i]);
-			eBlast[i].Maintain(eBomb[i]);
-			eBlast[i].CheckHit(&block, &map, &player, &eBomb[i], &itemManager);
-		}
+		enemyBlastManager.Add(enemy);
+		enemyBlastManager.FireUp(enemy);
+		enemyBlastManager.Set(enemyBombManager);
+		enemyBlastManager.Maintain(enemyBombManager);
+		enemyBlastManager.CheckHit(&block, &map, &player, &enemyBombManager, &itemManager);
+
 		//blastManager.CheckHitObject(&map);
 		//blastManager.CheckHitObject(&block);
 		//blastManager.CheckHitItem(&itemManager);
 		//blastManager.CheckHitBomb(&bombManager);
 		//blastManager.CheckHitCharactor(&player);
 		
+		
 
 		//描画部
-		for(int i=0; i<drawNum; ++i)
+		for(int i=0; i<DRAWNUM; ++i)
 		{
-			//if(i != 6)
+			if(i != 6)
 			iDraw[i]->Draw();
 		}
 	
@@ -194,8 +161,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		DrawFormatString(640,0,color,"ボムアップ獲得数 %d 個",itemManager.GetBombState());
 		DrawFormatString(850,0,color,"火力アップ獲得数 %d 個",itemManager.GetFireState());
 		DrawFormatString(640,20,color,"フレームタイム　%f　秒",g_frametime);
-		DrawFormatString(640,40,color,"出せるボム総数　%d　個",pBomb.size);
-		DrawFormatString(640,60,color,"出せるボム数あと　%d　個",pBomb.size-pBomb.GetBombNum());
+		DrawFormatString(640,40,color,"出せるボム総数　%d　個",bombManager.size);
+		DrawFormatString(640,60,color,"出せるボム数あと　%d　個",bombManager.size-bombManager.GetBombNum());
 		
 		//for(int i=0,size=blastManager.vblast->size();i<size;++i)
 		//{
@@ -221,26 +188,25 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 			}
 		}
 
-		
-		for(int n=0,size=enemy[0]->AI.i_goal.size(); n<size; ++n)
+		for(int n=0,size=enemy.i_goal.size(); n<size; ++n)
 		{
-			DrawFormatString(640, 80+15*15+15*n, color, "第%d行", enemy[0]->AI.i_goal[n]);
-			DrawFormatString(640+15*5, 80+15*15+15*n, color, "第%d列", enemy[0]->AI.j_goal[n]);
+			DrawFormatString(640, 80+15*15+15*n, color, "第%d行", enemy.i_goal[n]);
+			DrawFormatString(640+15*5, 80+15*15+15*n, color, "第%d列", enemy.j_goal[n]);
 		}
 		
-		//int n=0;
-		//std::list<int>::iterator it = enemy[0]->AI.route.begin();
-		for (int n=0, size=enemy[0]->AI.route.size(); n<size; ++n)
+		int n=0;
+		std::list<int>::iterator it = enemy.route.begin();
+		for (it; it != enemy.route.end(); ++it)
 		{
-			switch(enemy[0]->AI.route[n])
+			switch(*it)
 			{
-			case 1:DrawFormatString(15*4*n, 80+15*15+15*8, color, "LEFT->");continue;
-			case 2:DrawFormatString(15*4*n, 80+15*15+15*8, color, "RIGHT->");continue;
-			case 3:DrawFormatString(15*4*n, 80+15*15+15*8, color, "UP->");continue;
-			case 4:DrawFormatString(15*4*n, 80+15*15+15*8, color, "DOWN->");continue;
+			case 1:DrawFormatString(640+15*4*n++, 80+15*15+15*8, color, "LEFT->");continue;
+			case 2:DrawFormatString(640+15*4*n++, 80+15*15+15*8, color, "RIGHT->");continue;
+			case 3:DrawFormatString(640+15*4*n++, 80+15*15+15*8, color, "UP->");continue;
+			case 4:DrawFormatString(640+15*4*n++, 80+15*15+15*8, color, "DOWN->");continue;
 			}
 		}
-		
+
 
 
 		//for(int i=0; i<ROW; ++i)
@@ -254,11 +220,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		ScreenFlip();
 		if(ProcessMessage() == -1)
 			break;
-	}
-
-	for (int i = 0; i < enemyNum; ++i)
-	{
-		delete enemy[i];
 	}
 
 	DxLib_End();
