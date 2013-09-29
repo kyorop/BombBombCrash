@@ -90,10 +90,12 @@
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="BombManager.cpp" />
     <ClCompile Include="Charactor.cpp" />
+    <ClCompile Include="Dijkstra.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyAI.cpp" />
     <ClCompile Include="EnemyBomb.cpp" />
     <ClCompile Include="EnemyBombManager.cpp" />
+    <ClCompile Include="Graph.cpp" />
     <ClCompile Include="IDrawable.cpp" />
     <ClCompile Include="IRegister.cpp" />
     <ClCompile Include="Key.cpp" />
@@ -117,10 +119,12 @@
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="BombManager.h" />
     <ClInclude Include="Charactor.h" />
+    <ClInclude Include="Dijkstra.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyAI.h" />
     <ClInclude Include="EnemyBomb.h" />
     <ClInclude Include="EnemyBombManager.h" />
+    <ClInclude Include="Graph.h" />
     <ClInclude Include="IDrawable.h" />
     <ClInclude Include="IRegister.h" />
     <ClInclude Include="Key.h" />
