@@ -7,8 +7,14 @@ private:
 	int minCost;		//‚»‚Ìƒm[ƒh‚Ü‚Å‚ÌÅ’Z‹——£
 	int settled;		//‚»‚Ìƒm[ƒh‚Ü‚Å‚ÌÅ’ZŒo˜H‚ªŠm’è‚µ‚½‚©‚Ç‚¤‚©
 public:
-	void SetComponent(int i, int j);
+	void Initialize();
+	void SetCost(int cost);
+	int GetCost()const;
+	void SetPreNode(int i_pre, int j_pre);
+	//Å’ZŒo˜H‚ğŠm’è‚³‚¹‚é
+	void SettleShortestPath();
+	int GetSettled()const;
 	Node(void);
-	~Node(void);
+	virtual ~Node(void);
 };
 

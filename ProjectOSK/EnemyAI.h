@@ -26,7 +26,7 @@ private:
 public:
 	int CheckAbleToEscapeFromBomb(const int i, const int j);
 	void CheckBomb();
-	void Analyse(int i, int j);
+	void Analyse(int i_current, int j_current);
 	std::vector<int> i_goal, j_goal;
 	std::vector<int> route;
 	int GetAction(int next);

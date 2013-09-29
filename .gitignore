@@ -180,3 +180,4 @@ Release/
 ipch
 *.sdf
 ProjectOSK/Debug
+ProjectOSK/Log.txt

@@ -6,9 +6,13 @@
 class Graph
 {
 private:
-	Node node[MAPSIZE_Y][MAPSIZE_X];
+	//すべてのマスをノードとみる
+	Node nodeMatrix[MAPSIZE_Y][MAPSIZE_X];
 public:
+	//各ノードにアクセスする
+	Node* GetNode(int i, int j);
+	void Initialize();
 	Graph(void);
-	~Graph(void);
+	virtual ~Graph(void);
 };
 

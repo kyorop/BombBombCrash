@@ -149,7 +149,7 @@ void CheckBomb()
 
 }
 
-void EnemyAI::Analyse(int i, int j)
+void EnemyAI::Analyse(int i_current, int j_current)
 {
 	int n = 0;
 
@@ -157,7 +157,7 @@ void EnemyAI::Analyse(int i, int j)
 	i_goal.clear();
 	j_goal.clear();
 	Initialize();
-	SetGoal(i, j);
+	SetGoal(i_current, j_current);
 	
 	//決める場所がボムを置いていい場所か調べる
 	n = GetRand(i_goal.size() - 1);
@@ -176,7 +176,7 @@ void EnemyAI::Analyse(int i, int j)
 	success = 0;
 	muki = STOP;
 	Initialize();
-	SetRoute(i, j, i_goal[n], j_goal[n]);
+	SetRoute(i_current, j_current, i_goal[n], j_goal[n]);
 	
 	//破壊する壁からボム逃げ地までのルートセット
 	route.push_back(BOMBSET);
