@@ -153,6 +153,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		}
 	
 		int color = GetColor(255,255,255);
+		int color2 = GetColor(255,0,0);
 		DrawFormatString(640,0,color,"ボムアップ獲得数 %d 個",itemManager.GetBombState());
 		DrawFormatString(850,0,color,"火力アップ獲得数 %d 個",itemManager.GetFireState());
 		DrawFormatString(640,20,color,"フレームタイム　%f　秒",g_frametime);
@@ -189,10 +190,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 			DrawFormatString(640, 80+15*15+15*n, color, "第%d行", enemy.AI.i_goal[n]);
 			DrawFormatString(640+15*5, 80+15*15+15*n, color, "第%d列", enemy.AI.j_goal[n]);
 		}
+
+		DrawBox(enemy.AI.j_goal[enemy.AI.rand]*32, enemy.AI.i_goal[enemy.AI.rand]*32, enemy.AI.j_goal[enemy.AI.rand]*32+33, enemy.AI.i_goal[enemy.AI.rand]*32+33, color2,FALSE);
+		
 		
 		//int n=0;
 		//std::list<int>::iterator it = enemy.AI.route.begin();
-		for (int n=0, size=enemy.AI.route.size(); n<size; ++n)
+		/*for (int n=0, size=enemy.AI.route.size(); n<size; ++n)
 		{
 			switch(enemy.AI.route[n])
 			{
@@ -201,7 +205,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 			case 3:DrawFormatString(15*4*n, 80+15*15+15*8, color, "UP->");continue;
 			case 4:DrawFormatString(15*4*n, 80+15*15+15*8, color, "DOWN->");continue;
 			}
-		}
+		}*/
 		
 
 

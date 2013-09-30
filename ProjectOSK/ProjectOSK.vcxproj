@@ -107,7 +107,6 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapObstacle.cpp" />
     <ClCompile Include="MapState.cpp" />
-    <ClCompile Include="Node.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerBomb.cpp" />
@@ -135,7 +134,6 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapObstacle.h" />
     <ClInclude Include="MapState.h" />
-    <ClInclude Include="Node.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerBomb.h" />

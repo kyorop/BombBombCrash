@@ -1,13 +1,23 @@
 #include "Dijkstra.h"
-#include "Node.h"
 #include "MapState.h"
 #include "Graph.h"
+#include "DxLib.h"
 #include <climits>
+enum
+{
+	STOP,
+	LEFT,
+	RIGHT,
+	UP,
+	DOWN,
+	BOMBSET,
+	BOMBSETOFF,
+};
 
 const int Dijkstra::ud[4] = {-1,1,0,0};
 const int Dijkstra::lr[4] = {0,0,-1,1};
 
-Dijkstra::Dijkstra(int nodeNum):
+Dijkstra::Dijkstra():
 	i_currentNode(),
 	j_currentNode(),
 	graph(new Graph),
@@ -15,58 +25,117 @@ Dijkstra::Dijkstra(int nodeNum):
 {
 }
 
-void Dijkstra::SearchShortestPath(int i_goal, int j_goal, int i_start, int j_start)
+void Dijkstra::ResetRoute()
+{
+	vecRoute.clear();
+}
+
+void Dijkstra::SearchShortestPath(int i_start, int j_start, int i_goal, int j_goal)
 {
 	//全ノードの初期化
 	graph->Initialize();
 
-	//スタートノードの初期化
-	graph->GetNode(i_goal, j_goal)->SetCost(0);
-	graph->GetNode(i_goal, j_goal)->SettleShortestPath();
+	//スタートノードでのファーストステップ
+	graph->SetCost(i_goal, j_goal, 0);
+	graph->SettleShortestPath(i_goal, j_goal);
 	i_currentNode = i_goal;
 	j_currentNode = j_goal;
 
-	while(graph->GetNode(i_start, j_start)->GetSettled() == 0)
+	while(graph->GetSettled(i_start, j_start) == 0)
 	{
 		//最小コストの更新
 		int costSum;	//基点ノードのminCostとそこまでのコストの和
+		int i_next;
+		int j_next;
 		for(int n=0; n<4; ++n)
 		{
-			costSum = graph->GetNode(i_currentNode+ud[n], j_currentNode+lr[n])->GetCost() + cost ;
+			i_next = i_currentNode + ud[n];
+			j_next = j_currentNode + lr[n];
+			costSum = graph->GetCost(i_currentNode, j_currentNode) + edgeCost ;
 
-			if(MapState::GetInstance()->GetState(i_currentNode+ud[n], j_currentNode+lr[n], BLOCK) == 0
-				&& MapState::GetInstance()->GetState(i_currentNode+ud[n], j_currentNode+lr[n], MAP) == 0
-				&& costSum < graph->GetNode(i_currentNode+ud[n], j_currentNode+lr[n])->GetCost())
+			//繋がっているノードの検索
+			if(MapState::GetInstance()->GetState(i_next, j_next, BLOCK) == 0
+				&& MapState::GetInstance()->GetState(i_next, j_next, MAP) == 0)
 			{
-				graph->GetNode(i_currentNode+ud[n], j_currentNode+lr[n])->SetCost(costSum);
-				graph->GetNode(i_currentNode+ud[n], j_currentNode+lr[n])->SetPreNode(i_currentNode, j_currentNode);
-				graph->GetNode(i_currentNode+ud[n], j_currentNode+lr[n])->SettleShortestPath();
+				//基点ノードの最小コストと探索ノードまでのコストを足したものが探索ノードの最小コストより小さいなら
+				if(costSum < graph->GetCost(i_next, j_next) )
+				{
+					graph->SetCost(i_next, j_next, costSum);
+					//graph->SetPreNode(i_currentNode, j_currentNode, i_next, j_next);
+					graph->SetPreNode(i_next, j_next, i_currentNode, j_currentNode);
+					//graph->SettleShortestPath(i_next, j_next);
+				}
 			}
 		}
 
 		//次の基点ノードを決める
 		int min = INT_MAX;
-		for (int i = 0; i < MAPSIZE_Y; i++)
+		for (int i = 0; i < MAPSIZE_Y; ++i)
 		{
-			for (int j = 0; j < MAPSIZE_X; j++)
+			for (int j = 0; j < MAPSIZE_X; ++j)
 			{
-				if(graph->GetNode(i,j)->GetSettled() == 0 && min > graph->GetNode(i,j)->GetCost())
+				if(MapState::GetInstance()->GetState(i, j, BLOCK) == 0
+					&& MapState::GetInstance()->GetState(i, j, MAP) == 0
+					&& graph->GetSettled(i, j) == 0 
+					&& min > graph->GetCost(i, j) )
 				{
-					min = graph->GetNode(i,j)->GetCost();
+					min = graph->GetCost(i, j);
 					i_currentNode = i;
 					j_currentNode = j;
 				}
 			}
 		}
+		graph->SettleShortestPath(i_currentNode, j_currentNode);
 	}//end of while loop
 
+	//SetRoute( i_goal, j_goal, i_start, j_start);
+	SetRoute(i_start, j_start, i_goal, j_goal);
 }
 
-void Dijkstra::SetRoute()
+void Dijkstra::SetRoute(int i_start, int j_start, int i_goal, int j_goal)
 {
-	vecRoute.clear();
-
+	int i_now = i_start;
+	int j_now = j_start;
 	
+	while( !(i_now == i_goal && j_now == j_goal) )
+	{
+		if(i_now > graph->GetPreNode_i(i_now, j_now) && j_now == graph->GetPreNode_j(i_now, j_now))
+		{
+			vecRoute.push_back(UP);
+			i_now = graph->GetPreNode_i(i_now, j_now);
+		}
+		else if(i_now < graph->GetPreNode_i(i_now, j_now) && j_now == graph->GetPreNode_j(i_now, j_now))
+		{
+			vecRoute.push_back(DOWN);
+			i_now = graph->GetPreNode_i(i_now, j_now);
+		}
+		else if(i_now == graph->GetPreNode_i(i_now, j_now) && j_now > graph->GetPreNode_j(i_now, j_now))
+		{
+			vecRoute.push_back(LEFT);
+			j_now = graph->GetPreNode_j(i_now, j_now);
+		}
+		else if(i_now == graph->GetPreNode_i(i_now, j_now) && j_now < graph->GetPreNode_j(i_now, j_now))
+		{
+			vecRoute.push_back(RIGHT);
+			j_now = graph->GetPreNode_j(i_now, j_now);
+		}
+	}
+}
+
+int Dijkstra::GetRoute(int num)const
+{
+	int size = vecRoute.size();
+
+	//配列をオーバーしたらルート終了を知らせる
+	if(num >= size)
+		return -1;
+	
+		return vecRoute[num];
+}
+
+void Dijkstra::SetBombAction(int bombState)
+{
+	vecRoute.push_back(bombState);
 }
 
 Dijkstra::~Dijkstra(void)

@@ -76,7 +76,6 @@ void EnemyAI::SetRoute(const int i, const int j, const int i_goal, const int j_g
 	if(i == i_goal && j == j_goal)
 	{
 		success = 1;
-		//route.push_back(-1);
 	}
 
 	if( success == 0 && visited[i-1][j] == 0 && MAP(i, -1, j, 0) == 0 && BLOCK(i, -1, j, 0) == 0 )
@@ -160,32 +159,40 @@ void EnemyAI::Analyse(int i_current, int j_current)
 	SetGoal(i_current, j_current);
 	
 	//決める場所がボムを置いていい場所か調べる
-	n = GetRand(i_goal.size() - 1);
+	rand = GetRand(i_goal.size() - 1);
 	Initialize();
+	success = 0;
+	checkedOtherRow = 0;
+	checkedOtherLine = 0;
+	i_safe = 0;
+	j_safe = 0;
 	while(CheckAbleToEscapeFromBomb(i_goal[n], j_goal[n]) == 0)
 	{
-		Initialize();
-		int checkedOtherRow = 0;
-		int checkedOtherLine = 0;
-		int i_safe = 0;
-		int j_safe = 0;
+		rand = GetRand(i_goal.size() - 1);
 	}
 
 	//破壊する壁までのルートセット
 	route.clear();
-	success = 0;
+	/*success = 0;
 	muki = STOP;
 	Initialize();
-	SetRoute(i_current, j_current, i_goal[n], j_goal[n]);
+	SetRoute(i_current, j_current, i_goal[n], j_goal[n]);*/
+	dijkstra.ResetRoute();
+	dijkstra.SearchShortestPath(i_current, j_current, i_goal[n], j_goal[n]);
 	
 	//破壊する壁からボム逃げ地までのルートセット
-	route.push_back(BOMBSET);
+	/*route.push_back(BOMBSET);
 	route.push_back(BOMBSETOFF);
 	Initialize();
 	success = 0;
 	muki = STOP;
-	SetRoute(i_goal[n], j_goal[n], i_safe, j_safe);
-	route.push_back(-1);
+	SetRoute(i_goal[n], j_goal[n], i_safe, j_safe);*/
+	dijkstra.SetBombAction(BOMBSET);
+	dijkstra.SetBombAction(BOMBSETOFF);
+	dijkstra.SearchShortestPath(i_goal[n], j_goal[n], i_safe, j_safe);
+
+	//アクションリストの最後を表す-1
+	//route.push_back(-1);
 }
 
 int EnemyAI::GetAction(int num)
@@ -197,7 +204,9 @@ int EnemyAI::GetAction(int num)
 	//std::list<int>::iterator it = route.begin();
 	//return *it;
 
-	return route[num];
+	//return route[num];
+
+	return dijkstra.GetRoute(num);
 }
 
 EnemyAI::~EnemyAI(void)

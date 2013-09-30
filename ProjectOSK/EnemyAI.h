@@ -1,4 +1,5 @@
 #pragma once
+#include "Dijkstra.h"
 #include <vector>
 #include <list>
 #include <queue>
@@ -19,11 +20,13 @@ private:
 	int checkedOtherLine;
 	int i_safe;
 	int j_safe;
+	Dijkstra dijkstra;
 private:
 	void Initialize();
 	void SetGoal(const int i, const int j);
 	void SetRoute(const int i, const int j, const int goal_i, const int goal_j);
 public:
+	int rand;
 	int CheckAbleToEscapeFromBomb(const int i, const int j);
 	void CheckBomb();
 	void Analyse(int i_current, int j_current);
