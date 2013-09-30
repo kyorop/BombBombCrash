@@ -16,6 +16,7 @@ enum
 #define MAP(i, p, j, q) MapState::GetInstance()->GetState(i+p, j+q, MAP)
 
 EnemyAI::EnemyAI(void):
+	rand(-1),
 	success(0),
 	muki(STOP),
 	visited(),
@@ -159,16 +160,26 @@ void EnemyAI::Analyse(int i_current, int j_current)
 	SetGoal(i_current, j_current);
 	
 	//決める場所がボムを置いていい場所か調べる
-	rand = GetRand(i_goal.size() - 1);
+	n = GetRand(i_goal.size() - 1);
 	Initialize();
 	success = 0;
 	checkedOtherRow = 0;
 	checkedOtherLine = 0;
 	i_safe = 0;
 	j_safe = 0;
-	while(CheckAbleToEscapeFromBomb(i_goal[n], j_goal[n]) == 0)
+	/*while(CheckAbleToEscapeFromBomb(i_goal[n], j_goal[n]) == 0)
 	{
 		rand = GetRand(i_goal.size() - 1);
+	}*/
+	while(1)
+	{
+		if(CheckAbleToEscapeFromBomb(i_goal[n], j_goal[n]) == 1)
+		{
+			rand = n;
+			break;
+		}
+		n = GetRand(i_goal.size() - 1);
+
 	}
 
 	//破壊する壁までのルートセット
