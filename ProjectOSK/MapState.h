@@ -9,6 +9,12 @@ enum object
 	FIRE,
 };
 
+enum dangerState
+{
+	NODENGER,
+	BOMBRANGE
+};
+
 class MapState
 {
 public:
@@ -18,11 +24,13 @@ private:
 	static const int objects = 6;
 	static const int topic = 2;
 	static int mapState[row][line][objects][topic];
+	static dangerState hazardMap[row][line];
 private:
 	MapState(void);
 	MapState(const MapState &ms);
 	~MapState(void);
 	static void SetState(int x, int y, int object, int state, int option=0);
+	void SetDanger(int x, int y, dangerState state);
 public:
 	static void Initialize();
 	static MapState *GetInstance()
@@ -30,6 +38,9 @@ public:
 		static MapState msInstance;
 		return &msInstance;
 	}
+
+	//セット系はそれを用いるクラスが直交座標系なので x, y で指定する
+	//ゲット系はそれを用いるクラスが行列形式で管理しているので i, j で指定する
 	void SetMapState(int x, int y, int flag, int option=0);
 	void SetBlockState(int x, int y, int state, int option=0);
 	void SetItemState(int x, int y, int state, int option=0);
@@ -37,5 +48,6 @@ public:
 	void SetBombState(int x, int y, int state, int option=0);
 	void SetFireState(int x, int y, int state, int option=0);
 	int GetState(int i, int j, int object, int option=0);
+	dangerState GetDangerState(int i , int j);
 };
 

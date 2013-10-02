@@ -1,13 +1,13 @@
 #pragma once
 #include "BombManager.h"
 
-class Enemy;
 class EnemyBombManager:
 	public BombManager
 {
 public:
-	void BombSet(const Enemy &enemy);
-	void AddBomb(const Charactor &charactor);
+	void BombSet(const Enemy &myself);
+	void AddBomb(const Charactor &myself);
+	void Register(const Charactor &myself);
 	EnemyBombManager(void);
 	~EnemyBombManager(void);
 };

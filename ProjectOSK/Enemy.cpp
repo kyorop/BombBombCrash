@@ -7,6 +7,7 @@
 
 enum
 {
+	END = -1,
 	STOP,
 	LEFT,
 	RIGHT,
@@ -21,7 +22,9 @@ Enemy::Enemy(int x, int y):
 	AI(),
 	nextAction(0),
 	//moveNow(0),
-	exploration(0)
+	exploration(0),
+	muki(STOP),
+	bombSet(0)
 {
 	this->mv = MV;
 	this->flag = TRUE;
@@ -29,8 +32,6 @@ Enemy::Enemy(int x, int y):
 	this->x = x;
 	this->y = y;
 	this->resetRoutine = 1;
-	this->muki = STOP;
-	this->bombSet = 0;
 }
 
 Enemy::~Enemy(void)
@@ -122,7 +123,6 @@ void Enemy::Draw(void)
 		DrawGraph(this->x, this->y, this->graph[animpat+4], TRUE);	break;
 	}
 }
-
 
 int Enemy::GetBombSet(void)const
 {

@@ -123,6 +123,7 @@
     <ClInclude Include="EnemyAI.h" />
     <ClInclude Include="EnemyBomb.h" />
     <ClInclude Include="EnemyBombManager.h" />
+    <ClInclude Include="GameConstant.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="IDrawable.h" />
     <ClInclude Include="IRegister.h" />

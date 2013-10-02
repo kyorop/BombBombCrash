@@ -28,8 +28,11 @@ public:
 
 	
 protected:
+	//スピード
 	int mv;
+	//出せるボムの個数
 	int bombNum;
+	//中心からの火のマス数(中心は含めない)
 	int fireLevel;
 public:
 	virtual int GetBombNum(void)const;

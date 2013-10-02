@@ -2,6 +2,7 @@
 
 
 int MapState::mapState[row][line][objects][topic];
+dangerState MapState::hazardMap[row][line];
 
 MapState::MapState(void)
 {
@@ -9,6 +10,7 @@ MapState::MapState(void)
 	{
 		for(int j=0; j<line; ++j)
 		{
+			hazardMap[i][j] = NODENGER;
 			for(int k=0; j<objects; ++j)
 			{
 				for(int l=0; l<topic; ++l)
@@ -67,6 +69,15 @@ void MapState::SetCharactorState(int x, int y, int state,int option)
 void MapState::SetBombState(int x, int y, int state, int option)
 {
 	SetState(x, y, BOMB,state);
+	
+	if(state == 1)
+	{
+		SetDanger(x, y, BOMBRANGE);
+	}
+	else if(state == 0)
+	{
+		SetDanger(x, y, NODENGER);
+	}
 	//MapState::mapState[y/32][x/32][BOMB][1] = fireLevel;
 }
 
@@ -81,6 +92,23 @@ int MapState::GetState(int i, int j, int object, int option)
 		return -1;
 	else
 		return MapState::mapState[i][j][object][option];
+}
+
+void MapState::SetDanger(int x, int y, dangerState state)
+{
+	int i=y/32;
+	int j=x/32;
+
+	if( !(i < 0 || row < i || j < 0 || line < j) )
+	{
+		hazardMap[i][j] = state;
+	}
+}
+
+dangerState MapState::GetDangerState(int i, int j)
+{
+	if( !(i < 0 || row < i || j < 0 || line < j) )
+		return hazardMap[i][j];
 }
 
 MapState::~MapState(void)

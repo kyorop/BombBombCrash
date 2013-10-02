@@ -1,6 +1,7 @@
 #include "EnemyBombManager.h"
 #include "Enemy.h"
 #include "EnemyBomb.h"
+#include "MapState.h"
 
 EnemyBombManager::EnemyBombManager(void)
 {
@@ -32,6 +33,23 @@ void EnemyBombManager::BombSet(const Enemy &enemy)
 		//	continue;
 		//if((*vbomb)[i]->GetFlag() == true)
 		//	break;
+	}
+}
+
+void EnemyBombManager::Register(const Charactor &chara)
+{
+	for(int i=0, size=vbomb->size(); i<size; ++i)
+	{
+		if((*vbomb)[i]->GetFlag() == 0)
+		{
+			MapState::GetInstance()->SetBombState((*vbomb)[i]->GetX(), (*vbomb)[i]->GetY(), 0);
+			MapState::GetInstance()->SetBombState((*vbomb)[i]->GetX(), (*vbomb)[i]->GetY(), 0, 1);
+		}
+		else if((*vbomb)[i]->GetFlag() == 1)
+		{
+			MapState::GetInstance()->SetBombState((*vbomb)[i]->GetX(), (*vbomb)[i]->GetY(), 1);
+			MapState::GetInstance()->SetBombState((*vbomb)[i]->GetX(), (*vbomb)[i]->GetY(), chara.GetFireLevel(), 1);
+		}
 	}
 }
 

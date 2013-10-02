@@ -17,7 +17,7 @@
 #include <iostream>
 #include <vector>
 #define DRAWNUM 9
-#define REGISTERNUM 9
+#define REGISTERNUM 7
 
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
@@ -63,8 +63,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		&block,
 		&player,
 		&enemy,
-		&bombManager,
-		&enemyBombManager,
 		&blastManager,
 		&enemyBlastManager,
 		&itemManager,
@@ -96,6 +94,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		{
 			iRegister[i]->Register();
 		}
+
+		bombManager.Register(player);
+		enemyBombManager.Register(enemy);
 	
 		//キャラの移動
 		player.Move(g_lasttime);
@@ -145,6 +146,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		//blastManager.CheckHitCharactor(&player);
 		
 
+
+
+
+
 		//描画部
 		for(int i=0; i<DRAWNUM; ++i)
 		{
@@ -154,6 +159,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 	
 		int color = GetColor(255,255,255);
 		int color2 = GetColor(255,0,0);
+		int color3 = GetColor(0,0,255);
 		DrawFormatString(640,0,color,"ボムアップ獲得数 %d 個",itemManager.GetBombState());
 		DrawFormatString(850,0,color,"火力アップ獲得数 %d 個",itemManager.GetFireState());
 		DrawFormatString(640,20,color,"フレームタイム　%f　秒",g_frametime);
@@ -193,6 +199,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 
 		if(enemy.AI.rand != -1)
 			DrawBox(enemy.AI.j_goal[enemy.AI.rand]*32, enemy.AI.i_goal[enemy.AI.rand]*32, enemy.AI.j_goal[enemy.AI.rand]*32+33, enemy.AI.i_goal[enemy.AI.rand]*32+33, color2,FALSE);
+
+
+		DrawBox(enemy.AI.j_safe*32, enemy.AI.i_safe*32, enemy.AI.j_safe*32+33, enemy.AI.i_safe*32+33, color3,FALSE);
 		
 		
 		//int n=0;
