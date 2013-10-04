@@ -12,9 +12,12 @@
 class EnemyAI
 {
 private:
+	
+public:
 	//‹¤’Ê—˜—p
 	//int visited[MAPSIZE_Y][MAPSIZE_X];
 	int visited[GameConst::MAP_ROW][GameConst::MAP_LINE];
+	int hasVisited[GameConst::MAP_ROW][GameConst::MAP_LINE];
 	int success;
 	//for SetRoute()
 	//for CheckAbleToEscapeFromBomb()
@@ -25,16 +28,18 @@ private:
 	std::list<int> targetRoute;
 	//’ZŠúŠëŒ¯‰ñ”ğƒ‹[ƒg
 	std::list<int> noDengerRoute;
-private:
+public:
+	std::queue<int> que_i;
+	std::queue<int> que_j;
+
 	void Initialize();
 	void SetGoal(const int i, const int j);
 	//void SetRoute(const int i, const int j, const int goal_i, const int goal_j);
-public:
 	int i_safe;
 	int j_safe;
-	int CheckAbleToEscapeFromBomb(const int i, const int j);
+	//int CheckAbleToEscapeFromBomb(const int i, const int j);
 	int CheckAbleToMove(const int i_now, const int j_now);
-
+	void CheckAbleToEscapeFromBomb(const int i, const int j);
 	int rand;
 	void CheckBomb();
 	void Analyse(int i_current, int j_current);

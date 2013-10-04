@@ -1,6 +1,8 @@
 #pragma once
 #include "BombManager.h"
 
+class Enemy;
+class Charactor;
 class EnemyBombManager:
 	public BombManager
 {
