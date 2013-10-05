@@ -110,6 +110,7 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerBomb.cpp" />
+    <ClCompile Include="Search.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -138,6 +139,7 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerBomb.h" />
+    <ClInclude Include="Search.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>

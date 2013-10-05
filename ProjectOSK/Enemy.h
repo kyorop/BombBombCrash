@@ -11,6 +11,7 @@ class Enemy:
 	public Charactor, virtual public IDrawable, virtual public IRegister
 {
 private:
+	int nowStop;
 	int graph[20];
 	int muki;
 	int animpat;
@@ -29,5 +30,6 @@ public:
 	void Draw();
 	int GetBombSet(void)const;
 	int CheckAbleBombSet();
+	void CancelStop(void);
 };
 

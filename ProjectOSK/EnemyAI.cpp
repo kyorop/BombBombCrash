@@ -1,5 +1,6 @@
 #include "EnemyAI.h"
 #include "MapState.h"
+#include "Enemy.h"
 #include "DxLib.h"
 enum
 {
@@ -16,7 +17,7 @@ enum
 #define BLOCK(i, p, j, q) MapState::GetInstance()->GetState(i+p, j+q, BLOCK)
 #define MAP(i, p, j, q) MapState::GetInstance()->GetState(i+p, j+q, MAP)
 
-EnemyAI::EnemyAI(void):
+EnemyAI::EnemyAI():
 	rand(-1),
 	success(0),
 	hasVisited(),
@@ -31,7 +32,6 @@ EnemyAI::EnemyAI(void):
 	que_i(),
 	que_j()
 {
-	
 	for (int i = 0; i < MapState::row; i++)
 	{
 		for (int j = 0; j < MapState::line; j++)
@@ -84,95 +84,18 @@ void EnemyAI::SetGoal(const int i, const int j)
 	if( visited[i][j+1] == 0 && MAP(i, 0, j, 1) == 0 && BLOCK(i, 0, j, 1) == 0 ) SetGoal(i, j+1);
 }
 
-
 void EnemyAI::CheckAbleToEscapeFromBomb(const int i_start, const int j_start)
 {
-	//visited[i][j] = 1;
-	//
-	//if( checkedOtherRow == 1 && checkedOtherLine == 1 )
-	//{
-	//	i_safe = i;
-	//	j_safe = j;
-	//	success = 1;
-	//}
-
-	////通れるところに進む
-	//if(success == 0 && visited[i-1][j] == 0 && MAP(i, -1, j, 0) == 0 && BLOCK(i, -1, j, 0) == 0 )
-	//{
-	//	checkedOtherRow = 1;
-	//	CheckAbleToEscapeFromBomb(i-1, j);
-	//}
-	//if( success == 0 && visited[i+1][j] == 0 && MAP(i, 1, j, 0) == 0 && BLOCK(i, 1, j, 0) == 0 )
-	//{
-	//	checkedOtherRow = 1;
-	//	CheckAbleToEscapeFromBomb(i+1, j);
-	//}
-	//if( success == 0 && visited[i][j-1] == 0 && MAP(i, 0, j, -1) == 0 && BLOCK(i, 0, j, -1) == 0 )
-	//{
-	//	checkedOtherLine = 1;
-	//	CheckAbleToEscapeFromBomb(i, j-1);
-	//}
-	//if( success == 0 && visited[i][j+1] == 0 && MAP(i, 0, j, 1) == 0 && BLOCK(i, 0, j, 1) == 0 )
-	//{
-	//	checkedOtherLine = 1;
-	//	CheckAbleToEscapeFromBomb(i, j+1);
-	//}
-
-	////再帰的に呼ばれた関数が終わることはつまり探索の手を一つ戻すことを意味する
-	//checkedOtherRow = 0;
-	//checkedOtherLine = 0;
-
-	//return success;
-
 	int size;
-
 	int i;
 	int j;
 
-	i = i_start;
-	j = j_start;
-
-	if(hasVisited[i-1][j] == 0 &&  MAP(i, -1, j, 0) == 0 && BLOCK(i, -1, j, 0) == 0 )
-	{
-		hasVisited[i-1][j] = 1;
-		que_i.push(i-1);
-		que_j.push(j);
-	}
-	if( hasVisited[i+1][j] == 0 &&  MAP(i, 1, j, 0) == 0 && BLOCK(i, 1, j, 0) == 0 )
-	{
-		hasVisited[i+1][j] = 1;
-		que_i.push(i+1);
-		que_j.push(j);
-	}
-	if( hasVisited[i][j-1] == 0 && MAP(i, 0, j, -1) == 0 && BLOCK(i, 0, j, -1) == 0 )
-	{
-		hasVisited[i][j-1] = 1;
-		que_i.push(i);
-		que_j.push(j-1);
-	}
-	if( hasVisited[i][j+1] == 0 && MAP(i, 0, j, 1) == 0 && BLOCK(i, 0, j, 1) == 0 )
-	{
-		hasVisited[i][j+1] = 1;
-		que_i.push(i);
-		que_j.push(j+1);
-	}
-
-	//逃げれるかチェック
-	/*while(que_i.empty() == 0 && que_j.empty() == 0)
-	{
-		if(que_i.front() != i_start && que_j.front() != j_start)
-		{
-			i_safe = que_i.front();
-			j_safe = que_j.front();
-			break;
-		}
-		que_i.pop();
-		que_j.pop();
-	}*/
+	//初期位置をキューに追加
+	que_i.push(i_start);
+	que_j.push(j_start);
 	
 	while(i_safe == -1 || j_safe == -1)
 	{
-		//キュー更新
 		size = que_i.size();
 		for(int n=0; n<size; ++n)
 		{
@@ -187,7 +110,7 @@ void EnemyAI::CheckAbleToEscapeFromBomb(const int i_start, const int j_start)
 				break;
 			}
 
-			//逃げれないなら
+			//逃げれないならキューの更新
 			if(hasVisited[i-1][j] == 0 && MAP(i, -1, j, 0) == 0 && BLOCK(i, -1, j, 0) == 0 )
 			{
 				hasVisited[i-1][j] = 1;
@@ -216,39 +139,9 @@ void EnemyAI::CheckAbleToEscapeFromBomb(const int i_start, const int j_start)
 			que_i.pop();
 			que_j.pop();
 		}
-
-		//逃げれるかチェック
-	/*	while(que_i.empty() == 0 && que_j.empty() == 0)
-	{
-		if(que_i.front() != i_start && que_j.front() != j_start)
-		{
-			i_safe = que_i.front();
-			j_safe = que_j.front();
-			break;
-		}
-		que_i.pop();
-		que_j.pop();
-	}*/
-
-		/*for(int n=0; n<size; ++n)
-		{
-			i = que_i.front();
-			j = que_j.front();
-
-			if( i != i_start && j != j_start)
-			{
-				i_safe = i;
-				j_safe = j;
-				break;
-			}
-			que_i.pop();
-			que_j.pop();
-		}*/
-
 	}
 
 }
-
 
 //int EnemyAI::CheckAbleToMove(const int i, const int j)
 //{
@@ -287,14 +180,47 @@ void EnemyAI::CheckAbleToEscapeFromBomb(const int i_start, const int j_start)
 //	return success;
 //}
 
-void CheckBomb()
+int EnemyAI::CheckBomb(const int i, const int j)
 {
+	hasVisited[i][j] = 1;
+	
+	if( checkedOtherRow == 1 && checkedOtherLine == 1 )
+	{
+		success = 1;
+	}
 
+	//通れるところに進む
+	if(success == 0 && hasVisited[i-1][j] == 0 && MAP(i, -1, j, 0) == 0 && BLOCK(i, -1, j, 0) == 0 && MapState::GetInstance()->GetDangerState(i-1, j) == NODENGER)
+	{
+		checkedOtherRow = 1;
+		CheckAbleToEscapeFromBomb(i-1, j);
+	}
+	if( success == 0 && hasVisited[i+1][j] == 0 && MAP(i, 1, j, 0) == 0 && BLOCK(i, 1, j, 0) == 0 && MapState::GetInstance()->GetDangerState(i+1, j) == NODENGER)
+	{
+		checkedOtherRow = 1;
+		CheckAbleToEscapeFromBomb(i+1, j);
+	}
+	if( success == 0 && hasVisited[i][j-1] == 0 && MAP(i, 0, j, -1) == 0 && BLOCK(i, 0, j, -1) == 0 && MapState::GetInstance()->GetDangerState(i, j-1) == NODENGER)
+	{
+		checkedOtherLine = 1;
+		CheckAbleToEscapeFromBomb(i, j-1);
+	}
+	if( success == 0 && hasVisited[i][j+1] == 0 && MAP(i, 0, j, 1) == 0 && BLOCK(i, 0, j, 1) == 0 && MapState::GetInstance()->GetDangerState(i, j+1) == NODENGER)
+	{
+		checkedOtherLine = 1;
+		CheckAbleToEscapeFromBomb(i, j+1);
+	}
+
+	checkedOtherRow = 0;
+	checkedOtherLine = 0;
+
+	return success;
 }
 
-void EnemyAI::Analyse(int i_current, int j_current)
+void EnemyAI::Analyse(int i_current, int j_current, Enemy *myself)
 {
 	int n = 0;
+
 
 	//破壊する壁の決定
 	i_goal.clear();
@@ -347,21 +273,26 @@ void EnemyAI::Analyse(int i_current, int j_current)
 	dijkstra->SetBombAction(BOMBSETOFF);
 	dijkstra->SearchShortestPath(i_goal[n], j_goal[n], i_safe, j_safe);
 
-	//アクションリストの最後を表す-1
-	//route.push_back(-1);
+	Initialize();
+	success = 0;
+	checkedOtherRow = 0;
+	checkedOtherLine = 0;
+	if(CheckBomb(i_current, j_current) == 0 )
+	{
+		dijkstra->SetBombAction(STOP);
+	}
+	Initialize();
+	success = 0;
+	checkedOtherRow = 0;
+	checkedOtherLine = 0;
+	if(CheckBomb(i_current, j_current) == 1 )
+	{
+		myself->CancelStop();
+	}
 }
 
 int EnemyAI::GetAction(int num)
 {
-	//if(next == 1)
-	//	route.pop_front();
-	//if(route.empty() == 1)
-	//	return -1;
-	//std::list<int>::iterator it = route.begin();
-	//return *it;
-
-	//return route[num];
-
 	return dijkstra->GetRoute(num);
 }
 

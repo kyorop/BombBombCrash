@@ -9,25 +9,25 @@
 #define MAPSIZE_X 17
 #define MAPSIZE_Y 13
 
+class Enemy;
 class EnemyAI
 {
 private:
 	
 public:
 	//共通利用
-	//int visited[MAPSIZE_Y][MAPSIZE_X];
 	int visited[GameConst::MAP_ROW][GameConst::MAP_LINE];
 	int hasVisited[GameConst::MAP_ROW][GameConst::MAP_LINE];
 	int success;
-	//for SetRoute()
-	//for CheckAbleToEscapeFromBomb()
 	int checkedOtherRow;
 	int checkedOtherLine;
 	Dijkstra *dijkstra;
+
 	//長期目標ルート
 	std::list<int> targetRoute;
 	//短期危険回避ルート
 	std::list<int> noDengerRoute;
+
 public:
 	std::queue<int> que_i;
 	std::queue<int> que_j;
@@ -41,13 +41,15 @@ public:
 	int CheckAbleToMove(const int i_now, const int j_now);
 	void CheckAbleToEscapeFromBomb(const int i, const int j);
 	int rand;
-	void CheckBomb();
-	void Analyse(int i_current, int j_current);
+
+	//止まる必要があるなら0を返す
+	int CheckBomb(const int i_start, const int j_start);
+	void Analyse(int i_current, int j_current, Enemy *myself);
 	std::vector<int> i_goal;
 	std::vector<int> j_goal;
 	std::vector<int> route;
 	int GetAction(int next);
-	EnemyAI(void);
+	EnemyAI();
 	~EnemyAI(void);
 };
 
