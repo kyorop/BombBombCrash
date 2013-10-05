@@ -29,6 +29,7 @@ private:
 
 private:
 	void Initialize();
+
 public:
 	void SetGoal(const int i_start, const int j_start);
 	void CheckAbleToEscapeFromBomb(const int i_start, const int j_start);

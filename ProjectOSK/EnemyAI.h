@@ -13,7 +13,11 @@ class Enemy;
 class EnemyAI
 {
 private:
-	
+	int hasCalked;
+	int currentOrder;
+	int x_next;
+	int y_next;
+
 public:
 	//‹¤’Ê—˜—p
 	int visited[GameConst::MAP_ROW][GameConst::MAP_LINE];
@@ -48,7 +52,7 @@ public:
 	std::vector<int> i_goal;
 	std::vector<int> j_goal;
 	std::vector<int> route;
-	int GetAction(int next);
+	int GetAction(const Enemy &myself);
 	EnemyAI();
 	~EnemyAI(void);
 };

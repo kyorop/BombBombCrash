@@ -18,6 +18,7 @@ enum
 #define MAP(i, p, j, q) MapState::GetInstance()->GetState(i+p, j+q, MAP)
 
 EnemyAI::EnemyAI():
+	hasCalked(0),
 	rand(-1),
 	success(0),
 	hasVisited(),
@@ -221,7 +222,6 @@ void EnemyAI::Analyse(int i_current, int j_current, Enemy *myself)
 {
 	int n = 0;
 
-
 	//”j‰ó‚·‚é•Ç‚ÌŒˆ’è
 	i_goal.clear();
 	j_goal.clear();
@@ -272,7 +272,7 @@ void EnemyAI::Analyse(int i_current, int j_current, Enemy *myself)
 	dijkstra->SetBombAction(BOMBSET);
 	dijkstra->SetBombAction(BOMBSETOFF);
 	dijkstra->SearchShortestPath(i_goal[n], j_goal[n], i_safe, j_safe);
-
+	
 	Initialize();
 	success = 0;
 	checkedOtherRow = 0;
@@ -281,6 +281,7 @@ void EnemyAI::Analyse(int i_current, int j_current, Enemy *myself)
 	{
 		dijkstra->SetBombAction(STOP);
 	}
+
 	Initialize();
 	success = 0;
 	checkedOtherRow = 0;
@@ -291,9 +292,61 @@ void EnemyAI::Analyse(int i_current, int j_current, Enemy *myself)
 	}
 }
 
-int EnemyAI::GetAction(int num)
+int EnemyAI::GetAction(const Enemy &myself)
 {
-	return dijkstra->GetRoute(num);
+	int x_center;
+	int y_center;
+	int i;
+	int j;
+
+	if(hasCalked == 0)
+	{
+		x_center = (myself.GetX() + myself.GetRX()) / 2;
+		y_center = (myself.GetY() + myself.GetDY()) / 2;
+		
+		i = y_center / 32;
+		j = x_center / 32;
+		
+		x_next = j * 32;
+		y_next = i * 32;
+		hasCalked  = 1;
+	
+		switch( targetRoute.front() )
+		{
+			case STOP:
+				break;
+			case UP:
+				x_next = (x_center/32 + 0) * 32;
+				y_next = (y_center/32 - 1) * 32;
+				break;
+			case DOWN:
+				x_next = (x_center/32 + 0) * 32;
+				y_next = (y_center/32 + 1) * 32;
+				break;
+			case LEFT:
+				x_next = (x_center/32 - 1) * 32;
+				y_next = (y_center/32 + 0) * 32;
+				break;
+			case RIGHT:
+				x_next = (x_center/32 + 1) * 32;
+				y_next = (y_center/32 + 0) * 32;
+				break;
+			case BOMBSET:
+				break;
+			case BOMBSETOFF:
+				break;
+			case -1:
+				break;
+		}
+
+	}//end of if block
+
+	if(myself.GetX() == x_next && myself.GetY() == y_next)
+	{
+
+	}
+
+	//return dijkstra->GetRoute(num);
 }
 
 EnemyAI::~EnemyAI(void)
