@@ -35,11 +35,11 @@ private:
 	int CheckAbleToMove(const int i_start, const int j_start);
 
 public:
-	//引数に指定した場所から目的地を決定する
-	void SetGoalInitialized(const int i_start, const int j_start, std::vector<int> *i_goal, std::vector<int> *j_goal);
+	//引数に指定した場所をもとに目的地を決定する
+	void SetGoalInitialized(const int i_from, const int j_from, std::vector<int> *i_goal, std::vector<int> *j_goal);
 
-	//引数に指定した場所から逃げる場所を決定する
-	void CheckAbleToEscapeFromBomb(const int i_start, const int j_start, int *i_safe, int *j_safe);
+	//引数に指定した場所をもとに逃げる場所を決定する
+	void CheckAbleToEscapeFromBomb(const int i_from, const int j_from, int *i_safe, int *j_safe);
 
 	//引数に指定した場所から爆風範囲に巻き込まれないように他の場所へ移動できるかチェックする
 	//移動できるなら１を返す。移動できないなら０を返す。

@@ -18,7 +18,7 @@ private:
 	//startのpreNodeから調べて、goalまでのルートをセットする
 	void SetRoute(int i_start, int j_start, int i_goal, int j_goal, std::list<int> *shortestRoute);
 public:
-	void SearchShortestPath(int i_start, int j_start, int i_goal, int j_goal, std::list<int> *shortestRoute);
+	void SearchShortestPath(int i_from, int j_from, int i_to, int j_to, std::list<int> *shortestRoute);
 	/*void ResetRoute();*/
 	//スタートからゴールまでの最短距離を調べる
 	

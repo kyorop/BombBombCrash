@@ -191,17 +191,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		}
 
 		
-		for(int n=0,size=enemy.AI.i_goal.size(); n<size; ++n)
-		{
-			DrawFormatString(640, 80+15*15+15*n, color, "‘æ%ds", enemy.AI.i_goal[n]);
-			DrawFormatString(640+15*5, 80+15*15+15*n, color, "‘æ%d—ñ", enemy.AI.j_goal[n]);
-		}
+		//for(int n=0,size=enemy.AI.i_goal.size(); n<size; ++n)
+		//{
+		//	DrawFormatString(640, 80+15*15+15*n, color, "‘æ%ds", enemy.AI.i_goal[n]);
+		//	DrawFormatString(640+15*5, 80+15*15+15*n, color, "‘æ%d—ñ", enemy.AI.j_goal[n]);
+		//}
 
-		if(enemy.AI.rand != -1)
-			DrawBox(enemy.AI.j_goal[enemy.AI.rand]*32, enemy.AI.i_goal[enemy.AI.rand]*32, enemy.AI.j_goal[enemy.AI.rand]*32+33, enemy.AI.i_goal[enemy.AI.rand]*32+33, color2,FALSE);
+		//if(enemy.AI.rand != -1)
+		//	DrawBox(enemy.AI.j_goal[enemy.AI.rand]*32, enemy.AI.i_goal[enemy.AI.rand]*32, enemy.AI.j_goal[enemy.AI.rand]*32+33, enemy.AI.i_goal[enemy.AI.rand]*32+33, color2,FALSE);
 
 
-		DrawBox(enemy.AI.j_safe*32, enemy.AI.i_safe*32, enemy.AI.j_safe*32+33, enemy.AI.i_safe*32+33, color3,FALSE);
+		//DrawBox(enemy.AI.j_safe*32, enemy.AI.i_safe*32, enemy.AI.j_safe*32+33, enemy.AI.i_safe*32+33, color3,FALSE);
 		
 		
 		//int n=0;

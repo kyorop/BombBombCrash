@@ -21,6 +21,8 @@ private:
 	int currentOrder;
 	int x_next;
 	int y_next;
+	int x_center;
+	int y_center;
 	int isStop;
 	int nowExploring;
 	Dijkstra *dijkstra;

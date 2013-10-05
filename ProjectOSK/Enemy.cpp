@@ -58,7 +58,7 @@ void Enemy::Move(int g_lastTime)
 {
 	/*if(exploration == 1 && nowStop == 0)
 	{*/
-		switch(AI.GetAction(nextAction))
+		switch(AI.GetAction(*this))
 		{
 		case STOP:
 			//nowStop = 1;
@@ -92,10 +92,10 @@ void Enemy::Move(int g_lastTime)
 
 		//nextAction = 0;
 		
-		if(this->x % 32 == 0 && this->y % 32 == 0)
-		{
-			//++nextAction;
-		}
+		//if(this->x % 32 == 0 && this->y % 32 == 0)
+		//{
+		//	//++nextAction;
+		//}
 		
 		if(this->x < 64)this->x = 64;
 		if(this->x > 32*14)this->x = 32*14;

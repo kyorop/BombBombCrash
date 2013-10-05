@@ -29,7 +29,9 @@ EnemyAI::EnemyAI():
 	targetRoute(),
 	noDengerRoute(),
 	isStop(0),
-	nowExploring(0)
+	nowExploring(0),
+	x_next(),
+	y_next()
 {
 }
 
@@ -44,55 +46,59 @@ void EnemyAI::Analyse(int i_current, int j_current, Enemy *myself)
 	int n = 0;
 	if(nowExploring == 0 )
 	{
-		//破壊する壁の決定
+		//目的地(壊す壁)の決定
 		i_goal.clear();
 		j_goal.clear();
 		search->SetGoalInitialized(i_current, j_current, &i_goal, &j_goal);
-	
-		//決める場所がボムを置いていい場所か調べる
+		
+		//目的地までのルートセット
 		n = GetRand(i_goal.size() - 1);
 		rand = n;
-		search->CheckAbleToEscapeFromBomb(i_goal[n], j_goal[n], &i_safe, &j_safe);
-
-		//破壊する壁までのルートセット
 		dijkstra->SearchShortestPath(i_current, j_current, i_goal[n], j_goal[n], &targetRoute);
-	
+		
 		//破壊する壁からボム逃げ地までのルートセット
 		targetRoute.push_back(BOMBSET);
 		targetRoute.push_back(BOMBSETOFF);
-		dijkstra->SearchShortestPath(i_goal[n], j_goal[n], i_safe, j_safe, &targetRoute);
-	}
+		//->SearchShortestPath(i_goal[n], j_goal[n], i_safe, j_safe, &targetRoute);
 
-	if(search->CheckAbleToMoveInitialized(i_current, j_current) == 0 )
-	{
+		//安全地の座標決定
+		search->CheckAbleToEscapeFromBomb(i_goal[n], j_goal[n], &i_safe, &j_safe);
+
+		//安全地までのルートセット
+		dijkstra->SearchShortestPath(i_goal[n], j_goal[n], i_safe, j_safe, &targetRoute);
 		//targetRoute.push_back(STOP);
-		isStop = 1;
+		nowExploring = 1;
 	}
-	else
-	{
-		//myself->CancelStop();
-		isStop = 0;
-	}
+	
+	//if(search->CheckAbleToMoveInitialized(i_safe, j_safe) == 0 )
+	//{
+	//	targetRoute.push_front(STOP);
+	//	//isStop = 1;
+	//}
+	//if(search->CheckAbleToMoveInitialized(i_safe, j_safe) == 1)
+	//{
+	//	targetRoute.pop_back();
+	//	//myself->CancelStop();
+	//	//isStop = 0;
+	//}
 
 }
 
 int EnemyAI::GetAction(const Enemy &myself)
 {
-	int x_center;
-	int y_center;
-	int i;		//呼び出し時にいたマスの成分
-	int j;
+	//int x_center;
+	//int y_center;
+	int i_current;		//呼び出し時にいたマスの成分
+	int j_current;
 
 	if(hasCalked == 0)
 	{
-		x_center = (myself.GetX() + myself.GetRX()) / 2;
-		y_center = (myself.GetY() + myself.GetDY()) / 2;
+		x_center = (myself.GetX() + myself.GetX()+32) / 2;
+		y_center = (myself.GetY() + myself.GetY()+32) / 2;
 		
-		i = y_center / 32;
-		j = x_center / 32;
-		
-		x_next = j * 32;
-		y_next = i * 32;
+		i_current = y_center / 32;
+		j_current = x_center / 32;
+
 		hasCalked  = 1;
 	
 		switch( targetRoute.front() )
@@ -100,35 +106,51 @@ int EnemyAI::GetAction(const Enemy &myself)
 			case STOP:
 				break;
 			case UP:
-				x_next = (x_center/32 + 0) * 32;
-				y_next = (y_center/32 - 1) * 32;
+				x_next = (j_current + 0) * 32;
+				y_next = (i_current - 1) * 32;
 				break;
 			case DOWN:
-				x_next = (x_center/32 + 0) * 32;
-				y_next = (y_center/32 + 1) * 32;
+				x_next = (j_current + 0) * 32;
+				y_next = (i_current + 1) * 32;
 				break;
 			case LEFT:
-				x_next = (x_center/32 - 1) * 32;
-				y_next = (y_center/32 + 0) * 32;
+				x_next = (j_current - 1) * 32;
+				y_next = (i_current + 0) * 32;
 				break;
 			case RIGHT:
-				x_next = (x_center/32 + 1) * 32;
-				y_next = (y_center/32 + 0) * 32;
+				x_next = (j_current + 1) * 32;
+				y_next = (i_current + 0) * 32;
 				break;
 			case BOMBSET:
+				//targetRoute.pop_front();
 				break;
 			case BOMBSETOFF:
+				//targetRoute.pop_front();
 				break;
 			case -1:
+				//targetRoute.pop_front();
 				break;
 		}
 	}//end of if block
 
-	if(myself.GetX() == x_next && myself.GetY() == y_next && isStop == 0)
+	//if(isStop == 0 && targetRoute.front() != STOP)
+	//{
+	//	targetRoute.pop_front();
+	//}
+
+	if(myself.GetX() == x_next && myself.GetY() == y_next)
 	{
 		targetRoute.pop_front();
 		hasCalked = 0;
+		
+		if(targetRoute.empty() == 1)
+		{
+			nowExploring = 0;
+			return END;
+		}
 	}
+
+	return targetRoute.front();
 
 }
 

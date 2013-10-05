@@ -63,6 +63,12 @@ void Search::CheckAbleToEscapeFromBomb(const int i_start, const int j_start, int
 	*i_safe = -1;
 	*j_safe = -1;
 
+	for (int i = 0; i < GameConst::MAP_ROW; i++)
+	{
+		for (int j = 0; j < GameConst::MAP_LINE; j++)
+			hasVisited[i][j] = 0;
+	}
+
 	while(que_i.empty() == 0)
 	{
 		que_i.pop();
