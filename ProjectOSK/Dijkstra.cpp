@@ -20,17 +20,17 @@ const int Dijkstra::lr[4] = {0,0,-1,1};
 Dijkstra::Dijkstra():
 	i_currentNode(),
 	j_currentNode(),
-	graph(new Graph),
-	vecRoute()
+	graph(new Graph)
+	//vecRoute()
 {
 }
 
-void Dijkstra::ResetRoute()
-{
-	vecRoute.clear();
-}
+//void Dijkstra::ResetRoute()
+//{
+//	vecRoute.clear();
+//}
 
-void Dijkstra::SearchShortestPath(int i_start, int j_start, int i_goal, int j_goal)
+void Dijkstra::SearchShortestPath(int i_start, int j_start, int i_goal, int j_goal, std::list<int> *shortestRoute)
 {
 	//全ノードの初期化
 	graph->Initialize();
@@ -89,10 +89,10 @@ void Dijkstra::SearchShortestPath(int i_start, int j_start, int i_goal, int j_go
 	}//end of while loop
 
 	//SetRoute( i_goal, j_goal, i_start, j_start);
-	SetRoute(i_start, j_start, i_goal, j_goal);
+	SetRoute(i_start, j_start, i_goal, j_goal, shortestRoute);
 }
 
-void Dijkstra::SetRoute(int i_start, int j_start, int i_goal, int j_goal)
+void Dijkstra::SetRoute(int i_start, int j_start, int i_goal, int j_goal, std::list<int> *shortestRoute)
 {
 	int i_now = i_start;
 	int j_now = j_start;
@@ -101,42 +101,42 @@ void Dijkstra::SetRoute(int i_start, int j_start, int i_goal, int j_goal)
 	{
 		if(i_now > graph->GetPreNode_i(i_now, j_now) && j_now == graph->GetPreNode_j(i_now, j_now))
 		{
-			vecRoute.push_back(UP);
+			shortestRoute->push_back(UP);
 			i_now = graph->GetPreNode_i(i_now, j_now);
 		}
 		else if(i_now < graph->GetPreNode_i(i_now, j_now) && j_now == graph->GetPreNode_j(i_now, j_now))
 		{
-			vecRoute.push_back(DOWN);
+			shortestRoute->push_back(DOWN);
 			i_now = graph->GetPreNode_i(i_now, j_now);
 		}
 		else if(i_now == graph->GetPreNode_i(i_now, j_now) && j_now > graph->GetPreNode_j(i_now, j_now))
 		{
-			vecRoute.push_back(LEFT);
+			shortestRoute->push_back(LEFT);
 			j_now = graph->GetPreNode_j(i_now, j_now);
 		}
 		else if(i_now == graph->GetPreNode_i(i_now, j_now) && j_now < graph->GetPreNode_j(i_now, j_now))
 		{
-			vecRoute.push_back(RIGHT);
+			shortestRoute->push_back(RIGHT);
 			j_now = graph->GetPreNode_j(i_now, j_now);
 		}
 	}
 }
 
-int Dijkstra::GetRoute(int num)const
-{
-	int size = vecRoute.size();
-
-	//配列をオーバーしたらルート終了を知らせる
-	if(num >= size)
-		return -1;
-	
-		return vecRoute[num];
-}
-
-void Dijkstra::SetBombAction(int bombState)
-{
-	vecRoute.push_back(bombState);
-}
+//int Dijkstra::GetRoute(int num)const
+//{
+//	int size = vecRoute.size();
+//
+//	//配列をオーバーしたらルート終了を知らせる
+//	if(num >= size)
+//		return -1;
+//	
+//		return vecRoute[num];
+//}
+//
+//void Dijkstra::SetBombAction(int bombState)
+//{
+//	vecRoute.push_back(bombState);
+//}
 
 Dijkstra::~Dijkstra(void)
 {

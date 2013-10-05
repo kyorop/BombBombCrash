@@ -1,5 +1,6 @@
 #pragma once
-#include <vector>
+//#include <vector>
+#include <list>
 
 class Graph;
 class Dijkstra
@@ -12,16 +13,17 @@ private:
 	Graph *graph;
 	int i_currentNode;
 	int j_currentNode;
-	std::vector<int> vecRoute;
+	//std::vector<int> vecRoute;
 private:
 	//startのpreNodeから調べて、goalまでのルートをセットする
-	void SetRoute(int i_start, int j_start, int i_goal, int j_goal);
+	void SetRoute(int i_start, int j_start, int i_goal, int j_goal, std::list<int> *shortestRoute);
 public:
-	void ResetRoute();
+	void SearchShortestPath(int i_start, int j_start, int i_goal, int j_goal, std::list<int> *shortestRoute);
+	/*void ResetRoute();*/
 	//スタートからゴールまでの最短距離を調べる
-	void SearchShortestPath(int i_start, int j_start, int i_goal, int j_goal);
-	int GetRoute(int num)const;
-	void SetBombAction(int bombState);
+	
+	/*int GetRoute(int num)const;
+	void SetBombAction(int bombState);*/
 
 	Dijkstra();
 	virtual ~Dijkstra(void);

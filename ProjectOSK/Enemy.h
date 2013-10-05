@@ -11,16 +11,16 @@ class Enemy:
 	public Charactor, virtual public IDrawable, virtual public IRegister
 {
 private:
-	int nowStop;
+	//int nowStop;
 	int graph[20];
 	int muki;
 	int animpat;
 	int resetRoutine;
 	int bombSet;
 	int action[10];
-	int nextAction;
+	//int nextAction;
 	//int moveNow;
-	int exploration;
+	//int exploration;
 public:
 	Enemy(int x, int y);
 	~Enemy(void);

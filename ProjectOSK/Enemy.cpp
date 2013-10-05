@@ -19,11 +19,11 @@ enum
 
 
 Enemy::Enemy(int x, int y):
-	nowStop(0),
+	//nowStop(0),
 	AI(),
-	nextAction(0),
+	//nextAction(0),
 	//moveNow(0),
-	exploration(0),
+	//exploration(0),
 	muki(STOP),
 	bombSet(0)
 {
@@ -46,22 +46,22 @@ int Enemy::CheckAbleBombSet()
 
 void Enemy::Order()
 {
-	if(exploration == 0)
+	//if(exploration == 0)
 	{
 		AI.Analyse(this->y/32, this->x/32, this);
-		exploration = 1;
-		nextAction = 0;
+		//exploration = 1;
+		//nextAction = 0;
 	}
 }
 
 void Enemy::Move(int g_lastTime)
 {
-	if(exploration == 1 && nowStop == 0)
-	{
+	/*if(exploration == 1 && nowStop == 0)
+	{*/
 		switch(AI.GetAction(nextAction))
 		{
 		case STOP:
-			nowStop = 1;
+			//nowStop = 1;
 			break;
 		case UP:
 			this->muki = UP;
@@ -86,7 +86,7 @@ void Enemy::Move(int g_lastTime)
 			this->bombSet = 0;
 			break;
 		case -1:
-			exploration = 0;
+			//exploration = 0;
 			break;
 		}
 
@@ -94,7 +94,7 @@ void Enemy::Move(int g_lastTime)
 		
 		if(this->x % 32 == 0 && this->y % 32 == 0)
 		{
-			++nextAction;
+			//++nextAction;
 		}
 		
 		if(this->x < 64)this->x = 64;
@@ -105,7 +105,7 @@ void Enemy::Move(int g_lastTime)
 		this->rx = this->x+32;
 		this->dy = this->y+32;
 
-	}//end of if(exploration == 1 && nowStop == 0)
+	//}//end of if(exploration == 1 && nowStop == 0)
 
 	this->animpat = (g_lastTime / (1000 / 12)) % 4;
 }
@@ -132,12 +132,10 @@ int Enemy::GetBombSet(void)const
 	return this->bombSet;
 }
 
-
-
 void Enemy::CancelStop(void)
 {
-	if(nowStop == 1)
-	{
-		nowStop = 0;
-	}
+	//if(nowStop == 1)
+	//{
+	//	nowStop = 0;
+	//}
 }
