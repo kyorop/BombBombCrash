@@ -95,6 +95,7 @@
     <ClCompile Include="EnemyAI.cpp" />
     <ClCompile Include="EnemyBomb.cpp" />
     <ClCompile Include="EnemyBombManager.cpp" />
+    <ClCompile Include="Escape.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="IDrawable.cpp" />
     <ClCompile Include="IRegister.cpp" />
@@ -111,6 +112,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerBomb.cpp" />
     <ClCompile Include="Search.cpp" />
+    <ClCompile Include="Target.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +126,7 @@
     <ClInclude Include="EnemyAI.h" />
     <ClInclude Include="EnemyBomb.h" />
     <ClInclude Include="EnemyBombManager.h" />
+    <ClInclude Include="Escape.h" />
     <ClInclude Include="GameConstant.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="IDrawable.h" />
@@ -139,7 +142,9 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerBomb.h" />
+    <ClInclude Include="Route.h" />
     <ClInclude Include="Search.h" />
+    <ClInclude Include="Target.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>

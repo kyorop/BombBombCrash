@@ -37,6 +37,8 @@ private:
 	std::vector<int> i_goal;
 	std::vector<int> j_goal;
 
+private:
+	void CheckBombCAroundMyself(const Enemy &myself);
 public:
 	void Analyse(int i_current, int j_current, Enemy *myself);
 	int GetAction(const Enemy &myself);

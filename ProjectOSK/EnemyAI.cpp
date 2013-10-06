@@ -41,6 +41,23 @@ EnemyAI::~EnemyAI(void)
 	delete search;
 }
 
+void EnemyAI::CheckBombCAroundMyself(const Enemy &myself)
+{
+	int i_current = myself.GetY() / 32;
+	int j_current = myself.GetX() / 32;
+
+	for (int j = 0; j < GameConst::MAP_LINE; ++j)
+	{
+		if(MapState::GetInstance()->GetState(i_current, j, MAP) == 1 || MapState::GetInstance()->GetState(i_current, j, BLOCK) == 1)
+			break;
+		if(MapState::GetInstance()->GetState(i_current, j, BOMB) == 1)
+		{
+
+		}
+	}
+
+}
+
 void EnemyAI::Analyse(int i_current, int j_current, Enemy *myself)
 {
 	int n = 0;
@@ -86,72 +103,6 @@ void EnemyAI::Analyse(int i_current, int j_current, Enemy *myself)
 
 int EnemyAI::GetAction(const Enemy &myself)
 {
-	//int x_center;
-	//int y_center;
-	int i_current;		//åƒÇ—èoÇµéûÇ…Ç¢ÇΩÉ}ÉXÇÃê¨ï™
-	int j_current;
-
-	if(hasCalked == 0)
-	{
-		x_center = (myself.GetX() + myself.GetX()+32) / 2;
-		y_center = (myself.GetY() + myself.GetY()+32) / 2;
-		
-		i_current = y_center / 32;
-		j_current = x_center / 32;
-
-		hasCalked  = 1;
-	
-		switch( targetRoute.front() )
-		{
-			case STOP:
-				break;
-			case UP:
-				x_next = (j_current + 0) * 32;
-				y_next = (i_current - 1) * 32;
-				break;
-			case DOWN:
-				x_next = (j_current + 0) * 32;
-				y_next = (i_current + 1) * 32;
-				break;
-			case LEFT:
-				x_next = (j_current - 1) * 32;
-				y_next = (i_current + 0) * 32;
-				break;
-			case RIGHT:
-				x_next = (j_current + 1) * 32;
-				y_next = (i_current + 0) * 32;
-				break;
-			case BOMBSET:
-				//targetRoute.pop_front();
-				break;
-			case BOMBSETOFF:
-				//targetRoute.pop_front();
-				break;
-			case -1:
-				//targetRoute.pop_front();
-				break;
-		}
-	}//end of if block
-
-	//if(isStop == 0 && targetRoute.front() != STOP)
-	//{
-	//	targetRoute.pop_front();
-	//}
-
-	if(myself.GetX() == x_next && myself.GetY() == y_next)
-	{
-		targetRoute.pop_front();
-		hasCalked = 0;
-		
-		if(targetRoute.empty() == 1)
-		{
-			nowExploring = 0;
-			return END;
-		}
-	}
-
-	return targetRoute.front();
-
 }
 
 
