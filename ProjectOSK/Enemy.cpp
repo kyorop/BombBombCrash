@@ -48,7 +48,7 @@ void Enemy::Order()
 {
 	//if(exploration == 0)
 	{
-		AI.Analyse(this->y/32, this->x/32, this);
+		AI.Analyse(this->y/32, this->x/32, *this);
 		//exploration = 1;
 		//nextAction = 0;
 	}

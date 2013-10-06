@@ -27,7 +27,7 @@ private:
 	int y_next;
 
 public:
-	void DecideGaol(const Enemy &myself);
+	void DecideGoal(const Enemy &myself);
 	void SetRoute(const Enemy &myself);
 	int GetRoute(const Enemy &myself);
 	Target(void);

@@ -4,7 +4,8 @@
 
 class Search;
 class Dijkstra;
-class Escape :
+
+class Avoid :
 	public Route
 {
 private:
@@ -27,10 +28,10 @@ private:
 	int y_next;
 
 public:
-	void DecideGaol(const Enemy &myself);
+	void DecideGoal(const Enemy &myself);
 	void SetRoute(const Enemy &myself);
 	int GetRoute(const Enemy &myself);
-	Escape(void);
-	~Escape(void);
+	Avoid(void);
+	~Avoid(void);
 };
 

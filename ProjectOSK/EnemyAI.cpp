@@ -3,6 +3,9 @@
 #include "Enemy.h"
 #include "Dijkstra.h"
 #include "Search.h"
+#include "Route.h"
+#include "Target.h"
+#include "Avoid.h"
 #include "DxLib.h"
 enum
 {
@@ -20,25 +23,28 @@ enum
 #define MAP(i, p, j, q) MapState::GetInstance()->GetState(i+p, j+q, MAP)
 
 EnemyAI::EnemyAI():
-	hasCalked(0),
-	rand(-1),
-	i_safe(-1),
-	j_safe(-1),
-	dijkstra(new Dijkstra),
-	search(new Search),
-	targetRoute(),
-	noDengerRoute(),
-	isStop(0),
+	//hasCalked(0),
+	//rand(-1),
+	//i_safe(-1),
+	//j_safe(-1),
+	//dijkstra(new Dijkstra),
+	//search(new Search),
+	//targetRoute(),
+	//noDengerRoute(),
+	//isStop(0),
+	//x_next(),
+	//y_next(),
 	nowExploring(0),
-	x_next(),
-	y_next()
+	target(new Target),
+	avoid(new Avoid),
+	route(target)
 {
 }
 
 EnemyAI::~EnemyAI(void)
 {
-	delete dijkstra;
-	delete search;
+	//delete dijkstra;
+	//delete search;
 }
 
 void EnemyAI::CheckBombCAroundMyself(const Enemy &myself)
@@ -52,57 +58,88 @@ void EnemyAI::CheckBombCAroundMyself(const Enemy &myself)
 			break;
 		if(MapState::GetInstance()->GetState(i_current, j, BOMB) == 1)
 		{
-
+			if(route != target)
+			{
+				route = avoid;
+				break;
+			}
 		}
 	}
 
+	for (int i = 0; i < GameConst::MAP_ROW; ++i)
+	{
+		if(MapState::GetInstance()->GetState(i, j_current, MAP) == 1 || MapState::GetInstance()->GetState(i, j_current, BLOCK) == 1)
+			break;
+		if(MapState::GetInstance()->GetState(i, j_current, BOMB) == 1)
+		{
+			if(route != target)
+			{
+				route = avoid;
+				break;
+			}
+		}
+	}
 }
 
-void EnemyAI::Analyse(int i_current, int j_current, Enemy *myself)
+void EnemyAI::Analyse(int i_current, int j_current, const Enemy &myself)
 {
-	int n = 0;
-	if(nowExploring == 0 )
+	//int n = 0;
+	//if(nowExploring == 0 )
+	//{
+	//	//目的地(壊す壁)の決定
+	//	i_goal.clear();
+	//	j_goal.clear();
+	//	search->SetGoalInitialized(i_current, j_current, &i_goal, &j_goal);
+	//	
+	//	//目的地までのルートセット
+	//	n = GetRand(i_goal.size() - 1);
+	//	rand = n;
+	//	dijkstra->SearchShortestPath(i_current, j_current, i_goal[n], j_goal[n], &targetRoute);
+	//	
+	//	//破壊する壁からボム逃げ地までのルートセット
+	//	targetRoute.push_back(BOMBSET);
+	//	targetRoute.push_back(BOMBSETOFF);
+	//	//->SearchShortestPath(i_goal[n], j_goal[n], i_safe, j_safe, &targetRoute);
+
+	//	//安全地の座標決定
+	//	search->CheckAbleToAvoidFromBomb(i_goal[n], j_goal[n], &i_safe, &j_safe);
+
+	//	//安全地までのルートセット
+	//	dijkstra->SearchShortestPath(i_goal[n], j_goal[n], i_safe, j_safe, &targetRoute);
+	//	//targetRoute.push_back(STOP);
+	//	nowExploring = 1;
+	//}
+	//
+	////if(search->CheckAbleToMoveInitialized(i_safe, j_safe) == 0 )
+	////{
+	////	targetRoute.push_front(STOP);
+	////	//isStop = 1;
+	////}
+	////if(search->CheckAbleToMoveInitialized(i_safe, j_safe) == 1)
+	////{
+	////	targetRoute.pop_back();
+	////	//myself->CancelStop();
+	////	//isStop = 0;
+	////}
+
+	CheckBombCAroundMyself(myself);
+
+	if(nowExploring == 0)
 	{
-		//目的地(壊す壁)の決定
-		i_goal.clear();
-		j_goal.clear();
-		search->SetGoalInitialized(i_current, j_current, &i_goal, &j_goal);
-		
-		//目的地までのルートセット
-		n = GetRand(i_goal.size() - 1);
-		rand = n;
-		dijkstra->SearchShortestPath(i_current, j_current, i_goal[n], j_goal[n], &targetRoute);
-		
-		//破壊する壁からボム逃げ地までのルートセット
-		targetRoute.push_back(BOMBSET);
-		targetRoute.push_back(BOMBSETOFF);
-		//->SearchShortestPath(i_goal[n], j_goal[n], i_safe, j_safe, &targetRoute);
+		route->DecideGoal(myself);
+		route->SetRoute(myself);
 
-		//安全地の座標決定
-		search->CheckAbleToEscapeFromBomb(i_goal[n], j_goal[n], &i_safe, &j_safe);
-
-		//安全地までのルートセット
-		dijkstra->SearchShortestPath(i_goal[n], j_goal[n], i_safe, j_safe, &targetRoute);
-		//targetRoute.push_back(STOP);
-		nowExploring = 1;
+		nowExploring =1;
 	}
-	
-	//if(search->CheckAbleToMoveInitialized(i_safe, j_safe) == 0 )
-	//{
-	//	targetRoute.push_front(STOP);
-	//	//isStop = 1;
-	//}
-	//if(search->CheckAbleToMoveInitialized(i_safe, j_safe) == 1)
-	//{
-	//	targetRoute.pop_back();
-	//	//myself->CancelStop();
-	//	//isStop = 0;
-	//}
-
 }
 
 int EnemyAI::GetAction(const Enemy &myself)
 {
+	if(route->GetRoute(myself) == -1)
+	{
+		nowExploring =0;
+	}
+	return route->GetRoute(myself);
 }
 
 

@@ -1,9 +1,9 @@
-#include "Escape.h"
+#include "Avoid.h"
 #include "Search.h"
 #include "Dijkstra.h"
 #include "Enemy.h"
 
-Escape::Escape(void):
+Avoid::Avoid(void):
 	search(new Search),
 	dijkstra(new Dijkstra),
 	i_safe(),
@@ -12,18 +12,18 @@ Escape::Escape(void):
 {
 }
 
-Escape::~Escape(void)
+Avoid::~Avoid(void)
 {
 	delete search;
 	delete dijkstra;
 }
 
-void Escape::DecideGaol(const Enemy &myself)
+void Avoid::DecideGoal(const Enemy &myself)
 {
-	search->CheckAbleToEscapeFromBomb(myself.GetY()/32, myself.GetX()/32, &i_safe, &j_safe);
+	search->CheckAbleToAvoidFromBomb(myself.GetY()/32, myself.GetX()/32, &i_safe, &j_safe);
 }
 
-void Escape::SetRoute(const Enemy &myself)
+void Avoid::SetRoute(const Enemy &myself)
 {
 	//ルートの初期化
 	routeList.clear();
@@ -32,7 +32,7 @@ void Escape::SetRoute(const Enemy &myself)
 	dijkstra->SearchShortestPath(myself.GetY()/32, myself.GetX()/32, i_safe, j_safe, &routeList);
 }
 
-int Escape::GetRoute(const Enemy &myself)
+int Avoid::GetRoute(const Enemy &myself)
 {
 	if(hasCalculated == 0)	//一度計算したら、一マス移動が終わるまで再計算しない
 	{

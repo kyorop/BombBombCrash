@@ -95,7 +95,7 @@
     <ClCompile Include="EnemyAI.cpp" />
     <ClCompile Include="EnemyBomb.cpp" />
     <ClCompile Include="EnemyBombManager.cpp" />
-    <ClCompile Include="Escape.cpp" />
+    <ClCompile Include="Avoid.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="IDrawable.cpp" />
     <ClCompile Include="IRegister.cpp" />
@@ -126,7 +126,7 @@
     <ClInclude Include="EnemyAI.h" />
     <ClInclude Include="EnemyBomb.h" />
     <ClInclude Include="EnemyBombManager.h" />
-    <ClInclude Include="Escape.h" />
+    <ClInclude Include="Avoid.h" />
     <ClInclude Include="GameConstant.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="IDrawable.h" />

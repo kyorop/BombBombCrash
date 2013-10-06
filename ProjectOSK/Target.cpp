@@ -21,7 +21,7 @@ Target::~Target(void)
 	delete dijkstra;
 }
 
-void Target::DecideGaol(const Enemy &myself)
+void Target::DecideGoal(const Enemy &myself)
 {
 	//‰Šú‰»
 	i_to.clear();

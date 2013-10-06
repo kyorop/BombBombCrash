@@ -58,7 +58,7 @@ void Search::SetGoal(const int i, const int j, std::vector<int> *i_goal, std::ve
 	if( hasVisited[i][j+1] == 0 && MAP(i, 0, j, 1) == 0 && BLOCK(i, 0, j, 1) == 0 ) SetGoal(i, j+1, i_goal, j_goal);
 }
 
-void Search::CheckAbleToEscapeFromBomb(const int i_start, const int j_start, int *i_safe, int *j_safe)
+void Search::CheckAbleToAvoidFromBomb(const int i_start, const int j_start, int *i_safe, int *j_safe)
 {
 	*i_safe = -1;
 	*j_safe = -1;
