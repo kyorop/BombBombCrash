@@ -14,6 +14,7 @@ class Search;
 class Route;
 class Target;
 class Avoid;
+class StopRoute;
 class EnemyAI
 {
 private:
@@ -44,6 +45,7 @@ private:
 	int nowExploring;
 	Target *const target;
 	Avoid *const avoid;
+	StopRoute *const stop;
 
 	Route *route;
 private:

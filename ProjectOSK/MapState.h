@@ -30,7 +30,7 @@ private:
 	MapState(const MapState &ms);
 	~MapState(void);
 	static void SetState(int x, int y, int object, int state, int option=0);
-	void SetDanger(int x, int y, dangerState state);
+	void SetDanger(int i, int j, dangerState state);
 public:
 	static void Initialize();
 	static MapState *GetInstance()

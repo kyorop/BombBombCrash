@@ -11,7 +11,9 @@ Target::Target(void):
 	routeList(),
 	search(new Search),
 	dijkstra(new Dijkstra),
-	hasCalculated(0)
+	hasCalculated(0),
+	x_next(-1),
+	y_next(-1)
 {
 }
 
@@ -41,6 +43,8 @@ void Target::SetRoute(const Enemy &myself)
 
 	//Å’ZŒo˜H‚ÌƒZƒbƒg
 	dijkstra->SearchShortestPath(myself.GetY()/32, myself.GetX()/32, i_to[rand], j_to[rand], &routeList);
+	routeList.push_back(BOMBSET);
+	routeList.push_back(BOMBSETOFF);
 }
 
 int Target::GetRoute(const Enemy &myself)
@@ -133,6 +137,7 @@ int Target::GetRoute(const Enemy &myself)
 				//nowExploring = 0;
 				break;
 			default:
+				routeList.pop_front();
 				break;
 		}
 		hasCalculated = 1;

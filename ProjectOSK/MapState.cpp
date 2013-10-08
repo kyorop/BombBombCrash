@@ -72,11 +72,19 @@ void MapState::SetBombState(int x, int y, int state, int option)
 	
 	if(state == 1)
 	{
-		SetDanger(x, y, BOMBRANGE);
+		SetDanger(y/32, x/32, BOMBRANGE);
+		SetDanger(y/32, x/32-1, BOMBRANGE);
+		SetDanger(y/32, x/32+1, BOMBRANGE);
+		SetDanger(y/32-1, x/32, BOMBRANGE);
+		SetDanger(y/32+1, x/32, BOMBRANGE);
 	}
 	else if(state == 0)
 	{
-		SetDanger(x, y, NODENGER);
+		SetDanger(y/32, x/32, NODENGER);
+		SetDanger(y/32, x/32-1, NODENGER);
+		SetDanger(y/32, x/32+1, NODENGER);
+		SetDanger(y/32-1, x/32, NODENGER);
+		SetDanger(y/32+1, x/32, NODENGER);
 	}
 	//MapState::mapState[y/32][x/32][BOMB][1] = fireLevel;
 }
@@ -94,10 +102,10 @@ int MapState::GetState(int i, int j, int object, int option)
 		return MapState::mapState[i][j][object][option];
 }
 
-void MapState::SetDanger(int x, int y, dangerState state)
+void MapState::SetDanger(int i, int j, dangerState state)
 {
-	int i=y/32;
-	int j=x/32;
+	//int i=y/32;
+	//int j=x/32;
 
 	if( !(i < 0 || row < i || j < 0 || line < j) )
 	{

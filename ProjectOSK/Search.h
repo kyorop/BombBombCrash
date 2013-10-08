@@ -32,10 +32,10 @@ private:
 	//void Initialize();
 
 	void SetGoal(const int i_start, const int j_start, std::vector<int> *i_goal, std::vector<int> *j_goal);
-	int CheckAbleToMove(const int i_start, const int j_start);
+	int CheckAbleToMove(const int i_start, const int j_start, int *const i_safe, int *const j_safe);
 
 public:
-	//引数に指定した場所をもとに目的地を決定する
+	//引数に指定した場所をもとに目的地(ブロックの真横)を決定する
 	void SetGoalInitialized(const int i_from, const int j_from, std::vector<int> *i_goal, std::vector<int> *j_goal);
 
 	//引数に指定した場所をもとに逃げる場所を決定する
@@ -43,7 +43,7 @@ public:
 
 	//引数に指定した場所から爆風範囲に巻き込まれないように他の場所へ移動できるかチェックする
 	//移動できるなら１を返す。移動できないなら０を返す。
-	int CheckAbleToMoveInitialized(const int i_start, const int j_start);
+	int CheckAbleToMoveInitialized(const int i_start, const int j_start, int *const i_safe, int *const j_safe);
 
 
 	Search(void);

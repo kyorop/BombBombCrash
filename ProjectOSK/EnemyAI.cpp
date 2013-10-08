@@ -6,6 +6,7 @@
 #include "Route.h"
 #include "Target.h"
 #include "Avoid.h"
+#include "StopRoute.h"
 #include "DxLib.h"
 enum
 {
@@ -38,6 +39,7 @@ EnemyAI::EnemyAI():
 	nowExploring(0),
 	target(new Target),
 	avoid(new Avoid),
+	stop(new StopRoute),
 	route(target)
 {
 }
@@ -61,9 +63,9 @@ int EnemyAI::CheckBombCAroundMyself(const Enemy &myself)
 			continue;
 		if(MapState::GetInstance()->GetState(i_current, j, BOMB) == 1)
 		{
-			if(route != target)
+			if(route == target)
 			{
-				route = avoid;
+				route = stop;
 				return 1;
 			}
 		}
@@ -75,9 +77,9 @@ int EnemyAI::CheckBombCAroundMyself(const Enemy &myself)
 			continue;
 		if(MapState::GetInstance()->GetState(i, j_current, BOMB) == 1)
 		{
-			if(route != target)
+			if(route == target)
 			{
-				route = avoid;
+				route = stop;
 				//break;
 				return 1;
 			}
@@ -128,11 +130,16 @@ void EnemyAI::Analyse(int i_current, int j_current, const Enemy &myself)
 	////	//isStop = 0;
 	////}
 
-	//if(myself.GetX() % 32 == 0 && myself.GetY() % 32 == 0)
-	//{
-	//	if(CheckBombCAroundMyself(myself) == 1) 
-	//		nowExploring = 0;
-	//}
+	if(myself.GetX() % 32 == 0 && myself.GetY() % 32 == 0)
+	{
+		if(CheckBombCAroundMyself(myself) == 1) 
+			nowExploring = 0;
+		else if(nowExploring == 0)
+		{
+			route = target;
+		}
+	}
+
 
 	if(nowExploring == 0)
 	{
