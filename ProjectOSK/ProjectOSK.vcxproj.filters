@@ -19,6 +19,9 @@
     <Filter Include="ソース ファイル\AI">
       <UniqueIdentifier>{767b9529-c177-45e6-b647-d1a4a1da868d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Utility">
+      <UniqueIdentifier>{ef042950-328b-4a6e-b458-cf8c700e6089}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -60,12 +63,6 @@
     <ClCompile Include="Charactor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Key.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Timer.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="BlastManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -100,13 +97,19 @@
       <Filter>ソース ファイル\AI</Filter>
     </ClCompile>
     <ClCompile Include="Search.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Key.cpp">
+      <Filter>ソース ファイル\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>ソース ファイル\Utility</Filter>
     </ClCompile>
     <ClCompile Include="Target.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\AI</Filter>
     </ClCompile>
     <ClCompile Include="Avoid.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\AI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -205,5 +208,6 @@
     <None Include="ClassDiagram5.cd" />
     <None Include="ClassDiagram6.cd" />
     <None Include="ClassDiagram7.cd" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

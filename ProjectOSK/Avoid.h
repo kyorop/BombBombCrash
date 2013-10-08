@@ -21,7 +21,7 @@ private:
 	int i_safe;
 	int j_safe;
 
-	std::list<int> routeList;
+	//std::list<int> routeList;
 
 	int hasCalculated;
 	int x_next;
@@ -29,7 +29,7 @@ private:
 
 public:
 	void DecideGoal(const Enemy &myself);
-	void SetRoute(const Enemy &myself);
+	void SetRoute(const Enemy &myself, std::list<int> *routeList);
 	int GetRoute(const Enemy &myself);
 	Avoid(void);
 	~Avoid(void);

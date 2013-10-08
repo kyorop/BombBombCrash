@@ -1,7 +1,7 @@
 #pragma once
 #include "GameConstant.h"
 ////#include <vector>
-////#include <list>
+#include <list>
 ////#include <queue>
 ////#include <stack>
 ////#include <vector>
@@ -30,12 +30,16 @@ private:
 	//Dijkstra *dijkstra;
 	//Search *search;
 	////長期目標ルート
-	//std::list<int> targetRoute;
+	std::list<int> targetRoute;
 	////短期危険回避ルート
 	//std::list<int> noDengerRoute;
 	////目的地候補の格納
 	//std::vector<int> i_goal;
 	//std::vector<int> j_goal;
+
+	int hasCalculated;
+	int x_next;
+	int y_next;
 
 	int nowExploring;
 	Target *const target;
@@ -43,7 +47,8 @@ private:
 
 	Route *route;
 private:
-	void CheckBombCAroundMyself(const Enemy &myself);
+	int CheckBombCAroundMyself(const Enemy &myself);
+	void CalculateNextPosition(const Enemy &myself ,int nextDirection);
 public:
 	void Analyse(int i_current, int j_current, const Enemy &myself);
 	int GetAction(const Enemy &myself);

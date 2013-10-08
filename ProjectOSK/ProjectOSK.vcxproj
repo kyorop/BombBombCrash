@@ -148,6 +148,7 @@
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram.cd" />
     <None Include="ClassDiagram5.cd" />
     <None Include="ClassDiagram6.cd" />
     <None Include="ClassDiagram7.cd" />

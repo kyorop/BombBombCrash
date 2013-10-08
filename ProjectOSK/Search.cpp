@@ -30,10 +30,10 @@ Search::Search(void):
 void Search::SetGoalInitialized(const int i, const int j, std::vector<int> *i_goal, std::vector<int> *j_goal)
 {
 	//初期化。再帰関数なのでその関数中で初期化できないため
-	for (int i = 0; i < GameConst::MAP_ROW; i++)
+	for (int row = 0; row < GameConst::MAP_ROW; ++row)
 	{
-		for (int j = 0; j < GameConst::MAP_LINE; j++)
-			hasVisited[i][j] = 0;
+		for (int line = 0; line < GameConst::MAP_LINE; ++line)
+			hasVisited[row][line] = 0;
 	}
 
 	SetGoal(i , j, i_goal, j_goal);
@@ -46,6 +46,7 @@ void Search::SetGoal(const int i, const int j, std::vector<int> *i_goal, std::ve
 
 	//目的地になるか調査
 	if(BLOCK(i, 0, j, 0) || BLOCK(i, -1, j, 0) || BLOCK(i, 1, j, 0) || BLOCK(i, 0, j, -1) || BLOCK(i, 0, j, 1))
+	//if(BLOCK(i, -1, j, 0) || BLOCK(i, 1, j, 0) || BLOCK(i, 0, j, -1) || BLOCK(i, 0, j, 1))
 	{
 		i_goal->push_back(i);
 		j_goal->push_back(j);

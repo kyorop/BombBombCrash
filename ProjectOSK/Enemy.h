@@ -8,7 +8,7 @@
 
 class Player;
 class Enemy:
-	public Charactor, virtual public IDrawable, virtual public IRegister
+	public Charactor, virtual public IDrawable
 {
 private:
 	//int nowStop;

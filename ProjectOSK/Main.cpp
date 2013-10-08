@@ -186,7 +186,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		{
 			for(int j=0; j<MapState::line; ++j)
 			{
-				DrawFormatString(640+15*j,80+15*i,color,"%d",MapState::GetInstance()->GetState(i,j,CHARACTOR));
+				DrawFormatString(640+15*j,80+15*i,color,"%d",MapState::GetInstance()->GetState(i,j,BOMB));
 			}
 		}
 
