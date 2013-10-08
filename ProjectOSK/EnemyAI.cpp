@@ -128,11 +128,11 @@ void EnemyAI::Analyse(int i_current, int j_current, const Enemy &myself)
 	////	//isStop = 0;
 	////}
 
-	if(myself.GetX() % 32 == 0 && myself.GetY() % 32 == 0)
-	{
-		if(CheckBombCAroundMyself(myself) == 1) 
-			nowExploring = 0;
-	}
+	//if(myself.GetX() % 32 == 0 && myself.GetY() % 32 == 0)
+	//{
+	//	if(CheckBombCAroundMyself(myself) == 1) 
+	//		nowExploring = 0;
+	//}
 
 	if(nowExploring == 0)
 	{
@@ -140,7 +140,7 @@ void EnemyAI::Analyse(int i_current, int j_current, const Enemy &myself)
 		if(myself.GetX() % 32 == 0 && myself.GetY() % 32 == 0)
 		{
 			route->DecideGoal(myself);
-			route->SetRoute(myself, &targetRoute);
+			route->SetRoute(myself);
 		}
 		else
 			targetRoute.push_back(STOP);
@@ -192,39 +192,39 @@ void EnemyAI::CalculateNextPosition(const Enemy &myself, int nextDirection)
 int EnemyAI::GetAction(const Enemy &myself)
 {
 
-	if(hasCalculated == 0)
-	{
-		//次に進む場所の座標の計算
-		CalculateNextPosition(myself, targetRoute.empty() ? -1 : targetRoute.front());
-		hasCalculated = 1;
-	}
+	//if(hasCalculated == 0)
+	//{
+	//	//次に進む場所の座標の計算
+	//	CalculateNextPosition(myself, targetRoute.empty() ? -1 : targetRoute.front());
+	//	hasCalculated = 1;
+	//}
 
-	//自身が一マス分の移動を終えたら
-	if(myself.GetX() == x_next && myself.GetY() == y_next /*&& nowExploring == 1*/)
-	//if(myself.GetX() % 32 == 0 && myself.GetY() % 32 == 0)
-	{
-		//次の目標マスを再計算する
-		hasCalculated = 0;
+	////自身が一マス分の移動を終えたら
+	//if(myself.GetX() == x_next && myself.GetY() == y_next /*&& nowExploring == 1*/)
+	////if(myself.GetX() % 32 == 0 && myself.GetY() % 32 == 0)
+	//{
+	//	//次の目標マスを再計算する
+	//	hasCalculated = 0;
 
-		if(targetRoute.empty() == 0)
-			targetRoute.pop_front();
-	}
-	
-	if(nowExploring == 1)
-	{
-		if(targetRoute.empty() == 1)
-		{
-			return STOP;
-		}
-		else
-		{
-			return targetRoute.front();
-		}
-	}
-	else
-	{
-		return STOP;
-	}
+	//	if(targetRoute.empty() == 0)
+	//		targetRoute.pop_front();
+	//}
+	//
+	//if(nowExploring == 1)
+	//{
+	//	if(targetRoute.empty() == 1)
+	//	{
+	//		return STOP;
+	//	}
+	//	else
+	//	{
+	//		return targetRoute.front();
+	//	}
+	//}
+	//else
+	//{
+	//	return STOP;
+	//}
 
 	//if(myself.GetX() == x_next && myself.GetY() == y_next)
 	////if(myself.GetX() % 32 == 0 && myself.GetY() % 32 == 0)
@@ -244,6 +244,18 @@ int EnemyAI::GetAction(const Enemy &myself)
 	//{
 	//	return targetRoute.front();
 	//}
+
+	if(route->GetRoute(myself) == -1)
+	{
+		nowExploring = 0;
+
+		return STOP;
+	}
+	else 
+	{
+		return route->GetRoute(myself);
+	}
+
 }
 
 

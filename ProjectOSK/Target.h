@@ -17,7 +17,7 @@ private:
 	std::vector<int> i_to;
 	std::vector<int> j_to;
 	int rand;
-	//std::list<int> routeList;
+	std::list<int> routeList;
 
 	Search *const search;
 	Dijkstra *const dijkstra;
@@ -28,7 +28,7 @@ private:
 
 public:
 	void DecideGoal(const Enemy &myself);
-	void SetRoute(const Enemy &myself, std::list<int> *routeList);
+	void SetRoute(const Enemy &myself);
 	int GetRoute(const Enemy &myself);
 	Target(void);
 	~Target(void);
