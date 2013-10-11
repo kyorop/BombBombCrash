@@ -46,8 +46,6 @@ EnemyAI::EnemyAI():
 
 EnemyAI::~EnemyAI(void)
 {
-	//delete dijkstra;
-	//delete search;
 	delete target;
 	delete avoid;
 }
@@ -57,10 +55,23 @@ int EnemyAI::CheckBombCAroundMyself(const Enemy &myself)
 	int i_current = myself.GetY() / 32;
 	int j_current = myself.GetX() / 32;
 
-	for (int j = 0; j < GameConst::MAP_LINE; ++j)
+	for (int j = j_current; j < GameConst::MAP_LINE; ++j)
 	{
 		if(MapState::GetInstance()->GetState(i_current, j, MAP) == 1 || MapState::GetInstance()->GetState(i_current, j, BLOCK) == 1)
-			continue;
+			break;
+		if(MapState::GetInstance()->GetState(i_current, j, BOMB) == 1)
+		{
+			if(route == target)
+			{
+				route = stop;
+				return 1;
+			}
+		}
+	}
+	for (int j = j_current; j >= 0;  --j)
+	{
+		if(MapState::GetInstance()->GetState(i_current, j, MAP) == 1 || MapState::GetInstance()->GetState(i_current, j, BLOCK) == 1)
+			break;
 		if(MapState::GetInstance()->GetState(i_current, j, BOMB) == 1)
 		{
 			if(route == target)
@@ -71,10 +82,10 @@ int EnemyAI::CheckBombCAroundMyself(const Enemy &myself)
 		}
 	}
 
-	for (int i = 0; i < GameConst::MAP_ROW; ++i)
+	for (int i = i_current; i < GameConst::MAP_ROW; ++i)
 	{
 		if(MapState::GetInstance()->GetState(i, j_current, MAP) == 1 || MapState::GetInstance()->GetState(i, j_current, BLOCK) == 1)
-			continue;
+			break;
 		if(MapState::GetInstance()->GetState(i, j_current, BOMB) == 1)
 		{
 			if(route == target)
@@ -86,6 +97,34 @@ int EnemyAI::CheckBombCAroundMyself(const Enemy &myself)
 		}
 	}
 
+	for (int i = i_current; i >= 0; --i)
+	{
+		if(MapState::GetInstance()->GetState(i, j_current, MAP) == 1 || MapState::GetInstance()->GetState(i, j_current, BLOCK) == 1)
+			break;
+		if(MapState::GetInstance()->GetState(i, j_current, BOMB) == 1)
+		{
+			if(route == target)
+			{
+				route = stop;
+				//break;
+				return 1;
+			}
+		}
+	}
+
+	return 0;
+}
+
+int EnemyAI::CheckDanager(const Enemy &myself)
+{
+	if(MapState::GetInstance()->GetDangerState(myself.GetY()/32, myself.GetX()/32) == 1)
+		return 1;
+	else
+		return 0;
+}
+
+int EnemyAI::CheckAbleToMove(const Enemy &myself)
+{
 	return 0;
 }
 
@@ -130,16 +169,20 @@ void EnemyAI::Analyse(int i_current, int j_current, const Enemy &myself)
 	////	//isStop = 0;
 	////}
 
-	if(myself.GetX() % 32 == 0 && myself.GetY() % 32 == 0)
+	if(CheckDanager(myself) == 1)
 	{
-		if(CheckBombCAroundMyself(myself) == 1) 
-			nowExploring = 0;
-		else if(nowExploring == 0)
-		{
-			route = target;
-		}
+		
 	}
 
+	//if(myself.GetX() % 32 == 0 && myself.GetY() % 32 == 0)
+	//{
+	//	if(CheckBombCAroundMyself(myself) == 1) 
+	//		nowExploring = 0;
+	//	else if(nowExploring == 0)
+	//	{
+	//		route = target;
+	//	}
+	//}
 
 	if(nowExploring == 0)
 	{
@@ -153,6 +196,7 @@ void EnemyAI::Analyse(int i_current, int j_current, const Enemy &myself)
 			targetRoute.push_back(STOP);
 		nowExploring = 1;
 	}
+
 }
 
 void EnemyAI::CalculateNextPosition(const Enemy &myself, int nextDirection)

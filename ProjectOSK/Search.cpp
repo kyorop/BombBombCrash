@@ -5,7 +5,9 @@
 #define MAP(i, p, j, q) MapState::GetInstance()->GetState(i+p, j+q, MAP)
 
 Search::Search(void):
+	failed(0),
 	hasVisited(),
+	count(0),
 	//i_goal(),
 	//j_goal(),
 	que_i(),
@@ -35,12 +37,14 @@ void Search::SetGoalInitialized(const int i, const int j, std::vector<int> *i_go
 		for (int line = 0; line < GameConst::MAP_LINE; ++line)
 			hasVisited[row][line] = 0;
 	}
-
+	count = 0;
+	failed = 0;
 	SetGoal(i , j, i_goal, j_goal);
 }
 
 void Search::SetGoal(const int i, const int j, std::vector<int> *i_goal, std::vector<int> *j_goal)
 {
+	++count;
 	//一度通ったところにまた通らないように通過フラグを立てる
 	hasVisited[i][j] = 1;
 
@@ -51,12 +55,16 @@ void Search::SetGoal(const int i, const int j, std::vector<int> *i_goal, std::ve
 		i_goal->push_back(i);
 		j_goal->push_back(j);
 	}
+	if(count > GameConst::MAP_ROW * GameConst::MAP_LINE)
+	{
+		failed = 1;
+	}
 
 	//通れるところに進む
-	if( hasVisited[i-1][j] == 0 && MAP(i, -1, j, 0) == 0 && BLOCK(i, -1, j, 0) == 0 ) SetGoal(i-1, j, i_goal, j_goal);
-	if( hasVisited[i+1][j] == 0 && MAP(i, 1, j, 0) == 0 && BLOCK(i, 1, j, 0) == 0 ) SetGoal(i+1, j, i_goal,  j_goal);
-	if( hasVisited[i][j-1] == 0 && MAP(i, 0, j, -1) == 0 && BLOCK(i, 0, j, -1) == 0 ) SetGoal(i, j-1, i_goal, j_goal);
-	if( hasVisited[i][j+1] == 0 && MAP(i, 0, j, 1) == 0 && BLOCK(i, 0, j, 1) == 0 ) SetGoal(i, j+1, i_goal, j_goal);
+	if(failed == 0 && hasVisited[i-1][j] == 0 && MAP(i, -1, j, 0) == 0 && BLOCK(i, -1, j, 0) == 0 ) SetGoal(i-1, j, i_goal, j_goal);
+	if(failed == 0 && hasVisited[i+1][j] == 0 && MAP(i, 1, j, 0) == 0 && BLOCK(i, 1, j, 0) == 0 ) SetGoal(i+1, j, i_goal,  j_goal);
+	if(failed == 0 && hasVisited[i][j-1] == 0 && MAP(i, 0, j, -1) == 0 && BLOCK(i, 0, j, -1) == 0 ) SetGoal(i, j-1, i_goal, j_goal);
+	if(failed == 0 && hasVisited[i][j+1] == 0 && MAP(i, 0, j, 1) == 0 && BLOCK(i, 0, j, 1) == 0 ) SetGoal(i, j+1, i_goal, j_goal);
 }
 
 void Search::CheckAbleToAvoidFromBomb(const int i_start, const int j_start, int *i_safe, int *j_safe)
@@ -95,7 +103,8 @@ void Search::CheckAbleToAvoidFromBomb(const int i_start, const int j_start, int 
 			j = que_j.front();
 
 			//逃げれるかチェック
-			if( i != i_start && j != j_start)
+			//if( i != i_start && j != j_start)
+			if(MAP(i, 0, j, 0) == 0 && BLOCK(i, 0, j, 0) == 0 && MapState::GetInstance()->GetDangerState(i, j) == NODENGER && MapState::GetInstance()->GetState(i, j, BOMB) == 0)
 			{
 				*i_safe = i;
 				*j_safe = j;
@@ -147,20 +156,25 @@ int Search::CheckAbleToMoveInitialized(const int i_start, const int j_start, int
 	checkedOtherLine = 0;
 	checkedOtherRow = 0;
 	success = 0;
+	count = 0;
 
 	return CheckAbleToMove(i_start, j_start, i_safe, j_safe);
 }
 
 int Search::CheckAbleToMove(const int i, const int j, int *const i_safe, int *const j_safe)
 {
+	++count;
 	hasVisited[i][j] = 1;
-	
-	
+		
 	//if( checkedOtherRow == 1 && checkedOtherLine == 1 )		//移動しても爆風に巻き込まれないなら
 	if(MAP(i, 0, j, 0) == 0 && BLOCK(i, 0, j, 0) == 0 && MapState::GetInstance()->GetDangerState(i, j) == NODENGER && MapState::GetInstance()->GetState(i, j, BOMB) == 0)
 	{
 		*i_safe = i;
 		*j_safe = j;
+		success = 1;
+	}
+	if(count > GameConst::MAP_ROW * GameConst::MAP_LINE)
+	{
 		success = 1;
 	}
 

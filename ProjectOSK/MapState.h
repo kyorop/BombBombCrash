@@ -11,12 +11,14 @@ enum object
 
 enum dangerState
 {
+	FINISH = -1,
 	NODENGER,
-	BOMBRANGE
+	BOMBRANGE,
 };
 
 class MapState
 {
+
 public:
 	static const int row = 13;
 	static const int line = 17;
@@ -25,12 +27,28 @@ private:
 	static const int topic = 2;
 	static int mapState[row][line][objects][topic];
 	static dangerState hazardMap[row][line];
+
+private:
+	struct DangerNode
+	{
+	public:
+		int (*pBrastCenter)[17];
+		int danger;
+	public:
+		DangerNode():
+			pBrastCenter(),
+			danger(0)
+		{
+		}
+	};
+
 private:
 	MapState(void);
 	MapState(const MapState &ms);
 	~MapState(void);
 	static void SetState(int x, int y, int object, int state, int option=0);
-	void SetDanger(int i, int j, dangerState state);
+	static DangerNode dNode[row][line];
+
 public:
 	static void Initialize();
 	static MapState *GetInstance()
@@ -38,14 +56,14 @@ public:
 		static MapState msInstance;
 		return &msInstance;
 	}
-
+	void SetDanger(int i, int j, int fireLevel, int state);
 	//セット系はそれを用いるクラスが直交座標系なので x, y で指定する
 	//ゲット系はそれを用いるクラスが行列形式で管理しているので i, j で指定する
 	void SetMapState(int x, int y, int flag, int option=0);
 	void SetBlockState(int x, int y, int state, int option=0);
 	void SetItemState(int x, int y, int state, int option=0);
 	void SetCharactorState(int x, int y, int flag, int option=0);
-	void SetBombState(int x, int y, int state, int option=0);
+	void SetBombState(int x, int y, int state, int option=0, int fireLevel=0);
 	void SetFireState(int x, int y, int state, int option=0);
 	int GetState(int i, int j, int object, int option=0);
 	dangerState GetDangerState(int i , int j);

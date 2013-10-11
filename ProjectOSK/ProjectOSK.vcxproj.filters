@@ -75,9 +75,6 @@
     <ClCompile Include="IRegister.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerBomb.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>ソース ファイル\Enemy</Filter>
     </ClCompile>
@@ -111,8 +108,11 @@
     <ClCompile Include="Avoid.cpp">
       <Filter>ソース ファイル\AI</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerBomb.cpp">
+      <Filter>ソース ファイル\AI</Filter>
+    </ClCompile>
     <ClCompile Include="StopRoute.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\AI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

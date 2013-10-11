@@ -9,7 +9,8 @@ class Search
 //各メソッド共用
 private:
 	int hasVisited[GameConst::MAP_ROW][GameConst::MAP_LINE];
-
+	int count;
+	int failed;
 //for SetGoal method
 private:
 	//std::vector<int> i_goal;

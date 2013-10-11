@@ -24,7 +24,7 @@ StopRoute::~StopRoute(void)
 
 void StopRoute::DecideGoal(const Enemy &myself)
 {
-	search->CheckAbleToMoveInitialized(myself.GetY()/32, myself.GetX()/32, &i_safe, &j_safe);
+	search->CheckAbleToAvoidFromBomb(myself.GetY()/32, myself.GetX()/32, &i_safe, &j_safe);
 }
 
 void  StopRoute::SetRoute(const Enemy &myself)
@@ -34,6 +34,7 @@ void  StopRoute::SetRoute(const Enemy &myself)
 
 	//最短経路のセット
 	dijkstra->SearchShortestPath(myself.GetY()/32, myself.GetX()/32, i_safe, j_safe, &routeList);
+	routeList.push_back(STOP);
 }
 
 int StopRoute::GetRoute(const Enemy &myself)
@@ -77,8 +78,7 @@ int StopRoute::GetRoute(const Enemy &myself)
 		hasCalculated = 1;
 	}
 
-	if(myself.GetX() == x_next && myself.GetY() == y_next /*&& nowExploring == 1*/)
-	//if(myself.GetX() % 32 == 0 && myself.GetY() % 32 == 0)
+	if(myself.GetX() == x_next && myself.GetY() == y_next )
 	{
 		//次の目標マスを再計算する
 		hasCalculated = 0;

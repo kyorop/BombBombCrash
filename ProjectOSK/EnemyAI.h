@@ -51,6 +51,8 @@ private:
 private:
 	int CheckBombCAroundMyself(const Enemy &myself);
 	void CalculateNextPosition(const Enemy &myself ,int nextDirection);
+	int CheckDanager(const Enemy &myself);
+	int CheckAbleToMove(const Enemy &myself);
 public:
 	void Analyse(int i_current, int j_current, const Enemy &myself);
 	int GetAction(const Enemy &myself);
