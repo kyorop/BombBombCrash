@@ -14,6 +14,7 @@
 #include "Enemy.h"
 #include "EnemyBombManager.h"
 #include "DxLib.h"
+#include "DangerState.h"
 #include <iostream>
 #include <vector>
 #define DRAWNUM 9
@@ -181,13 +182,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		//{
 		//	DrawFormatString(640,80+20*i,color,"[%d]ボムフラグ　%d",i+1,(*bombManager.vbomb)[i]->GetFlag());
 		//}
-
+		DangerState::GetInstance()->Update();
 		for(int i=0; i<MapState::row; ++i)
 		{
 			for(int j=0; j<MapState::line; ++j)
 			{
 				//DrawFormatString(640+15*j,80+15*i,color,"%d",MapState::GetInstance()->GetState(i,j,BOMB));
-				DrawFormatString(640+15*j,80+15*i,color,"%d",MapState::GetInstance()->GetDangerState(i, j));			
+				//DrawFormatString(640+15*j,80+15*i,color,"%d",MapState::GetInstance()->GetDangerState(i, j));			
+				DrawFormatString(640+15*j,80+15*i,color,"%d",DangerState::GetInstance()->node[i][j].danger);				
 			}
 		}
 
