@@ -125,6 +125,7 @@ int EnemyAI::CheckDanager(const Enemy &myself)
 
 int EnemyAI::CheckAbleToMove(const Enemy &myself)
 {
+
 	return 0;
 }
 
