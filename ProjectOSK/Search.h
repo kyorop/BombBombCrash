@@ -13,8 +13,8 @@ private:
 	int failed;
 //for CheckAbleToBombAvoid method
 private:
-	std::queue<int> que_i;
-	std::queue<int> que_j;
+	//std::queue<int> que_i;
+	//std::queue<int> que_j;
 //for CheckBomb method
 private:
 	int checkedOtherRow;
@@ -39,7 +39,7 @@ public:
 	int CheckAbleToMoveInitialized(const int i_start, const int j_start, int *const i_safe, int *const j_safe);
 	
 	//爆風範囲に入っている時にそこからの最短脱出ルートを提供する
-	void SetEscapeRouteWhenInDanger(int i, int j, std::list<int> escapeRoute);
+	void SetEscapeRouteWhenInDanger(int i, int j, std::list<int> *escapeRoute);
 
 	//閉区間にいるか調べる。
 	//いるなら１を返す。いないなら０を返す。

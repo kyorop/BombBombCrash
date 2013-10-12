@@ -24,23 +24,13 @@ enum
 #define MAP(i, p, j, q) MapState::GetInstance()->GetState(i+p, j+q, MAP)
 
 EnemyAI::EnemyAI():
-	//hasCalked(0),
-	//rand(-1),
-	//i_safe(-1),
-	//j_safe(-1),
-	//dijkstra(new Dijkstra),
-	//search(new Search),
-	targetRoute(),
-	//noDengerRoute(),
-	//isStop(0),
-	//x_next(),
-	//y_next(),
 	hasCalculated(0),
 	nowExploring(0),
 	target(new Target),
 	avoid(new Avoid),
 	stop(new StopRoute),
-	route(target)
+	route(target),
+	search(new Search)
 {
 }
 
@@ -125,77 +115,42 @@ int EnemyAI::CheckDanager(const Enemy &myself)
 
 int EnemyAI::CheckAbleToMove(const Enemy &myself)
 {
-
 	return 0;
 }
 
 void EnemyAI::Analyse(int i_current, int j_current, const Enemy &myself)
 {
-	//int n = 0;
-	//if(nowExploring == 0 )
+	//int x_center = myself.GetX() + myself.GetX() + 32;
+	//int y_center = myself.GetY() + myself.GetY() + 32;
+
+	//ちょうどマスぴったりにいるときに
+	/*if(myself.GetX() % 32 == 0 && myself.GetY() % 32 == 0)*/
 	//{
-	//	//目的地(壊す壁)の決定
-	//	i_goal.clear();
-	//	j_goal.clear();
-	//	search->SetGoalInitialized(i_current, j_current, &i_goal, &j_goal);
-	//	
-	//	//目的地までのルートセット
-	//	n = GetRand(i_goal.size() - 1);
-	//	rand = n;
-	//	dijkstra->SearchShortestPath(i_current, j_current, i_goal[n], j_goal[n], &targetRoute);
-	//	
-	//	//破壊する壁からボム逃げ地までのルートセット
-	//	targetRoute.push_back(BOMBSET);
-	//	targetRoute.push_back(BOMBSETOFF);
-	//	//->SearchShortestPath(i_goal[n], j_goal[n], i_safe, j_safe, &targetRoute);
-
-	//	//安全地の座標決定
-	//	search->CheckAbleToAvoidFromBomb(i_goal[n], j_goal[n], &i_safe, &j_safe);
-
-	//	//安全地までのルートセット
-	//	dijkstra->SearchShortestPath(i_goal[n], j_goal[n], i_safe, j_safe, &targetRoute);
-	//	//targetRoute.push_back(STOP);
-	//	nowExploring = 1;
-	//}
-	//
-	////if(search->CheckAbleToMoveInitialized(i_safe, j_safe) == 0 )
-	////{
-	////	targetRoute.push_front(STOP);
-	////	//isStop = 1;
-	////}
-	////if(search->CheckAbleToMoveInitialized(i_safe, j_safe) == 1)
-	////{
-	////	targetRoute.pop_back();
-	////	//myself->CancelStop();
-	////	//isStop = 0;
-	////}
-
-	if(CheckDanager(myself) == 1)
-	{
-		
-	}
-
-	//if(myself.GetX() % 32 == 0 && myself.GetY() % 32 == 0)
-	//{
-	//	if(CheckBombCAroundMyself(myself) == 1) 
-	//		nowExploring = 0;
-	//	else if(nowExploring == 0)
-	//	{
-	//		route = target;
-	//	}
+		//if(search->CheckInClosedInterval(myself.GetY()/32, myself.GetX()/32) == 1 && myself.GetX() % 32 == 0 && myself.GetY() % 32 == 0)
+		//{
+		//	route = stop;	//閉区間にいるならストップ
+		//	nowExploring = 0;
+		//}
+		//else if(CheckDanager(myself) == 1)
+		//{
+		//	route = avoid;	//危険地にいるなら逃げる
+		//	nowExploring = 0;
+		//}
+		//else
+		//{
+		//	route = target;	//どれでもないならターゲットを狙う
+		//	//nowExploring = 0;
+		//}
 	//}
 
 	if(nowExploring == 0)
 	{
-		targetRoute.clear();
-		if(myself.GetX() % 32 == 0 && myself.GetY() % 32 == 0)
+		//if(myself.GetX() % 32 == 0 && myself.GetY() % 32 == 0)
 		{
 			route->DecideGoal(myself);
 			route->SetRoute(myself);
+			nowExploring = 1;
 		}
-		else
-			targetRoute.push_back(STOP);
-		nowExploring = 1;
 	}
 
 }
@@ -243,71 +198,21 @@ void EnemyAI::CalculateNextPosition(const Enemy &myself, int nextDirection)
 
 int EnemyAI::GetAction(const Enemy &myself)
 {
-
-	//if(hasCalculated == 0)
-	//{
-	//	//次に進む場所の座標の計算
-	//	CalculateNextPosition(myself, targetRoute.empty() ? -1 : targetRoute.front());
-	//	hasCalculated = 1;
-	//}
-
-	////自身が一マス分の移動を終えたら
-	//if(myself.GetX() == x_next && myself.GetY() == y_next /*&& nowExploring == 1*/)
-	////if(myself.GetX() % 32 == 0 && myself.GetY() % 32 == 0)
-	//{
-	//	//次の目標マスを再計算する
-	//	hasCalculated = 0;
-
-	//	if(targetRoute.empty() == 0)
-	//		targetRoute.pop_front();
-	//}
-	//
-	//if(nowExploring == 1)
-	//{
-	//	if(targetRoute.empty() == 1)
-	//	{
-	//		return STOP;
-	//	}
-	//	else
-	//	{
-	//		return targetRoute.front();
-	//	}
-	//}
-	//else
-	//{
-	//	return STOP;
-	//}
-
-	//if(myself.GetX() == x_next && myself.GetY() == y_next)
-	////if(myself.GetX() % 32 == 0 && myself.GetY() % 32 == 0)
-	//{
-	//	if(targetRoute.empty() == 0)
-	//		targetRoute.pop_front();
-	//	
-	//	if(targetRoute.empty() == 1)
-	//		nowExploring = 0;
-	//}
-	//	
-	//if(targetRoute.empty() == 1)
-	//{
-	//	return STOP;
-	//}
-	//else
-	//{
-	//	return targetRoute.front();
-	//}
-
-	if(route->GetRoute(myself) == -1)
+	if(nowExploring == 1)
 	{
-		nowExploring = 0;
-
-		return STOP;
+		//ルートがなくなったら思考停止
+		if(route->GetRoute(myself) == -1)
+		{
+			nowExploring = 0;
+			return STOP;
+		}
+		else 
+		{
+			return route->GetRoute(myself);
+		}
 	}
-	else 
-	{
-		return route->GetRoute(myself);
-	}
-
+	else
+		return STOP;	//思考中という意味
 }
 
 

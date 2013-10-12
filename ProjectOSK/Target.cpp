@@ -43,8 +43,11 @@ void Target::SetRoute(const Enemy &myself)
 
 	//最短経路のセット
 	dijkstra->SearchShortestPath(myself.GetY()/32, myself.GetX()/32, i_to[rand], j_to[rand], &routeList);
-	routeList.push_back(BOMBSET);
-	routeList.push_back(BOMBSETOFF);
+	if(routeList.empty() == 0)
+	{
+		routeList.push_back(BOMBSET);
+		//routeList.push_back(BOMBSETOFF);
+	}
 }
 
 int Target::GetRoute(const Enemy &myself)
@@ -133,18 +136,21 @@ int Target::GetRoute(const Enemy &myself)
 				x_next = (j_current + 1) * 32;
 				y_next = (i_current + 0) * 32;
 				break;
-			case -1:
+			case BOMBSET:
 				//nowExploring = 0;
-				break;
-			default:
 				routeList.pop_front();
+				return BOMBSET;
+			case BOMBSETOFF:
+				routeList.pop_front();
+				return BOMBSETOFF;
+			default:
+				//routeList.pop_front();
 				break;
 		}
 		hasCalculated = 1;
 	}
 
-	if(myself.GetX() == x_next && myself.GetY() == y_next /*&& nowExploring == 1*/)
-	//if(myself.GetX() % 32 == 0 && myself.GetY() % 32 == 0)
+	if(myself.GetX() == x_next && myself.GetY() == y_next)
 	{
 		//次の目標マスを再計算する
 		hasCalculated = 0;
@@ -153,14 +159,13 @@ int Target::GetRoute(const Enemy &myself)
 			routeList.pop_front();
 	}
 	
-	
-		if(routeList.empty() == 1)
-		{
-			return -1;		//リストが空なら終了として－１を返す
-		}
-		else
-		{
-			return routeList.front();
-		}
+	if(routeList.empty() == 1)
+	{
+		return -1;		//リストが空なら終了として－１を返す
+	}
+	else
+	{
+		return routeList.front();
+	}
 
 }

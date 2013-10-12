@@ -18,26 +18,6 @@ class StopRoute;
 class EnemyAI
 {
 private:
-	//int i_safe;
-	//int j_safe;
-	//int rand;
-	//int hasCalked;
-	//int currentOrder;
-	//int x_next;
-	//int y_next;
-	//int x_center;
-	//int y_center;
-	//int isStop;
-	//Dijkstra *dijkstra;
-	//Search *search;
-	////長期目標ルート
-	std::list<int> targetRoute;
-	////短期危険回避ルート
-	//std::list<int> noDengerRoute;
-	////目的地候補の格納
-	//std::vector<int> i_goal;
-	//std::vector<int> j_goal;
-
 	int hasCalculated;
 	int x_next;
 	int y_next;
@@ -48,6 +28,7 @@ private:
 	StopRoute *const stop;
 
 	Route *route;
+	Search *search;
 private:
 	int CheckBombCAroundMyself(const Enemy &myself);
 	void CalculateNextPosition(const Enemy &myself ,int nextDirection);

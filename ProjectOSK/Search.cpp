@@ -1,9 +1,8 @@
 #include "Search.h"
 #include "MapState.h"
 #include "GameConstant.h"
+#include <stack>
 #include <memory.h>
-#include <winbase.h>
-
 
 #define BLOCK(i, p, j, q) MapState::GetInstance()->GetState(i+p, j+q, BLOCK)
 #define MAP(i, p, j, q) MapState::GetInstance()->GetState(i+p, j+q, MAP)
@@ -14,8 +13,8 @@ Search::Search(void):
 	count(0),
 	//i_goal(),
 	//j_goal(),
-	que_i(),
-	que_j(),
+	//que_i(),
+	//que_j(),
 	//i_safe(-1),
 	//j_safe(-1),
 	checkedOtherRow(0),
@@ -204,12 +203,21 @@ int Search::CheckAbleToMove(const int i, const int j, int *const i_safe, int *co
 	return success;
 }
 
-void Search::SetEscapeRouteWhenInDanger(int i_start, int j_start, std::list<int> escapeRoute)
+void Search::SetEscapeRouteWhenInDanger(int i_start, int j_start, std::list<int> *escapeRoute)
 {
+	std::queue<int> que_i;
+	std::queue<int> que_j;
+	std::stack<int> routeStack;
+	int visited[GameConst::MAP_ROW][GameConst::MAP_LINE];
+	int pred[GameConst::MAP_ROW][GameConst::MAP_LINE];
+
 	for (int i = 0; i < GameConst::MAP_ROW; i++)
 	{
 		for (int j = 0; j < GameConst::MAP_LINE; j++)
-			hasVisited[i][j] = 0;
+		{
+			visited[i][j] = 0;
+			pred[i][j] = -1;
+		}
 	}
 
 	while(que_i.empty() == 0)
@@ -221,6 +229,8 @@ void Search::SetEscapeRouteWhenInDanger(int i_start, int j_start, std::list<int>
 		que_j.pop();
 	}
 
+	visited[i_start][j_start] = 1;
+	pred[i_start][j_start] = 0;
 	//初期位置をキューに追加
 	que_i.push(i_start);
 	que_j.push(j_start);
@@ -229,8 +239,11 @@ void Search::SetEscapeRouteWhenInDanger(int i_start, int j_start, std::list<int>
 	int i;
 	int j;
 	int goal = 0;
+	int i_goal;
+	int j_goal;
+	int settled = 0;
 
-	while(goal == 0)
+	while(que_i.empty() == 0)
 	{
 		size = que_i.size();		//すでに入っていたキューの数だけ更新をする
 		for(int n=0; n<size; ++n)
@@ -240,38 +253,41 @@ void Search::SetEscapeRouteWhenInDanger(int i_start, int j_start, std::list<int>
 
 			if(MAP(i, 0, j, 0) == 0 && BLOCK(i, 0, j, 0) == 0 && MapState::GetInstance()->GetState(i, j, BOMB) == 0 && MapState::GetInstance()->GetDangerState(i, j) == NODENGER)
 			{
-				goal = 1;
-				break;
+				i_goal = i;
+				j_goal = j;
+				settled = 1;
 			}
-
-			//逃げれないならキューの更新
-			if(hasVisited[i-1][j] == 0 && MAP(i, -1, j, 0) == 0 && BLOCK(i, -1, j, 0) == 0 && MapState::GetInstance()->GetState(i-1, j, BOMB) == 0)
+			else if(settled == 0)
 			{
-				escapeRoute.push_back(GameConst::UP);
-				hasVisited[i-1][j] = 1;
-				que_i.push(i-1);
-				que_j.push(j);
-			}
-			if( hasVisited[i+1][j] == 0 && MAP(i, 1, j, 0) == 0 && BLOCK(i, 1, j, 0) == 0 && MapState::GetInstance()->GetState(i+1, j, BOMB) == 0)
-			{
-				escapeRoute.push_back(GameConst::DOWN);
-				hasVisited[i+1][j] = 1;
-				que_i.push(i+1);
-				que_j.push(j);
-			}
-			if( hasVisited[i][j-1] == 0 && MAP(i, 0, j, -1) == 0 && BLOCK(i, 0, j, -1) == 0 && MapState::GetInstance()->GetState(i, j-1, BOMB) == 0)
-			{
-				escapeRoute.push_back(GameConst::LEFT);
-				hasVisited[i][j-1] = 1;
-				que_i.push(i);
-				que_j.push(j-1);
-			}
-			if( hasVisited[i][j+1] == 0 && MAP(i, 0, j, 1) == 0 && BLOCK(i, 0, j, 1) == 0 && MapState::GetInstance()->GetState(i, j+1, BOMB) == 0)
-			{
-				escapeRoute.push_back(GameConst::RIGHT);
-				hasVisited[i][j+1] = 1;
-				que_i.push(i);
-				que_j.push(j+1);
+				//逃げれないならキューの更新
+				if(MAP(i, -1, j, 0) == 0 && BLOCK(i, -1, j, 0) == 0 && MapState::GetInstance()->GetState(i-1, j, BOMB) == 0)
+				{
+					visited[i-1][j] = 1;
+					pred[i-1][j] = GameConst::UP;
+					que_i.push(i-1);
+					que_j.push(j);
+				}
+				if(/* visited[i+1][j] == 0 &&*/ MAP(i, 1, j, 0) == 0 && BLOCK(i, 1, j, 0) == 0 && MapState::GetInstance()->GetState(i+1, j, BOMB) == 0)
+				{
+					visited[i+1][j] = 1;
+					pred[i-1][j] = GameConst::DOWN;
+					que_i.push(i+1);
+					que_j.push(j);
+				}
+				if(/* visited[i][j-1] == 0 &&*/ MAP(i, 0, j, -1) == 0 && BLOCK(i, 0, j, -1) == 0 && MapState::GetInstance()->GetState(i, j-1, BOMB) == 0)
+				{
+					visited[i][j-1] = 1;
+					pred[i][j-1] = GameConst::LEFT;
+					que_i.push(i);
+					que_j.push(j-1);
+				}
+				if( /*visited[i][j+1] == 0 && */MAP(i, 0, j, 1) == 0 && BLOCK(i, 0, j, 1) == 0 && MapState::GetInstance()->GetState(i, j+1, BOMB) == 0)
+				{
+					visited[i][j+1] = 1;
+					pred[i][j+1] = GameConst::RIGHT;
+					que_i.push(i);
+					que_j.push(j+1);
+				}
 			}
 
 			//検索し終わった不必要なキューの削除
@@ -279,6 +295,41 @@ void Search::SetEscapeRouteWhenInDanger(int i_start, int j_start, std::list<int>
 			que_j.pop();
 		}
 	}
+
+	int i_current = i_goal;
+	int j_current = j_goal;
+	while(pred[i_current][j_current] != 0)		//-1は自分のいるところ
+	{
+		switch(pred[i_current][j_current])
+		{
+		case GameConst::UP:
+			escapeRoute->push_front(GameConst::UP);
+			i_current += 1;
+			break;
+		case GameConst::DOWN:
+			escapeRoute->push_front(GameConst::DOWN);
+			i_current -= 1;
+			break;
+		case GameConst::LEFT:
+			escapeRoute->push_front(GameConst::LEFT);
+			j_current += 1;
+			break;
+		case GameConst::RIGHT:
+			escapeRoute->push_front(GameConst::RIGHT);
+			j_current -= 1;
+			break;
+		}
+	}
+
+
+
+
+
+
+
+
+
+
 
 }
 
@@ -325,6 +376,8 @@ void Search::SetEscapeRouteToStop(int i_now, int j_now, std::list<int> escapeRou
 
 int Search::CheckInClosedInterval(int i_now, int j_now)
 {
+	std::queue<int> que_i;
+	std::queue<int> que_j;
 		for (int i = 0; i < GameConst::MAP_ROW; i++)
 	{
 		for (int j = 0; j < GameConst::MAP_LINE; j++)
@@ -397,7 +450,7 @@ int Search::CheckInClosedInterval(int i_now, int j_now)
 	{
 		for (int j = 0; j < GameConst::MAP_LINE; j++)
 		{
-			if(hasVisited[i][j] == 2)
+			if(hasVisited[i][j] == 1)
 			{
 				if(i != i_start)
 					i_change = 1;

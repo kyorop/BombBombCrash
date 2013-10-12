@@ -62,20 +62,25 @@ void Enemy::Move(int g_lastTime)
 		{
 		case STOP:
 			//nowStop = 1;
+			this->bombSet = 0;
 			break;
 		case UP:
+			this->bombSet = 0;
 			this->muki = UP;
 			this->y -= this->mv;
 			break;
 		case DOWN:
+			this->bombSet = 0;
 			this->muki = DOWN;
 			this->y += this->mv;
 			break;
 		case LEFT:
+			this->bombSet = 0;
 			this->muki = LEFT;
 			this->x -= this->mv;
 			break;
 		case RIGHT:
+			this->bombSet = 0;
 			this->muki = RIGHT;
 			this->x += this->mv;
 			break;
