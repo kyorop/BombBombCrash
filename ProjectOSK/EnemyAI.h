@@ -18,6 +18,15 @@ class StopRoute;
 class EnemyAI
 {
 private:
+	enum procedure
+	{
+		END,
+		TARGET,
+		AVOID,
+		STOP,
+	};
+	 procedure nextState;
+	 procedure currentState;
 	int hasCalculated;
 	int x_next;
 	int y_next;
@@ -31,7 +40,6 @@ private:
 	Search *search;
 private:
 	int CheckBombCAroundMyself(const Enemy &myself);
-	void CalculateNextPosition(const Enemy &myself ,int nextDirection);
 	int CheckDanager(const Enemy &myself);
 	int CheckAbleToMove(const Enemy &myself);
 public:

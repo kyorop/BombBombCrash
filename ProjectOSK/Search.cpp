@@ -11,12 +11,6 @@ Search::Search(void):
 	failed(0),
 	hasVisited(),
 	count(0),
-	//i_goal(),
-	//j_goal(),
-	//que_i(),
-	//que_j(),
-	//i_safe(-1),
-	//j_safe(-1),
 	checkedOtherRow(0),
 	checkedOtherLine(0),
 	success(0)
@@ -42,21 +36,21 @@ void Search::SetGoalInitialized(const int i, const int j, std::vector<int> *i_go
 }
 void Search::SetGoal(const int i, const int j, std::vector<int> *i_goal, std::vector<int> *j_goal)
 {
-	++count;
+	//++count;
 	//一度通ったところにまた通らないように通過フラグを立てる
 	hasVisited[i][j] = 1;
 
 	//目的地になるか調査
-	if(BLOCK(i, 0, j, 0) || BLOCK(i, -1, j, 0) || BLOCK(i, 1, j, 0) || BLOCK(i, 0, j, -1) || BLOCK(i, 0, j, 1))
-	//if(BLOCK(i, -1, j, 0) || BLOCK(i, 1, j, 0) || BLOCK(i, 0, j, -1) || BLOCK(i, 0, j, 1))
+	//if(BLOCK(i, 0, j, 0) || BLOCK(i, -1, j, 0) || BLOCK(i, 1, j, 0) || BLOCK(i, 0, j, -1) || BLOCK(i, 0, j, 1))
+	if(BLOCK(i, -1, j, 0) || BLOCK(i, 1, j, 0) || BLOCK(i, 0, j, -1) || BLOCK(i, 0, j, 1))
 	{
 		i_goal->push_back(i);
 		j_goal->push_back(j);
 	}
-	if(count > GameConst::MAP_ROW * GameConst::MAP_LINE)
-	{
-		failed = 1;
-	}
+	//if(count > GameConst::MAP_ROW * GameConst::MAP_LINE)
+	//{
+	//	failed = 1;
+	//}
 
 	//通れるところに進む
 	if(failed == 0 && hasVisited[i-1][j] == 0 && MAP(i, -1, j, 0) == 0 && BLOCK(i, -1, j, 0) == 0 ) SetGoal(i-1, j, i_goal, j_goal);
@@ -320,17 +314,6 @@ void Search::SetEscapeRouteWhenInDanger(int i_start, int j_start, std::list<int>
 			break;
 		}
 	}
-
-
-
-
-
-
-
-
-
-
-
 }
 
 int Search::OnlyCheckAbleToMove(int i, int j, int i_end, int j_end)
@@ -378,7 +361,7 @@ int Search::CheckInClosedInterval(int i_now, int j_now)
 {
 	std::queue<int> que_i;
 	std::queue<int> que_j;
-		for (int i = 0; i < GameConst::MAP_ROW; i++)
+	for (int i = 0; i < GameConst::MAP_ROW; i++)
 	{
 		for (int j = 0; j < GameConst::MAP_LINE; j++)
 			hasVisited[i][j] = 0;
@@ -411,25 +394,25 @@ int Search::CheckInClosedInterval(int i_now, int j_now)
 			j = que_j.front();
 
 			//逃げれないならキューの更新
-			if(hasVisited[i-1][j] == 0 && MAP(i, -1, j, 0) == 0 && BLOCK(i, -1, j, 0) == 0 && MapState::GetInstance()->GetState(i-1, j, BOMB) == 0)
+			if(MAP(i, -1, j, 0) == 0 && BLOCK(i, -1, j, 0) == 0 && MapState::GetInstance()->GetState(i-1, j, BOMB) == 0)
 			{
 				hasVisited[i-1][j] = 1;
 				que_i.push(i-1);
 				que_j.push(j);
 			}
-			if( hasVisited[i+1][j] == 0 && MAP(i, 1, j, 0) == 0 && BLOCK(i, 1, j, 0) == 0 && MapState::GetInstance()->GetState(i+1, j, BOMB) == 0)
+			if(MAP(i, 1, j, 0) == 0 && BLOCK(i, 1, j, 0) == 0 && MapState::GetInstance()->GetState(i+1, j, BOMB) == 0)
 			{
 				hasVisited[i+1][j] = 1;
 				que_i.push(i+1);
 				que_j.push(j);
 			}
-			if( hasVisited[i][j-1] == 0 && MAP(i, 0, j, -1) == 0 && BLOCK(i, 0, j, -1) == 0 && MapState::GetInstance()->GetState(i, j-1, BOMB) == 0)
+			if(MAP(i, 0, j, -1) == 0 && BLOCK(i, 0, j, -1) == 0 && MapState::GetInstance()->GetState(i, j-1, BOMB) == 0)
 			{
 				hasVisited[i][j-1] = 1;
 				que_i.push(i);
 				que_j.push(j-1);
 			}
-			if( hasVisited[i][j+1] == 0 && MAP(i, 0, j, 1) == 0 && BLOCK(i, 0, j, 1) == 0 && MapState::GetInstance()->GetState(i, j+1, BOMB) == 0)
+			if(MAP(i, 0, j, 1) == 0 && BLOCK(i, 0, j, 1) == 0 && MapState::GetInstance()->GetState(i, j+1, BOMB) == 0)
 			{
 				hasVisited[i][j+1] = 1;
 				que_i.push(i);

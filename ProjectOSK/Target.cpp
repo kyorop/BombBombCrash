@@ -7,7 +7,7 @@
 Target::Target(void):
 	i_to(),
 	j_to(),
-	rand(),
+	rand(0),
 	routeList(),
 	search(new Search),
 	dijkstra(new Dijkstra),
@@ -43,11 +43,11 @@ void Target::SetRoute(const Enemy &myself)
 
 	//Å’ZŒo˜H‚ÌƒZƒbƒg
 	dijkstra->SearchShortestPath(myself.GetY()/32, myself.GetX()/32, i_to[rand], j_to[rand], &routeList);
-	if(routeList.empty() == 0)
-	{
-		routeList.push_back(BOMBSET);
-		//routeList.push_back(BOMBSETOFF);
-	}
+	//if(routeList.empty() == 0)
+	//{
+	//	routeList.push_back(BOMBSET);
+	//	routeList.push_back(BOMBSETOFF);
+	//}
 }
 
 int Target::GetRoute(const Enemy &myself)
@@ -137,15 +137,13 @@ int Target::GetRoute(const Enemy &myself)
 				y_next = (i_current + 0) * 32;
 				break;
 			case BOMBSET:
-				//nowExploring = 0;
 				routeList.pop_front();
 				return BOMBSET;
-			case BOMBSETOFF:
-				routeList.pop_front();
-				return BOMBSETOFF;
+			//case BOMBSETOFF:
+			//	routeList.pop_front();
+			//	return BOMBSETOFF;
 			default:
-				//routeList.pop_front();
-				break;
+				return -1;
 		}
 		hasCalculated = 1;
 	}

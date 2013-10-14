@@ -11,10 +11,6 @@ private:
 	int hasVisited[GameConst::MAP_ROW][GameConst::MAP_LINE];
 	int count;
 	int failed;
-//for CheckAbleToBombAvoid method
-private:
-	//std::queue<int> que_i;
-	//std::queue<int> que_j;
 //for CheckBomb method
 private:
 	int checkedOtherRow;
