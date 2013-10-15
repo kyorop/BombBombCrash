@@ -29,25 +29,10 @@ private:
 	static dangerState hazardMap[row][line];
 
 private:
-	struct DangerNode
-	{
-	public:
-		int (*pBrastCenter)[17];
-		int danger;
-	public:
-		DangerNode():
-			pBrastCenter(),
-			danger(0)
-		{
-		}
-	};
-
-private:
 	MapState(void);
 	MapState(const MapState &ms);
 	~MapState(void);
 	static void SetState(int x, int y, int object, int state, int option=0);
-	static DangerNode dNode[row][line];
 
 public:
 	static void Initialize();
@@ -63,9 +48,11 @@ public:
 	void SetBlockState(int x, int y, int state, int option=0);
 	void SetItemState(int x, int y, int state, int option=0);
 	void SetCharactorState(int x, int y, int flag, int option=0);
-	void SetBombState(int x, int y, int state, int option=0, int fireLevel=0);
+	void SetBombState(int x, int y, int state, int option=0);
 	void SetFireState(int x, int y, int state, int option=0);
 	int GetState(int i, int j, int object, int option=0);
 	dangerState GetDangerState(int i , int j);
+
+
 };
 
