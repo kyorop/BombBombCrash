@@ -187,11 +187,21 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		{
 			for(int j=0; j<MapState::line; ++j)
 			{
-				//DrawFormatString(640+15*j,80+15*i,color,"%d",MapState::GetInstance()->GetState(i,j,BOMB));
+				DrawFormatString(640+15*j,80+15*i,color,"%d",MapState::GetInstance()->GetState(i,j,FIRE));
 				//DrawFormatString(640+15*j,80+15*i,color,"%d",MapState::GetInstance()->GetDangerState(i, j));			
-				DrawFormatString(640+15*j,80+15*i,color,"%d",DangerState::GetInstance()->node[i][j].danger);				
+				//DrawFormatString(640+15*j,80+15*i,color,"%d",DangerState::GetInstance()->node[i][j].danger);				
 			}
 		}
+		//for(int i=0; i<MapState::row; ++i)
+		//{
+		//	for(int j=0; j<MapState::line; ++j)
+		//	{
+		//		if(MapState::GetInstance()->GetState(i,j,CHARACTOR) == 1)
+		//		DrawFormatString(640+15*j,80+15*i,color3,"%d",MapState::GetInstance()->GetState(i,j,CHARACTOR));
+		//		//DrawFormatString(640+15*j,80+15*i,color,"%d",MapState::GetInstance()->GetDangerState(i, j));			
+		//		//DrawFormatString(640+15*j,80+15*i,color,"%d",DangerState::GetInstance()->node[i][j].danger);				
+		//	}
+		//}
 
 		
 		//for(int n=0,size=enemy.AI.i_goal.size(); n<size; ++n)

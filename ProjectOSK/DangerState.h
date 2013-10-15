@@ -8,7 +8,7 @@ private:
 	{
 	public:
 		//DangerNode (*pBrastCenter)[];
-		DangerNode *pBrastCenter;
+		//DangerNode *pBrastCenter;
 		int danger;
 		int i_brastCenter;
 		int j_brastCenter;

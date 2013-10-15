@@ -5,7 +5,7 @@
 DangerState::DangerNode DangerState::node[GameConst::MAP_ROW][GameConst::MAP_LINE];
 
 DangerState::DangerNode::DangerNode():
-	pBrastCenter(NULL),
+	//pBrastCenter(NULL),
 	danger(0),
 	i_brastCenter(),
 	j_brastCenter()
@@ -42,8 +42,14 @@ void DangerState::Update()
 			if(MapState::GetInstance()->GetState(i_node, j_node, BOMB) == 1)
 			{
 				int fireLevel = MapState::GetInstance()->GetState(i_node, j_node, BOMB, 1);
-				
+				//ボムが置かれた場所は常に１にしておく
+				node[i_node][j_node].danger = 1;
+				node[i_node][j_node].i_brastCenter = i_node;
+				node[i_node][j_node].j_brastCenter = j_node;
+
 				//爆心地を中心に火力分だけ四方を危険地域に設定
+
+				//中心から右
 				for (int i = i_node+1; i <= i_node+fireLevel; ++i)
 				{
 					if(0 <= i && i < GameConst::MAP_ROW)
@@ -52,12 +58,9 @@ void DangerState::Update()
 							|| MapState::GetInstance()->GetState(i, j_node, BLOCK) == 1
 							||MapState::GetInstance()->GetState(i, j_node, ITEM) == 1
 							||MapState::GetInstance()->GetState(i, j_node, BOMB) == 1
-							||MapState::GetInstance()->GetState(i, j_node, CHARACTOR) == 1)
+							//||MapState::GetInstance()->GetState(i, j_node, CHARACTOR) == 1
+							)
 						{
-							node[i][j_node].danger = 1;
-							node[i][j_node].pBrastCenter = *(node+i_node)+j_node;
-							node[i][j_node].i_brastCenter = i_node;
-							node[i][j_node].j_brastCenter = j_node;
 							break;
 						}
 						else
@@ -68,6 +71,8 @@ void DangerState::Update()
 						}
 					}
 				}
+
+				//中心から左
 				for (int i=i_node-1; i >= i_node - fireLevel ; --i)
 				{
 					if(0 <= i && i < GameConst::MAP_ROW)
@@ -76,12 +81,9 @@ void DangerState::Update()
 							|| MapState::GetInstance()->GetState(i, j_node, BLOCK) == 1
 							||MapState::GetInstance()->GetState(i, j_node, ITEM) == 1
 							||MapState::GetInstance()->GetState(i, j_node, BOMB) == 1
-							||MapState::GetInstance()->GetState(i, j_node, CHARACTOR) == 1)
+							//||MapState::GetInstance()->GetState(i, j_node, CHARACTOR) == 1
+							)
 						{
-							node[i][j_node].danger = 1;
-							node[i][j_node].pBrastCenter = *(node+i_node)+j_node;
-							node[i][j_node].i_brastCenter = i_node;
-							node[i][j_node].j_brastCenter = j_node;
 							break;
 						}
 						else
@@ -92,6 +94,8 @@ void DangerState::Update()
 						}
 					}
 				}
+
+				//中心から下
 				for (int j=j_node+1; j <= j_node+fireLevel; ++j)
 				{
 					if(0 <= j && j < GameConst::MAP_LINE)
@@ -100,12 +104,9 @@ void DangerState::Update()
 							|| MapState::GetInstance()->GetState(i_node, j, BLOCK) == 1
 							||MapState::GetInstance()->GetState(i_node, j, ITEM) == 1
 							||MapState::GetInstance()->GetState(i_node, j, BOMB) == 1
-							||MapState::GetInstance()->GetState(i_node, j, CHARACTOR) == 1)
+							//||MapState::GetInstance()->GetState(i_node, j, CHARACTOR) == 1
+							)
 						{
-							node[i_node][j].danger = 1;
-							node[i_node][j].pBrastCenter = *(node+i_node)+j_node;
-							node[i_node][j].i_brastCenter = i_node;
-							node[i_node][j].j_brastCenter = j_node;
 							break;
 						}
 						else
@@ -116,6 +117,8 @@ void DangerState::Update()
 						}
 					}
 				}
+
+				//中心から上
 				for (int j=j_node-1; j >= j_node - fireLevel ; --j)
 				{
 					if(0 <= j && j < GameConst::MAP_LINE)
@@ -124,12 +127,9 @@ void DangerState::Update()
 							|| MapState::GetInstance()->GetState(i_node, j, BLOCK) == 1
 							||MapState::GetInstance()->GetState(i_node, j, ITEM) == 1
 							||MapState::GetInstance()->GetState(i_node, j, BOMB) == 1
-							||MapState::GetInstance()->GetState(i_node, j, CHARACTOR) == 1)
+							//||MapState::GetInstance()->GetState(i_node, j, CHARACTOR) == 1
+							)
 						{
-							node[i_node][j].danger = 1;
-							node[i_node][j].pBrastCenter = *(node+i_node)+j_node;
-							node[i_node][j].i_brastCenter = i_node;
-							node[i_node][j].j_brastCenter = j_node;
 							break;
 						}
 						else
