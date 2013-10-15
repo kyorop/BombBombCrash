@@ -24,14 +24,14 @@ enum
 #define MAP(i, p, j, q) MapState::GetInstance()->GetState(i+p, j+q, MAP)
 
 EnemyAI::EnemyAI():
-	nextState(AVOID),
-	currentState(TARGET),
+	nextState(END),
+	currentState(END),
+	route(target),
 	hasCalculated(0),
-	nowExploring(0),
+	//nowExploring(0),
 	target(new Target),
 	avoid(new Avoid),
 	stop(new StopRoute),
-	route(target),
 	search(new Search)
 {
 }
@@ -143,23 +143,25 @@ void EnemyAI::Analyse(int i_current, int j_current, const Enemy &myself)
 	//		nextState = STOP;
 	//	}
 	//	else
-	//if(currentState != TARGET)
-	//	{
-	//		route = target;	//どれでもないならターゲットを狙う
-	//		nowExploring = 0;
-	//		//nextState = TARGET;
-	//		currentState = TARGET;		
-	//	}
+	if(currentState != TARGET)
+	{ 
+			route = target;	//どれでもないならターゲットを狙う
+			//nowExploring = 0;
+			//nextState = TARGET;
+			nextState = TARGET;		
+	}
 	//}
 
-	if(nowExploring == 0)
+	//if(nowExploring == 0)
+	if(currentState != nextState)
 	{
 		//if(myself.GetX() % 32 == 0 && myself.GetY() % 32 == 0)
 		//if(nextState != currentState)
 		{
+			currentState = nextState;
 			route->DecideGoal(myself);
 			route->SetRoute(myself);	
-			nowExploring = 1;
+			//nowExploring = 1;
 		}
 		
 	}
@@ -168,12 +170,12 @@ void EnemyAI::Analyse(int i_current, int j_current, const Enemy &myself)
 
 int EnemyAI::GetAction(const Enemy &myself)
 {
-	if(nowExploring == 1)
+	//if(nowExploring == 1)
 	{
 		//ルートがなくなったら思考停止
 		if(route->GetRoute(myself) == -1)
 		{
-			nowExploring = 0;
+			//nowExploring = 0;
 			currentState = END;
 			return STOP;
 		}
@@ -182,8 +184,8 @@ int EnemyAI::GetAction(const Enemy &myself)
 			return route->GetRoute(myself);
 		}
 	}
-	else
-		return STOP;	//思考中という意味
+/*	else
+		return STOP;*/	//思考中という意味
 }
 
 

@@ -27,17 +27,16 @@ private:
 	};
 	 procedure nextState;
 	 procedure currentState;
+	 Route *route;
 	int hasCalculated;
 	int x_next;
 	int y_next;
 
-	int nowExploring;
+	//int nowExploring;
 	Target *const target;
 	Avoid *const avoid;
 	StopRoute *const stop;
-
-	Route *route;
-	Search *search;
+	Search *const search;
 private:
 	int CheckBombCAroundMyself(const Enemy &myself);
 	int CheckDanager(const Enemy &myself);

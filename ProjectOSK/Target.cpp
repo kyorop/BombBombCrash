@@ -29,9 +29,13 @@ void Target::DecideGoal(const Enemy &myself)
 	i_to.clear();
 	j_to.clear();
 
+	int x_center = (myself.GetX()+myself.GetX()+32)/2;
+	int y_center = (myself.GetY()+myself.GetY()+32)/2;
+
 	//目的地の決定
-	search->SetGoalInitialized(myself.GetY()/32, myself.GetX()/32, &i_to, &j_to);
-	
+	//search->SetGoalInitialized(myself.GetY()/32, myself.GetX()/32, &i_to, &j_to);
+	search->SetGoalInitialized(y_center/32, x_center/32, &i_to, &j_to);
+
 	//目的地は候補の内から乱数で決める
 	rand = GetRand(i_to.size() - 1);
 }
@@ -41,8 +45,12 @@ void Target::SetRoute(const Enemy &myself)
 	//初期化
 	routeList.clear();
 
+	int x_center = (myself.GetX()+myself.GetX()+32)/2;
+	int y_center = (myself.GetY()+myself.GetY()+32)/2;
+
 	//最短経路のセット
-	dijkstra->SearchShortestPath(myself.GetY()/32, myself.GetX()/32, i_to[rand], j_to[rand], &routeList);
+	//dijkstra->SearchShortestPath(myself.GetY()/32, myself.GetX()/32, i_to[rand], j_to[rand], &routeList);
+	dijkstra->SearchShortestPath(y_center/32/32, x_center/32, i_to[rand], j_to[rand], &routeList);
 	//if(routeList.empty() == 0)
 	//{
 	//	routeList.push_back(BOMBSET);
