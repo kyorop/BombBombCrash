@@ -22,6 +22,15 @@
     <Filter Include="ソース ファイル\Utility">
       <UniqueIdentifier>{ef042950-328b-4a6e-b458-cf8c700e6089}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\GameState">
+      <UniqueIdentifier>{33908562-84a2-4dd5-9ebc-529ec501c71c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameState\ソースファイル">
+      <UniqueIdentifier>{0c6d7365-41f8-4fd7-bcfd-d65e16af87b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameState\ヘッダファイル">
+      <UniqueIdentifier>{be65043e-0921-4a8e-815d-709484b0104c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -69,12 +78,6 @@
     <ClCompile Include="IDrawable.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="MapState.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="IRegister.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>ソース ファイル\Enemy</Filter>
     </ClCompile>
@@ -114,8 +117,14 @@
     <ClCompile Include="StopRoute.cpp">
       <Filter>ソース ファイル\AI</Filter>
     </ClCompile>
+    <ClCompile Include="MapState.cpp">
+      <Filter>ソース ファイル\GameState\ソースファイル</Filter>
+    </ClCompile>
     <ClCompile Include="DangerState.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\GameState\ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="IRegister.cpp">
+      <Filter>ソース ファイル\GameState\ソースファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -170,12 +179,6 @@
     <ClInclude Include="Enemy.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="MapState.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="IRegister.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="EnemyBomb.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -197,9 +200,6 @@
     <ClInclude Include="GameConstant.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Search.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Route.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -212,8 +212,17 @@
     <ClInclude Include="StopRoute.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="IRegister.h">
+      <Filter>ソース ファイル\GameState\ヘッダファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="MapState.h">
+      <Filter>ソース ファイル\GameState\ヘッダファイル</Filter>
+    </ClInclude>
     <ClInclude Include="DangerState.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ソース ファイル\GameState\ヘッダファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Search.h">
+      <Filter>ソース ファイル\AI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

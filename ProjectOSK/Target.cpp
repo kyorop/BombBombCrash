@@ -2,6 +2,7 @@
 #include "Search.h"
 #include "Dijkstra.h"
 #include "Enemy.h"
+#include "GameConstant.h"
 #include "DxLib.h"
 
 Target::Target(void):
@@ -25,6 +26,10 @@ Target::~Target(void)
 
 void Target::DecideGoal(const Enemy &myself)
 {
+}
+
+void Target::SetRoute(const Enemy &myself)
+{
 	//初期化
 	i_to.clear();
 	j_to.clear();
@@ -32,25 +37,28 @@ void Target::DecideGoal(const Enemy &myself)
 	int x_center = (myself.GetX()+myself.GetX()+32)/2;
 	int y_center = (myself.GetY()+myself.GetY()+32)/2;
 
-	//目的地の決定
-	//search->SetGoalInitialized(myself.GetY()/32, myself.GetX()/32, &i_to, &j_to);
-	search->SetGoalInitialized(y_center/32, x_center/32, &i_to, &j_to);
-
-	//目的地は候補の内から乱数で決める
-	rand = GetRand(i_to.size() - 1);
-}
-
-void Target::SetRoute(const Enemy &myself)
-{
 	//初期化
 	routeList.clear();
 
-	int x_center = (myself.GetX()+myself.GetX()+32)/2;
-	int y_center = (myself.GetY()+myself.GetY()+32)/2;
+	if(search->SetGoal(y_center/32, x_center/32, &i_to, &j_to) == 1)
+	{
+		//目的地は候補の内から乱数で決める
+		rand = GetRand(i_to.size() - 1);
 
-	//最短経路のセット
-	//dijkstra->SearchShortestPath(myself.GetY()/32, myself.GetX()/32, i_to[rand], j_to[rand], &routeList);
-	dijkstra->SearchShortestPath(y_center/32/32, x_center/32, i_to[rand], j_to[rand], &routeList);
+		int x_center = (myself.GetX()+myself.GetX()+32)/2;
+		int y_center = (myself.GetY()+myself.GetY()+32)/2;
+
+		//最短経路のセット
+		//dijkstra->SearchShortestPath(myself.GetY()/32, myself.GetX()/32, i_to[rand], j_to[rand], &routeList);
+		dijkstra->SearchShortestPath(y_center/32, x_center/32, i_to[rand], j_to[rand], &routeList);
+		routeList.push_back(-1);
+	}
+	else
+	{
+		routeList.push_back(-1);
+	}
+
+	
 	//if(routeList.empty() == 0)
 	//{
 	//	routeList.push_back(BOMBSET);
@@ -128,23 +136,23 @@ int Target::GetRoute(const Enemy &myself)
 	
 		switch(routeList.empty() ? -1 : routeList.front())
 		{
-			case UP:
+		case GameConst::EnemyAction::UP:
 				x_next = (j_current + 0) * 32;
 				y_next = (i_current - 1) * 32;
 				break;
-			case DOWN:
+			case GameConst::EnemyAction::DOWN:
 				x_next = (j_current + 0) * 32;
 				y_next = (i_current + 1) * 32;
 				break;
-			case LEFT:
+			case GameConst::EnemyAction::LEFT:
 				x_next = (j_current - 1) * 32;
 				y_next = (i_current + 0) * 32;
 				break;
-			case RIGHT:
+			case GameConst::EnemyAction::RIGHT:
 				x_next = (j_current + 1) * 32;
 				y_next = (i_current + 0) * 32;
 				break;
-			case BOMBSET:
+			case GameConst::EnemyAction::BOMBSET:
 				routeList.pop_front();
 				return BOMBSET;
 			//case BOMBSETOFF:

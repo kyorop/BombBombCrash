@@ -68,7 +68,7 @@ void Explosion::CheckHitBomb(Bomb *bomb)
 	{
 		if(this->x+32-DHIT > bomb->GetX() && this->x+DHIT < bomb->GetX()+32 && this->y+DHIT < bomb->GetY()+32 && bomb->GetY() < this->y+32-DHIT)
 		{
-			this->explosion = FALSE;
+			//this->explosion = FALSE;
 			bomb->SetFlag(FALSE);
 			bomb->SetFuse(1);
 		}

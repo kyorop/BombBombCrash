@@ -7,6 +7,7 @@
 #include "Target.h"
 #include "Avoid.h"
 #include "StopRoute.h"
+#include "GameConstant.h"
 #include "DxLib.h"
 enum
 {
@@ -146,22 +147,20 @@ void EnemyAI::Analyse(int i_current, int j_current, const Enemy &myself)
 	if(currentState != TARGET)
 	{ 
 			route = target;	//どれでもないならターゲットを狙う
-			//nowExploring = 0;
 			//nextState = TARGET;
 			nextState = TARGET;		
 	}
 	//}
 
-	//if(nowExploring == 0)
-	if(currentState != nextState)
+
+	//if(currentState != nextState)
 	{
 		//if(myself.GetX() % 32 == 0 && myself.GetY() % 32 == 0)
-		//if(nextState != currentState)
+		if(nextState != currentState)
 		{
 			currentState = nextState;
 			route->DecideGoal(myself);
 			route->SetRoute(myself);	
-			//nowExploring = 1;
 		}
 		
 	}
@@ -170,12 +169,9 @@ void EnemyAI::Analyse(int i_current, int j_current, const Enemy &myself)
 
 int EnemyAI::GetAction(const Enemy &myself)
 {
-	//if(nowExploring == 1)
-	{
 		//ルートがなくなったら思考停止
 		if(route->GetRoute(myself) == -1)
 		{
-			//nowExploring = 0;
 			currentState = END;
 			return STOP;
 		}
@@ -183,9 +179,6 @@ int EnemyAI::GetAction(const Enemy &myself)
 		{
 			return route->GetRoute(myself);
 		}
-	}
-/*	else
-		return STOP;*/	//思考中という意味
 }
 
 

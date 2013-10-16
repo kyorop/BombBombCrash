@@ -10,7 +10,6 @@
 #include "MapState.h"
 #include "DxLib.h"
 
-
 ExplosionManager::ExplosionManager():
 	vex(new std::vector<Explosion*>(5))
 {
@@ -238,8 +237,6 @@ void ExplosionManager::Draw()
 	}
 }
 
-
-
 ExplosionManager::~ExplosionManager(void)
 {
 	std::vector<Explosion*>::iterator it = vex->begin();
@@ -263,16 +260,13 @@ firestate ExplosionManager::GetFlag()const
 }
 */
 
-
-
-
 void ExplosionManager::Register(void)
 {
 	for(int i=0,size=vex->size(); i<size; ++i )
 	{
-		if((*vex)[i]->GetFlag() == 0)
+		if((*vex)[i]->GetExplosion() == 0)
 			MapState::GetInstance()->SetFireState((*vex)[i]->GetX(), (*vex)[i]->GetY(), 0);
-		else if((*vex)[i]->GetFlag() == 1)
+		else if((*vex)[i]->GetExplosion() == 1)
 			MapState::GetInstance()->SetFireState((*vex)[i]->GetX(), (*vex)[i]->GetY(), 1);
 	}
 }
