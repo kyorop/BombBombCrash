@@ -203,15 +203,6 @@
     <ClInclude Include="Route.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Target.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Avoid.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="StopRoute.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="IRegister.h">
       <Filter>ソース ファイル\GameState\ヘッダファイル</Filter>
     </ClInclude>
@@ -222,6 +213,15 @@
       <Filter>ソース ファイル\GameState\ヘッダファイル</Filter>
     </ClInclude>
     <ClInclude Include="Search.h">
+      <Filter>ソース ファイル\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Avoid.h">
+      <Filter>ソース ファイル\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Target.h">
+      <Filter>ソース ファイル\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="StopRoute.h">
       <Filter>ソース ファイル\AI</Filter>
     </ClInclude>
   </ItemGroup>

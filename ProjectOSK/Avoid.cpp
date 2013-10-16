@@ -8,8 +8,12 @@ Avoid::Avoid(void):
 	dijkstra(new Dijkstra),
 	i_safe(),
 	j_safe(),
-	routeList()
+	routeList(),
+	hasCalculated(0),
+	x_next(),
+	y_next()
 {
+	myclass = 2;
 }
 
 Avoid::~Avoid(void)
@@ -28,7 +32,11 @@ void Avoid::SetRoute(const Enemy &myself)
 	routeList.clear();
 
 	//ルートセット
-	search->SetEscapeRouteWhenInDanger(myself.GetY()/32, myself.GetX()/32, &routeList);
+	if(search->SetEscapeRouteWhenInDanger(myself.GetY()/32, myself.GetX()/32, &routeList) == 0)
+	{
+
+	}
+	//routeList.push_back(STOP);
 }
 
 int Avoid::GetRoute(const Enemy &myself)
@@ -64,10 +72,9 @@ int Avoid::GetRoute(const Enemy &myself)
 				y_next = (i_current + 0) * 32;
 				break;
 			case -1:
-				//nowExploring = 0;
-				break;
+				return -1;
 			default:
-				break;
+				return -1;
 		}
 		hasCalculated = 1;
 	}

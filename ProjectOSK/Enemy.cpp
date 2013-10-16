@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "MapState.h"
 #include "DxLib.h"
+#include "EnemyAI.h"
 #define MV 1
 #define HABA 10
 
@@ -20,7 +21,7 @@ enum
 
 Enemy::Enemy(int x, int y):
 	//nowStop(0),
-	AI(),
+	AI(new EnemyAI),
 	//nextAction(0),
 	//moveNow(0),
 	//exploration(0),
@@ -37,6 +38,7 @@ Enemy::Enemy(int x, int y):
 
 Enemy::~Enemy(void)
 {
+	delete AI;
 }
 
 int Enemy::CheckAbleBombSet()
@@ -48,7 +50,7 @@ void Enemy::Order()
 {
 	//if(exploration == 0)
 	{
-		AI.Analyse(this->y/32, this->x/32, *this);
+		AI->Analyse(this->y/32, this->x/32, *this);
 		//exploration = 1;
 		//nextAction = 0;
 	}
@@ -58,7 +60,7 @@ void Enemy::Move(int g_lastTime)
 {
 	/*if(exploration == 1 && nowStop == 0)
 	{*/
-		switch(AI.GetAction(*this))
+		switch(AI->GetAction(*this))
 		{
 		case STOP:
 			//nowStop = 1;

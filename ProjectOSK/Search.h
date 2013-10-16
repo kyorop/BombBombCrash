@@ -35,7 +35,7 @@ public:
 	int CheckAbleToMoveInitialized(const int i_start, const int j_start, int *const i_safe, int *const j_safe);
 	
 	//爆風範囲に入っている時にそこからの最短脱出ルートを提供する
-	void SetEscapeRouteWhenInDanger(int i, int j, std::list<int> *escapeRoute);
+	int SetEscapeRouteWhenInDanger(int i, int j, std::list<int> *escapeRoute);
 
 	//一方向閉区間にいるか調べる。
 	//いるなら１を返す。いないなら０を返す。

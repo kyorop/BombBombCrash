@@ -32,6 +32,6 @@ public:
 	}
 	
 	void Update();
-
+	int GetDangerState(int i, int j);
 };
 

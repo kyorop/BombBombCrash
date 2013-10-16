@@ -5,6 +5,7 @@ class Enemy;
 class Route
 {
 public:
+	int myclass;
 	//virtual void Analyse() = 0;
 	virtual void DecideGoal(const Enemy &myself) = 0;
 	virtual void SetRoute(const Enemy &myself) = 0;

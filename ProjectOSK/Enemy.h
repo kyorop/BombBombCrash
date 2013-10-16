@@ -2,11 +2,12 @@
 #include "Charactor.h"
 #include "IDrawable.h"
 #include "IRegister.h"
-#include "EnemyAI.h"
+
 #define MAPSIZE_X 17
 #define MAPSIZE_Y 13
 
 class Player;
+class EnemyAI;
 class Enemy:
 	public Charactor, virtual public IDrawable
 {
@@ -24,7 +25,7 @@ private:
 public:
 	Enemy(int x, int y);
 	~Enemy(void);
-	EnemyAI AI;
+	EnemyAI *const AI;
 	void Order();
 	void Move(int g_lastTime);
 	void Draw();

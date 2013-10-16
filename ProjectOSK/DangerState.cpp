@@ -144,3 +144,15 @@ void DangerState::Update()
 		}
 	}
 }
+
+int DangerState::GetDangerState(int i , int j)
+{
+	if(0 <= i && i < GameConst::MAP_ROW && 0 <= j && j < GameConst::MAP_LINE)
+	{
+		return node[i][j].danger;
+	}
+	else
+	{
+		return -1;
+	}
+}

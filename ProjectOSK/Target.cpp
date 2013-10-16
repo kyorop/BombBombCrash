@@ -16,6 +16,7 @@ Target::Target(void):
 	x_next(-1),
 	y_next(-1)
 {
+	myclass = 1;
 }
 
 Target::~Target(void)
@@ -51,7 +52,8 @@ void Target::SetRoute(const Enemy &myself)
 		//Å’ZŒo˜H‚ÌƒZƒbƒg
 		//dijkstra->SearchShortestPath(myself.GetY()/32, myself.GetX()/32, i_to[rand], j_to[rand], &routeList);
 		dijkstra->SearchShortestPath(y_center/32, x_center/32, i_to[rand], j_to[rand], &routeList);
-		routeList.push_back(-1);
+		//routeList.push_back(-1);
+		routeList.push_back(BOMBSET);
 	}
 	else
 	{
@@ -61,7 +63,7 @@ void Target::SetRoute(const Enemy &myself)
 	
 	//if(routeList.empty() == 0)
 	//{
-	//	routeList.push_back(BOMBSET);
+	//	
 	//	routeList.push_back(BOMBSETOFF);
 	//}
 }

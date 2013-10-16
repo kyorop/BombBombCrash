@@ -8,6 +8,7 @@
 #include "Avoid.h"
 #include "StopRoute.h"
 #include "GameConstant.h"
+#include "DangerState.h"
 #include "DxLib.h"
 enum
 {
@@ -112,7 +113,10 @@ int EnemyAI::CheckBombCAroundMyself(const Enemy &myself)
 
 int EnemyAI::CheckDanager(const Enemy &myself)
 {
-	if(MapState::GetInstance()->GetDangerState(myself.GetY()/32, myself.GetX()/32) == 1)
+	int x_center = (myself.GetX() + myself.GetX() + 32) / 2;
+	int y_center = (myself.GetY() + myself.GetY() + 32) / 2;
+	//if(MapState::GetInstance()->GetDangerState(myself.GetY()/32, myself.GetX()/32) == 1)
+	if(DangerState::GetInstance()->GetDangerState(y_center/32, x_center/32) == 1)
 		return 1;
 	else
 		return 0;
@@ -129,28 +133,24 @@ void EnemyAI::Analyse(int i_current, int j_current, const Enemy &myself)
 	//int y_center = myself.GetY() + myself.GetY() + 32;
 
 	//ちょうどマスぴったりにいるときに
-	//if(myself.GetX() % 32 == 0 && myself.GetY() % 32 == 0)
-	//{	
-	//	if(CheckDanager(myself) == 1)
-	//	{
-	//		route = avoid;	//危険地にいるなら逃げる
-	//		nowExploring = 0;
-	//		nextState = AVOID;
-	//	}
-	//	else if(search->CheckInClosedInterval(myself.GetY()/32, myself.GetX()/32) == 1 && myself.GetX() % 32 == 0 && myself.GetY() % 32 == 0)
-	//	{
-	//		route = stop;	//閉区間にいるならストップ
-	//		nowExploring = 0;
-	//		nextState = STOP;
-	//	}
-	//	else
-	if(currentState != TARGET)
-	{ 
+	if(myself.GetX() % 32 == 0 && myself.GetY() % 32 == 0)
+	{	
+		if(CheckDanager(myself) == 1)
+		{
+			route = avoid;	//危険地にいるなら逃げる
+			nextState = AVOID;
+		}
+		//else if(search->CheckInClosedInterval(myself.GetY()/32, myself.GetX()/32) == 1 && myself.GetX() % 32 == 0 && myself.GetY() % 32 == 0)
+		//{
+		//	route = stop;	//閉区間にいるならストップ
+		//	nextState = STOPTHOUGHT;
+		//}
+		else if(currentState != TARGET)
+		{ 
 			route = target;	//どれでもないならターゲットを狙う
-			//nextState = TARGET;
 			nextState = TARGET;		
+		}
 	}
-	//}
 
 
 	//if(currentState != nextState)
