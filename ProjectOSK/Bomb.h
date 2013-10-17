@@ -22,7 +22,7 @@ protected:
 public:
 	
 	Bomb();
-	~Bomb();
+	virtual ~Bomb();
 	void CheckHit(Charactor *charactor);
 	virtual void BombSet(const Charactor &charactor) = 0;
 	void Draw();

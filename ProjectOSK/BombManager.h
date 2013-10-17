@@ -15,7 +15,7 @@ protected:
 	Key key;
 public:
 	int size;
-	void AddBomb(const Charactor &charactor);
+	virtual void AddBomb(const Charactor &charactor);
 	void BombSet(const Charactor &charactor);
 	void MaintainBomb();
 	void Draw();
@@ -26,7 +26,7 @@ public:
 	void CheckHit(Charactor *charactor);
 	Bomb* GetBombObject(int index)const;
 	BombManager(void);
-	~BombManager(void);
+	virtual ~BombManager(void);
 	
 	std::vector<Bomb*> *vbomb;
 	void Register(const Charactor &chara);

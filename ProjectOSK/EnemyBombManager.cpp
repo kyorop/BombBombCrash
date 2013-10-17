@@ -17,24 +17,24 @@ void EnemyBombManager::AddBomb(const Charactor &charactor)
 	}
 }
 
-void EnemyBombManager::BombSet(const Enemy &enemy)
-{
-	for(int i=0, size=vbomb->size(); i<size; ++i)
-	{
-		(*vbomb)[i]->BombSet(enemy);
-		for(int j=0,size=vbomb->size(); j<size; ++j)
-		{
-			if(i != j)
-			{
-				(*vbomb)[i]->CheckBombOverlap(*(*vbomb)[j]);
-			}
-		}
-		//else
-		//	continue;
-		//if((*vbomb)[i]->GetFlag() == true)
-		//	break;
-	}
-}
+//void EnemyBombManager::BombSet(const Enemy &enemy)
+//{
+//	for(int i=0, size=vbomb->size(); i<size; ++i)
+//	{
+//		(*vbomb)[i]->BombSet(enemy);
+//		for(int j=0,size=vbomb->size(); j<size; ++j)
+//		{
+//			if(i != j)
+//			{
+//				(*vbomb)[i]->CheckBombOverlap(*(*vbomb)[j]);
+//			}
+//		}
+//		//else
+//		//	continue;
+//		//if((*vbomb)[i]->GetFlag() == true)
+//		//	break;
+//	}
+//}
 
 //void EnemyBombManager::Register(const Charactor &chara)
 //{

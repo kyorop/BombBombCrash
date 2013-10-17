@@ -31,15 +31,21 @@
     <Filter Include="ソース ファイル\GameState\ヘッダファイル">
       <UniqueIdentifier>{be65043e-0921-4a8e-815d-709484b0104c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Bomb">
+      <UniqueIdentifier>{c56bb18a-019e-4616-ba3d-17064fbbd24a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Bomb\ヘッダファイル">
+      <UniqueIdentifier>{79b198af-7b86-4a0b-8f04-a54a082f0d6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Bomb\ソースファイル">
+      <UniqueIdentifier>{b9fb6436-23dd-4d0b-9e42-9ea0f3ba28d3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Bomb.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Map.cpp">
@@ -64,9 +70,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="ItemManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="BombManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Charactor.cpp">
@@ -126,6 +129,12 @@
     <ClCompile Include="IRegister.cpp">
       <Filter>ソース ファイル\GameState\ソースファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Bomb.cpp">
+      <Filter>ソース ファイル\Bomb\ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="BombManager.cpp">
+      <Filter>ソース ファイル\Bomb\ソースファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -162,12 +171,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Charactor.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="BombManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Bomb.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Block.h">
@@ -223,6 +226,12 @@
     </ClInclude>
     <ClInclude Include="EnemyAI.h">
       <Filter>ソース ファイル\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Bomb.h">
+      <Filter>ソース ファイル\Bomb\ヘッダファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="BombManager.h">
+      <Filter>ソース ファイル\Bomb\ヘッダファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
