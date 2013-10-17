@@ -38,6 +38,7 @@ int Search::SetGoal(const int i, const int j, std::vector<int> *i_goal, std::vec
 	//}
 	memset(hasVisited[0], 0, sizeof(int)*GameConst::MAP_ROW*GameConst::MAP_LINE);
 
+	//ブロックがあるかチェック
 	int blockNum = 0;
 	for (int row = 0; row < GameConst::MAP_ROW; ++row)
 	{
@@ -58,7 +59,11 @@ int Search::SetGoal_base(const int i, const int j, std::vector<int> *i_goal, std
 	hasVisited[i][j] = 1;
 
 	//目的地になるか調査
-	if(BLOCK(i, 0, j, 0) || BLOCK(i, -1, j, 0) || BLOCK(i, 1, j, 0) || BLOCK(i, 0, j, -1) || BLOCK(i, 0, j, 1))
+	//if(BLOCK(i, 0, j, 0) || BLOCK(i, -1, j, 0) || BLOCK(i, 1, j, 0) || BLOCK(i, 0, j, -1) || BLOCK(i, 0, j, 1))
+	if(MapState::GetInstance()->GetState(i-1, j, BLOCK) == 1
+		|| MapState::GetInstance()->GetState(i+1, j, BLOCK) == 1
+		|| MapState::GetInstance()->GetState(i, j-1, BLOCK) == 1
+		|| MapState::GetInstance()->GetState(i, j+1, BLOCK) == 1)
 	{
 		i_goal->push_back(i);
 		j_goal->push_back(j);
@@ -66,10 +71,10 @@ int Search::SetGoal_base(const int i, const int j, std::vector<int> *i_goal, std
 	}
 
 	//通れるところに進む
-	if(hasVisited[i-1][j] == 0 && MAP(i, -1, j, 0) == 0 && BLOCK(i, -1, j, 0) == 0 ) SetGoal_base(i-1, j, i_goal, j_goal);
-	if(hasVisited[i+1][j] == 0 && MAP(i, 1, j, 0) == 0 && BLOCK(i, 1, j, 0) == 0 ) SetGoal_base(i+1, j, i_goal,  j_goal);
-	if(hasVisited[i][j-1] == 0 && MAP(i, 0, j, -1) == 0 && BLOCK(i, 0, j, -1) == 0 ) SetGoal_base(i, j-1, i_goal, j_goal);
-	if(hasVisited[i][j+1] == 0 && MAP(i, 0, j, 1) == 0 && BLOCK(i, 0, j, 1) == 0 ) SetGoal_base(i, j+1, i_goal, j_goal);
+	if(hasVisited[i-1][j] == 0 && MAP(i, -1, j, 0) == 0 && BLOCK(i, -1, j, 0) == 0 && MapState::GetInstance()->GetState(i-1, j, BOMB) == 0 && DangerState::GetInstance()->GetDangerState(i-1, j) == 0) SetGoal_base(i-1, j, i_goal, j_goal);
+	if(hasVisited[i+1][j] == 0 && MAP(i, 1, j, 0) == 0 && BLOCK(i, 1, j, 0) == 0 && MapState::GetInstance()->GetState(i+1, j, BOMB) == 0 && DangerState::GetInstance()->GetDangerState(i+1, j) == 0) SetGoal_base(i+1, j, i_goal,  j_goal);
+	if(hasVisited[i][j-1] == 0 && MAP(i, 0, j, -1) == 0 && BLOCK(i, 0, j, -1) == 0 && MapState::GetInstance()->GetState(i, j-1, BOMB) == 0 && DangerState::GetInstance()->GetDangerState(i, j-1) == 0) SetGoal_base(i, j-1, i_goal, j_goal);
+	if(hasVisited[i][j+1] == 0 && MAP(i, 0, j, 1) == 0 && BLOCK(i, 0, j, 1) == 0 && MapState::GetInstance()->GetState(i, j+1, BOMB) == 0 && DangerState::GetInstance()->GetDangerState(i, j+1) == 0) SetGoal_base(i, j+1, i_goal, j_goal);
 
 	return success;
 }

@@ -27,7 +27,7 @@ enum
 
 EnemyAI::EnemyAI():
 	nextState(END),
-	currentState(END),
+	currentState(TARGET),
 	route(target),
 	hasCalculated(0),
 	//nowExploring(0),

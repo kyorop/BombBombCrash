@@ -5,10 +5,9 @@
 DangerState::DangerNode DangerState::node[GameConst::MAP_ROW][GameConst::MAP_LINE];
 
 DangerState::DangerNode::DangerNode():
-	//pBrastCenter(NULL),
 	danger(0),
-	i_brastCenter(),
-	j_brastCenter()
+	i_brastCenter(-1),
+	j_brastCenter(-1)
 {
 }
 
@@ -33,6 +32,7 @@ void DangerState::Update()
 			}
 		}
 	}
+
 	for (int i = 0; i < GameConst::MAP_ROW; ++i)
 	{
 		for (int j = 0; j < GameConst::MAP_LINE; ++j)

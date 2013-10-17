@@ -91,12 +91,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		ClearDrawScreen();
 		
 		//ŒvŽZ•”
-		DangerState::GetInstance()->Update();
+		
 		//“o˜^•”
 		for(int i=0; i<REGISTERNUM; ++i)
 		{
 			iRegister[i]->Register();
 		}
+		DangerState::GetInstance()->Update();
 
 		bombManager.Register(player);
 		enemyBombManager.Register(enemy);
