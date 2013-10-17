@@ -40,7 +40,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 	
 	Map map;
 	Player player;
-	Enemy enemy(32*14,32*11);
+	Enemy enemy(32*13,32*9);
 	Block block;
 	ItemManager itemManager;
 	BombManager bombManager;
@@ -91,7 +91,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		ClearDrawScreen();
 		
 		//ŒvŽZ•”
-		
+		DangerState::GetInstance()->Update();
 		//“o˜^•”
 		for(int i=0; i<REGISTERNUM; ++i)
 		{
@@ -184,14 +184,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		//{
 		//	DrawFormatString(640,80+20*i,color,"[%d]ƒ{ƒ€ƒtƒ‰ƒO@%d",i+1,(*bombManager.vbomb)[i]->GetFlag());
 		//}
-		DangerState::GetInstance()->Update();
+		
 		for(int i=0; i<MapState::row; ++i)
 		{
 			for(int j=0; j<MapState::line; ++j)
 			{
-				DrawFormatString(640+15*j,80+15*i,color,"%d",MapState::GetInstance()->GetState(i,j,BLOCK));
+				//DrawFormatString(640+15*j,80+15*i,color,"%d",MapState::GetInstance()->GetState(i,j,BLOCK));
 				//DrawFormatString(640+15*j,80+15*i,color,"%d",MapState::GetInstance()->GetDangerState(i, j));			
-				//DrawFormatString(640+15*j,80+15*i,color,"%d",DangerState::GetInstance()->node[i][j].danger);				
+				DrawFormatString(640+15*j,80+15*i,color,"%d",DangerState::GetInstance()->node[i][j].danger);		
 			}
 		}
 		//for(int i=0; i<MapState::row; ++i)

@@ -34,7 +34,6 @@ void Avoid::SetRoute(const Enemy &myself)
 	//ルートセット
 	if(search->SetEscapeRouteWhenInDanger(myself.GetY()/32, myself.GetX()/32, &routeList) == 0)
 	{
-
 	}
 	//routeList.push_back(STOP);
 }
@@ -53,28 +52,31 @@ int Avoid::GetRoute(const Enemy &myself)
 		i_current = y_center / 32;		//中心座標のある位置を今いるマスとする
 		j_current = x_center / 32;
 	
-		switch(routeList.empty() ? -1 : routeList.front())
+		if( !routeList.empty() )
 		{
-			case UP:
-				x_next = (j_current + 0) * 32;
-				y_next = (i_current - 1) * 32;
-				break;
-			case DOWN:
-				x_next = (j_current + 0) * 32;
-				y_next = (i_current + 1) * 32;
-				break;
-			case LEFT:
-				x_next = (j_current - 1) * 32;
-				y_next = (i_current + 0) * 32;
-				break;
-			case RIGHT:
-				x_next = (j_current + 1) * 32;
-				y_next = (i_current + 0) * 32;
-				break;
-			case -1:
-				return -1;
-			default:
-				return -1;
+			switch( routeList.front() )
+			{
+				case UP:
+					x_next = (j_current + 0) * 32;
+					y_next = (i_current - 1) * 32;
+					break;
+				case DOWN:
+					x_next = (j_current + 0) * 32;
+					y_next = (i_current + 1) * 32;
+					break;
+				case LEFT:
+					x_next = (j_current - 1) * 32;
+					y_next = (i_current + 0) * 32;
+					break;
+				case RIGHT:
+					x_next = (j_current + 1) * 32;
+					y_next = (i_current + 0) * 32;
+					break;
+				case -1:
+					return -1;
+				default:
+					return -1;
+			}
 		}
 		hasCalculated = 1;
 	}
@@ -84,18 +86,18 @@ int Avoid::GetRoute(const Enemy &myself)
 		//次の目標マスを再計算する
 		hasCalculated = 0;
 
-		if(routeList.empty() == 0)
+		if( !routeList.empty() )
 			routeList.pop_front();
 	}
 	
 	
-		if(routeList.empty() == 1)
-		{
-			return -1;		//リストが空なら終了として－１を返す
-		}
-		else
-		{
-			return routeList.front();
-		}
+	if( routeList.empty() )
+	{
+		return -1;		//リストが空なら終了として－１を返す
+	}
+	else
+	{
+		return routeList.front();
+	}
 
 }

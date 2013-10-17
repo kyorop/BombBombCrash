@@ -135,7 +135,7 @@ void EnemyAI::Analyse(int i_current, int j_current, const Enemy &myself)
 	//‚¿‚å‚¤‚Çƒ}ƒX‚Ò‚Á‚½‚è‚É‚¢‚é‚Æ‚«‚É
 	if(myself.GetX() % 32 == 0 && myself.GetY() % 32 == 0)
 	{	
-		if(CheckDanager(myself) == 1)
+		if(CheckDanager(myself) == 1/* && currentState != AVOID*/)
 		{
 			route = avoid;	//ŠëŒ¯’n‚É‚¢‚é‚È‚ç“¦‚°‚é
 			nextState = AVOID;
@@ -151,7 +151,6 @@ void EnemyAI::Analyse(int i_current, int j_current, const Enemy &myself)
 			nextState = TARGET;		
 		}
 	}
-
 
 	//if(currentState != nextState)
 	{
@@ -173,6 +172,7 @@ int EnemyAI::GetAction(const Enemy &myself)
 		if(route->GetRoute(myself) == -1)
 		{
 			currentState = END;
+			nextState = END;
 			return STOP;
 		}
 		else 

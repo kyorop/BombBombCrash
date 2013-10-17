@@ -1,5 +1,6 @@
 #include "Dijkstra.h"
 #include "MapState.h"
+#include "DangerState.h"
 #include "Graph.h"
 #include "DxLib.h"
 #include <climits>
@@ -55,7 +56,8 @@ void Dijkstra::SearchShortestPath(int i_start, int j_start, int i_goal, int j_go
 
 			//繋がっているノードの検索
 			if(MapState::GetInstance()->GetState(i_next, j_next, BLOCK) == 0
-				&& MapState::GetInstance()->GetState(i_next, j_next, MAP) == 0)
+				&& MapState::GetInstance()->GetState(i_next, j_next, MAP) == 0
+				&& DangerState::GetInstance()->GetDangerState(i_next, j_next) == 0)
 			{
 				//基点ノードの最小コストと探索ノードまでのコストを足したものが探索ノードの最小コストより小さいなら
 				if(costSum < graph->GetCost(i_next, j_next) )
@@ -76,6 +78,7 @@ void Dijkstra::SearchShortestPath(int i_start, int j_start, int i_goal, int j_go
 			{
 				if(MapState::GetInstance()->GetState(i, j, BLOCK) == 0
 					&& MapState::GetInstance()->GetState(i, j, MAP) == 0
+					&& DangerState::GetInstance()->GetDangerState(i, j) == 0
 					&& graph->GetSettled(i, j) == 0 
 					&& min > graph->GetCost(i, j) )
 				{
