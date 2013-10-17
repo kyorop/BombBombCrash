@@ -135,20 +135,29 @@ void EnemyAI::Analyse(int i_current, int j_current, const Enemy &myself)
 	//ちょうどマスぴったりにいるときに
 	if(myself.GetX() % 32 == 0 && myself.GetY() % 32 == 0)
 	{	
-		if(CheckDanager(myself) == 1/* && currentState != AVOID*/)
+		if(CheckDanager(myself) == 1)
 		{
-			route = avoid;	//危険地にいるなら逃げる
-			nextState = AVOID;
+			if(currentState != AVOID)
+			{
+				route = avoid;	//危険地にいるなら逃げる
+				nextState = AVOID;
+			}
 		}
-		//else if(search->CheckInClosedInterval(myself.GetY()/32, myself.GetX()/32) == 1 && myself.GetX() % 32 == 0 && myself.GetY() % 32 == 0)
-		//{
-		//	route = stop;	//閉区間にいるならストップ
-		//	nextState = STOPTHOUGHT;
-		//}
-		else if(currentState != TARGET)
+		else if(search->CheckInClosedInterval(myself.GetY()/32, myself.GetX()/32) == 1 && DangerState::GetInstance()->GetDangerState(myself.GetY()/32, myself.GetX()/32) == 0)
+		{
+			if(currentState != STOPTHINKING)
+			{
+				route = stop;	//閉区間にいるならストップ
+				nextState = STOPTHINKING;
+			}
+		}
+		else
 		{ 
-			route = target;	//どれでもないならターゲットを狙う
-			nextState = TARGET;		
+			if(currentState != TARGET)
+			{
+				route = target;	//どれでもないならターゲットを狙う
+				nextState = TARGET;
+			}
 		}
 	}
 
@@ -161,7 +170,6 @@ void EnemyAI::Analyse(int i_current, int j_current, const Enemy &myself)
 			route->DecideGoal(myself);
 			route->SetRoute(myself);	
 		}
-		
 	}
 
 }

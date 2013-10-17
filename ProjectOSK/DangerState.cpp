@@ -33,6 +33,17 @@ void DangerState::Update()
 			}
 		}
 	}
+	for (int i = 0; i < GameConst::MAP_ROW; ++i)
+	{
+		for (int j = 0; j < GameConst::MAP_LINE; ++j)
+		{
+			//’†S‚ªÁ‚¦‚½‚ç‘¼‚à‘S•”Á‚·
+			if(MapState::GetInstance()->GetState(i, j, FIRE) == 1)
+			{
+				node[i][j].danger = 1;
+			}
+		}
+	}
 
 	for (int i_node= 0; i_node < GameConst::MAP_ROW; ++i_node)
 	{

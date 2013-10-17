@@ -34,12 +34,11 @@ void Target::SetRoute(const Enemy &myself)
 	//初期化
 	i_to.clear();
 	j_to.clear();
+	//初期化
+	routeList.clear();
 
 	int x_center = (myself.GetX()+myself.GetX()+32)/2;
 	int y_center = (myself.GetY()+myself.GetY()+32)/2;
-
-	//初期化
-	routeList.clear();
 
 	if(search->SetGoal(y_center/32, x_center/32, &i_to, &j_to) == 1)
 	{
@@ -55,10 +54,10 @@ void Target::SetRoute(const Enemy &myself)
 		//routeList.push_back(-1);
 		routeList.push_back(BOMBSET);
 	}
-	else
-	{
-		routeList.push_back(-1);
-	}
+	//else
+	//{
+	//	routeList.push_back(-1);
+	//}
 
 	
 	//if(routeList.empty() == 0)
@@ -136,32 +135,35 @@ int Target::GetRoute(const Enemy &myself)
 		i_current = y_center / 32;		//中心座標のある位置を今いるマスとする
 		j_current = x_center / 32;
 	
-		switch(routeList.empty() ? -1 : routeList.front())
+		if( !routeList.empty() )
 		{
-		case GameConst::EnemyAction::UP:
-				x_next = (j_current + 0) * 32;
-				y_next = (i_current - 1) * 32;
-				break;
-			case GameConst::EnemyAction::DOWN:
-				x_next = (j_current + 0) * 32;
-				y_next = (i_current + 1) * 32;
-				break;
-			case GameConst::EnemyAction::LEFT:
-				x_next = (j_current - 1) * 32;
-				y_next = (i_current + 0) * 32;
-				break;
-			case GameConst::EnemyAction::RIGHT:
-				x_next = (j_current + 1) * 32;
-				y_next = (i_current + 0) * 32;
-				break;
-			case GameConst::EnemyAction::BOMBSET:
-				routeList.pop_front();
-				return BOMBSET;
-			//case BOMBSETOFF:
-			//	routeList.pop_front();
-			//	return BOMBSETOFF;
-			default:
-				return -1;
+			switch(routeList.empty() ? -1 : routeList.front())
+			{
+			case GameConst::EnemyAction::UP:
+					x_next = (j_current + 0) * 32;
+					y_next = (i_current - 1) * 32;
+					break;
+				case GameConst::EnemyAction::DOWN:
+					x_next = (j_current + 0) * 32;
+					y_next = (i_current + 1) * 32;
+					break;
+				case GameConst::EnemyAction::LEFT:
+					x_next = (j_current - 1) * 32;
+					y_next = (i_current + 0) * 32;
+					break;
+				case GameConst::EnemyAction::RIGHT:
+					x_next = (j_current + 1) * 32;
+					y_next = (i_current + 0) * 32;
+					break;
+				case GameConst::EnemyAction::BOMBSET:
+					routeList.pop_front();
+					return BOMBSET;
+				//case BOMBSETOFF:
+				//	routeList.pop_front();
+				//	return BOMBSETOFF;
+				default:
+					return -1;
+			}
 		}
 		hasCalculated = 1;
 	}
@@ -175,9 +177,9 @@ int Target::GetRoute(const Enemy &myself)
 			routeList.pop_front();
 	}
 	
-	if(routeList.empty() == 1)
+	if( routeList.empty() )
 	{
-		return -1;		//リストが空なら終了として－１を返す
+		return -1;		//リストが空なら終了(エラー)として－１を返す
 	}
 	else
 	{

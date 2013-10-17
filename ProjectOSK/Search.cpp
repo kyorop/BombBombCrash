@@ -269,60 +269,48 @@ int Search::CheckInClosedInterval(int i_now, int j_now)
 {
 	std::queue<int> que_i;
 	std::queue<int> que_j;
-	for (int i = 0; i < GameConst::MAP_ROW; i++)
-	{
-		for (int j = 0; j < GameConst::MAP_LINE; j++)
-			hasVisited[i][j] = 0;
-	}
-	
-	while(que_i.empty() == 0)
-	{
-		que_i.pop();
-	}
-	while(que_j.empty() == 0)
-	{
-		que_j.pop();
-	}
+	int visited[GameConst::MAP_ROW][GameConst::MAP_LINE];
+
+	memset(visited[0], 0, sizeof(int)*GameConst::MAP_ROW*GameConst::MAP_LINE);
 
 	//初期位置をキューに追加
 	que_i.push(i_now);
 	que_j.push(j_now);
 	
-	int size;
 	int i;
 	int j;
 
 	//行けるところがなければキューの更新がなくなるので、その時に終了
 	while(que_i.empty() == 0)
 	{
-		size = que_i.size();		//すでに入っていたキューの数だけ更新をする
-		for(int n=0; n<size; ++n)
-		{
+		//size = que_i.size();		//すでに入っていたキューの数だけ更新をする
+		//for(int n=0; n<size; ++n)
+		
 			i = que_i.front();
 			j = que_j.front();
 
 			//逃げれないならキューの更新
-			if(MAP(i, -1, j, 0) == 0 && BLOCK(i, -1, j, 0) == 0 && MapState::GetInstance()->GetState(i-1, j, BOMB) == 0)
+			if(visited[i-1][j] == 0 && MAP(i, -1, j, 0) == 0 && BLOCK(i, -1, j, 0) == 0 && MapState::GetInstance()->GetState(i-1, j, BOMB) == 0)
 			{
-				hasVisited[i-1][j] = 1;
+				visited[i-1][j] = 1;
 				que_i.push(i-1);
 				que_j.push(j);
 			}
-			if(MAP(i, 1, j, 0) == 0 && BLOCK(i, 1, j, 0) == 0 && MapState::GetInstance()->GetState(i+1, j, BOMB) == 0)
+			if(visited[i+1][j] == 0 && MAP(i, 1, j, 0) == 0 && BLOCK(i, 1, j, 0) == 0 && MapState::GetInstance()->GetState(i+1, j, BOMB) == 0)
 			{
-				hasVisited[i+1][j] = 1;
+				visited[i+1][j] = 1;
 				que_i.push(i+1);
 				que_j.push(j);
 			}
-			if(MAP(i, 0, j, -1) == 0 && BLOCK(i, 0, j, -1) == 0 && MapState::GetInstance()->GetState(i, j-1, BOMB) == 0)
+			if(visited[i][j-1] == 0 && MAP(i, 0, j, -1) == 0 && BLOCK(i, 0, j, -1) == 0 && MapState::GetInstance()->GetState(i, j-1, BOMB) == 0)
 			{
-				hasVisited[i][j-1] = 1;
+				visited[i][j-1] = 1;
 				que_i.push(i);
 				que_j.push(j-1);
 			}
-			if(MAP(i, 0, j, 1) == 0 && BLOCK(i, 0, j, 1) == 0 && MapState::GetInstance()->GetState(i, j+1, BOMB) == 0)
+			if(visited[i][j+1] == 0 && MAP(i, 0, j, 1) == 0 && BLOCK(i, 0, j, 1) == 0 && MapState::GetInstance()->GetState(i, j+1, BOMB) == 0)
 			{
-				hasVisited[i][j+1] = 1;
+				visited[i][j+1] = 1;
 				que_i.push(i);
 				que_j.push(j+1);
 			}
@@ -330,7 +318,6 @@ int Search::CheckInClosedInterval(int i_now, int j_now)
 			//検索し終わった不必要なキューの削除
 			que_i.pop();
 			que_j.pop();
-		}
 	}
 
 	const int i_start = i_now;
@@ -341,7 +328,7 @@ int Search::CheckInClosedInterval(int i_now, int j_now)
 	{
 		for (int j = 0; j < GameConst::MAP_LINE; j++)
 		{
-			if(hasVisited[i][j] == 1)
+			if(visited[i][j] == 1)
 			{
 				if(i != i_start)
 					i_change = 1;

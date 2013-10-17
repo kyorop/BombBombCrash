@@ -13,6 +13,7 @@ StopRoute::StopRoute(void):
 	i_safe(0),
 	j_safe(0)
 {
+	myclass = 3;
 }
 
 
@@ -37,7 +38,7 @@ void  StopRoute::SetRoute(const Enemy &myself)
 
 int StopRoute::GetRoute(const Enemy &myself)
 {
-	if(routeList.empty() == 0)
+	if( !routeList.empty() )
 		return routeList.front();
 	else
 		return -1;

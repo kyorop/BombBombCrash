@@ -188,9 +188,6 @@
     <ClInclude Include="PlayerBomb.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyAI.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Dijkstra.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -222,6 +219,9 @@
       <Filter>ソース ファイル\AI</Filter>
     </ClInclude>
     <ClInclude Include="StopRoute.h">
+      <Filter>ソース ファイル\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyAI.h">
       <Filter>ソース ファイル\AI</Filter>
     </ClInclude>
   </ItemGroup>

@@ -23,7 +23,7 @@ private:
 		END,
 		TARGET,
 		AVOID,
-		STOPTHOUGHT,
+		STOPTHINKING,
 	};
 	 procedure nextState;
 	 procedure currentState;

@@ -40,7 +40,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 	
 	Map map;
 	Player player;
-	Enemy enemy(32*13,32*9);
+	Enemy enemy(32*14,32*11);
 	Block block;
 	ItemManager itemManager;
 	BombManager bombManager;
@@ -160,38 +160,44 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 			iDraw[i]->Draw();
 		}
 	
-		int color = GetColor(255,255,255);
-		int color2 = GetColor(255,0,0);
-		int color3 = GetColor(0,0,255);
-		DrawFormatString(640,0,color,"ボムアップ獲得数 %d 個",itemManager.GetBombState());
-		DrawFormatString(850,0,color,"火力アップ獲得数 %d 個",itemManager.GetFireState());
-		DrawFormatString(640,20,color,"フレームタイム　%f　秒",g_frametime);
-		DrawFormatString(640,40,color,"出せるボム総数　%d　個",bombManager.size);
-		DrawFormatString(640,60,color,"出せるボム数あと　%d　個",bombManager.size-bombManager.GetBombNum());
+		int black = GetColor(255,255,255);
+		int red = GetColor(255,0,0);
+		int blue = GetColor(0,0,255);
+		int deepskyblue = GetColor(0, 191, 255);
+		DrawFormatString(640,0,black,"ボムアップ獲得数 %d 個",itemManager.GetBombState());
+		DrawFormatString(850,0,black,"火力アップ獲得数 %d 個",itemManager.GetFireState());
+		DrawFormatString(640,20,black,"フレームタイム　%f　秒",g_frametime);
+		DrawFormatString(640,40,black,"出せるボム総数　%d　個",bombManager.size);
+		DrawFormatString(640,60,black,"出せるボム数あと　%d　個",bombManager.size-bombManager.GetBombNum());
 		
 		//for(int i=0,size=blastManager.vblast->size();i<size;++i)
 		//{
 		//	for(int j=0,size=(*blastManager.vblast)[i]->vex->size();j<size;++j)
 		//	{
-		//		DrawFormatString(640+20*i,80+20*j,color,"%d"   , (*(*blastManager.vblast)[i]->vex)[j]->GetX());
-		//		//DrawFormatString(640+20*i,80+20*j,color,"%d"   , (*(*blastManager.vblast)[i]->vex)[j]->GetExplosion());
-		//		//DrawFormatString(640+20*i,80+20*j,color,"%d"   , (*blastManager.vblast)[i]->vex->size());
+		//		DrawFormatString(640+20*i,80+20*j,black,"%d"   , (*(*blastManager.vblast)[i]->vex)[j]->GetX());
+		//		//DrawFormatString(640+20*i,80+20*j,black,"%d"   , (*(*blastManager.vblast)[i]->vex)[j]->GetExplosion());
+		//		//DrawFormatString(640+20*i,80+20*j,black,"%d"   , (*blastManager.vblast)[i]->vex->size());
 		//	}
 		//}
 
 		
 		//for(int i=0,size=bombManager.vbomb->size();i<size;++i)
 		//{
-		//	DrawFormatString(640,80+20*i,color,"[%d]ボムフラグ　%d",i+1,(*bombManager.vbomb)[i]->GetFlag());
+		//	DrawFormatString(640,80+20*i,black,"[%d]ボムフラグ　%d",i+1,(*bombManager.vbomb)[i]->GetFlag());
 		//}
 		
+		int cannotWalkBlockColor;
 		for(int i=0; i<MapState::row; ++i)
 		{
 			for(int j=0; j<MapState::line; ++j)
 			{
-				//DrawFormatString(640+15*j,80+15*i,color,"%d",MapState::GetInstance()->GetState(i,j,BLOCK));
-				//DrawFormatString(640+15*j,80+15*i,color,"%d",MapState::GetInstance()->GetDangerState(i, j));			
-				DrawFormatString(640+15*j,80+15*i,color,"%d",DangerState::GetInstance()->node[i][j].danger);		
+				if(i == 0 || i == 12 || j == 0 || j == 1 || j == 15 || j == 16)
+					cannotWalkBlockColor = deepskyblue;
+				else
+					cannotWalkBlockColor = black;
+				//DrawFormatString(640+15*j,80+15*i,black,"%d",MapState::GetInstance()->GetState(i,j,BLOCK));
+				//DrawFormatString(640+15*j,80+15*i,black,"%d",MapState::GetInstance()->GetDangerState(i, j));			
+				DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",DangerState::GetInstance()->node[i][j].danger);		
 			}
 		}
 		//for(int i=0; i<MapState::row; ++i)
@@ -200,22 +206,24 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		//	{
 		//		if(MapState::GetInstance()->GetState(i,j,CHARACTOR) == 1)
 		//		DrawFormatString(640+15*j,80+15*i,color3,"%d",MapState::GetInstance()->GetState(i,j,CHARACTOR));
-		//		//DrawFormatString(640+15*j,80+15*i,color,"%d",MapState::GetInstance()->GetDangerState(i, j));			
-		//		//DrawFormatString(640+15*j,80+15*i,color,"%d",DangerState::GetInstance()->node[i][j].danger);				
+		//		//DrawFormatString(640+15*j,80+15*i,black,"%d",MapState::GetInstance()->GetDangerState(i, j));			
+		//		//DrawFormatString(640+15*j,80+15*i,black,"%d",DangerState::GetInstance()->node[i][j].danger);				
 		//	}
 		//}
 
 		
 		//for(int n=0,size=enemy.AI.i_goal.size(); n<size; ++n)
 		//{
-		//	DrawFormatString(640, 80+15*15+15*n, color, "第%d行", enemy.AI.i_goal[n]);
-		//	DrawFormatString(640+15*5, 80+15*15+15*n, color, "第%d列", enemy.AI.j_goal[n]);
+		//	DrawFormatString(640, 80+15*15+15*n, black, "第%d行", enemy.AI.i_goal[n]);
+		//	DrawFormatString(640+15*5, 80+15*15+15*n, black, "第%d列", enemy.AI.j_goal[n]);
 		//}
 
 		if(enemy.AI->route->myclass == 1)
-			DrawFormatString(0, 32*14,color, "TARGET");
+			DrawFormatString(0, 32*14,black, "TARGET");
 		else if(enemy.AI->route->myclass == 2)
-			DrawFormatString(0, 32*14,color, "AVOID");
+			DrawFormatString(0, 32*14,black, "AVOID");
+		else /*if(enemy.AI->route->myclass == 3)*/
+			DrawFormatString(0, 32*14,black, "STOP");
 		
 		//if(enemy.AI.rand != -1)
 		//	DrawBox(enemy.AI.j_goal[enemy.AI.rand]*32, enemy.AI.i_goal[enemy.AI.rand]*32, enemy.AI.j_goal[enemy.AI.rand]*32+33, enemy.AI.i_goal[enemy.AI.rand]*32+33, color2,FALSE);
@@ -230,10 +238,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		{
 			switch(enemy.AI.route[n])
 			{
-			case 1:DrawFormatString(15*4*n, 80+15*15+15*8, color, "LEFT->");continue;
-			case 2:DrawFormatString(15*4*n, 80+15*15+15*8, color, "RIGHT->");continue;
-			case 3:DrawFormatString(15*4*n, 80+15*15+15*8, color, "UP->");continue;
-			case 4:DrawFormatString(15*4*n, 80+15*15+15*8, color, "DOWN->");continue;
+			case 1:DrawFormatString(15*4*n, 80+15*15+15*8, black, "LEFT->");continue;
+			case 2:DrawFormatString(15*4*n, 80+15*15+15*8, black, "RIGHT->");continue;
+			case 3:DrawFormatString(15*4*n, 80+15*15+15*8, black, "UP->");continue;
+			case 4:DrawFormatString(15*4*n, 80+15*15+15*8, black, "DOWN->");continue;
 			}
 		}*/
 		
@@ -243,7 +251,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		//{
 		//	for(int j=0; j<LINE; ++j)
 		//	{
-		//		DrawFormatString(640+15*j,80+15*i,color,"%d",MapState::GetInstance()->GetState(i,j,CHARACTOR));
+		//		DrawFormatString(640+15*j,80+15*i,black,"%d",MapState::GetInstance()->GetState(i,j,CHARACTOR));
 		//	}
 		//}
 		
