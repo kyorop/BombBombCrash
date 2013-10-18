@@ -117,5 +117,4 @@ int Target::GetRoute(const Enemy &myself)
 	{
 		return routeList.front();
 	}
-
 }

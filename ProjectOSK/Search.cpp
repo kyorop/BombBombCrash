@@ -281,39 +281,39 @@ int Search::CheckInClosedInterval(int i_now, int j_now)
 	{
 		//size = que_i.size();		//すでに入っていたキューの数だけ更新をする
 		//for(int n=0; n<size; ++n)
-		
-			i = que_i.front();
-			j = que_j.front();
 
-			//逃げれないならキューの更新
-			if(visited[i-1][j] == 0 && MAP(i, -1, j, 0) == 0 && BLOCK(i, -1, j, 0) == 0 && MapState::GetInstance()->GetState(i-1, j, BOMB) == 0)
-			{
-				visited[i-1][j] = 1;
-				que_i.push(i-1);
-				que_j.push(j);
-			}
-			if(visited[i+1][j] == 0 && MAP(i, 1, j, 0) == 0 && BLOCK(i, 1, j, 0) == 0 && MapState::GetInstance()->GetState(i+1, j, BOMB) == 0)
-			{
-				visited[i+1][j] = 1;
-				que_i.push(i+1);
-				que_j.push(j);
-			}
-			if(visited[i][j-1] == 0 && MAP(i, 0, j, -1) == 0 && BLOCK(i, 0, j, -1) == 0 && MapState::GetInstance()->GetState(i, j-1, BOMB) == 0)
-			{
-				visited[i][j-1] = 1;
-				que_i.push(i);
-				que_j.push(j-1);
-			}
-			if(visited[i][j+1] == 0 && MAP(i, 0, j, 1) == 0 && BLOCK(i, 0, j, 1) == 0 && MapState::GetInstance()->GetState(i, j+1, BOMB) == 0)
-			{
-				visited[i][j+1] = 1;
-				que_i.push(i);
-				que_j.push(j+1);
-			}
+		i = que_i.front();
+		j = que_j.front();
 
-			//検索し終わった不必要なキューの削除
-			que_i.pop();
-			que_j.pop();
+		//逃げれないならキューの更新
+		if(visited[i-1][j] == 0 && MAP(i, -1, j, 0) == 0 && BLOCK(i, -1, j, 0) == 0 && MapState::GetInstance()->GetState(i-1, j, BOMB) == 0 && DangerState::GetInstance()->GetFireState(i-1, j) == 0 && DangerState::GetInstance()->GetDangerState(i-1, j) == 0)
+		{
+			visited[i-1][j] = 1;
+			que_i.push(i-1);
+			que_j.push(j);
+		}
+		if(visited[i+1][j] == 0 && MAP(i, 1, j, 0) == 0 && BLOCK(i, 1, j, 0) == 0 && MapState::GetInstance()->GetState(i+1, j, BOMB) == 0 && DangerState::GetInstance()->GetFireState(i+1, j) == 0 && DangerState::GetInstance()->GetDangerState(i+1, j) == 0)
+		{
+			visited[i+1][j] = 1;
+			que_i.push(i+1);
+			que_j.push(j);
+		}
+		if(visited[i][j-1] == 0 && MAP(i, 0, j, -1) == 0 && BLOCK(i, 0, j, -1) == 0 && MapState::GetInstance()->GetState(i, j-1, BOMB) == 0 && DangerState::GetInstance()->GetFireState(i, j-1) == 0 && DangerState::GetInstance()->GetDangerState(i, j-1) == 0)
+		{
+			visited[i][j-1] = 1;
+			que_i.push(i);
+			que_j.push(j-1);
+		}
+		if(visited[i][j+1] == 0 && MAP(i, 0, j, 1) == 0 && BLOCK(i, 0, j, 1) == 0 && MapState::GetInstance()->GetState(i, j+1, BOMB) == 0 && DangerState::GetInstance()->GetFireState(i, j+1) == 0 && DangerState::GetInstance()->GetDangerState(i, j+1) == 0)
+		{
+			visited[i][j+1] = 1;
+			que_i.push(i);
+			que_j.push(j+1);
+		}
+
+		//検索し終わった不必要なキューの削除
+		que_i.pop();
+		que_j.pop();
 	}
 
 	const int i_start = i_now;
