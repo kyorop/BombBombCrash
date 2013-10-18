@@ -24,6 +24,7 @@ Avoid::~Avoid(void)
 
 void Avoid::DecideGoal(const Enemy &myself)
 {
+	hasCalculated = 0;
 }
 
 void Avoid::SetRoute(const Enemy &myself)

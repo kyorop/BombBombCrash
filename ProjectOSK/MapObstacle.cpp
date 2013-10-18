@@ -13,7 +13,7 @@ int MapObstacle::GetID(int i, int j)const
 {
 	return this->ID[i][j];
 }
-
+ 
 void MapObstacle::SetFlag(int i, int j, int flag)
 {
 	this->flag[i][j] = flag;

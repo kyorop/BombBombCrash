@@ -119,18 +119,21 @@ void Enemy::Move(int g_lastTime)
 
 void Enemy::Draw(void)
 {
-	switch(this->muki)
+	if(this->flag == 1)
 	{
-	case STOP:
-		DrawGraph(this->x, this->y, this->graph[4], TRUE);break;
-	case LEFT:
-		DrawGraph(this->x, this->y, this->graph[animpat+8], TRUE);break;
-	case RIGHT:
-		DrawGraph(this->x, this->y, this->graph[animpat+12], TRUE);break;
-	case UP:
-		DrawGraph(this->x, this->y, this->graph[animpat+0], TRUE);break;
-	case DOWN:
-		DrawGraph(this->x, this->y, this->graph[animpat+4], TRUE);	break;
+		switch(this->muki)
+		{
+		case STOP:
+			DrawGraph(this->x, this->y, this->graph[4], TRUE);break;
+		case LEFT:
+			DrawGraph(this->x, this->y, this->graph[animpat+8], TRUE);break;
+		case RIGHT:
+			DrawGraph(this->x, this->y, this->graph[animpat+12], TRUE);break;
+		case UP:
+			DrawGraph(this->x, this->y, this->graph[animpat+0], TRUE);break;
+		case DOWN:
+			DrawGraph(this->x, this->y, this->graph[animpat+4], TRUE);	break;
+		}
 	}
 }
 

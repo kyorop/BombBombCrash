@@ -18,6 +18,7 @@ private:
 
 public:
 	static DangerNode node[GameConst::MAP_ROW][GameConst::MAP_LINE];
+	static int fireNode[GameConst::MAP_ROW][GameConst::MAP_LINE];
 
 private:
 	DangerState(void);
@@ -32,6 +33,7 @@ public:
 	}
 	
 	void Update();
-	int GetDangerState(int i, int j);
+	int GetDangerState(int i, int j)const;
+	int GetFireState(int i, int j)const;
 };
 

@@ -27,7 +27,7 @@ enum
 
 EnemyAI::EnemyAI():
 	nextState(END),
-	currentState(TARGET),
+	currentState(END),
 	route(target),
 	hasCalculated(0),
 	//nowExploring(0),
@@ -129,8 +129,8 @@ int EnemyAI::CheckAbleToMove(const Enemy &myself)
 
 void EnemyAI::Analyse(int i_current, int j_current, const Enemy &myself)
 {
-	//int x_center = myself.GetX() + myself.GetX() + 32;
-	//int y_center = myself.GetY() + myself.GetY() + 32;
+	int x_center = (myself.GetX()*2 + 32) / 2;
+	int y_center = (myself.GetY()*2 + 32) / 2;
 
 	//‚¿‚å‚¤‚Çƒ}ƒX‚Ò‚Á‚½‚è‚É‚¢‚é‚Æ‚«‚É
 	if(myself.GetX() % 32 == 0 && myself.GetY() % 32 == 0)
@@ -143,7 +143,7 @@ void EnemyAI::Analyse(int i_current, int j_current, const Enemy &myself)
 				nextState = AVOID;
 			}
 		}
-		else if(search->CheckInClosedInterval(myself.GetY()/32, myself.GetX()/32) == 1 && DangerState::GetInstance()->GetDangerState(myself.GetY()/32, myself.GetX()/32) == 0)
+		else if(search->CheckInClosedInterval(y_center/32, x_center/32) == 1 && DangerState::GetInstance()->GetDangerState(y_center/32, x_center/32) == 0)
 		{
 			if(currentState != STOPTHINKING)
 			{
@@ -161,17 +161,12 @@ void EnemyAI::Analyse(int i_current, int j_current, const Enemy &myself)
 		}
 	}
 
-	//if(currentState != nextState)
+	if(nextState != currentState)
 	{
-		//if(myself.GetX() % 32 == 0 && myself.GetY() % 32 == 0)
-		if(nextState != currentState)
-		{
-			currentState = nextState;
-			route->DecideGoal(myself);
-			route->SetRoute(myself);	
-		}
+		currentState = nextState;
+		route->DecideGoal(myself);
+		route->SetRoute(myself);	
 	}
-
 }
 
 int EnemyAI::GetAction(const Enemy &myself)

@@ -134,14 +134,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		blastManager.FireUp(player);
 		blastManager.Set(bombManager);
 		blastManager.Maintain(bombManager);
-		blastManager.CheckHit(&block, &map, &player, &bombManager, &itemManager);
+		blastManager.CheckHit(&block, &map, &enemy, &bombManager, &itemManager);
 
 		//EnemyÇÃBlastä«óù
 		enemyBlastManager.Add(enemy);
 		enemyBlastManager.FireUp(enemy);
 		enemyBlastManager.Set(enemyBombManager);
 		enemyBlastManager.Maintain(enemyBombManager);
-		enemyBlastManager.CheckHit(&block, &map, &player, &enemyBombManager, &itemManager);
+		enemyBlastManager.CheckHit(&block, &map, &enemy, &enemyBombManager, &itemManager);
 
 		//blastManager.CheckHitObject(&map);
 		//blastManager.CheckHitObject(&block);
@@ -149,11 +149,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		//blastManager.CheckHitBomb(&bombManager);
 		//blastManager.CheckHitCharactor(&player);
 		
-
-
-
-
-
 		//ï`âÊïî
 		for(int i=0; i<DRAWNUM; ++i)
 		{
@@ -192,13 +187,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		{
 			for(int j=0; j<MapState::line; ++j)
 			{
-				if(i == 0 || i == 12 || j == 0 || j == 1 || j == 15 || j == 16)
+				if(i == 0 || i == 12 || j == 0 || j == 1 || j == 15 || j == 16 || MapState::GetInstance()->GetState(i, j, MAP) == 1)
 					cannotWalkBlockColor = deepskyblue;
 				else
 					cannotWalkBlockColor = black;
 				//DrawFormatString(640+15*j,80+15*i,black,"%d",MapState::GetInstance()->GetState(i,j,BLOCK));
-				//DrawFormatString(640+15*j,80+15*i,black,"%d",MapState::GetInstance()->GetDangerState(i, j));			
-				DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",DangerState::GetInstance()->node[i][j].danger);		
+				//DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",MapState::GetInstance()->GetDangerState(i, j));			
+				DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",DangerState::GetInstance()->GetDangerState(i, j));		
+				//DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",DangerState::GetInstance()->GetFireState(i, j));		
 			}
 		}
 		//for(int i=0; i<MapState::row; ++i)
@@ -220,11 +216,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		//}
 
 		if(enemy.AI->route->myclass == 1)
-			DrawFormatString(0, 32*14,black, "TARGET");
+			DrawFormatString(400, 32*14,black, "TARGET");
 		else if(enemy.AI->route->myclass == 2)
-			DrawFormatString(0, 32*14,black, "AVOID");
+			DrawFormatString(400, 32*14,black, "AVOID");
 		else /*if(enemy.AI->route->myclass == 3)*/
-			DrawFormatString(0, 32*14,black, "STOP");
+			DrawFormatString(400, 32*14,black, "STOP");
 		
 		//if(enemy.AI.rand != -1)
 		//	DrawBox(enemy.AI.j_goal[enemy.AI.rand]*32, enemy.AI.i_goal[enemy.AI.rand]*32, enemy.AI.j_goal[enemy.AI.rand]*32+33, enemy.AI.i_goal[enemy.AI.rand]*32+33, color2,FALSE);

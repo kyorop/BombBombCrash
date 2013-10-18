@@ -3,6 +3,7 @@
 #include <iostream>
 
 DangerState::DangerNode DangerState::node[GameConst::MAP_ROW][GameConst::MAP_LINE];
+int DangerState::fireNode[GameConst::MAP_ROW][GameConst::MAP_LINE];
 
 DangerState::DangerNode::DangerNode():
 	danger(0),
@@ -37,11 +38,10 @@ void DangerState::Update()
 	{
 		for (int j = 0; j < GameConst::MAP_LINE; ++j)
 		{
-			//’†S‚ªÁ‚¦‚½‚ç‘¼‚à‘S•”Á‚·
 			if(MapState::GetInstance()->GetState(i, j, FIRE) == 1)
-			{
-				node[i][j].danger = 1;
-			}
+				fireNode[i][j] = 1;
+			else
+				fireNode[i][j] = 0;
 		}
 	}
 
@@ -156,7 +156,7 @@ void DangerState::Update()
 	}
 }
 
-int DangerState::GetDangerState(int i , int j)
+int DangerState::GetDangerState(int i , int j)const
 {
 	if(0 <= i && i < GameConst::MAP_ROW && 0 <= j && j < GameConst::MAP_LINE)
 	{
@@ -166,4 +166,16 @@ int DangerState::GetDangerState(int i , int j)
 	{
 		return -1;
 	}
+}
+
+int DangerState::GetFireState(int i, int j)const
+{
+	if(0 <= i && i < GameConst::MAP_ROW && 0 <= j && j < GameConst::MAP_LINE)
+	{
+		return fireNode[i][j];
+	}
+	else
+	{
+		return -1;
+	}	
 }
