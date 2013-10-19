@@ -20,12 +20,9 @@ enum
 
 
 Enemy::Enemy(int x, int y):
-	//nowStop(0),
 	AI(new EnemyAI),
-	//nextAction(0),
-	//moveNow(0),
-	//exploration(0),
 	muki(STOP),
+	stop(0),
 	bombSet(0)
 {
 	this->mv = MV;
@@ -41,48 +38,32 @@ Enemy::~Enemy(void)
 	delete AI;
 }
 
-int Enemy::CheckAbleBombSet()
-{
-	return 0;
-}
-
 void Enemy::Order()
 {
-	//if(exploration == 0)
-	{
-		AI->Analyse(this->y/32, this->x/32, *this);
-		//exploration = 1;
-		//nextAction = 0;
-	}
+	AI->Analyse(this->y/32, this->x/32, *this);
 }
 
 void Enemy::Move(int g_lastTime)
 {
-	/*if(exploration == 1 && nowStop == 0)
-	{*/
+	bombSet = 0;
 		switch(AI->GetAction(*this))
 		{
 		case STOP:
-			//nowStop = 1;
-			this->bombSet = 0;
+			stop = 1;
 			break;
 		case UP:
-			this->bombSet = 0;
 			this->muki = UP;
 			this->y -= this->mv;
 			break;
 		case DOWN:
-			this->bombSet = 0;
 			this->muki = DOWN;
 			this->y += this->mv;
 			break;
 		case LEFT:
-			this->bombSet = 0;
 			this->muki = LEFT;
 			this->x -= this->mv;
 			break;
 		case RIGHT:
-			this->bombSet = 0;
 			this->muki = RIGHT;
 			this->x += this->mv;
 			break;
@@ -90,20 +71,11 @@ void Enemy::Move(int g_lastTime)
 			this->bombSet = 1;
 			break;
 		case BOMBSETOFF:
-			this->bombSet = 0;
 			break;
 		case -1:
-			//exploration = 0;
 			break;
 		}
 
-		//nextAction = 0;
-		
-		//if(this->x % 32 == 0 && this->y % 32 == 0)
-		//{
-		//	//++nextAction;
-		//}
-		
 		if(this->x < 64)this->x = 64;
 		if(this->x > 32*14)this->x = 32*14;
 		if(this->y < 32)this->y = 32;
@@ -112,15 +84,19 @@ void Enemy::Move(int g_lastTime)
 		this->rx = this->x+32;
 		this->dy = this->y+32;
 
-	//}//end of if(exploration == 1 && nowStop == 0)
-
 	this->animpat = (g_lastTime / (1000 / 12)) % 4;
 }
 
 void Enemy::Draw(void)
 {
+
 	if(this->flag == 1)
 	{
+		if(stop == 1)
+		{
+			animpat = 0;
+			stop = 0;
+		}
 		switch(this->muki)
 		{
 		case STOP:
@@ -142,10 +118,3 @@ int Enemy::GetBombSet(void)const
 	return this->bombSet;
 }
 
-void Enemy::CancelStop(void)
-{
-	//if(nowStop == 1)
-	//{
-	//	nowStop = 0;
-	//}
-}

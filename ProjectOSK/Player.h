@@ -10,7 +10,7 @@ class Map;
 class Item;
 class ItemManager;
 class Player:
-	public Charactor,virtual public IDrawable, virtual public IRegister
+	public Charactor,virtual public IDrawable/*, virtual public IRegister*/
 {
 private:
 	int graph[PLAYERDEVIDENUMBER];
@@ -24,7 +24,7 @@ public:
 	virtual void Draw();
 	int GetStateFire(const Item &item);
 	int GetStateBomb(const ItemManager &manageItem);
-	void Register();
+	//void Register();
 	Player();//コンストラクタ
 	~Player(void);//デストラクタ
 };

@@ -15,13 +15,11 @@ private:
 	//int nowStop;
 	int graph[20];
 	int muki;
+	int stop;
 	int animpat;
 	int resetRoutine;
 	int bombSet;
 	int action[10];
-	//int nextAction;
-	//int moveNow;
-	//int exploration;
 public:
 	Enemy(int x, int y);
 	~Enemy(void);
@@ -30,7 +28,5 @@ public:
 	void Move(int g_lastTime);
 	void Draw();
 	int GetBombSet(void)const;
-	int CheckAbleBombSet();
-	void CancelStop(void);
 };
 

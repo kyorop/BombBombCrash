@@ -176,7 +176,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		//	}
 		//}
 
-		
 		//for(int i=0,size=bombManager.vbomb->size();i<size;++i)
 		//{
 		//	DrawFormatString(640,80+20*i,black,"[%d]ボムフラグ　%d",i+1,(*bombManager.vbomb)[i]->GetFlag());
