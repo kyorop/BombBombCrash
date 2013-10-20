@@ -74,15 +74,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 
 	int g_lasttime = 0;
 	float g_frametime = 0;
-
 	//map.Register();
-	
-
-	//enemy.SetGoal(11,14);
-	//int rNum = GetRand(enemy.i_goal.size()-1);
-	//enemy.Initialize();
-	//enemy.SetRoute(11,14,enemy.i_goal[rNum], enemy.j_goal[rNum]);
 	itemManager.SetItem(block);
+
 	while(CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
 		int curtime = GetNowCount() & INT_MAX;
@@ -97,10 +91,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		{
 			iRegister[i]->Register();
 		}
-		DangerState::GetInstance()->Update();
-
+		
 		bombManager.Register(player);
 		enemyBombManager.Register(enemy);
+		DangerState::GetInstance()->Update();
 	
 		//ƒLƒƒƒ‰‚ÌˆÚ“®
 		player.Move(g_lasttime);
