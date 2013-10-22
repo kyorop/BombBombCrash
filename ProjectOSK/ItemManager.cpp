@@ -9,12 +9,19 @@
 #define BOMB 1
 #define SPEED 2
 
-ItemManager::ItemManager(void)
+ItemManager::ItemManager(void):
+	item()
 {
 	for(int i=0; i<ITEMNUM; i++)
 	{
 		this->item[i] = new Item;
 	}
+}
+
+ItemManager::~ItemManager(void)
+{
+	for(int i=0; i<ITEMNUM; i++)
+		delete item[i];
 }
 
 void ItemManager::SetItem(const Block &block)
@@ -104,11 +111,7 @@ int ItemManager::GetCharactorHitSpeedNum()const
 	return speedNum;
 }
 
-ItemManager::~ItemManager(void)
-{
-	for(int i=0; i<ITEMNUM; i++)
-		delete item[i];
-}
+
 
 
 void ItemManager::Register(void)

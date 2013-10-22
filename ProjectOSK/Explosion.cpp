@@ -10,27 +10,34 @@
 
 //コンストラクタ
 Explosion::Explosion(int upx,int downx,int upy,int downy):
-	graph( LoadGraph("fire.bmp") ), upx(upx), downx(downx), upy(upy), downy(downy)
+	graph( LoadGraph("fire.bmp") ), 
+	upx(upx), 
+	downx(downx),
+	upy(upy),
+	downy(downy),
+	time(),
+	fuse(0),
+	explosion(0)
 {
-	this->fuse = 0;
-	this->explosion = 0;
+}
+
+Explosion::~Explosion(void)
+{
 }
 
 //ボムが置かれて、それが爆発すると、火を存在させる
 void Explosion::Set(const Bomb &bomb)//爆弾のあとExplosionManagerの中で一番初めに描く
 {
-	this->x = bomb.GetX() + 32*upx - 32*downx;//中心からの広がり
-	this->y = bomb.GetY() + 32*upy - 32*downy;
+	x = bomb.GetX() + 32*upx - 32*downx;//中心からの広がり
+	y = bomb.GetY() + 32*upy - 32*downy;
 }
-
-
 
 //プレイヤーとのあたり判定
 int Explosion::CheckHItCharactor(Charactor *charactor)//ObjectのCheckHitをオーバーライド
 {
-	if(this->explosion == TRUE)//火が存在しているとき
+	if(explosion == TRUE)//火が存在しているとき
 	{
-		if(this->x+32-DHIT > charactor->GetX() && this->x+DHIT < charactor->GetRX() && this->y+DHIT < charactor->GetDY() && charactor->GetY() < this->y+32-DHIT)
+		if(x+32-DHIT > charactor->GetX() && x+DHIT < charactor->GetRX() && y+DHIT < charactor->GetDY() && charactor->GetY() < y+32-DHIT)
 		{
 			charactor->SetCharactorState(FALSE);
 			return true;
@@ -45,30 +52,30 @@ int Explosion::CheckHItCharactor(Charactor *charactor)//ObjectのCheckHitをオーバ
 //壁とのあたり判定
 void Explosion::CheckHitObject(MapObstacle *mapobstacle)
 {
-	int i = this->y / 32;
-	int j = this->x / 32;
+	int i = y / 32;
+	int j = x / 32;
 
-	if(this->explosion == TRUE)
+	if(explosion == TRUE)
 	{
 		if(mapobstacle->GetID(i, j) == 1)//火が描かれる予定の場所の識別値がマップの壁なら、火を書かないようにする。
 		{
-			this->explosion = FALSE;
+			explosion = FALSE;
 		}
 		else if(mapobstacle->GetFlag(i, j) == TRUE)//火が描かれる予定の場所の識別値が、壊れるブロックなら、そのブロックを壊して、火は描かない
 		{
 			mapobstacle->SetFlag(i, j, FALSE);//ブロックを消す
-			this->explosion = FALSE;//火は消す
+			explosion = FALSE;//火は消す
 		}
 	}
 }
 
 void Explosion::CheckHitBomb(Bomb *bomb)
 {
-	if(this->explosion == TRUE && bomb->GetFlag() == TRUE)
+	if(explosion == TRUE && bomb->GetFlag() == TRUE)
 	{
-		if(this->x+32-DHIT > bomb->GetX() && this->x+DHIT < bomb->GetX()+32 && this->y+DHIT < bomb->GetY()+32 && bomb->GetY() < this->y+32-DHIT)
+		if(x+32-DHIT > bomb->GetX() && x+DHIT < bomb->GetX()+32 && y+DHIT < bomb->GetY()+32 && bomb->GetY() < y+32-DHIT)
 		{
-			//this->explosion = FALSE;
+			//explosion = FALSE;
 			bomb->SetFlag(FALSE);
 			bomb->SetFuse(1);
 		}
@@ -77,11 +84,11 @@ void Explosion::CheckHitBomb(Bomb *bomb)
 
 void Explosion::CheckHitItem(Item *item)
 {
-	if(this->explosion == TRUE && item->GetFlag() == TRUE)
+	if(explosion == TRUE && item->GetFlag() == TRUE)
 	{
-		if( this->x+32 > item->GetX() && this->x < item->GetX()+32 && this->y < item->GetY()+32 && this->y+32 > item->GetY() )
+		if(x+32 > item->GetX() && x < item->GetX()+32 && y < item->GetY()+32 && y+32 > item->GetY() )
 		{
-			this->explosion = FALSE;
+			explosion = FALSE;
 			item->SetFlag(FALSE);
 		}
 	}
@@ -90,23 +97,18 @@ void Explosion::CheckHitItem(Item *item)
 //火が存在していれば、描く
 void Explosion::Draw()
 {
-	if(this->explosion == TRUE)
+	if(explosion == TRUE)
 	{
-		DrawGraph(this->x, this->y,this->graph,FALSE);
+		DrawGraph(x, y, graph, FALSE);
 	}
-}
-
-//デストラクタ
-Explosion::~Explosion(void)
-{
 }
 
 void Explosion::SetExplosion(int flag)
 {
-	this->explosion = flag;
+	explosion = flag;
 }
 
 int Explosion::GetExplosion()
 {
-	return this->explosion;
+	return explosion;
 }

@@ -31,7 +31,7 @@ public:
 	~BlastManager(void);
 
 
-	std::vector<ExplosionManager*> *vblast;
+	std::vector<ExplosionManager*> blast;
 	
 };
 

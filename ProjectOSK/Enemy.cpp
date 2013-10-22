@@ -25,12 +25,11 @@ Enemy::Enemy(int x, int y):
 	stop(0),
 	bombSet(0)
 {
-	this->mv = MV;
-	this->flag = TRUE;
+	mv = MV;
+	flag = 1;
 	LoadDivGraph("redbombman.png", 20, 4, 5, 32, 32, this->graph, FALSE);
 	this->x = x;
 	this->y = y;
-	this->resetRoutine = 1;
 }
 
 Enemy::~Enemy(void)

@@ -13,11 +13,13 @@ private:
 	int graph;
 
 public:
+	Block(void);
+	~Block(void);
+	
 	void CheckHit(Charactor *charactor);
 	void Register();
 	void Draw();
 
-	Block(void);
-	~Block(void);
+
 };
 

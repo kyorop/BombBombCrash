@@ -13,6 +13,12 @@ protected:
 	int flag;
 	int preX;
 	int preY;
+	//スピード
+	int mv;
+	//出せるボムの個数
+	int bombNum;
+	//中心からの火のマス数(中心は含めない)
+	int fireLevel;
 public:
 	//virtual void Draw();
 	//virtual void Move();
@@ -26,14 +32,6 @@ public:
 	Charactor(void);
 	virtual ~Charactor(void);
 
-	
-protected:
-	//スピード
-	int mv;
-	//出せるボムの個数
-	int bombNum;
-	//中心からの火のマス数(中心は含めない)
-	int fireLevel;
 public:
 	virtual int GetBombNum(void)const;
 	virtual int GetFireLevel(void)const;

@@ -11,17 +11,26 @@
 
 
 BlastManager::BlastManager(void):
-	vblast(new std::vector<ExplosionManager*>(1))
+	blast(0),
+	nowBlastNum(1)
 {
-	(*vblast)[0] = new ExplosionManager;
-	this->nowBlastNum = 1;
+	blast.push_back(new ExplosionManager);
+}
+
+BlastManager::~BlastManager(void)
+{
+	std::vector<ExplosionManager*>::iterator it = blast.begin();
+	for(it; it!=blast.end(); ++it)
+	{
+		delete *it;
+	}
 }
 
 void BlastManager::FireUp(const Charactor &charactor)const
 {
-	for(int i=0,size=vblast->size(); i<size; ++i)
+	for(int i=0,size=blast.size(); i<size; ++i)
 	{
-		(*vblast)[i]->FireUp(charactor);
+		blast[i]->FireUp(charactor);
 	}
 }
 
@@ -29,97 +38,86 @@ void BlastManager::Add(const Charactor &charactor)
 {
 	if(charactor.GetBombNum() > this->nowBlastNum)
 	{
-		vblast->push_back(new ExplosionManager);
+		blast.push_back(new ExplosionManager);
 		++this->nowBlastNum;
 	}
 }
 
 void BlastManager::Set(const BombManager &bombManager)
 {
-	for(int i=0,size=vblast->size(); i<size; ++i)
+	for(int i=0,size=blast.size(); i<size; ++i)
 	{
-		(*vblast)[i]->Set( *bombManager.GetBombObject(i) );
+		blast[i]->Set( *bombManager.GetBombObject(i) );
 	}
 }
 
 void BlastManager::Maintain(const BombManager &bombManager)
 {
-	for(int i=0,size=vblast->size(); i<size; ++i)
+	for(int i=0,size=blast.size(); i<size; ++i)
 	{
-		(*vblast)[i]->Maintain();
+		blast[i]->Maintain();
 	}
 }
 
 void BlastManager::CheckHitObject(MapObstacle *mapObstacle)
 {
-	for(int i=0,size=vblast->size(); i<size; ++i)
+	for(int i=0,size=blast.size(); i<size; ++i)
 	{
-		(*vblast)[i]->CheckHitObject(mapObstacle);
+		blast[i]->CheckHitObject(mapObstacle);
 	}
 }
 
 void BlastManager::CheckHitCharactor(Charactor *charactor)
 {
-	for(int i=0,size=vblast->size(); i<size; ++i)
+	for(int i=0,size=blast.size(); i<size; ++i)
 	{
-		(*vblast)[i]->CheckHitCharactor(charactor);
+		blast[i]->CheckHitCharactor(charactor);
 	}
 }
 
 void BlastManager::CheckHitBomb(BombManager *bombManager)
 {
-	for(int i=0,size=vblast->size(); i<size; ++i)
+	for(int i=0,size=blast.size(); i<size; ++i)
 	{
 		for(int j=0,sizebomb=bombManager->vbomb->size(); j<sizebomb; ++j)
 		{
-			(*vblast)[i]->CheckHitBomb(bombManager->GetBombObject(j));
+			blast[i]->CheckHitBomb(bombManager->GetBombObject(j));
 		}
 	}
 }
 
 void BlastManager::CheckHitItem(ItemManager *itemManager)
 {
-	for(int i=0,size=vblast->size(); i<size; ++i)
+	for(int i=0,size=blast.size(); i<size; ++i)
 	{
 		for(int j=0; j<ITEMNUM; ++j)
 		{
-			(*vblast)[i]->CheckHitItem(itemManager->GetItemInstance(j));
+			blast[i]->CheckHitItem(itemManager->GetItemInstance(j));
 		}
 	}
 }
 
 void BlastManager::CheckHit(MapObstacle *mapobstacle1, MapObstacle *mapobstacle2, Charactor *charactor, BombManager *bombManager, ItemManager *itemManager)
 {
-	for(int i=0,size=vblast->size(); i<size; ++i)
+	for(int i=0,size=blast.size(); i<size; ++i)
 	{
-		(*vblast)[i]->CheckHit(mapobstacle1, mapobstacle2, charactor, bombManager,itemManager);
+		blast[i]->CheckHit(mapobstacle1, mapobstacle2, charactor, bombManager,itemManager);
 	}
 }
 
 void BlastManager::Draw()
 {
-	for(int i=0,size=vblast->size(); i<size; ++i)
+	for(int i=0,size=blast.size(); i<size; ++i)
 	{
-		(*vblast)[i]->Draw();
+		blast[i]->Draw();
 	}
-}
-
-
-BlastManager::~BlastManager(void)
-{
-	std::vector<ExplosionManager*>::iterator it = vblast->begin();
-	for(it; it!=vblast->end(); ++it)
-	{
-		delete *it;
-	}
-	delete vblast;
 }
 
 void BlastManager::Register()
 {
-	for(int i=0,size=vblast->size(); i<size; ++i)
+	for(int i=0,size=blast.size(); i<size; ++i)
 	{
-		(*vblast)[i]->Register();
+		blast[i]->Register();
 	}
 }
 

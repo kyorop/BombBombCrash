@@ -14,13 +14,15 @@ private:
 	int charactorHit;
 	int i_graph;
 public:
+	Item(void);
+	~Item(void);
+
 	void CheckHItCharactor(Charactor *charactor);
 	int GetKindGraph();
 	int GetCharactorHit();
 	void SetItem(const Block &block);
 	void Draw();
-	Item(void);
-	~Item(void);
+
 	bool operator== (const Item &other);
 	bool operator== (const Player &player);
 };

@@ -19,13 +19,13 @@ enum
 Player::Player()
 {
 	LoadDivGraph("bombman.png", 20, 4, 5, 32, 32, this->graph, FALSE);
-	this->x = 32*2;
-	this->rx = this->x+32;
-	this->y = 32*1;
-	this->dy = this->y+32;
-	this->muki = DOWN;
-	this->flag =1;
-	this->animpat = 0;
+	x = 32*2;
+	rx = x+32;
+	y = 32*1;
+	dy = y+32;
+	muki = DOWN;
+	flag =1;
+	animpat = 0;
 }
 
 void Player::Draw()

@@ -17,7 +17,7 @@ private:
 	int muki;
 	int stop;
 	int animpat;
-	int resetRoutine;
+	//int resetRoutine;
 	int bombSet;
 	int action[10];
 public:

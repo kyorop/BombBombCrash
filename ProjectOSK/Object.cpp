@@ -4,11 +4,15 @@
 #include "DxLib.h"
 #define DHIT 10
 
-Object::Object()
+Object::Object():
+	x(0),
+	y(0),
+	flag(1)
 {
-	this->x = 0;
-	this->y = 0;
-	this->flag = 0;
+}
+
+Object::~Object(void)
+{
 }
 
 int Object::CheckHItCharactor(Charactor &charactor)
@@ -27,9 +31,7 @@ int Object::CheckHItCharactor(Charactor &charactor)
 		return false;
 }
 
-Object::~Object(void)
-{
-}
+
 
 int Object::GetFlag()const
 {

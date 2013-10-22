@@ -12,7 +12,6 @@ class Item;
 class ExplosionManager
 {
 private:
-	
 	int addFireNum;
 	int nowFireLevel;
 	int fuse;
@@ -33,12 +32,7 @@ public:
 	ExplosionManager();
 	~ExplosionManager(void);
 
-
-std::vector<Explosion*> *vex;//vectorクラスのオブジェクト生成
-
-
-
-
+std::vector<Explosion*> vex;//vectorクラスのオブジェクト生成
 
 void SetFuse(int flag);
 void Register(void);

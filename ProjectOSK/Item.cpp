@@ -11,12 +11,11 @@
 int Item::graph[KINDITEMNUM];
 
 Item::Item(void):
-	//i_graph(BOMB)
-	i_graph(GetRand(KINDITEMNUM-2))//何のアイテムを出すか決める
+	i_graph(GetRand(KINDITEMNUM-2)),
+	charactorHit(0)//何のアイテムを出すか決める
 {
 	LoadDivGraph("itemup.bmp", 3, 3, 1, 32, 32, Item::graph, FALSE);
 	this->flag = 1;
-	this->charactorHit = 0;
 }
 
 void Item::SetItem(const Block &block)

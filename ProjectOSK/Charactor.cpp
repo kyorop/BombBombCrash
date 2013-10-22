@@ -2,16 +2,22 @@
 #include "Map.h"
 #include "MapState.h"
 
-Charactor::Charactor(void)
+Charactor::Charactor(void):
+	x(),
+	rx(),
+	y(),
+	dy(),
+	flag(1),
+	preX(),
+	preY(),
+	mv(3),
+	bombNum(1),
+	fireLevel(1)
 {
-	x = 0;
-	this->rx = 0;
-	y = 0;
-	this->dy = 0;
-	this->flag = 0;
-	this->mv = 3;
-	this->bombNum = 1;
-	this->fireLevel = 1;
+}
+
+Charactor::~Charactor(void)
+{
 }
 
 int Charactor::GetX()const
@@ -52,9 +58,7 @@ void Charactor::SetCharactorState(int flag)
 	this->flag = flag;
 }
 
-Charactor::~Charactor(void)
-{
-}
+
 
 int Charactor::GetMV(void)const
 {

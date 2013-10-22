@@ -8,10 +8,9 @@
 #define DHIT 5
 #define KBHABA 16
 
-Block::Block(void)
+Block::Block(void):
+	graph(LoadGraph("breakblock.bmp"))
 {
-	this->graph = LoadGraph("breakblock.bmp");
-
 	int temp[MAPSIZE_Y][MAPSIZE_X]=
 	{
 		1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
