@@ -15,7 +15,9 @@ ExplosionManager::ExplosionManager():
 	explosion(0),
 	addFireNum(1),
 	nowFireLevel(1),
-	vex()
+	vex(),
+	retainFire(),
+	beforeExplosion()
 {
 	//初期火力レベル、中心とその周り一マス
 	vex.push_back(new Explosion(0,0,0,0));
@@ -57,15 +59,7 @@ void ExplosionManager::Set(int x, int y)
 		}
 	}
 
-	if(fuse == TRUE && bomb.GetFlag() == FALSE)//導火線に火がついたボムが消えたら
-	{
-		this->fuse = FALSE;
-		this->explosion = TRUE;//爆発
-		for(int i=0,size=vex.size(); i<size; ++i )
-		{
-			vex[i]->SetExplosion(TRUE);
-		}
-	}
+	
 	//if(this->explosion == TRUE && bomb.GetFlag() == FALSE)//爆発したフレームのボムフラグはFALSEなので、爆発した後かつ爆発が終了する前に、ボムが置かれた時の爆風の座標の再取得を防げる
 	//{                                                                                          //爆発中にボムが置かれても座標の再取得が起こらないようにしている
 	//	
@@ -74,9 +68,22 @@ void ExplosionManager::Set(int x, int y)
 
 void ExplosionManager::Maintain()
 {
+	if(fuse == TRUE/* && bomb.GetFlag() == FALSE*/)//導火線に火がついたボムが消えたら
+	{
+		if(beforeExplosion.CountDown(timeBeforeExplosion) == 1)
+		{
+			this->fuse = FALSE;
+			this->explosion = TRUE;//爆発
+			for(int i=0,size=vex.size(); i<size; ++i )
+			{
+				vex[i]->SetExplosion(TRUE);
+			}
+		}
+	}
+
 	if(this->explosion == TRUE)
 	{
-		if(time.CountDown(200) == false)
+		if(retainFire.CountDown(displayingTime) == false)
 			this->explosion = TRUE;
 		else
 		{

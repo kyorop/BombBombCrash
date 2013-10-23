@@ -15,8 +15,14 @@ private:
 	int currentBombNum;
 	int currentFireLevel;
 private:
+	//プレイヤーのアイテム取得で増やす
 	void UpdateNumber();
+	//座標やフラグのセット
 	void Set();
+	//各オブジェクトの描画系の更新
+	void Move();
+	//全てのオブジェクトの表示
+	void Draw();
 public:
 	CharacterSet(void);
 	~CharacterSet(void);

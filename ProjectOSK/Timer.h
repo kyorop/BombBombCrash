@@ -6,7 +6,8 @@ private:
 	bool reset;
 	int startTime;
 public:
-	bool CountDown(int time);
+	//ŒÄ‚Ño‚³‚ê‚Ä‚©‚çˆø”w’èƒ~ƒŠ•b‚ª‚½‚Á‚½‚çTRUE‚ğ•Ô‚·
+	bool CountDown(int millisecond);
 	Timer(void);
 	~Timer(void);
 	void TurnReset(void);

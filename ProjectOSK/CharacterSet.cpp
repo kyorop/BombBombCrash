@@ -7,16 +7,25 @@ CharacterSet::CharacterSet(void):
 	player(new Player),
 	bomb(new BombManager),
 	fire(new BlastManager),
-	currentSpeed(),
-	currentBombNum(),
-	currentFireLevel()
+	currentSpeed(1),
+	currentBombNum(1),
+	currentFireLevel(1)
 {
 }
+
+CharacterSet::~CharacterSet(void)
+{
+	delete player;
+	delete bomb;
+	delete fire;
+}
+
 
 void CharacterSet::Update()
 {
 	UpdateNumber();
 	Set();
+	Move();
 }
 
 void CharacterSet::UpdateNumber()
@@ -56,6 +65,18 @@ void CharacterSet::Set()
 	}
 }
 
-CharacterSet::~CharacterSet(void)
+void CharacterSet::Move()
 {
+	player->Move();
+	bomb->MaintainBomb();
+	fire->Maintain();
 }
+
+void CharacterSet::Draw()
+{
+	//‚±‚Ì•\Ž¦‚Ì‡”Ô‚ª‘åŽ–‚¾‚Á‚½‚èc
+	bomb->Draw();
+	player->Draw();
+	fire->Draw();
+}
+

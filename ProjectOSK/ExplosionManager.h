@@ -16,7 +16,10 @@ private:
 	int nowFireLevel;
 	int fuse;
 	int explosion;
-	Timer time;
+	Timer retainFire;
+	Timer beforeExplosion;
+	static const int timeBeforeExplosion = 3000;
+	static const int displayingTime = 200; 
 public:
 	//void SetExplosion(const BombManager &bombManager);
 	void FireUp();	

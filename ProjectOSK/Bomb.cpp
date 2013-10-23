@@ -4,7 +4,6 @@
 #include "Charactor.h"
 #include "DxLib.h"
 #include <iostream>
-//#include <cstdio>
 #define BOMBEXISTTIME 3000
 #define DHIT 5
 #define KBHABA 16

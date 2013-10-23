@@ -20,7 +20,7 @@ private:
 public:	
 	//void CheckHit(Map &map);
 	//virtual void SetCharactorState(int flag);
-	 void Move(int g_lastTime);
+	 void Move();
 	 void Draw();
 	int GetStateFire(const Item &item);
 	int GetStateBomb(const ItemManager &manageItem);

@@ -19,7 +19,7 @@ public:
 	void FireLevelUp();
 	void Add();
 	void Set(int index, int x, int y);
-	void Maintain(const BombManager &bombManager);
+	void Maintain();
 	void CheckHitObject(MapObstacle *mapobstacle);
 	void CheckHitCharactor(Charactor *charactor);
 	void CheckHitBomb(BombManager *bombManager);
