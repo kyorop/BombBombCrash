@@ -160,6 +160,19 @@ int Player::GetStateFire(const Item &item)//‘¶İ‚ªFALSE ‚Ì•¨‚Ì”‚ğ”‚¦‚ê‚Î‚æ‚¢B
 	}
 }
 
+int Player::EnableBomb()const
+{
+	if(CheckHitKey(KEY_INPUT_Z) == 1)
+		return 1;
+	else
+		return 0;
+}
+
+void Player::AddSpeed()
+{
+
+}
+
 int Player::GetStateBomb(const ItemManager &manageItem)
 {
 	static int bombNum;

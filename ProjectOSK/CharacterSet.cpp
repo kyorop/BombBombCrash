@@ -28,13 +28,13 @@ void CharacterSet::UpdateNumber()
 	}
 	if(currentBombNum < player->GetBombNum())
 	{
-		bomb->AddBomb();
+		bomb->Add();
 		fire->Add();
 		currentBombNum = player->GetBombNum();
 	}
 	if(currentFireLevel < player->GetFireLevel())
 	{
-		fire->FireUp();
+		fire->FireLevelUp();
 		currentFireLevel = player->GetFireLevel();
 	}
 }
@@ -49,7 +49,7 @@ void CharacterSet::Set()
 	//ƒ{ƒ€‚Æ‰Î‚Íˆê‘Îˆê‘Î‰ž‚Å‚È‚¯‚ê‚Î‚È‚ç‚È‚¢
 	for (int i = 0; i < bomb->GetAllBombNum(); ++i)
 	{
-		if(bomb->GetBombFlag( i ) == 1)
+		if(bomb->GetFlag( i ) == 1)
 		{
 			fire->Set( i , bomb->GetX( i ), bomb->GetY( i ) );
 		}

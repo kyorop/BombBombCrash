@@ -20,10 +20,12 @@ private:
 public:	
 	//void CheckHit(Map &map);
 	//virtual void SetCharactorState(int flag);
-	virtual void Move(int g_lastTime);
-	virtual void Draw();
+	 void Move(int g_lastTime);
+	 void Draw();
 	int GetStateFire(const Item &item);
 	int GetStateBomb(const ItemManager &manageItem);
+	int EnableBomb()const;
+	void AddSpeed();
 	//void Register();
 	Player();//コンストラクタ
 	~Player(void);//デストラクタ

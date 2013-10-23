@@ -26,29 +26,26 @@ BlastManager::~BlastManager(void)
 	}
 }
 
-void BlastManager::FireUp(const Charactor &charactor)const
+void BlastManager::FireLevelUp()
 {
 	for(int i=0,size=blast.size(); i<size; ++i)
 	{
-		blast[i]->FireUp(charactor);
+		blast[i]->FireUp();
 	}
 }
 
-void BlastManager::Add(const Charactor &charactor)
+void BlastManager::Add()
 {
-	if(charactor.GetBombNum() > this->nowBlastNum)
-	{
 		blast.push_back(new ExplosionManager);
 		++this->nowBlastNum;
-	}
 }
 
-void BlastManager::Set(const BombManager &bombManager)
+void BlastManager::Set(int index, int x, int y)
 {
-	for(int i=0,size=blast.size(); i<size; ++i)
-	{
-		blast[i]->Set( *bombManager.GetBombObject(i) );
-	}
+	//for(int i=0,size=blast.size(); i<size; ++i)
+	//{
+		blast[index]->Set(x, y);
+	//}
 }
 
 void BlastManager::Maintain(const BombManager &bombManager)
@@ -79,7 +76,7 @@ void BlastManager::CheckHitBomb(BombManager *bombManager)
 {
 	for(int i=0,size=blast.size(); i<size; ++i)
 	{
-		for(int j=0,sizebomb=bombManager->vbomb->size(); j<sizebomb; ++j)
+		for(int j=0,sizebomb=bombManager->bomb.size(); j<sizebomb; ++j)
 		{
 			blast[i]->CheckHitBomb(bombManager->GetBombObject(j));
 		}

@@ -7,45 +7,43 @@
 #define BOMB 1
 
 BombManager::BombManager(void):
-	vbomb(new std::vector<Bomb*>(1)), nowBombNum(1)
+	bomb(), 
+	nowBombNum(1)
 {
-	(*vbomb)[0] = new PlayerBomb;
+	bomb.push_back(new PlayerBomb);
 }
 
-void BombManager::AddBomb(const Charactor &charactor)
+void BombManager::Add()
 {
-	if(charactor.GetBombNum() > nowBombNum)//新たにボムアイテムを獲得したら、ボム数を増やす
-	{
-		vbomb->push_back(new PlayerBomb);
+		bomb.push_back(new PlayerBomb);
 		++this->nowBombNum;
-	}
 }
 
-void BombManager::BombSet(const Charactor &charactor)
+void BombManager::BombSet(int x, int y)
 {
-	for(int i=0, size=vbomb->size(); i<size; ++i)
+	for(int i=0, size=bomb.size(); i<size; ++i)
 	{
-		(*vbomb)[i]->BombSet(charactor);
-		for(int j=0,size=vbomb->size(); j<size; ++j)
+		bomb[i]->BombSet(charactor);
+		for(int j=0,size=bomb.size(); j<size; ++j)
 		{
 			if(i != j)
 			{
-				//(*vbomb)[i]->CheckBombOverlap(*(*vbomb)[j]);
-				(*vbomb)[j]->CheckBombOverlap(*(*vbomb)[i]);
+				//bomb[i]->CheckBombOverlap(*bomb[j]);
+				bomb[j]->CheckBombOverlap(*bomb[i]);
 			}
 		}
 		//else
 		//	continue;
-		//if((*vbomb)[i]->GetFlag() == true)
+		//if(bomb[i]->GetFlag() == true)
 		//	break;
 	}
 }
 
 void BombManager::CheckHit(Charactor *charactor)
 {
-	for(int i=0, size=vbomb->size(); i<size; ++i)
+	for(int i=0, size=bomb.size(); i<size; ++i)
 	{
-		(*vbomb)[i]->CheckHit(charactor);
+		bomb[i]->CheckHit(charactor);
 	}
 }
 
@@ -53,12 +51,12 @@ void BombManager::MaintainBomb()
 {
 	//if(key.CheckOnePushKey(KEY_INPUT_SPACE))
 	{
-		for(int i=0, size=vbomb->size(); i<size; ++i)
+		for(int i=0, size=bomb.size(); i<size; ++i)
 		{
-			//if((*vbomb)[i]->GetFlag()==TRUE)
+			//if(bomb[i]->GetFlag()==TRUE)
 			//{
-				(*vbomb)[i]->MaintainBomb();
-				//if((*vbomb)[i]->GetFlag()==FALSE)
+				bomb[i]->MaintainBomb();
+				//if(bomb[i]->GetFlag()==FALSE)
 					//break;
 			//}
 		}
@@ -67,10 +65,10 @@ void BombManager::MaintainBomb()
 
 void BombManager::Draw()
 {
-	this->size = vbomb->size();
-	for(int i=0, size=vbomb->size(); i<size; ++i) 
+	this->size = bomb.size();
+	for(int i=0, size=bomb.size(); i<size; ++i) 
 	{
-		(*vbomb)[i]->Draw();
+		bomb[i]->Draw();
 	}
 }
 
@@ -78,9 +76,9 @@ int BombManager::GetBombNum()
 {
 	
 	int num=0;
-	for(int i=0, size=vbomb->size(); i<size; ++i) 
+	for(int i=0, size=bomb.size(); i<size; ++i) 
 	{
-		if((*vbomb)[i]->GetFlag()==1)
+		if(bomb[i]->GetFlag()==1)
 			++num;
 	}
 	return num;
@@ -89,63 +87,65 @@ int BombManager::GetBombNum()
 
 BombManager::~BombManager(void)
 {
-	std::vector<Bomb*>::iterator it = vbomb->begin();
-	for(it; it != vbomb->end(); ++it)
+	std::vector<Bomb*>::iterator it = bomb.begin();
+	for(it; it != bomb.end(); ++it)
 	{
 		delete *it;
 	}
-	delete vbomb;
 }
 
-int BombManager::GetBombFlag(int index)const
+int BombManager::GetFlag(int index)const
 {
-	return (*this->vbomb)[index]->GetFlag();
+	return bomb[index]->GetFlag();
 }
 
-int BombManager::GetBombX(int index)const
+int BombManager::GetX(int index)const
 {
-	return (*this->vbomb)[index]->GetX();
+	return bomb[index]->GetX();
 }
 
-int BombManager::GetBombY(int index)const
+int BombManager::GetY(int index)const
 {
-	return (*this->vbomb)[index]->GetY();
+	return bomb[index]->GetY();
 }
 
 Bomb* BombManager::GetBombObject(int index)const
 {
-	return (*this->vbomb)[index];
+	return bomb[index];
 }
 
-
+int BombManager::GetAllBombNum()const
+{
+	return nowBombNum;
+}
 
 void BombManager::Register(const Charactor &chara)
 {
-	/*for(int i=0, size=vbomb->size(); i<size; ++i)
+	/*for(int i=0, size=bomb.size(); i<size; ++i)
 	{
-		if((*vbomb)[i]->GetFlag() == 0)
-			MapState::GetInstance()->SetBombState((*vbomb)[i]->GetX(), (*vbomb)[i]->GetY(), 0);
+		if(bomb[i]->GetFlag() == 0)
+			MapState::GetInstance()->SetBombState(bomb[i]->GetX(), bomb[i]->GetY(), 0);
 	}
-	for(int i=0, size=vbomb->size(); i<size; ++i)
+	for(int i=0, size=bomb.size(); i<size; ++i)
 	{
-		if((*vbomb)[i]->GetFlag() == 1)
-			MapState::GetInstance()->SetBombState((*vbomb)[i]->GetX(), (*vbomb)[i]->GetY(), 1);
+		if(bomb[i]->GetFlag() == 1)
+			MapState::GetInstance()->SetBombState(bomb[i]->GetX(), bomb[i]->GetY(), 1);
 	}*/
 
-	for(int i=0, size=vbomb->size(); i<size; ++i)
+	for(int i=0, size=bomb.size(); i<size; ++i)
 	{
-		if((*vbomb)[i]->GetFlag() == 0)
+		if(bomb[i]->GetFlag() == 0)
 		{
-			MapState::GetInstance()->SetBombState((*vbomb)[i]->GetX(), (*vbomb)[i]->GetY(), 0, FALSE);
-			MapState::GetInstance()->SetBombState((*vbomb)[i]->GetX(), (*vbomb)[i]->GetY(), 0, TRUE);
-			//MapState::GetInstance()->SetBombState((*vbomb)[i]->GetX(), (*vbomb)[i]->GetY(), 0, 1, );
-			//MapState::GetInstance()->SetDanger((*vbomb)[i]->GetY()/32,(*vbomb)[i]->GetX()/32, chara.GetFireLevel(), 0);
+			MapState::GetInstance()->SetBombState(bomb[i]->GetX(), bomb[i]->GetY(), 0, FALSE);
+			MapState::GetInstance()->SetBombState(bomb[i]->GetX(), bomb[i]->GetY(), 0, TRUE);
+			//MapState::GetInstance()->SetBombState(bomb[i]->GetX(), bomb[i]->GetY(), 0, 1, );
+			//MapState::GetInstance()->SetDanger(bomb[i]->GetY()/32,bomb[i]->GetX()/32, chara.GetFireLevel(), 0);
 		}
-		else if((*vbomb)[i]->GetFlag() == 1)
+		else if(bomb[i]->GetFlag() == 1)
 		{
-			MapState::GetInstance()->SetBombState((*vbomb)[i]->GetX(), (*vbomb)[i]->GetY(), 1, FALSE);
-			MapState::GetInstance()->SetBombState((*vbomb)[i]->GetX(), (*vbomb)[i]->GetY(), chara.GetFireLevel(), TRUE);
-			//MapState::GetInstance()->SetDanger((*vbomb)[i]->GetY()/32,(*vbomb)[i]->GetX()/32, chara.GetFireLevel(), 1);
+			MapState::GetInstance()->SetBombState(bomb[i]->GetX(), bomb[i]->GetY(), 1, FALSE);
+			MapState::GetInstance()->SetBombState(bomb[i]->GetX(), bomb[i]->GetY(), chara.GetFireLevel(), TRUE);
+			//MapState::GetInstance()->SetDanger(bomb[i]->GetY()/32,bomb[i]->GetX()/32, chara.GetFireLevel(), 1);
 		}
 	}
 }

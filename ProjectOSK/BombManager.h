@@ -15,20 +15,20 @@ protected:
 	Key key;
 public:
 	int size;
-	virtual void AddBomb(const Charactor &charactor);
-	void BombSet(const Charactor &charactor);
+	virtual void Add();
+	void BombSet(int x, int y);
 	void MaintainBomb();
 	void Draw();
 	int GetBombNum();
-	int GetBombFlag(int index)const;
-	int GetBombX(int index)const;
-	int GetBombY(int index)const;
+	int GetFlag(int index)const;
+	int GetX(int index)const;
+	int GetY(int index)const;
 	void CheckHit(Charactor *charactor);
 	Bomb* GetBombObject(int index)const;
 	BombManager(void);
 	virtual ~BombManager(void);
-	
-	std::vector<Bomb*> *vbomb;
+	int GetAllBombNum()const;
+	std::vector<Bomb*> bomb;
 	void Register(const Charactor &chara);
 };
 

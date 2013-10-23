@@ -34,10 +34,8 @@ ExplosionManager::~ExplosionManager(void)
 	}
 }
 
-void ExplosionManager::FireUp(const Charactor &charactor)
+void ExplosionManager::FireUp()
 {
-	if(charactor.GetFireLevel() > this->addFireNum)
-	{
 		++addFireNum;
 		++nowFireLevel;//次増やすときは、一個隣に増やす
 
@@ -46,17 +44,16 @@ void ExplosionManager::FireUp(const Charactor &charactor)
 		vex.push_back(new Explosion(0,nowFireLevel,0,0));
 		vex.push_back(new Explosion(0,0,nowFireLevel,0));
 		vex.push_back(new Explosion(0,0,0,nowFireLevel));
-	}
 }
 
-void ExplosionManager::Set(Bomb &bomb)
+void ExplosionManager::Set(int x, int y)
 {
-	if(bomb.GetFlag() == TRUE && this->explosion == 0)//爆弾が置かれたら、
+	if(/*bomb.GetFlag() == TRUE && */explosion == 0)//爆弾が置かれたら、
 	{
 		fuse = TRUE;//導火線に火がつく
 		for(int i=0,size=vex.size(); i<size; ++i )
 		{
-			vex[i]->Set(bomb);
+			vex[i]->Set(x, y);
 		}
 	}
 
