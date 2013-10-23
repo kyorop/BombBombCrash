@@ -135,6 +135,9 @@
     <ClCompile Include="BombManager.cpp">
       <Filter>ソース ファイル\Bomb\ソースファイル</Filter>
     </ClCompile>
+    <ClCompile Include="MapObject.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -233,11 +236,8 @@
     <ClInclude Include="BombManager.h">
       <Filter>ソース ファイル\Bomb\ヘッダファイル</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram5.cd" />
-    <None Include="ClassDiagram6.cd" />
-    <None Include="ClassDiagram7.cd" />
-    <None Include="ClassDiagram.cd" />
+    <ClInclude Include="MapObject.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
