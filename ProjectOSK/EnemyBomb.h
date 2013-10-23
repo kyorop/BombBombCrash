@@ -6,7 +6,7 @@ class EnemyBomb:
 	public Bomb
 {
 public:
-	void BombSet(const Charactor &charactor);
+	void BombSet(int x, int y);
 
 	EnemyBomb(void);
 	~EnemyBomb(void);

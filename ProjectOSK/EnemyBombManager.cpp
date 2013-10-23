@@ -5,14 +5,14 @@
 
 EnemyBombManager::EnemyBombManager(void)
 {
-	(*vbomb)[0] = new EnemyBomb;
+	bomb[0] = new EnemyBomb;
 }
 
 void EnemyBombManager::AddBomb(const Charactor &charactor)
 {
 	if(charactor.GetBombNum() > nowBombNum)//新たにボムアイテムを獲得したら、ボム数を増やす
 	{
-		vbomb->push_back(new EnemyBomb);
+		bomb.push_back(new EnemyBomb);
 		++this->nowBombNum;
 	}
 }

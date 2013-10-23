@@ -216,7 +216,7 @@ void ExplosionManager::CheckHit(MapObstacle *mapobstacle1, MapObstacle *mapobsta
 				vex[k+4*i]->CheckHitObject(mapobstacle2);
 				for(int j=0; j<ITEMNUM; ++j)
 					vex[k+4*i]->CheckHitItem(itemManager->GetItemInstance(j) );//‰Î‚Í4–‡ŽüŠú
-				for(int j=0,sizebomb=bombManager->vbomb->size(); j<sizebomb; ++j)
+				for(int j=0,sizebomb=bombManager->bomb.size(); j<sizebomb; ++j)
 					vex[k+4*i]->CheckHitBomb(bombManager->GetBombObject(j) );
 				vex[k+4*i]->CheckHItCharactor(charactor);
 

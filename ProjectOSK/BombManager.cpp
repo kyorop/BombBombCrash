@@ -23,7 +23,7 @@ void BombManager::BombSet(int x, int y)
 {
 	for(int i=0, size=bomb.size(); i<size; ++i)
 	{
-		bomb[i]->BombSet(charactor);
+		bomb[i]->BombSet(x, y);
 		for(int j=0,size=bomb.size(); j<size; ++j)
 		{
 			if(i != j)

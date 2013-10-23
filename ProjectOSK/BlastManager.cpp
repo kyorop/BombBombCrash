@@ -48,7 +48,7 @@ void BlastManager::Set(int index, int x, int y)
 	//}
 }
 
-void BlastManager::Maintain(const BombManager &bombManager)
+void BlastManager::Maintain()
 {
 	for(int i=0,size=blast.size(); i<size; ++i)
 	{
