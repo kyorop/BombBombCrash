@@ -16,7 +16,6 @@ protected:
 	int dy;
 	int count;
 	int graph[BOMBDEVIDENUMBER];
-	int explosion;
 	Key key;
 	Timer time;
 public:
@@ -30,8 +29,6 @@ public:
 	int CheckBombExplosion();
 	void CheckBombOverlap(const Bomb & bomb);
 	virtual void SetFlag(int flag);
-private:
-	int fuse;
 public:
 	int GetFuse(void);
 	void SetFuse(int fuse);

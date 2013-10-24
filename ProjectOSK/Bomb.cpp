@@ -13,14 +13,16 @@
 Bomb::Bomb()
 {
 	this->count=0;
-	this->explosion = 0;
 	this->flag = 0;
 	this->x = 0;
 	this->y = 0;
 	this->rx = this->x+32;
 	this->dy = this->y+32;
 	LoadDivGraph("bomb.png", 60, 6, 10, 32, 32, this->graph, FALSE);
-	this->fuse = 1;
+}
+
+Bomb::~Bomb()
+{
 }
 
 void Bomb::CheckHit(Charactor *charactor)
@@ -90,9 +92,6 @@ void Bomb::BombSet(const Charactor &charactor)
 		this->rx = this->x+32;
 		this->dy = this->y+32;
 		this->flag = 1;
-
-		//if(bomb.GetFlag() == TRUE && this->x == bomb.GetX() && this->y == bomb.GetY())
-		//	this->flag = 0;
 	}
 }
 
@@ -101,8 +100,6 @@ void Bomb::CheckBombOverlap(const Bomb &bomb)
 	if(bomb.GetFlag() == TRUE && this->x == bomb.GetX() && this->y == bomb.GetY())
 	{
 		this->flag = 0;
-		this->explosion = 0;
-		//this->time.TurnReset();
 	}
 }
 
@@ -111,13 +108,11 @@ void Bomb::MaintainBomb()
 	if(this->flag == 0)
 	{
 		time.TurnReset();
-		this->explosion = 0;
 	}
 	else
 	{
 		if(this->time.CountDown(BOMBEXISTTIME) == true)//ŽO•b‚½‚Á‚½‚ç
 		{
-			this->explosion = 1;
 			this->flag = 0;
 		}
 	}
@@ -143,18 +138,6 @@ void Bomb::MaintainBomb()
 //	*/
 //}
 
-int Bomb::CheckBombExplosion()
-{
-	if(this->explosion == 1)
-		return TRUE;
-	else
-		return FALSE;
-}
-
-Bomb::~Bomb()
-{
-}
-
 void Bomb::Draw()
 {
 
@@ -168,11 +151,6 @@ void Bomb::Draw()
 		SetTransColor(255,255,255);
 		DrawGraph(this->x, this->y, this->graph[0], TRUE);	
 	}
-	//else//”š”­
-	//{
-	//	this->flag = 0;
-	//	this->explosion = 1;
-	//}
 }
 
 void Bomb::SetFlag(int flag)
@@ -182,27 +160,4 @@ void Bomb::SetFlag(int flag)
 	{
 		this->time.TurnReset();
 	}
-}
-
-int Bomb::GetFuse(void)
-{
-	return this->fuse;
-}
-
-
-void Bomb::SetFuse(int fuse)
-{
-	this->fuse = fuse;
-}
-
-
-int Bomb::GetExplosion(void)
-{
-	return this->explosion;
-}
-
-
-void Bomb::SetExplosion(int explosion)
-{
-	this->explosion = explosion;
 }

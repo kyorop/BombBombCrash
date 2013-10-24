@@ -77,7 +77,7 @@ void Explosion::CheckHitBomb(Bomb *bomb)
 		{
 			//explosion = FALSE;
 			bomb->SetFlag(FALSE);
-			bomb->SetFuse(1);
+			//bomb->SetFuse(1);
 		}
 	}
 }
