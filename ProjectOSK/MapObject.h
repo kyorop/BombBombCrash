@@ -10,14 +10,16 @@ protected:
 
 public:
 	MapObject(void);
-	~MapObject(void);
+	virtual ~MapObject(void);
 
 	int GetX()const;
+	void SetX(int x);
 	int GetRX()const;
 	int GetY()const;
+	void SetY(int y);
 	int GetDY()const;
 	int GetFlag()const;
-	void SetFlag();
+	void SetFlag(int flag);
 
 };
 

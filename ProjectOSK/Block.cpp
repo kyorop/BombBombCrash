@@ -9,7 +9,6 @@
 #define KBHABA 16
 
 Block::Block(void):
-	graph(LoadGraph("breakblock.bmp"))
 {
 	int temp[MAPSIZE_Y][MAPSIZE_X]=
 	{

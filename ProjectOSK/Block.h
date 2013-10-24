@@ -6,8 +6,10 @@
 #define MAPSIZE_Y 13
 
 class Charactor;
-class Block:
-	public MapObstacle, virtual public IDrawable, virtual public IRegister
+class Block
+	:public MapObstacle,
+	public IDrawable,
+	public IRegister
 {
 private:
 	int graph;
@@ -19,7 +21,5 @@ public:
 	void CheckHit(Charactor *charactor);
 	void Register();
 	void Draw();
-
-
 };
 
