@@ -1,12 +1,12 @@
 #pragma once
-#include "Object.h"
+#include "MapObject.h"
 #define KINDITEMNUM 3
 
 class Block;
 class Player;
 class Charactor;
-class Item:
-	public Object  //class Objcetを継承
+class Item
+	:public MapObject
 {
 protected:
 	static int graph[KINDITEMNUM];//アイテムはこれを共用する

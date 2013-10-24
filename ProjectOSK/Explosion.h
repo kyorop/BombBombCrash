@@ -1,5 +1,5 @@
 #pragma once
-#include "Object.h"
+#include "MapObject.h"
 #include "Timer.h"
 
 class Bomb;
@@ -9,7 +9,7 @@ class Charactor;
 class BombManager;
 class Item;
 class Explosion:
-	public Object
+	public MapObject
 {
 private:
 	const int graph;

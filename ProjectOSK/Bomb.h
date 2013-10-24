@@ -1,5 +1,5 @@
 #pragma once
-#include "Object.h"
+#include "MapObject.h"
 #include "Key.h"
 #include "Timer.h"
 #define BOMBDEVIDENUMBER 60
@@ -8,7 +8,7 @@ class Player;
 class Map;
 class Charactor;
 class Bomb:
-	public Object
+	public MapObject
 {
 	friend class Explosion;
 protected:
