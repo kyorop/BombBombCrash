@@ -12,17 +12,15 @@ class Bomb:
 {
 	friend class Explosion;
 protected:
-	int rx;
-	int dy;
 	int count;
 	int graph[BOMBDEVIDENUMBER];
 	int explosion;
 	Key key;
 	Timer time;
 public:
-	
 	Bomb();
 	virtual ~Bomb();
+
 	void CheckHit(Charactor *charactor);
 	virtual void BombSet(const Charactor &charactor) = 0;
 	void Draw();
