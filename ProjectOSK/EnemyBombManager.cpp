@@ -10,7 +10,7 @@ EnemyBombManager::EnemyBombManager(void)
 
 void EnemyBombManager::AddBomb(const Charactor &charactor)
 {
-	if(charactor.GetBombNum() > nowBombNum)//新たにボムアイテムを獲得したら、ボム数を増やす
+	//if(charactor.GetBombNum() > nowBombNum)//新たにボムアイテムを獲得したら、ボム数を増やす
 	{
 		bomb.push_back(new EnemyBomb);
 		++this->nowBombNum;

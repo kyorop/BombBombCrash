@@ -33,7 +33,7 @@ public:
 	virtual ~Charactor(void);
 
 public:
-	virtual int GetBombNum(void)const;
+	virtual int GetBombNum(void);
 	virtual int GetFireLevel(void)const;
 	virtual int GetMV(void)const;
 	virtual void AddBombNum(void);
