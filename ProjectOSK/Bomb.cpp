@@ -18,7 +18,6 @@ Bomb::Bomb()
 	this->y = 0;
 	this->rx = this->x+32;
 	this->dy = this->y+32;
-	LoadDivGraph("bomb.png", 60, 6, 10, 32, 32, this->graph, FALSE);
 }
 
 Bomb::~Bomb()
@@ -137,21 +136,6 @@ void Bomb::MaintainBomb()
 //	}
 //	*/
 //}
-
-void Bomb::Draw()
-{
-
-	if(key.CheckOnePushKey(KEY_INPUT_A))
-	{
-		this->flag = 0;
-	}
-
-	if( this->flag == 1)//z‚ª‰Ÿ‚³‚ê‚ÄA‚Ü‚½‚»‚ÌŽž‚©‚ç3•bˆÈ“à‚È‚çA”š’e‚ð•\Ž¦‚µ‘±‚¯‚é
-	{
-		SetTransColor(255,255,255);
-		DrawGraph(this->x, this->y, this->graph[0], TRUE);	
-	}
-}
 
 void Bomb::SetFlag(int flag)
 {

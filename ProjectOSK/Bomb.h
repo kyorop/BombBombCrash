@@ -2,7 +2,6 @@
 #include "Object.h"
 #include "Key.h"
 #include "Timer.h"
-#define BOMBDEVIDENUMBER 60
 
 class Player;
 class Map;
@@ -15,7 +14,6 @@ protected:
 	int rx;
 	int dy;
 	int count;
-	int graph[BOMBDEVIDENUMBER];
 	Key key;
 	Timer time;
 public:
@@ -24,7 +22,6 @@ public:
 	virtual ~Bomb();
 	void CheckHit(Charactor *charactor);
 	virtual void BombSet(const Charactor &charactor) = 0;
-	void Draw();
 	void MaintainBomb();
 	int CheckBombExplosion();
 	void CheckBombOverlap(const Bomb & bomb);

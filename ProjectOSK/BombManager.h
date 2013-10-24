@@ -13,6 +13,7 @@ class BombManager:
 protected:
 	int nowBombNum;
 	Key key;
+	int bombImage[60];
 public:
 	int size;
 	virtual void AddBomb(const Charactor &charactor);
