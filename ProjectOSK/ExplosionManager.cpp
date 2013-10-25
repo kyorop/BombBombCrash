@@ -15,7 +15,8 @@ ExplosionManager::ExplosionManager():
 	explosion(0),
 	addFireNum(1),
 	nowFireLevel(1),
-	vex()
+	vex(),
+	fireImage(LoadGraph("fire.bmp"))
 {
 	//初期火力レベル、中心とその周り一マス
 	vex.push_back(new Explosion(0,0,0,0));
@@ -238,12 +239,11 @@ void ExplosionManager::Draw()
 	{
 		for(int i=0,size=vex.size(); i<size; ++i )
 		{
-			vex[i]->Draw();
+			if(vex[i]->GetExplosion() == 1)
+				DrawGraph(vex[i]->GetX(), vex[i]->GetY(), fireImage, FALSE);
 		}
 	}
 }
-
-
 
 /*
 void ExplosionManager::SetFlag(firestate flag)

@@ -17,6 +17,7 @@ private:
 	int fuse;
 	int explosion;
 	Timer time;
+	int fireImage;
 public:
 	//void SetExplosion(const BombManager &bombManager);
 	void FireUp(const Charactor &charactor);	
@@ -28,7 +29,6 @@ public:
 	void CheckHitItem(Item *item);
 	void CheckHit(MapObstacle *mapobstacle1, MapObstacle *mapobstacle2, Charactor *charactor, BombManager *bombManager, ItemManager *itemManager);
 	void Draw();
-	//void SetFlag(firestate flag);
 	ExplosionManager();
 	~ExplosionManager(void);
 

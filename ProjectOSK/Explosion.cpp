@@ -1,4 +1,5 @@
 #include "Explosion.h"
+#include "Timer.h"
 #include "Bomb.h"
 #include "Player.h"
 #include "Map.h"
@@ -15,7 +16,7 @@ Explosion::Explosion(int upx,int downx,int upy,int downy):
 	downx(downx),
 	upy(upy),
 	downy(downy),
-	time(),
+	time(new Timer),
 	fuse(0),
 	explosion(0)
 {
@@ -91,15 +92,6 @@ void Explosion::CheckHitItem(Item *item)
 			explosion = FALSE;
 			item->SetFlag(FALSE);
 		}
-	}
-}
-
-//‰Î‚ª‘¶İ‚µ‚Ä‚¢‚ê‚ÎA•`‚­
-void Explosion::Draw()
-{
-	if(explosion == TRUE)
-	{
-		DrawGraph(x, y, graph, FALSE);
 	}
 }
 
