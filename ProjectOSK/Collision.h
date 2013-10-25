@@ -8,6 +8,7 @@ class ICollisionable;
 class Collision
 {
 private:
+	std::vector<ICollisionable*> disableGoingThrough;
 	std::vector<ICollisionable*> bomb;
 	std::vector<ICollisionable*> character;
 	std::list<ICollisionable*> block;
@@ -29,9 +30,9 @@ public:
 	~Collision(void);
 	static Collision* GetInstance();
 
-	void RegisterWithBomb(ICollisionable *bomb);
-	void RegisterWithCharactor(ICollisionable *charactor);
-	void Register(ICollisionable *anything);
+	//void RegisterWithBomb(ICollisionable *bomb);
+	//void RegisterWithCharactor(ICollisionable *charactor);
+	void Register(ICollisionable *anythingCollisionable);
 	void CheckCollision();
 };
 

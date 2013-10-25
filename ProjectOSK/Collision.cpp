@@ -1,9 +1,14 @@
 #include "Collision.h"
 #include "ICollisionable.h"
+#include "PlayerBomb.h"
+#include "EnemyBomb.h"
+#include "MapObstacle.h"
 #include "DxLib.h"
+#include <typeinfo>
 
 Collision::Collision(void)
-	:bomb(),
+	:disableGoingThrough(),
+	bomb(),
 	character(),
 	block(),
 	map()
@@ -20,66 +25,76 @@ Collision* Collision::GetInstance()
 	return &collision;
 }
 
-void Collision::RegisterWithBomb(ICollisionable *pBomb)
-{
-	bomb.push_back(pBomb);
-}
+//void Collision::RegisterWithBomb(ICollisionable *pBomb)
+//{
+//	bomb.push_back(pBomb);
+//}
+//
+//void Collision::RegisterWithCharactor(ICollisionable *pCharacter)
+//{
+//	character.push_back(pCharacter);
+//}
 
-void Collision::RegisterWithCharactor(ICollisionable *pCharacter)
+void Collision::Register(ICollisionable *anythingCollisionable)
 {
-	character.push_back(pCharacter);
+	if( typeid(anythingCollisionable) == typeid(PlayerBomb) || typeid(anythingCollisionable) == typeid(EnemyBomb) )
+	{
+		disableGoingThrough.push_back(anythingCollisionable);
+	}
+	else if(typeid(anythingCollisionable) == typeid(MapObstacle))
+	{
+		disableGoingThrough.push_back(anythingCollisionable);
+	}
 }
 
 void Collision::CheckCollision()
 {
 	for (int ic = 0,sizeChara=character.size(); ic < sizeChara; ++ic)
 	{
-		for (int ib = 0,sizeBomb=bomb.size(); ib < sizeBomb; ib++)
+		for (int ib = 0,sizeBomb=disableGoingThrough.size(); ib < sizeBomb; ib++)
 		{
 			//□←
-			if( (bomb[ib]->GetRX()-degreeOfHit <= character[ic]->GetX() && character[ic]->GetX() <= bomb[ib]->GetRX()) && (bomb[ib]->GetY()+degreeOfHit <= character[ic]->GetY() && character[ic]->GetY() < bomb[ib]->GetDY()-degreeOfHit) && bomb[ib]->GetFlag() == TRUE)character[ic]->SetX(bomb[ib]->GetX() + 32);//途中
-			if( (bomb[ib]->GetRX()-degreeOfHit <= character[ic]->GetX() && character[ic]->GetX() <= bomb[ib]->GetRX()) && (bomb[ib]->GetY()+degreeOfHit <= character[ic]->GetDY() && character[ic]->GetDY() < bomb[ib]->GetDY()-degreeOfHit) && bomb[ib]->GetFlag() == TRUE)character[ic]->SetX(bomb[ib]->GetX() + 32);//上いった
+			if( (disableGoingThrough[ib]->GetRX()-degreeOfHit <= character[ic]->GetX() && character[ic]->GetX() <= disableGoingThrough[ib]->GetRX()) && (disableGoingThrough[ib]->GetY()+degreeOfHit <= character[ic]->GetY() && character[ic]->GetY() < disableGoingThrough[ib]->GetDY()-degreeOfHit) && disableGoingThrough[ib]->GetFlag() == TRUE)character[ic]->SetX(disableGoingThrough[ib]->GetX() + 32);//途中
+			if( (disableGoingThrough[ib]->GetRX()-degreeOfHit <= character[ic]->GetX() && character[ic]->GetX() <= disableGoingThrough[ib]->GetRX()) && (disableGoingThrough[ib]->GetY()+degreeOfHit <= character[ic]->GetDY() && character[ic]->GetDY() < disableGoingThrough[ib]->GetDY()-degreeOfHit) && disableGoingThrough[ib]->GetFlag() == TRUE)character[ic]->SetX(disableGoingThrough[ib]->GetX() + 32);//上いった
 	
-
 			//→□
-			if((bomb[ib]->GetX() <= character[ic]->GetRX() && character[ic]->GetRX() <= bomb[ib]->GetX()+degreeOfHit) && (bomb[ib]->GetY()+degreeOfHit <= character[ic]->GetY() && character[ic]->GetY() <= bomb[ib]->GetDY()-degreeOfHit) && bomb[ib]->GetFlag() == 1)character[ic]->SetX(bomb[ib]->GetX()- 32);//途中
-			if((bomb[ib]->GetX() <= character[ic]->GetRX() && character[ic]->GetRX() <= bomb[ib]->GetX()+degreeOfHit) && (bomb[ib]->GetY()+degreeOfHit <=character[ic]->GetDY() && character[ic]->GetDY() <= bomb[ib]->GetDY()-degreeOfHit) && bomb[ib]->GetFlag() == 1)character[ic]->SetX(bomb[ib]->GetX() - 32);//上いった
+			if((disableGoingThrough[ib]->GetX() <= character[ic]->GetRX() && character[ic]->GetRX() <= disableGoingThrough[ib]->GetX()+degreeOfHit) && (disableGoingThrough[ib]->GetY()+degreeOfHit <= character[ic]->GetY() && character[ic]->GetY() <= disableGoingThrough[ib]->GetDY()-degreeOfHit) && disableGoingThrough[ib]->GetFlag() == 1)character[ic]->SetX(disableGoingThrough[ib]->GetX()- 32);//途中
+			if((disableGoingThrough[ib]->GetX() <= character[ic]->GetRX() && character[ic]->GetRX() <= disableGoingThrough[ib]->GetX()+degreeOfHit) && (disableGoingThrough[ib]->GetY()+degreeOfHit <=character[ic]->GetDY() && character[ic]->GetDY() <= disableGoingThrough[ib]->GetDY()-degreeOfHit) && disableGoingThrough[ib]->GetFlag() == 1)character[ic]->SetX(disableGoingThrough[ib]->GetX() - 32);//上いった
 
-					
 			//□
 			//↑
-			if( (bomb[ib]->GetDY()-degreeOfHit < character[ic]->GetY() && character[ic]->GetY() <= bomb[ib]->GetDY()) && (bomb[ib]->GetX()+degreeOfHit <= character[ic]->GetX() && character[ic]->GetX() < bomb[ib]->GetRX()-degreeOfHit) && bomb[ib]->GetFlag() == TRUE)character[ic]->SetY(bomb[ib]->GetDY());//左行く
-			if( (bomb[ib]->GetDY()-degreeOfHit < character[ic]->GetY() && character[ic]->GetY() <= bomb[ib]->GetDY()) && (bomb[ib]->GetX()+degreeOfHit <= character[ic]->GetRX() && character[ic]->GetRX() < bomb[ib]->GetRX()-degreeOfHit) && bomb[ib]->GetFlag() == TRUE)character[ic]->SetY(bomb[ib]->GetDY());//右行く
+			if( (disableGoingThrough[ib]->GetDY()-degreeOfHit < character[ic]->GetY() && character[ic]->GetY() <= disableGoingThrough[ib]->GetDY()) && (disableGoingThrough[ib]->GetX()+degreeOfHit <= character[ic]->GetX() && character[ic]->GetX() < disableGoingThrough[ib]->GetRX()-degreeOfHit) && disableGoingThrough[ib]->GetFlag() == TRUE)character[ic]->SetY(disableGoingThrough[ib]->GetDY());//左行く
+			if( (disableGoingThrough[ib]->GetDY()-degreeOfHit < character[ic]->GetY() && character[ic]->GetY() <= disableGoingThrough[ib]->GetDY()) && (disableGoingThrough[ib]->GetX()+degreeOfHit <= character[ic]->GetRX() && character[ic]->GetRX() < disableGoingThrough[ib]->GetRX()-degreeOfHit) && disableGoingThrough[ib]->GetFlag() == TRUE)character[ic]->SetY(disableGoingThrough[ib]->GetDY());//右行く
 
 			//↓
 			//□
-			if( (bomb[ib]->GetY()< character[ic]->GetDY() && character[ic]->GetDY() <= bomb[ib]->GetY()+degreeOfHit) && (bomb[ib]->GetX()+degreeOfHit <= character[ic]->GetX() && character[ic]->GetX() < bomb[ib]->GetRX()-degreeOfHit) && bomb[ib]->GetFlag() == TRUE)character[ic]->SetY(bomb[ib]->GetY()-32);//左行く
-			if( (bomb[ib]->GetY() < character[ic]->GetDY() && character[ic]->GetDY() <= bomb[ib]->GetY()+degreeOfHit) && (bomb[ib]->GetX()+degreeOfHit <= character[ic]->GetRX() && character[ic]->GetRX() < bomb[ib]->GetRX()-degreeOfHit) && bomb[ib]->GetFlag()== TRUE)character[ic]->SetY(bomb[ib]->GetY()-32);//右行く
+			if( (disableGoingThrough[ib]->GetY()< character[ic]->GetDY() && character[ic]->GetDY() <= disableGoingThrough[ib]->GetY()+degreeOfHit) && (disableGoingThrough[ib]->GetX()+degreeOfHit <= character[ic]->GetX() && character[ic]->GetX() < disableGoingThrough[ib]->GetRX()-degreeOfHit) && disableGoingThrough[ib]->GetFlag() == TRUE)character[ic]->SetY(disableGoingThrough[ib]->GetY()-32);//左行く
+			if( (disableGoingThrough[ib]->GetY() < character[ic]->GetDY() && character[ic]->GetDY() <= disableGoingThrough[ib]->GetY()+degreeOfHit) && (disableGoingThrough[ib]->GetX()+degreeOfHit <= character[ic]->GetRX() && character[ic]->GetRX() < disableGoingThrough[ib]->GetRX()-degreeOfHit) && disableGoingThrough[ib]->GetFlag()== TRUE)character[ic]->SetY(disableGoingThrough[ib]->GetY()-32);//右行く
 
 			//真左
-			if( (bomb[ib]->GetY() <= character[ic]->GetY() && character[ic]->GetY() < bomb[ib]->GetY()+degreeOfHit) && (bomb[ib]->GetRX()-degreeOfHit < character[ic]->GetX() && character[ic]->GetX() <= bomb[ib]->GetRX()) && bomb[ib]->GetFlag() == TRUE)character[ic]->SetX(bomb[ib]->GetX() + 32);
-			if( (bomb[ib]->GetDY()-degreeOfHit <= character[ic]->GetDY() && character[ic]->GetDY() <= bomb[ib]->GetDY()) && (bomb[ib]->GetRX()-degreeOfHit < character[ic]->GetX() && character[ic]->GetX() <= bomb[ib]->GetRX()) && bomb[ib]->GetFlag() == TRUE )character[ic]->SetX(bomb[ib]->GetX() + 32);
+			if( (disableGoingThrough[ib]->GetY() <= character[ic]->GetY() && character[ic]->GetY() < disableGoingThrough[ib]->GetY()+degreeOfHit) && (disableGoingThrough[ib]->GetRX()-degreeOfHit < character[ic]->GetX() && character[ic]->GetX() <= disableGoingThrough[ib]->GetRX()) && disableGoingThrough[ib]->GetFlag() == TRUE)character[ic]->SetX(disableGoingThrough[ib]->GetX() + 32);
+			if( (disableGoingThrough[ib]->GetDY()-degreeOfHit <= character[ic]->GetDY() && character[ic]->GetDY() <= disableGoingThrough[ib]->GetDY()) && (disableGoingThrough[ib]->GetRX()-degreeOfHit < character[ic]->GetX() && character[ic]->GetX() <= disableGoingThrough[ib]->GetRX()) && disableGoingThrough[ib]->GetFlag() == TRUE )character[ic]->SetX(disableGoingThrough[ib]->GetX() + 32);
 
 			//真右
-			if( (bomb[ib]->GetY() <= character[ic]->GetY() && character[ic]->GetY() < bomb[ib]->GetY()+degreeOfHit) && (bomb[ib]->GetX() <= character[ic]->GetRX() && character[ic]->GetRX() < bomb[ib]->GetX()+degreeOfHit) && bomb[ib]->GetFlag() == TRUE)character[ic]->SetX(bomb[ib]->GetX()- 32);
-			if( (bomb[ib]->GetDY()-degreeOfHit <= character[ic]->GetDY() && character[ic]->GetDY() <= bomb[ib]->GetDY()) && (bomb[ib]->GetX() <= character[ic]->GetRX() && character[ic]->GetRX() < bomb[ib]->GetX()+degreeOfHit) && bomb[ib]->GetFlag() == TRUE)character[ic]->SetX(bomb[ib]->GetX() - 32);
+			if( (disableGoingThrough[ib]->GetY() <= character[ic]->GetY() && character[ic]->GetY() < disableGoingThrough[ib]->GetY()+degreeOfHit) && (disableGoingThrough[ib]->GetX() <= character[ic]->GetRX() && character[ic]->GetRX() < disableGoingThrough[ib]->GetX()+degreeOfHit) && disableGoingThrough[ib]->GetFlag() == TRUE)character[ic]->SetX(disableGoingThrough[ib]->GetX()- 32);
+			if( (disableGoingThrough[ib]->GetDY()-degreeOfHit <= character[ic]->GetDY() && character[ic]->GetDY() <= disableGoingThrough[ib]->GetDY()) && (disableGoingThrough[ib]->GetX() <= character[ic]->GetRX() && character[ic]->GetRX() < disableGoingThrough[ib]->GetX()+degreeOfHit) && disableGoingThrough[ib]->GetFlag() == TRUE)character[ic]->SetX(disableGoingThrough[ib]->GetX() - 32);
 
 			//真上
-			if( (bomb[ib]->GetX() <= character[ic]->GetX() && character[ic]->GetX() < bomb[ib]->GetX()+degreeOfHit) && (bomb[ib]->GetDY()-degreeOfHit < character[ic]->GetY() && character[ic]->GetY() <= bomb[ib]->GetDY()) && bomb[ib]->GetFlag() == TRUE)character[ic]->SetY(bomb[ib]->GetDY());
-			if( (bomb[ib]->GetRX()-degreeOfHit <= character[ic]->GetRX() && character[ic]->GetRX() <= bomb[ib]->GetRX()) && (bomb[ib]->GetDY()-degreeOfHit < character[ic]->GetY() && character[ic]->GetY() <= bomb[ib]->GetDY()) && bomb[ib]->GetFlag() == TRUE)character[ic]->SetY(bomb[ib]->GetDY());
+			if( (disableGoingThrough[ib]->GetX() <= character[ic]->GetX() && character[ic]->GetX() < disableGoingThrough[ib]->GetX()+degreeOfHit) && (disableGoingThrough[ib]->GetDY()-degreeOfHit < character[ic]->GetY() && character[ic]->GetY() <= disableGoingThrough[ib]->GetDY()) && disableGoingThrough[ib]->GetFlag() == TRUE)character[ic]->SetY(disableGoingThrough[ib]->GetDY());
+			if( (disableGoingThrough[ib]->GetRX()-degreeOfHit <= character[ic]->GetRX() && character[ic]->GetRX() <= disableGoingThrough[ib]->GetRX()) && (disableGoingThrough[ib]->GetDY()-degreeOfHit < character[ic]->GetY() && character[ic]->GetY() <= disableGoingThrough[ib]->GetDY()) && disableGoingThrough[ib]->GetFlag() == TRUE)character[ic]->SetY(disableGoingThrough[ib]->GetDY());
 
 			//真下
-			if( (bomb[ib]->GetX() <= character[ic]->GetX() && character[ic]->GetX() < bomb[ib]->GetX()+degreeOfHit) && (bomb[ib]->GetY() < character[ic]->GetDY() && character[ic]->GetDY() <= bomb[ib]->GetY()+degreeOfHit) && bomb[ib]->GetFlag() == TRUE)character[ic]->SetY(bomb[ib]->GetY() - 32);
-			if( (bomb[ib]->GetRX()-degreeOfHit <= character[ic]->GetRX() && character[ic]->GetRX() <= bomb[ib]->GetRX()) && (bomb[ib]->GetY() < character[ic]->GetDY() && character[ic]->GetDY() <= bomb[ib]->GetY()+degreeOfHit) && bomb[ib]->GetFlag() == TRUE)character[ic]->SetY(bomb[ib]->GetY() - 32);
+			if( (disableGoingThrough[ib]->GetX() <= character[ic]->GetX() && character[ic]->GetX() < disableGoingThrough[ib]->GetX()+degreeOfHit) && (disableGoingThrough[ib]->GetY() < character[ic]->GetDY() && character[ic]->GetDY() <= disableGoingThrough[ib]->GetY()+degreeOfHit) && disableGoingThrough[ib]->GetFlag() == TRUE)character[ic]->SetY(disableGoingThrough[ib]->GetY() - 32);
+			if( (disableGoingThrough[ib]->GetRX()-degreeOfHit <= character[ic]->GetRX() && character[ic]->GetRX() <= disableGoingThrough[ib]->GetRX()) && (disableGoingThrough[ib]->GetY() < character[ic]->GetDY() && character[ic]->GetDY() <= disableGoingThrough[ib]->GetY()+degreeOfHit) && disableGoingThrough[ib]->GetFlag() == TRUE)character[ic]->SetY(disableGoingThrough[ib]->GetY() - 32);
 
 			//壁の左上角
-			if( (bomb[ib]->GetX()+degreeOfHit < character[ic]->GetRX() && character[ic]->GetRX() < bomb[ib]->GetX()+haba) && (bomb[ib]->GetY()+degreeOfHit < character[ic]->GetDY() && character[ic]->GetDY() < bomb[ib]->GetY()+haba) && bomb[ib]->GetFlag() == 1)character[ic]->SetX(bomb[ib]->GetX()-32/*+degreeOfHit-character[ic]->GetMV()*/);
+			if( (disableGoingThrough[ib]->GetX()+degreeOfHit < character[ic]->GetRX() && character[ic]->GetRX() < disableGoingThrough[ib]->GetX()+haba) && (disableGoingThrough[ib]->GetY()+degreeOfHit < character[ic]->GetDY() && character[ic]->GetDY() < disableGoingThrough[ib]->GetY()+haba) && disableGoingThrough[ib]->GetFlag() == 1)character[ic]->SetX(disableGoingThrough[ib]->GetX()-32/*+degreeOfHit-character[ic]->GetMV()*/);
 			//壁の右上角
-			if( (bomb[ib]->GetRX()-haba < character[ic]->GetX() && character[ic]->GetX() < bomb[ib]->GetRX()-degreeOfHit) && (bomb[ib]->GetY()+degreeOfHit < character[ic]->GetDY() && character[ic]->GetDY() < bomb[ib]->GetY()+haba) && bomb[ib]->GetFlag() == 1)character[ic]->SetX(bomb[ib]->GetRX()/*-degreeOfHit+character[ic]->GetMV()*/);
+			if( (disableGoingThrough[ib]->GetRX()-haba < character[ic]->GetX() && character[ic]->GetX() < disableGoingThrough[ib]->GetRX()-degreeOfHit) && (disableGoingThrough[ib]->GetY()+degreeOfHit < character[ic]->GetDY() && character[ic]->GetDY() < disableGoingThrough[ib]->GetY()+haba) && disableGoingThrough[ib]->GetFlag() == 1)character[ic]->SetX(disableGoingThrough[ib]->GetRX()/*-degreeOfHit+character[ic]->GetMV()*/);
 			//壁の左下角
-			if( (bomb[ib]->GetX()+degreeOfHit < character[ic]->GetRX() && character[ic]->GetRX() < bomb[ib]->GetX()+haba) && (bomb[ib]->GetDY()-haba < character[ic]->GetY() && character[ic]->GetY() < bomb[ib]->GetDY()-degreeOfHit) && bomb[ib]->GetFlag() == 1)character[ic]->SetX(bomb[ib]->GetX()-32/*+degreeOfHit-character[ic]->GetMV()*/);
+			if( (disableGoingThrough[ib]->GetX()+degreeOfHit < character[ic]->GetRX() && character[ic]->GetRX() < disableGoingThrough[ib]->GetX()+haba) && (disableGoingThrough[ib]->GetDY()-haba < character[ic]->GetY() && character[ic]->GetY() < disableGoingThrough[ib]->GetDY()-degreeOfHit) && disableGoingThrough[ib]->GetFlag() == 1)character[ic]->SetX(disableGoingThrough[ib]->GetX()-32/*+degreeOfHit-character[ic]->GetMV()*/);
 			//壁の右下角
-			if( (bomb[ib]->GetRX()-haba < character[ic]->GetX() && character[ic]->GetX() < bomb[ib]->GetRX()-degreeOfHit) && (bomb[ib]->GetDY()-haba < character[ic]->GetY() && character[ic]->GetY() < bomb[ib]->GetDY()-degreeOfHit) && bomb[ib]->GetFlag() == 1)character[ic]->SetX(bomb[ib]->GetRX()/*-degreeOfHit+character[ic]->GetMV()*/);
+			if( (disableGoingThrough[ib]->GetRX()-haba < character[ic]->GetX() && character[ic]->GetX() < disableGoingThrough[ib]->GetRX()-degreeOfHit) && (disableGoingThrough[ib]->GetDY()-haba < character[ic]->GetY() && character[ic]->GetY() < disableGoingThrough[ib]->GetDY()-degreeOfHit) && disableGoingThrough[ib]->GetFlag() == 1)character[ic]->SetX(disableGoingThrough[ib]->GetRX()/*-degreeOfHit+character[ic]->GetMV()*/);
 	
 		}
 	}
