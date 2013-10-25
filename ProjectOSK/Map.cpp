@@ -8,7 +8,7 @@
 #define MAPSIZE_Y 13
 #define DHIT 5
 #define HABA 0
-#define KBHABA 16//(DHIT+1)
+#define KBHABA 16
 #define MV 4
 
 Map::Map(void):

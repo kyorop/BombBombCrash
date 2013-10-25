@@ -90,6 +90,7 @@
     <ClCompile Include="BombManager.cpp" />
     <ClCompile Include="CharacterSet.cpp" />
     <ClCompile Include="Charactor.cpp" />
+    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="DangerState.cpp" />
     <ClCompile Include="Dijkstra.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -123,6 +124,7 @@
     <ClInclude Include="BombManager.h" />
     <ClInclude Include="CharacterSet.h" />
     <ClInclude Include="Charactor.h" />
+    <ClInclude Include="Collision.h" />
     <ClInclude Include="DangerState.h" />
     <ClInclude Include="Dijkstra.h" />
     <ClInclude Include="Enemy.h" />
@@ -133,6 +135,7 @@
     <ClInclude Include="GameConstant.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="IColleague.h" />
+    <ClInclude Include="ICollisionable.h" />
     <ClInclude Include="IDrawable.h" />
     <ClInclude Include="IMediator.h" />
     <ClInclude Include="IRegister.h" />
