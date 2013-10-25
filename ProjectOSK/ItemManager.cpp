@@ -36,13 +36,13 @@ void ItemManager::SetItem(const Block &block)
 	}
 }
 
-void ItemManager::CheckHitCharactor(Charactor *charctor)const
-{
-	for(int i=0; i<ITEMNUM; ++i)
-	{
-		this->item[i]->CheckHItCharactor(charctor);
-	}
-}
+//void ItemManager::CheckHitCharactor(Charactor *charctor)const
+//{
+//	for(int i=0; i<ITEMNUM; ++i)
+//	{
+//		this->item[i]->CheckHItCharactor(charctor);
+//	}
+//}
 
 void ItemManager::Draw()
 {

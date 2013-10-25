@@ -8,7 +8,7 @@
 
 BombManager::BombManager(void):
 	bomb(), 
-	nowBombNum(1)
+	nowBombNum(1),
 	bombImage()
 {
 	bomb.push_back(new PlayerBomb);
@@ -41,13 +41,13 @@ void BombManager::BombSet(int x, int y)
 	}
 }
 
-void BombManager::CheckHit(Charactor *charactor)
-{
-	for(int i=0, size=bomb.size(); i<size; ++i)
-	{
-		bomb[i]->CheckHit(charactor);
-	}
-}
+//void BombManager::CheckHit(Charactor *charactor)
+//{
+//	for(int i=0, size=bomb.size(); i<size; ++i)
+//	{
+//		bomb[i]->CheckHit(charactor);
+//	}
+//}
 
 void BombManager::MaintainBomb()
 {

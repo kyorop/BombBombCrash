@@ -23,7 +23,7 @@ void Item::SetItem(const Block &block)
 	int i = GetRand(MAPSIZE_Y);
 	int j = GetRand(MAPSIZE_X);
 	
-	while(block.GetID(i, j) != 2)//IDが床になるまで乱数取得
+	//while(block.GetID(i, j) != 2)//IDが床になるまで乱数取得
 	{
 		i = GetRand(MAPSIZE_Y);
 		j = GetRand(MAPSIZE_X);
@@ -50,29 +50,29 @@ int Item::GetCharactorHit()
 	return this->charactorHit;
 }
 
-void Item::CheckHItCharactor(Charactor *charactor)
-{
-	if(this->flag == 1)//アイテムが表示されているとき
-	{
-		if(this->x+32-DHIT > charactor->GetX() && this->x+DHIT < charactor->GetRX() && this->y+DHIT < charactor->GetDY() && charactor->GetY() < this->y+32-DHIT)
-		{
-			this->flag = 0;
-			switch(i_graph)
-			{
-			case BOMB:
-				charactor->AddBombNum();
-				break;
-			case FIRE:
-				charactor->AddFireLevel();
-				break;
-			case SPEED:
-				charactor->AddMV();
-				break;
-			}
-			this->charactorHit = 1;
-		}
-	}	
-}
+//void Item::CheckHItCharactor(Charactor *charactor)
+//{
+//	if(this->flag == 1)//アイテムが表示されているとき
+//	{
+//		if(this->x+32-DHIT > charactor->GetX() && this->x+DHIT < charactor->GetRX() && this->y+DHIT < charactor->GetDY() && charactor->GetY() < this->y+32-DHIT)
+//		{
+//			this->flag = 0;
+//			switch(i_graph)
+//			{
+//			case BOMB:
+//				charactor->AddBombNum();
+//				break;
+//			case FIRE:
+//				charactor->AddFireLevel();
+//				break;
+//			case SPEED:
+//				charactor->AddMV();
+//				break;
+//			}
+//			this->charactorHit = 1;
+//		}
+//	}	
+//}
 
 Item::~Item(void)
 {

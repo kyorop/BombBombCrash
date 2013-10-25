@@ -17,7 +17,7 @@ public:
 	Item(void);
 	~Item(void);
 
-	void CheckHItCharactor(Charactor *charactor);
+	//void CheckHItCharactor(Charactor *charactor);
 	int GetKindGraph();
 	int GetCharactorHit();
 	void SetItem(const Block &block);

@@ -23,10 +23,10 @@ public:
 	~Explosion(void);
 
 	void Set(int x, int y);
-	void CheckHitObject(MapObstacle *mapobstacle);
-	virtual int CheckHItCharactor(Charactor *charactor);//オーバーライド
-	void CheckHitBomb(Bomb *bomb);
-	void CheckHitItem(Item *item);
+	//void CheckHitObject(MapObstacle *mapobstacle);
+	//virtual int CheckHItCharactor(Charactor *charactor);//オーバーライド
+	//void CheckHitBomb(Bomb *bomb);
+	//void CheckHitItem(Item *item);
 	int GetExplosion();
 	void SetFuse(int flag);
 	void SetExplosion(int flag);

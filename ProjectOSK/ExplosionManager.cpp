@@ -90,145 +90,145 @@ void ExplosionManager::Maintain()
 	}
 }
 
-void ExplosionManager::CheckHitCharactor(Charactor *charactor)
-{
-	//this->explosion.CheckHIt(*player);
-	if(this->explosion == TRUE)
-	{
-		for(int i=0,size=vex.size(); i<size; i++ )
-		{
-			vex[i]->CheckHItCharactor(charactor);//プレイヤーとのあたり判定
-		}
-	}
-}
-
-void ExplosionManager::CheckHitObject(MapObstacle *mapobstacle)
-{
-	if(explosion == TRUE)
-	{
-		const int num = (vex.size() - 1) / 4; //上下左右に広がる火のうち、中心を除く各列の個数
-		
-		for(int k=1; k<5; k++)//kは初期位置(中心の火のすぐ隣の火); kは4本の爆風を回る
-		{
-			for(int i=0; i<num; i++)
-			{
-				vex[k+4*i]->CheckHitObject(mapobstacle);//火は4枚周期
-
-				if( vex[k+4*i]->GetExplosion() == FALSE)//一つでも火が壁にぶつかって、
-				{
-					if(i+1 <= num)//もう次にも火があるなら
-					{
-						for(int j=i+1; j<num; j++)//その列のそれ以降の火は全部消す
-						{
-							vex[k+4*j]->SetExplosion(FALSE);
-						}
-					}
-				break;
-				//continue;//次の火の列に移る
-				}
-			}//for(i)
-		}//for(k)
-	}
-}
-
-void ExplosionManager::CheckHitBomb(Bomb *bomb)
-{
-	/*
-	for(int i=0,size=vex->size(); i<size; ++i)
-	{
-		(*vex)[i]->CheckHitBomb(bomb);
-	}
-	*/
-
-	if(explosion == TRUE)
-	{
-		const int num = (vex.size() - 1) / 4; //上下左右に広がる火のうち、中心を除く各列の個数
-		
-		for(int k=1; k<5; k++)//kは初期位置(中心の火のすぐ隣の火); kは4本の爆風を回る
-		{
-			for(int i=0; i<num; i++)
-			{
-				vex[k+4*i]->CheckHitBomb(bomb);//火は4枚周期
-
-				if( vex[k+4*i]->GetExplosion() == FALSE)//一つでも火が壁にぶつかって、
-				{
-					if(i+1 <= num)//もう次にも火があるなら
-					{
-						for(int j=i+1; j<num; j++)//その列のそれ以降の火は全部消す
-						{
-							vex[k+4*j]->SetExplosion(FALSE);
-						}
-					}
-				break;
-				//continue;//次の火の列に移る
-				}
-			}//for(i)
-		}//for(k)
-	}
-
-}
-
-void ExplosionManager::CheckHitItem(Item *item)
-{
-	if(explosion == TRUE)
-	{
-		const int num = (vex.size() - 1) / 4; //上下左右に広がる火のうち、中心を除く各列の個数
-		
-		for(int k=1; k<5; k++)//kは初期位置(中心の火のすぐ隣の火); kは4本の爆風を回る
-		{
-			for(int i=0; i<num; i++)
-			{
-				vex[k+4*i]->CheckHitItem(item);//火は4枚周期
-
-				if( vex[k+4*i]->GetExplosion() == FALSE)//一つでも火が壁にぶつかって、
-				{
-					if(i+1 <= num)//もう次にも火があるなら
-					{
-						for(int j=i+1; j<num; j++)//その列のそれ以降の火は全部消す
-						{
-							vex[k+4*j]->SetExplosion(FALSE);
-						}
-					}
-				break;
-				}
-			}//for(i)
-		}//for(k)
-	}
-}
-
-void ExplosionManager::CheckHit(MapObstacle *mapobstacle1, MapObstacle *mapobstacle2, Charactor *charactor, BombManager *bombManager, ItemManager *itemManager)
-{
-	if(this->explosion == TRUE)
-	{
-		const int num = (vex.size() - 1) / 4; //上下左右に広がる火のうち、中心を除く各列の個数
-		
-		for(int k=1; k<5; k++)//kは初期位置(中心の火のすぐ隣の火); kは4本の爆風を回る
-		{
-			for(int i=0; i<num; i++)
-			{
-				vex[k+4*i]->CheckHitObject(mapobstacle1);
-				vex[k+4*i]->CheckHitObject(mapobstacle2);
-				for(int j=0; j<ITEMNUM; ++j)
-					vex[k+4*i]->CheckHitItem(itemManager->GetItemInstance(j) );//火は4枚周期
-				for(int j=0,sizebomb=bombManager->bomb.size(); j<sizebomb; ++j)
-					vex[k+4*i]->CheckHitBomb(bombManager->GetBombObject(j) );
-				vex[k+4*i]->CheckHItCharactor(charactor);
-
-				if( vex[k+4*i]->GetExplosion() == FALSE)//一つでも火が壁にぶつかって、
-				{
-					if(i+1 <= num)//もう次にも火があるなら
-					{
-						for(int j=i+1; j<num; j++)//その列のそれ以降の火は全部消す
-						{
-							vex[k+4*j]->SetExplosion(FALSE);
-						}
-					}
-				break;
-				}
-			}//for(i)
-		}//for(k)
-	}
-}
+//void ExplosionManager::CheckHitCharactor(Charactor *charactor)
+//{
+//	//this->explosion.CheckHIt(*player);
+//	if(this->explosion == TRUE)
+//	{
+//		for(int i=0,size=vex.size(); i<size; i++ )
+//		{
+//			vex[i]->CheckHItCharactor(charactor);//プレイヤーとのあたり判定
+//		}
+//	}
+//}
+//
+//void ExplosionManager::CheckHitObject(MapObstacle *mapobstacle)
+//{
+//	if(explosion == TRUE)
+//	{
+//		const int num = (vex.size() - 1) / 4; //上下左右に広がる火のうち、中心を除く各列の個数
+//		
+//		for(int k=1; k<5; k++)//kは初期位置(中心の火のすぐ隣の火); kは4本の爆風を回る
+//		{
+//			for(int i=0; i<num; i++)
+//			{
+//				vex[k+4*i]->CheckHitObject(mapobstacle);//火は4枚周期
+//
+//				if( vex[k+4*i]->GetExplosion() == FALSE)//一つでも火が壁にぶつかって、
+//				{
+//					if(i+1 <= num)//もう次にも火があるなら
+//					{
+//						for(int j=i+1; j<num; j++)//その列のそれ以降の火は全部消す
+//						{
+//							vex[k+4*j]->SetExplosion(FALSE);
+//						}
+//					}
+//				break;
+//				//continue;//次の火の列に移る
+//				}
+//			}//for(i)
+//		}//for(k)
+//	}
+//}
+//
+//void ExplosionManager::CheckHitBomb(Bomb *bomb)
+//{
+//	/*
+//	for(int i=0,size=vex->size(); i<size; ++i)
+//	{
+//		(*vex)[i]->CheckHitBomb(bomb);
+//	}
+//	*/
+//
+//	if(explosion == TRUE)
+//	{
+//		const int num = (vex.size() - 1) / 4; //上下左右に広がる火のうち、中心を除く各列の個数
+//		
+//		for(int k=1; k<5; k++)//kは初期位置(中心の火のすぐ隣の火); kは4本の爆風を回る
+//		{
+//			for(int i=0; i<num; i++)
+//			{
+//				vex[k+4*i]->CheckHitBomb(bomb);//火は4枚周期
+//
+//				if( vex[k+4*i]->GetExplosion() == FALSE)//一つでも火が壁にぶつかって、
+//				{
+//					if(i+1 <= num)//もう次にも火があるなら
+//					{
+//						for(int j=i+1; j<num; j++)//その列のそれ以降の火は全部消す
+//						{
+//							vex[k+4*j]->SetExplosion(FALSE);
+//						}
+//					}
+//				break;
+//				//continue;//次の火の列に移る
+//				}
+//			}//for(i)
+//		}//for(k)
+//	}
+//
+//}
+//
+//void ExplosionManager::CheckHitItem(Item *item)
+//{
+//	if(explosion == TRUE)
+//	{
+//		const int num = (vex.size() - 1) / 4; //上下左右に広がる火のうち、中心を除く各列の個数
+//		
+//		for(int k=1; k<5; k++)//kは初期位置(中心の火のすぐ隣の火); kは4本の爆風を回る
+//		{
+//			for(int i=0; i<num; i++)
+//			{
+//				vex[k+4*i]->CheckHitItem(item);//火は4枚周期
+//
+//				if( vex[k+4*i]->GetExplosion() == FALSE)//一つでも火が壁にぶつかって、
+//				{
+//					if(i+1 <= num)//もう次にも火があるなら
+//					{
+//						for(int j=i+1; j<num; j++)//その列のそれ以降の火は全部消す
+//						{
+//							vex[k+4*j]->SetExplosion(FALSE);
+//						}
+//					}
+//				break;
+//				}
+//			}//for(i)
+//		}//for(k)
+//	}
+//}
+//
+//void ExplosionManager::CheckHit(MapObstacle *mapobstacle1, MapObstacle *mapobstacle2, Charactor *charactor, BombManager *bombManager, ItemManager *itemManager)
+//{
+//	if(this->explosion == TRUE)
+//	{
+//		const int num = (vex.size() - 1) / 4; //上下左右に広がる火のうち、中心を除く各列の個数
+//		
+//		for(int k=1; k<5; k++)//kは初期位置(中心の火のすぐ隣の火); kは4本の爆風を回る
+//		{
+//			for(int i=0; i<num; i++)
+//			{
+//				vex[k+4*i]->CheckHitObject(mapobstacle1);
+//				vex[k+4*i]->CheckHitObject(mapobstacle2);
+//				for(int j=0; j<ITEMNUM; ++j)
+//					vex[k+4*i]->CheckHitItem(itemManager->GetItemInstance(j) );//火は4枚周期
+//				for(int j=0,sizebomb=bombManager->bomb.size(); j<sizebomb; ++j)
+//					vex[k+4*i]->CheckHitBomb(bombManager->GetBombObject(j) );
+//				vex[k+4*i]->CheckHItCharactor(charactor);
+//
+//				if( vex[k+4*i]->GetExplosion() == FALSE)//一つでも火が壁にぶつかって、
+//				{
+//					if(i+1 <= num)//もう次にも火があるなら
+//					{
+//						for(int j=i+1; j<num; j++)//その列のそれ以降の火は全部消す
+//						{
+//							vex[k+4*j]->SetExplosion(FALSE);
+//						}
+//					}
+//				break;
+//				}
+//			}//for(i)
+//		}//for(k)
+//	}
+//}
 
 void ExplosionManager::Draw()
 {

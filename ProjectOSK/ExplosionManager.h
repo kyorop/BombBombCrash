@@ -26,11 +26,11 @@ public:
 	void FireUp();	
 	void Set(int x, int y);
 	void Maintain();
-	void CheckHitObject(MapObstacle *mapobstacle);
-	void CheckHitCharactor(Charactor *charactor);
-	void CheckHitBomb(Bomb *bomb);
-	void CheckHitItem(Item *item);
-	void CheckHit(MapObstacle *mapobstacle1, MapObstacle *mapobstacle2, Charactor *charactor, BombManager *bombManager, ItemManager *itemManager);
+	//void CheckHitObject(MapObstacle *mapobstacle);
+	//void CheckHitCharactor(Charactor *charactor);
+	//void CheckHitBomb(Bomb *bomb);
+	//void CheckHitItem(Item *item);
+	//void CheckHit(MapObstacle *mapobstacle1, MapObstacle *mapobstacle2, Charactor *charactor, BombManager *bombManager, ItemManager *itemManager);
 	void Draw();
 	ExplosionManager();
 	~ExplosionManager(void);

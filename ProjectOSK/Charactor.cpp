@@ -3,13 +3,8 @@
 #include "MapState.h"
 #include "DxLib.h"
 
-Charactor::Charactor(void):
-	x(),
-	rx(),
-	y(),
-	dy(),
-	flag(1),
-	preX(),
+Charactor::Charactor(void)
+	:preX(),
 	preY(),
 	mv(3),
 	bombNum(1),
@@ -20,39 +15,6 @@ Charactor::Charactor(void):
 Charactor::~Charactor(void)
 {
 }
-
-int Charactor::GetX()const
-{
-	return this->x;
-}
-
-int Charactor::GetY()const
-{
-	return this->y;
-}
-
-int Charactor::GetRX()const
-{
-	return this->rx;
-}
-
-int Charactor::GetDY()const
-{
-	return this->dy;
-}
-
-void Charactor::SetX(int x)
-{
-	this->x = x;
-	this->rx = x + 32;
-}
-
-void Charactor::SetY(int y)
-{
-	this->y = y;
-	this->dy = y + 32;
-}
-
 
 void Charactor::SetCharactorState(int flag)
 {

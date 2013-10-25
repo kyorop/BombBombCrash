@@ -57,10 +57,6 @@ Map::~Map(void)
 {
 }
 
-void Map::CheckHitCharactor(Charactor *charactor)
-{
-}
-
 void Map::Draw()
 {
 	//床と強ブロックは常に表示
