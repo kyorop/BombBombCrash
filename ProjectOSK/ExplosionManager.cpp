@@ -16,7 +16,7 @@ ExplosionManager::ExplosionManager():
 	addFireNum(1),
 	nowFireLevel(1),
 	vex(),
-	fireImage(LoadGraph("fire.bmp"))
+	fireImage(LoadGraph("fire.bmp")),
 	beforeExplosion()
 {
 	//初期火力レベル、中心とその周り一マス
@@ -50,7 +50,7 @@ void ExplosionManager::FireUp()
 
 void ExplosionManager::Set(int x, int y)
 {
-	if(/*bomb.GetFlag() == TRUE && */explosion == 0)//爆弾が置かれたら、
+	if(explosion == 0)//爆弾が置かれたら、
 	{
 		fuse = TRUE;//導火線に火がつく
 		for(int i=0,size=vex.size(); i<size; ++i )
@@ -58,12 +58,6 @@ void ExplosionManager::Set(int x, int y)
 			vex[i]->Set(x, y);
 		}
 	}
-
-	
-	//if(this->explosion == TRUE && bomb.GetFlag() == FALSE)//爆発したフレームのボムフラグはFALSEなので、爆発した後かつ爆発が終了する前に、ボムが置かれた時の爆風の座標の再取得を防げる
-	//{                                                                                          //爆発中にボムが置かれても座標の再取得が起こらないようにしている
-	//	
-	//}
 }
 
 void ExplosionManager::Maintain()
