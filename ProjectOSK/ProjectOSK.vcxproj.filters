@@ -239,5 +239,6 @@
     <None Include="ClassDiagram6.cd" />
     <None Include="ClassDiagram7.cd" />
     <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
 </Project>

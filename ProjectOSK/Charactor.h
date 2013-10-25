@@ -1,9 +1,11 @@
 #pragma once
 #include "IRegister.h"
+#include "IDrawable.h"
 
 class Map;
-class Charactor:
-	virtual public IRegister
+class Charactor
+	:public IRegister,
+	public IDrawable
 {
 protected:
 	int x;

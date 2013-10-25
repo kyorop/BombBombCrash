@@ -9,15 +9,13 @@
 class Player;
 class EnemyAI;
 class Enemy:
-	public Charactor, virtual public IDrawable
+	public Charactor
 {
 private:
-	//int nowStop;
 	int graph[20];
 	int muki;
 	int stop;
 	int animpat;
-	//int resetRoutine;
 	int bombSet;
 	int action[10];
 public:
