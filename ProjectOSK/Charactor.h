@@ -1,10 +1,12 @@
 #pragma once
 #include "IRegister.h"
+#include "IDrawable.h"
 #include "MapObject.h"
 
 class Map;
 class Charactor
 	:public IRegister,
+	public IDrawable,
 	public MapObject
 {
 protected:
