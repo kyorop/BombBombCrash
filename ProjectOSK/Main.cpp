@@ -1,9 +1,6 @@
 #include "BombManager.h"
 #include "ItemManager.h"
 #include "MapObstacle.h"
-#include "Item.h"
-#include "Object.h"
-#include "Block.h"
 #include "ExplosionManager.h"
 #include "Map.h"
 #include "Player.h"
@@ -13,14 +10,11 @@
 #include "MapState.h"
 #include "EnemyBombManager.h"
 #include "DxLib.h"
-#include "DangerState.h"
-#include "EnemyAI.h"
-#include "Enemy.h"
-#include "Route.h"
 #include "CharacterSet.h"
+#include "Collision.h"
 #include <iostream>
 #include <vector>
-#define DRAWNUM 3
+#define DRAWNUM 2
 #define REGISTERNUM 7
 
 #define _CRTDBG_MAP_ALLOC
@@ -40,10 +34,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 	SetDrawScreen(DX_SCREEN_BACK);
 	
 	Map map;
-	Block block;
 	ItemManager itemManager;
-	
-	CharacterSet player;
+	CharacterSet playerSet;
 
 	//Player player;
 	//BombManager bombManager;
@@ -52,13 +44,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 	IDrawable *iDraw[DRAWNUM]=
 	{
 		&map,
-		&itemManager,
-		&block,
+		&itemManager
 	};
 
 	int g_lasttime = 0;
 	float g_frametime = 0;
-	itemManager.SetItem(block);
+	//itemManager.SetItem(block);
 
 	while(CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
@@ -67,37 +58,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		g_lasttime = curtime;
 		ClearDrawScreen();
 
-	
-		//ƒLƒƒƒ‰‚ÌˆÚ“®
-		//player.Move(g_lasttime);
-		player.Update();
+		playerSet.Update();
+		Collision::GetInstance()->CheckCollision();
 
-		//Player‚Ì‚ ‚½‚è”»’è
-		//bombManager.CheckHit(&player);
-		//map.CheckHitCharactor(&player);
-		//block.CheckHit(&player);
-		//itemManager.CheckHitCharactor(&player);
-
-		////Player‚ÌBombŠÇ—
-		//bombManager.AddBomb(player);
-		//bombManager.BombSet(player);
-		//bombManager.MaintainBomb();
-
-		////Player‚ÌBlastŠÇ—
-		//blastManager.Add(player);
-		//blastManager.FireUp(player);
-		//blastManager.Set(bombManager);
-		//blastManager.Maintain(bombManager);
-		//blastManager.CheckHit(&block, &map, &enemy, &bombManager, &itemManager);
-		
 		//•`‰æ•”
 		for(int i=0; i<DRAWNUM; ++i)
 		{
-			//if(i != 6)
 			iDraw[i]->Draw();
 		}
 
-		player.Draw();
+		playerSet.Draw();
 		
 		ScreenFlip();
 		if(ProcessMessage() == -1)

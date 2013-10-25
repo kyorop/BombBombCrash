@@ -3,6 +3,7 @@
 #include "DxLib.h"
 #include "Charactor.h"
 #include "MapState.h"
+#include "Collision.h"
 #include <cstring>
 #define MAPSIZE_X 17
 #define MAPSIZE_Y 13
@@ -49,6 +50,16 @@ Map::Map(void):
 		{
 			map[i][j].SetX(j * 32);
 			map[i][j].SetY(i * 32);
+			if(map[i][j].GetId() != 0)
+				map[i][j].SetFlag(1);
+		}
+	}
+
+	for(int i=0; i<MAPSIZE_Y; ++i)
+	{
+		for(int j=0; j<MAPSIZE_X; ++j)
+		{
+			Collision::GetInstance()->Register(&map[i][j]);
 		}
 	}
 }
@@ -67,7 +78,7 @@ void Map::Draw()
 		{
 			if(map[i][j].GetId() == 1)
 				DrawGraph(map[i][j].GetX(), map[i][j].GetY(), hardBlock, FALSE);
-			if(map[i][j].GetId() == 2)
+			else if(map[i][j].GetId() == 2)
 			{
 				if(map[i][j].GetFlag() == 1)
 					DrawGraph(map[i][j].GetX(), map[i][j].GetY(), softBlock, FALSE);

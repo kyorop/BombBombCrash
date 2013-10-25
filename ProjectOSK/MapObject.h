@@ -1,5 +1,8 @@
 #pragma once
+#include "ICollisionable.h"
+
 class MapObject
+	:public ICollisionable
 {
 protected:
 	int x;
@@ -12,14 +15,14 @@ public:
 	MapObject(void);
 	virtual ~MapObject(void);
 
-	int GetX()const;
-	void SetX(int x);
-	int GetRX()const;
-	int GetY()const;
-	void SetY(int y);
-	int GetDY()const;
-	int GetFlag()const;
-	void SetFlag(int flag);
+	virtual int GetX()const;
+	virtual void SetX(int x);
+	virtual int GetRX()const;
+	virtual int GetY()const;
+	virtual void SetY(int y);
+	virtual int GetDY()const;
+	virtual int GetFlag()const;
+	virtual void SetFlag(int flag);
 
 };
 

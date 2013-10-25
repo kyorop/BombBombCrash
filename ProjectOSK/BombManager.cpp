@@ -3,6 +3,7 @@
 #include "ItemManager.h"
 #include "Player.h"
 #include "MapState.h"
+#include "Collision.h"
 #include "DxLib.h"
 #define BOMB 1
 
@@ -11,14 +12,18 @@ BombManager::BombManager(void):
 	nowBombNum(1),
 	bombImage()
 {
-	bomb.push_back(new PlayerBomb);
+	PlayerBomb * pbomb = new PlayerBomb;
+	bomb.push_back(pbomb);
+	Collision::GetInstance()->Register(pbomb);
 	LoadDivGraph("bomb.png", 60, 6, 10, 32, 32, bombImage, FALSE);
 }
 
 void BombManager::Add()
 {
-		bomb.push_back(new PlayerBomb);
-		++this->nowBombNum;
+	PlayerBomb * pbomb = new PlayerBomb;
+	bomb.push_back(pbomb);
+	Collision::GetInstance()->Register(pbomb);
+	++this->nowBombNum;
 }
 
 void BombManager::BombSet(int x, int y)

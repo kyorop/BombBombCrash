@@ -1,13 +1,14 @@
 #pragma once
 #include "MapObject.h"
+#include "IColleague.h"
 #include "Key.h"
 #include "Timer.h"
 
 class Player;
 class Map;
 class Charactor;
-class Bomb:
-	public MapObject
+class Bomb
+	:public MapObject
 {
 	friend class Explosion;
 protected:

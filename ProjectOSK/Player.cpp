@@ -3,6 +3,7 @@
 #include "Item.h"
 #include "ItemManager.h"
 #include "MapState.h"
+#include "Collision.h"
 #include "DxLib.h"
 #define MV 4
 #define HABA 0
@@ -26,6 +27,7 @@ Player::Player()
 	muki = DOWN;
 	flag =1;
 	animpat = 0;
+	Collision::GetInstance()->RegiPlayer(this);
 }
 
 void Player::Draw()

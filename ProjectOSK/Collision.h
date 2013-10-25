@@ -29,7 +29,7 @@ private:
 public:
 	~Collision(void);
 	static Collision* GetInstance();
-
+	void RegiPlayer(ICollisionable *player);
 	//void RegisterWithBomb(ICollisionable *bomb);
 	//void RegisterWithCharactor(ICollisionable *charactor);
 	void Register(ICollisionable *anythingCollisionable);

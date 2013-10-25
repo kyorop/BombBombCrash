@@ -3,6 +3,7 @@
 #include "PlayerBomb.h"
 #include "EnemyBomb.h"
 #include "MapObstacle.h"
+#include "Player.h"
 #include "DxLib.h"
 #include <typeinfo>
 
@@ -37,7 +38,11 @@ Collision* Collision::GetInstance()
 
 void Collision::Register(ICollisionable *anythingCollisionable)
 {
-	if( typeid(anythingCollisionable) == typeid(PlayerBomb) || typeid(anythingCollisionable) == typeid(EnemyBomb) )
+	if(typeid(anythingCollisionable) == typeid(Player))
+	{
+		character.push_back(anythingCollisionable);
+	}
+	else if( typeid(anythingCollisionable) == typeid(PlayerBomb) || typeid(anythingCollisionable) == typeid(EnemyBomb) )
 	{
 		disableGoingThrough.push_back(anythingCollisionable);
 	}
@@ -45,13 +50,22 @@ void Collision::Register(ICollisionable *anythingCollisionable)
 	{
 		disableGoingThrough.push_back(anythingCollisionable);
 	}
+	else
+	{
+		disableGoingThrough.push_back(anythingCollisionable);
+	}
+}
+
+void Collision::RegiPlayer(ICollisionable *player)
+{
+	character.push_back(player);
 }
 
 void Collision::CheckCollision()
 {
 	for (int ic = 0,sizeChara=character.size(); ic < sizeChara; ++ic)
 	{
-		for (int ib = 0,sizeBomb=disableGoingThrough.size(); ib < sizeBomb; ib++)
+		for (int ib = 0,size=disableGoingThrough.size(); ib < size; ib++)
 		{
 			// ©
 			if( (disableGoingThrough[ib]->GetRX()-degreeOfHit <= character[ic]->GetX() && character[ic]->GetX() <= disableGoingThrough[ib]->GetRX()) && (disableGoingThrough[ib]->GetY()+degreeOfHit <= character[ic]->GetY() && character[ic]->GetY() < disableGoingThrough[ib]->GetDY()-degreeOfHit) && disableGoingThrough[ib]->GetFlag() == TRUE)character[ic]->SetX(disableGoingThrough[ib]->GetX() + 32);//“r’†

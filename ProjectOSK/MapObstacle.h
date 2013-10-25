@@ -1,5 +1,6 @@
 #pragma once
 #include "MapObject.h"
+#include "ICollisionable.h"
 #define MAPSIZE_X 17
 #define MAPSIZE_Y 13
 
