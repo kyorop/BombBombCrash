@@ -7,9 +7,12 @@
 #define BOMB 1
 
 BombManager::BombManager(void):
-	vbomb(new std::vector<Bomb*>(1)), nowBombNum(1)
+	vbomb(new std::vector<Bomb*>(1)),
+	nowBombNum(1),
+	bombImage()
 {
 	(*vbomb)[0] = new PlayerBomb;
+	LoadDivGraph("bomb.png", 60, 6, 10, 32, 32, bombImage, FALSE);
 }
 
 void BombManager::AddBomb(const Charactor &charactor)
@@ -70,8 +73,13 @@ void BombManager::Draw()
 	this->size = vbomb->size();
 	for(int i=0, size=vbomb->size(); i<size; ++i) 
 	{
-		(*vbomb)[i]->Draw();
+		if((*vbomb)[i]->GetFlag() == 1)
+		{
+			SetTransColor(255,255,255);
+			DrawGraph((*vbomb)[i]->GetX(), (*vbomb)[i]->GetY(), bombImage[0], FALSE);
+		}
 	}
+	
 }
 
 int BombManager::GetBombNum()
