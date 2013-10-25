@@ -19,15 +19,15 @@ public:
 	virtual ~Bomb();
 
 	void CheckHit(Charactor *charactor);
-	virtual void BombSet(const Charactor &charactor) = 0;
+	virtual void BombSet(int x, int y) = 0;
 	void MaintainBomb();
 	int CheckBombExplosion();
 	void CheckBombOverlap(const Bomb & bomb);
 	virtual void SetFlag(int flag);
 public:
-	int GetFuse(void);
+	int GetFuse(void)const;
 	void SetFuse(int fuse);
-	int GetExplosion(void);
+	int GetExplosion(void)const;
 	void SetExplosion(int explosion);
 };
 

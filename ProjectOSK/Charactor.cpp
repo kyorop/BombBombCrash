@@ -1,6 +1,7 @@
 #include "Charactor.h"
 #include "Map.h"
 #include "MapState.h"
+#include "DxLib.h"
 
 Charactor::Charactor(void):
 	x(),
@@ -65,8 +66,11 @@ int Charactor::GetMV(void)const
 	return this->mv;
 }
 
-int Charactor::GetBombNum(void)const
+int Charactor::GetBombNum(void)
 {
+	if(CheckHitKey(KEY_INPUT_SPACE) == 1)
+		++bombNum;
+
 	return this->bombNum;
 }
 

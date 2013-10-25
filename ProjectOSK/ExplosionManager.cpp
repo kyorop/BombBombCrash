@@ -17,6 +17,7 @@ ExplosionManager::ExplosionManager():
 	nowFireLevel(1),
 	vex(),
 	fireImage(LoadGraph("fire.bmp"))
+	beforeExplosion()
 {
 	//初期火力レベル、中心とその周り一マス
 	vex.push_back(new Explosion(0,0,0,0));
@@ -35,10 +36,8 @@ ExplosionManager::~ExplosionManager(void)
 	}
 }
 
-void ExplosionManager::FireUp(const Charactor &charactor)
+void ExplosionManager::FireUp()
 {
-	if(charactor.GetFireLevel() > this->addFireNum)
-	{
 		++addFireNum;
 		++nowFireLevel;//次増やすときは、一個隣に増やす
 
@@ -47,29 +46,20 @@ void ExplosionManager::FireUp(const Charactor &charactor)
 		vex.push_back(new Explosion(0,nowFireLevel,0,0));
 		vex.push_back(new Explosion(0,0,nowFireLevel,0));
 		vex.push_back(new Explosion(0,0,0,nowFireLevel));
-	}
 }
 
-void ExplosionManager::Set(Bomb &bomb)
+void ExplosionManager::Set(int x, int y)
 {
-	if(bomb.GetFlag() == TRUE && this->explosion == 0)//爆弾が置かれたら、
+	if(/*bomb.GetFlag() == TRUE && */explosion == 0)//爆弾が置かれたら、
 	{
 		fuse = TRUE;//導火線に火がつく
 		for(int i=0,size=vex.size(); i<size; ++i )
 		{
-			vex[i]->Set(bomb);
+			vex[i]->Set(x, y);
 		}
 	}
 
-	if(fuse == TRUE && bomb.GetFlag() == FALSE)//導火線に火がついたボムが消えたら
-	{
-		this->fuse = FALSE;
-		this->explosion = TRUE;//爆発
-		for(int i=0,size=vex.size(); i<size; ++i )
-		{
-			vex[i]->SetExplosion(TRUE);
-		}
-	}
+	
 	//if(this->explosion == TRUE && bomb.GetFlag() == FALSE)//爆発したフレームのボムフラグはFALSEなので、爆発した後かつ爆発が終了する前に、ボムが置かれた時の爆風の座標の再取得を防げる
 	//{                                                                                          //爆発中にボムが置かれても座標の再取得が起こらないようにしている
 	//	
@@ -78,9 +68,22 @@ void ExplosionManager::Set(Bomb &bomb)
 
 void ExplosionManager::Maintain()
 {
+	if(fuse == TRUE/* && bomb.GetFlag() == FALSE*/)//導火線に火がついたボムが消えたら
+	{
+		if(beforeExplosion.CountDown(timeBeforeExplosion) == 1)
+		{
+			this->fuse = FALSE;
+			this->explosion = TRUE;//爆発
+			for(int i=0,size=vex.size(); i<size; ++i )
+			{
+				vex[i]->SetExplosion(TRUE);
+			}
+		}
+	}
+
 	if(this->explosion == TRUE)
 	{
-		if(time.CountDown(200) == false)
+		if(retainFire.CountDown(displayingTime) == false)
 			this->explosion = TRUE;
 		else
 		{
@@ -213,7 +216,7 @@ void ExplosionManager::CheckHit(MapObstacle *mapobstacle1, MapObstacle *mapobsta
 				vex[k+4*i]->CheckHitObject(mapobstacle2);
 				for(int j=0; j<ITEMNUM; ++j)
 					vex[k+4*i]->CheckHitItem(itemManager->GetItemInstance(j) );//火は4枚周期
-				for(int j=0,sizebomb=bombManager->vbomb->size(); j<sizebomb; ++j)
+				for(int j=0,sizebomb=bombManager->bomb.size(); j<sizebomb; ++j)
 					vex[k+4*i]->CheckHitBomb(bombManager->GetBombObject(j) );
 				vex[k+4*i]->CheckHItCharactor(charactor);
 

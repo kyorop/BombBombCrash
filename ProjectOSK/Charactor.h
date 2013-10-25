@@ -25,7 +25,7 @@ public:
 	//virtual void Move();
 	virtual void SetCharactorState(int flag);
 public:
-	virtual int GetBombNum(void)const;
+	virtual int GetBombNum(void);
 	virtual int GetFireLevel(void)const;
 	virtual int GetMV(void)const;
 	virtual void AddBombNum(void);

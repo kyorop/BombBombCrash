@@ -44,7 +44,7 @@ void Player::Draw()
 	}
 }
 
-void Player::Move(int g_lastTime)
+void Player::Move()
 {
 	if(CheckHitKey(KEY_INPUT_LEFT) == 1 && CheckHitKey(KEY_INPUT_DOWN) == 0 && CheckHitKey(KEY_INPUT_UP) == 0 && CheckHitKey(KEY_INPUT_RIGHT) == 0)
 	{
@@ -144,7 +144,7 @@ void Player::Move(int g_lastTime)
 	if(this->y < 32)this->y = 32;
 	if(this->y > 32*11)this->y = 32*11;
 
-	animpat = (g_lastTime / (1000 / 12)) % 4;
+	animpat = ( (GetNowCount() & INT_MAX) / (1000 / 12)) % 4;
 }
 
 int Player::GetStateFire(const Item &item)//存在がFALSE の物の数を数えればよい。その数を戻り値にする。
@@ -158,6 +158,19 @@ int Player::GetStateFire(const Item &item)//存在がFALSE の物の数を数えればよい。
 	{
 		return FALSE;
 	}
+}
+
+int Player::EnableBomb()const
+{
+	if(CheckHitKey(KEY_INPUT_Z) == 1)
+		return 1;
+	else
+		return 0;
+}
+
+void Player::AddSpeed()
+{
+
 }
 
 int Player::GetStateBomb(const ItemManager &manageItem)

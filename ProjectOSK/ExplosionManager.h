@@ -16,12 +16,15 @@ private:
 	int nowFireLevel;
 	int fuse;
 	int explosion;
-	Timer time;
+	Timer retainFire;
+	Timer beforeExplosion;
+	static const int timeBeforeExplosion = 3000;
+	static const int displayingTime = 200; 
 	int fireImage;
 public:
 	//void SetExplosion(const BombManager &bombManager);
-	void FireUp(const Charactor &charactor);	
-	void Set(Bomb &bomb);
+	void FireUp();	
+	void Set(int x, int y);
 	void Maintain();
 	void CheckHitObject(MapObstacle *mapobstacle);
 	void CheckHitCharactor(Charactor *charactor);
@@ -32,7 +35,7 @@ public:
 	ExplosionManager();
 	~ExplosionManager(void);
 
-std::vector<Explosion*> vex;//vectorƒNƒ‰ƒX‚ÌƒIƒuƒWƒFƒNƒg¶¬
+std::vector<Explosion*> vex;//vectorï¿½Nï¿½ï¿½ï¿½Xï¿½ÌƒIï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½
 
 void SetFuse(int flag);
 void Register(void);

@@ -88,6 +88,7 @@
     <ClCompile Include="BlastManager.cpp" />
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="BombManager.cpp" />
+    <ClCompile Include="CharacterSet.cpp" />
     <ClCompile Include="Charactor.cpp" />
     <ClCompile Include="DangerState.cpp" />
     <ClCompile Include="Dijkstra.cpp" />
@@ -120,6 +121,7 @@
     <ClInclude Include="BlastManager.h" />
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="BombManager.h" />
+    <ClInclude Include="CharacterSet.h" />
     <ClInclude Include="Charactor.h" />
     <ClInclude Include="DangerState.h" />
     <ClInclude Include="Dijkstra.h" />
@@ -130,7 +132,9 @@
     <ClInclude Include="Avoid.h" />
     <ClInclude Include="GameConstant.h" />
     <ClInclude Include="Graph.h" />
+    <ClInclude Include="IColleague.h" />
     <ClInclude Include="IDrawable.h" />
+    <ClInclude Include="IMediator.h" />
     <ClInclude Include="IRegister.h" />
     <ClInclude Include="Key.h" />
     <ClInclude Include="Explosion.h" />
