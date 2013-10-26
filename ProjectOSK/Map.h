@@ -20,6 +20,7 @@ public:
 	Map(void);
 	~Map(void);
 
+	int IsSoftBlock(int i, int j)const;
 	void Register();
 	void Draw();
 

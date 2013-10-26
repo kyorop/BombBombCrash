@@ -170,11 +170,6 @@ int Player::EnableBomb()const
 		return 0;
 }
 
-void Player::AddSpeed()
-{
-
-}
-
 int Player::GetStateBomb(const ItemManager &manageItem)
 {
 	static int bombNum;

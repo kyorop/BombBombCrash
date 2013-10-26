@@ -99,6 +99,7 @@
     <ClCompile Include="EnemyBomb.cpp" />
     <ClCompile Include="EnemyBombManager.cpp" />
     <ClCompile Include="Avoid.cpp" />
+    <ClCompile Include="GameField.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="IDrawable.cpp" />
     <ClCompile Include="IRegister.cpp" />
@@ -134,6 +135,7 @@
     <ClInclude Include="EnemyBombManager.h" />
     <ClInclude Include="Avoid.h" />
     <ClInclude Include="GameConstant.h" />
+    <ClInclude Include="GameField.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="IColleague.h" />
     <ClInclude Include="ICollisionable.h" />

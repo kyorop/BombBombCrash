@@ -5,6 +5,7 @@
 #include "Charactor.h"
 #include "MapState.h"
 #include "Collision.h"
+#include "Map.h"
 #include "DxLib.h"
 #define FIRE 0
 #define BOMB 1
@@ -27,16 +28,36 @@ ItemManager::~ItemManager(void)
 		delete item[i];
 }
 
-void ItemManager::SetItem(const Block &block)
+void ItemManager::SetItem(const Map &map)
 {
-	item[0]->SetItem(block);//まず一か所決める
-	for(int i=1; i<ITEMNUM; i++)
-	{
-		do
+	for (int n = 0; n < ITEMNUM; ++n)
+	{	
+		//int end = 0;
+		//while(!end)
 		{
-			item[i]->SetItem(block);
-		}while( *(item[i-1]) == *(item[i]) );//初期アイテムと比べる座標が同じなら違うところに描かせる
+			int i = GetRand(MAPSIZE_Y-1);
+			int j = GetRand(MAPSIZE_X-1);
+			if(map.IsSoftBlock(i,j) == 1)
+			{
+				item[n]->SetX(j * 32);
+				item[n]->SetY(i * 32);
+				item[n]->SetFlag(1);
+				//if(n == 0)
+				//	break;
+				//for(int m=0; m<n; ++m)
+				//{
+				//	if( item[n]->GetX() != item[m]->GetX() )
+				//	{
+				//		if(m == n-1)
+				//		end = 1;
+				//	}
+				//}
+			}
+			else
+				--n;
+		}
 	}
+
 }
 
 //void ItemManager::CheckHitCharactor(Charactor *charctor)const
@@ -50,7 +71,9 @@ void ItemManager::SetItem(const Block &block)
 void ItemManager::Draw()
 {
 	for(int i=0; i<ITEMNUM; ++i)
-		item[i]->Draw();
+	{
+			item[i]->Draw();
+	}
 }
 
 Item* ItemManager::GetItemInstance(int index)const

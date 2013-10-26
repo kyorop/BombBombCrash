@@ -12,9 +12,9 @@
 #include "DxLib.h"
 #include "CharacterSet.h"
 #include "Collision.h"
+#include "GameField.h"
 #include <iostream>
 #include <vector>
-#define DRAWNUM 2
 #define REGISTERNUM 7
 
 #define _CRTDBG_MAP_ALLOC
@@ -33,23 +33,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		return -1;
 	SetDrawScreen(DX_SCREEN_BACK);
 	
-	Map map;
-	ItemManager itemManager;
+	GameField field;
 	CharacterSet playerSet;
-
-	//Player player;
-	//BombManager bombManager;
-	//BlastManager blastManager;
-	
-	IDrawable *iDraw[DRAWNUM]=
-	{
-		&map,
-		&itemManager
-	};
 
 	int g_lasttime = 0;
 	float g_frametime = 0;
-	//itemManager.SetItem(block);
+
+	field.Initialize();
 
 	while(CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
@@ -57,21 +47,20 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		g_frametime = (float)(curtime - g_lasttime) / 1000.0f;
 		g_lasttime = curtime;
 		ClearDrawScreen();
-
+		//*********************************************
+		field.Update();
 		playerSet.Update();
 		Collision::GetInstance()->CheckCollision();
 
 		//•`‰æ•”
-		for(int i=0; i<DRAWNUM; ++i)
-		{
-			iDraw[i]->Draw();
-		}
-
+		field.Draw();
 		playerSet.Draw();
 		
+		//*********************************************
 		ScreenFlip();
 		if(ProcessMessage() == -1)
 			break;
+
 	}
 
 	DxLib_End();

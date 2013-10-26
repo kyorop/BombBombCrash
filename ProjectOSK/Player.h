@@ -25,7 +25,6 @@ public:
 	int GetStateFire(const Item &item);
 	int GetStateBomb(const ItemManager &manageItem);
 	int EnableBomb()const;
-	void AddSpeed();
 	//void Register();
 	Player();//コンストラクタ
 	~Player(void);//デストラクタ

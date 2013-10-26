@@ -7,6 +7,7 @@ class Item;
 class Block;
 class Player;
 class Charactor;
+class Map;
 class ItemManager:
 	virtual public IDrawable, virtual public IRegister
 {
@@ -16,7 +17,7 @@ private:
 public:
 
 	Item* GetItemInstance(int index)const;
-	void SetItem(const Block &block);
+	void SetItem(const Map &map);
 	void Draw();
     //void CheckHitCharactor(Charactor *charctor)const;
 	int GetBombState()const;//FALSEのボムアイテム数を返す

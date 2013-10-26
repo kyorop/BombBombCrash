@@ -62,7 +62,7 @@ void Collision::Register(ICollisionable *anythingCollisionable)
 		{
 			softBlock.push_back(anythingCollisionable);
 			disableGoingThrough.push_back(anythingCollisionable);
-			fragile.push_back(anythingCollisionable);
+			fragile.push_front(anythingCollisionable);
 		}
 	}
 }
@@ -238,7 +238,7 @@ void Collision::CheckCollisionItemAndCharactor()
 	std::vector<ICollisionable*>::iterator itrCharacter = character.begin();
 	for(itrCharacter; itrCharacter != character.end(); ++itrCharacter)
 	{
-		Charactor *chara = dynamic_cast<Charactor*>(*itrCharacter);
+		Player *chara = dynamic_cast<Player*>(*itrCharacter);
 		if(chara->GetFlag() == 1)
 		{
 			std::list<Item*>::iterator itrItem = item.begin();

@@ -50,8 +50,10 @@ Map::Map(void):
 		{
 			map[i][j].SetX(j * 32);
 			map[i][j].SetY(i * 32);
-			if(map[i][j].GetId() != FLOOR)
+			if(map[i][j].GetId() != FLOOR && map[i][j].GetId() != SOFTBLOCK)
 				map[i][j].SetFlag(1);
+			else 
+				map[i][j].SetFlag(0);
 		}
 	}
 
@@ -111,6 +113,14 @@ void Map::Register()
 			}
 		}
 	}
+}
+
+int Map::IsSoftBlock(int i, int j)const
+{
+	if(map[i][j].GetId() == SOFTBLOCK)
+		return 1;
+	else 
+		return 0;
 }
 
 
