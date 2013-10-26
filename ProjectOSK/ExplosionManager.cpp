@@ -310,7 +310,7 @@ int ExplosionManager::GetDY(int i)const
 
 int ExplosionManager::GetFlag(int i)const
 {
-	return vex[i]->GetFlag();
+	return vex[i]->GetExplosion();
 }
 
 int ExplosionManager::GetSize()const
@@ -320,5 +320,5 @@ int ExplosionManager::GetSize()const
 
 void ExplosionManager::SetFlag(int i, int flag)
 {
-	vex[i]->SetFlag(flag);
+	vex[i]->SetExplosion(flag);
 }

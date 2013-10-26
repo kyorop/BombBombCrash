@@ -8,6 +8,7 @@
 #include "Map.h"
 #include "DxLib.h"
 #include "Explosion.h"
+#include "ExplosionManager.h"
 #include <typeinfo.h>
 
 Collision::Collision(void)
@@ -54,11 +55,12 @@ void Collision::Register(ICollisionable *anythingCollisionable)
 		else if(map->GetId() == Map::SOFTBLOCK)
 		{
 			softBlock.push_back(anythingCollisionable);
+			disableGoingThrough.push_back(anythingCollisionable);
 		}
 	}
 }
 
-void Collision::RegisterWithFire(Explosion *fire)
+void Collision::RegisterWithFire(ExplosionManager *fire)
 {
 	this->fire.push_back(fire);
 }
@@ -116,34 +118,52 @@ void Collision::CheckEnableToPass()
 	}
 }
 
+int Collision::CheckOneUponAnother(int x1, int y1,int x2, int y2)
+{
+	if( (x2 < x1+32-degreeOfHit) && (x1+degreeOfHit < x2+32) && (y1+degreeOfHit < y2+32) && (y2 < y1+32-degreeOfHit) )
+		return 1;
+	else 
+		return 0;
+}
+
 void Collision::CheckCollisionWithFire()
 {
-	std::list<Explosion*>::iterator itrFire;
+	std::list<ExplosionManager*>::iterator itrFire;
 	std::list<ICollisionable*>::iterator itrHardBlock;
 	
 	for (itrFire=fire.begin(); itrFire != fire.end() ; ++itrFire)
 	{
-		int x_fire = (*itrFire)->GetX();
-		int y_fire = (*itrFire)->GetY();
-		int rx_fire = (*itrFire)->GetRX();
-		int dy_fire = (*itrFire)->GetDY();
-
-		for (itrHardBlock = hardBlock.begin(); itrHardBlock != hardBlock.end(); ++itrHardBlock)
+		for(int k=1; k<=4; ++k)//kは初期位置(中心の火のすぐ隣の火); kは4本の爆風を回る
 		{
-			int x_hblock = (*itrHardBlock)->GetX();
-			int y_hblock = (*itrHardBlock)->GetY();
-			int rx_hblock = (*itrHardBlock)->GetRX();
-			int dy_hblock = (*itrHardBlock)->GetDY();
-
-			if((*itrFire)->GetExplosion() == 1)
+			for (int i = 0, fireSize=((*itrFire)->GetSize()-1)/4; i < fireSize; ++i)
 			{
-				if(x_hblock+degreeOfHit < rx_fire && x_fire < rx_hblock-degreeOfHit && y_hblock+degreeOfHit < dy_fire && y_fire < dy_hblock-degreeOfHit)
+				if((*itrFire)->GetFlag(k+4*i) == 1)
 				{
-					(*itrFire)->SetExplosion(0);
+					int x_fire = (*itrFire)->GetX(k+4*i);
+					int y_fire = (*itrFire)->GetY(k+4*i);
+			
+					for (itrHardBlock = hardBlock.begin(); itrHardBlock != hardBlock.end(); ++itrHardBlock)
+					{
+						int x_hblock = (*itrHardBlock)->GetX();
+						int y_hblock = (*itrHardBlock)->GetY();
+			
+						if(CheckOneUponAnother(x_hblock,y_hblock,x_fire,y_fire) == 1)
+						{
+							(*itrFire)->SetFlag(k+4*i, 0);
+							//一つでも当たったので、
+							if(i+1 <= fireSize)//次のマスにまだ火があったら
+							{
+								for (i++; i< fireSize; ++i)//それ以降すべて消す
+								{
+									(*itrFire)->SetFlag(k+4*i, 0);
+								}
+							}
+							break;//ここでbreakすれば、上で　i　をマックスまでループしてしまったので
+						}			   //最初のiのループも勝手に抜けられる
+					}
 				}
 			}
 		}
-		
 	}
 }
 
