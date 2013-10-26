@@ -27,14 +27,14 @@ ExplosionManager::ExplosionManager():
 	Explosion *right = new Explosion(0,1,0,0,0);
 
 	//中心をCollisionに登録
-	Collision::GetInstance()->RegisterWithFire(center);
+	//Collision::GetInstance()->RegisterWithFire(center);
 
 	//初期火力レベル、中心とその周り一マス
 	vex.push_back(center);//中心
-	center->SetNext(up);
-	center->SetNext(down);
-	center->SetNext(left);
-	center->SetNext(right);
+	//center->SetNext(up);
+	//center->SetNext(down);
+	//center->SetNext(left);
+	//center->SetNext(right);
 
 	vex.push_back(up);
 	vex.push_back(down);
@@ -62,13 +62,13 @@ void ExplosionManager::FireUp()
 	Explosion *left =		new Explosion(0,0,nowFireLevel,0,0);
 	Explosion *right =	new Explosion(0,nowFireLevel,0,0,0);
 	vex.push_back(up);
-	vex[1+(nowFireLevel-1)*4]->SetNext(up);
+	//vex[1+(nowFireLevel-1)*4]->SetNext(up);
 	vex.push_back(down);
-	vex[2+(nowFireLevel-1)*4]->SetNext(down);
+	//vex[2+(nowFireLevel-1)*4]->SetNext(down);
 	vex.push_back(left);
-	vex[3+(nowFireLevel-1)*4]->SetNext(left);
+	//vex[3+(nowFireLevel-1)*4]->SetNext(left);
 	vex.push_back(right);
-	vex[4+(nowFireLevel-1)*4]->SetNext(right);
+	//vex[4+(nowFireLevel-1)*4]->SetNext(right);
 }
 
 void ExplosionManager::Set(int x, int y)
@@ -286,4 +286,39 @@ void ExplosionManager::Register(void)
 		else if(vex[i]->GetExplosion() == 1)
 			MapState::GetInstance()->SetFireState(vex[i]->GetX(), vex[i]->GetY(), 1);
 	}
+}
+
+int ExplosionManager::GetX(int i)const
+{
+	return vex[i]->GetX();
+}
+
+int ExplosionManager::GetRX(int i)const
+{
+	return vex[i]->GetRX();
+}
+
+int ExplosionManager::GetY(int i)const
+{
+	return vex[i]->GetY();
+}
+
+int ExplosionManager::GetDY(int i)const
+{
+	return vex[i]->GetDY();
+}
+
+int ExplosionManager::GetFlag(int i)const
+{
+	return vex[i]->GetFlag();
+}
+
+int ExplosionManager::GetSize()const
+{
+	return vex.size();
+}
+
+void ExplosionManager::SetFlag(int i, int flag)
+{
+	vex[i]->SetFlag(flag);
 }

@@ -7,6 +7,7 @@
 #include "ItemManager.h"
 #include "Bomb.h"
 #include "MapState.h"
+#include "Collision.h"
 #include "DxLib.h"
 
 
@@ -14,7 +15,9 @@ BlastManager::BlastManager(void):
 	blast(0),
 	nowBlastNum(1)
 {
-	blast.push_back(new ExplosionManager);
+	ExplosionManager *em = new ExplosionManager;
+	blast.push_back(em);
+	Collision::GetInstance()->RegisterWithFire(em);
 }
 
 BlastManager::~BlastManager(void)
@@ -36,8 +39,11 @@ void BlastManager::FireLevelUp()
 
 void BlastManager::Add()
 {
-		blast.push_back(new ExplosionManager);
-		++this->nowBlastNum;
+	ExplosionManager *em = new ExplosionManager;
+	blast.push_back(em);
+	Collision::GetInstance()->RegisterWithFire(em);
+	//blast.push_back(new ExplosionManager);
+	++this->nowBlastNum;
 }
 
 void BlastManager::Set(int index, int x, int y)

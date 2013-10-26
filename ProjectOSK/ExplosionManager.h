@@ -22,6 +22,13 @@ private:
 	static const int displayingTime = 200; 
 	int fireImage;
 public:
+	int GetX(int i)const;
+	int GetRX(int i)const;
+	int GetY(int i)const;
+	int GetDY(int i)const;
+	int GetFlag(int i)const;
+	void SetFlag(int i, int flag);
+	int GetSize()const;
 	//void SetExplosion(const BombManager &bombManager);
 	void FireUp();	
 	void Set(int x, int y);

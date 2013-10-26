@@ -33,7 +33,7 @@ public:
 	int GetExplosion();
 	void SetFuse(int flag);
 	void SetExplosion(int flag);
-	void SetNext(Explosion *nextFire);
-	Explosion* GetNext();
+	//void SetNext(Explosion *nextFire);
+	//Explosion* GetNext();
 };
 

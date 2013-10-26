@@ -107,7 +107,7 @@ int Explosion::GetExplosion()
 	return explosion;
 }
 
-void Explosion::SetNext(Explosion *next)
-{
-	nextFire.push_back(next);
-}
+//void Explosion::SetNext(Explosion *next)
+//{
+//	nextFire.push_back(next);
+//}
