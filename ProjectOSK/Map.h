@@ -9,6 +9,8 @@ class Map
 	:public IDrawable,
 	public IRegister
 {
+public:
+	enum{FLOOR, HARDBLOCK, SOFTBLOCK};
 private:
 	int floor;
 	int hardBlock;

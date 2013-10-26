@@ -8,6 +8,7 @@
 #include "BombManager.h"
 #include "Item.h"
 #include "MapState.h"
+#include "Collision.h"
 #include "DxLib.h"
 
 ExplosionManager::ExplosionManager():
@@ -19,12 +20,26 @@ ExplosionManager::ExplosionManager():
 	fireImage(LoadGraph("fire.bmp")),
 	beforeExplosion()
 {
+	Explosion *center = new Explosion(1,0,0,0,0);
+	Explosion *up = new Explosion(0,0,0,0,1);
+	Explosion *down = new Explosion(0,0,0,1,0);
+	Explosion *left = new Explosion(0,0,1,0,0);
+	Explosion *right = new Explosion(0,1,0,0,0);
+
+	//中心をCollisionに登録
+	Collision::GetInstance()->RegisterWithFire(center);
+
 	//初期火力レベル、中心とその周り一マス
-	vex.push_back(new Explosion(0,0,0,0));
-	vex.push_back(new Explosion(1,0,0,0));
-	vex.push_back(new Explosion(0,1,0,0));
-	vex.push_back(new Explosion(0,0,1,0));
-	vex.push_back(new Explosion(0,0,0,1));
+	vex.push_back(center);//中心
+	center->SetNext(up);
+	center->SetNext(down);
+	center->SetNext(left);
+	center->SetNext(right);
+
+	vex.push_back(up);
+	vex.push_back(down);
+	vex.push_back(left);
+	vex.push_back(right);
 }
 
 ExplosionManager::~ExplosionManager(void)
@@ -38,14 +53,22 @@ ExplosionManager::~ExplosionManager(void)
 
 void ExplosionManager::FireUp()
 {
-		++addFireNum;
-		++nowFireLevel;//次増やすときは、一個隣に増やす
+	++addFireNum;
+	++nowFireLevel;//次増やすときは、一個隣に増やす
 
-		//一度に4枚増やす(四方に広がるから)
-		vex.push_back(new Explosion(nowFireLevel,0,0,0));
-		vex.push_back(new Explosion(0,nowFireLevel,0,0));
-		vex.push_back(new Explosion(0,0,nowFireLevel,0));
-		vex.push_back(new Explosion(0,0,0,nowFireLevel));
+	//一度に4枚増やす(四方に広がるから)
+	Explosion *up =		new Explosion(0,0,0,0,nowFireLevel);
+	Explosion *down =	new Explosion(0,0,0,nowFireLevel,0);
+	Explosion *left =		new Explosion(0,0,nowFireLevel,0,0);
+	Explosion *right =	new Explosion(0,nowFireLevel,0,0,0);
+	vex.push_back(up);
+	vex[1+(nowFireLevel-1)*4]->SetNext(up);
+	vex.push_back(down);
+	vex[2+(nowFireLevel-1)*4]->SetNext(down);
+	vex.push_back(left);
+	vex[3+(nowFireLevel-1)*4]->SetNext(left);
+	vex.push_back(right);
+	vex[4+(nowFireLevel-1)*4]->SetNext(right);
 }
 
 void ExplosionManager::Set(int x, int y)

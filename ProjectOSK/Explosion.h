@@ -1,5 +1,6 @@
 #pragma once
 #include "MapObject.h"
+#include <list>
 
 class Timer;
 class Bomb;
@@ -17,9 +18,11 @@ private:
 	Timer *time;
 	int fuse;
 	int explosion;
+	const int isCenter;
+	std::list<Explosion*> nextFire;
 
 public:
-	Explosion(int upx,int downx,int upy,int downy);
+	Explosion(int center, int right,int left,int down,int up);
 	~Explosion(void);
 
 	void Set(int x, int y);
@@ -30,5 +33,7 @@ public:
 	int GetExplosion();
 	void SetFuse(int flag);
 	void SetExplosion(int flag);
+	void SetNext(Explosion *nextFire);
+	Explosion* GetNext();
 };
 

@@ -50,7 +50,7 @@ Map::Map(void):
 		{
 			map[i][j].SetX(j * 32);
 			map[i][j].SetY(i * 32);
-			if(map[i][j].GetId() != 0)
+			if(map[i][j].GetId() != FLOOR)
 				map[i][j].SetFlag(1);
 		}
 	}
@@ -76,9 +76,9 @@ void Map::Draw()
 	{
 		for(int j=0; j<MAPSIZE_X; j++)
 		{
-			if(map[i][j].GetId() == 1)
+			if(map[i][j].GetId() == HARDBLOCK)
 				DrawGraph(map[i][j].GetX(), map[i][j].GetY(), hardBlock, FALSE);
-			else if(map[i][j].GetId() == 2)
+			else if(map[i][j].GetId() == SOFTBLOCK)
 			{
 				if(map[i][j].GetFlag() == 1)
 					DrawGraph(map[i][j].GetX(), map[i][j].GetY(), softBlock, FALSE);

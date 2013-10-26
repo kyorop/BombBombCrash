@@ -10,15 +10,17 @@
 #define DHIT 6
 
 //コンストラクタ
-Explosion::Explosion(int upx,int downx,int upy,int downy):
+Explosion::Explosion(int center, int right,int left,int down,int up):
 	graph( LoadGraph("fire.bmp") ), 
-	upx(upx), 
-	downx(downx),
-	upy(upy),
-	downy(downy),
+	upx(right), 
+	downx(left),
+	upy(down),
+	downy(up),
 	time(new Timer),
 	fuse(0),
-	explosion(0)
+	explosion(0),
+	isCenter(center),
+	nextFire()
 {
 }
 
@@ -103,4 +105,9 @@ void Explosion::SetExplosion(int flag)
 int Explosion::GetExplosion()
 {
 	return explosion;
+}
+
+void Explosion::SetNext(Explosion *next)
+{
+	nextFire.push_back(next);
 }

@@ -4,15 +4,20 @@
 #include "EnemyBomb.h"
 #include "MapObstacle.h"
 #include "Player.h"
+#include "MapObject.h"
+#include "Map.h"
 #include "DxLib.h"
-#include <typeinfo>
+#include "Explosion.h"
+#include <typeinfo.h>
 
 Collision::Collision(void)
 	:disableGoingThrough(),
 	bomb(),
 	character(),
-	block(),
-	map()
+	softBlock(),
+	hardBlock(),
+	map(),
+	fire()
 {
 }
 
@@ -26,42 +31,39 @@ Collision* Collision::GetInstance()
 	return &collision;
 }
 
-//void Collision::RegisterWithBomb(ICollisionable *pBomb)
-//{
-//	bomb.push_back(pBomb);
-//}
-//
-//void Collision::RegisterWithCharactor(ICollisionable *pCharacter)
-//{
-//	character.push_back(pCharacter);
-//}
-
 void Collision::Register(ICollisionable *anythingCollisionable)
 {
-	if(typeid(anythingCollisionable) == typeid(Player))
+	const type_info &type = typeid( *anythingCollisionable );
+
+	if( type == typeid(Player) )
 	{
 		character.push_back(anythingCollisionable);
 	}
-	else if( typeid(anythingCollisionable) == typeid(PlayerBomb) || typeid(anythingCollisionable) == typeid(EnemyBomb) )
+	else if( type  == typeid(PlayerBomb) || typeid(anythingCollisionable) == typeid(EnemyBomb) )
 	{
 		disableGoingThrough.push_back(anythingCollisionable);
 	}
-	else if(typeid(anythingCollisionable) == typeid(MapObstacle))
+	else if( type == typeid(MapObstacle) )
 	{
-		disableGoingThrough.push_back(anythingCollisionable);
-	}
-	else
-	{
-		disableGoingThrough.push_back(anythingCollisionable);
+		MapObstacle *map = dynamic_cast<MapObstacle*>(anythingCollisionable);
+		if(map->GetId() == Map::HARDBLOCK)
+		{
+			hardBlock.push_back(anythingCollisionable);
+			disableGoingThrough.push_back(anythingCollisionable);
+		}
+		else if(map->GetId() == Map::SOFTBLOCK)
+		{
+			softBlock.push_back(anythingCollisionable);
+		}
 	}
 }
 
-void Collision::RegiPlayer(ICollisionable *player)
+void Collision::RegisterWithFire(Explosion *fire)
 {
-	character.push_back(player);
+	this->fire.push_back(fire);
 }
 
-void Collision::CheckCollision()
+void Collision::CheckEnableToPass()
 {
 	for (int ic = 0,sizeChara=character.size(); ic < sizeChara; ++ic)
 	{
@@ -114,4 +116,39 @@ void Collision::CheckCollision()
 	}
 }
 
+void Collision::CheckCollisionWithFire()
+{
+	std::list<Explosion*>::iterator itrFire;
+	std::list<ICollisionable*>::iterator itrHardBlock;
+	
+	for (itrFire=fire.begin(); itrFire != fire.end() ; ++itrFire)
+	{
+		int x_fire = (*itrFire)->GetX();
+		int y_fire = (*itrFire)->GetY();
+		int rx_fire = (*itrFire)->GetRX();
+		int dy_fire = (*itrFire)->GetDY();
 
+		for (itrHardBlock = hardBlock.begin(); itrHardBlock != hardBlock.end(); ++itrHardBlock)
+		{
+			int x_hblock = (*itrHardBlock)->GetX();
+			int y_hblock = (*itrHardBlock)->GetY();
+			int rx_hblock = (*itrHardBlock)->GetRX();
+			int dy_hblock = (*itrHardBlock)->GetDY();
+
+			if((*itrFire)->GetExplosion() == 1)
+			{
+				if(x_hblock+degreeOfHit < rx_fire && x_fire < rx_hblock-degreeOfHit && y_hblock+degreeOfHit < dy_fire && y_fire < dy_hblock-degreeOfHit)
+				{
+					(*itrFire)->SetExplosion(0);
+				}
+			}
+		}
+		
+	}
+}
+
+void Collision::CheckCollision()
+{
+	CheckEnableToPass();
+	CheckCollisionWithFire();
+}

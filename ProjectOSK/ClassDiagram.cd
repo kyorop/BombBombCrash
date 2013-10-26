@@ -8,7 +8,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Avoid" Collapsed="true">
-    <Position X="30" Y="2" Width="1.5" />
+    <Position X="29.75" Y="9" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EAQABAAAAAAAAEAABAAAAgAIBAABAAAgACAAQAAAAAQ=</HashCode>
       <FileName>Avoid.h</FileName>
@@ -22,14 +22,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="StopRoute" Collapsed="true">
-    <Position X="25.5" Y="2" Width="1.5" />
+    <Position X="25.25" Y="9" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EAQABAAAAAAAAEAABAAAAgAABAAIAAAgACAAQAAAAAQ=</HashCode>
       <FileName>StopRoute.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Target" Collapsed="true">
-    <Position X="27.75" Y="2" Width="1.5" />
+    <Position X="27.5" Y="9" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EAQAAIAAAAgAAGAABAAAACAABEAAAAAgACAAQAAAAAQ=</HashCode>
       <FileName>Target.h</FileName>
@@ -57,7 +57,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="IRegister" Collapsed="true">
-    <Position X="13" Y="3" Width="1.5" />
+    <Position X="12" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IRegister.h</FileName>
@@ -71,7 +71,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Bomb" Collapsed="true">
-    <Position X="13" Y="8.75" Width="1.5" />
+    <Position X="10.25" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAABBAAAAAAAQIAABIAEAAAgAAAQQACAAAAAAAAEAEA=</HashCode>
       <FileName>Bomb.h</FileName>
@@ -85,7 +85,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="BlastManager" Collapsed="true">
-    <Position X="12.25" Y="7.25" Width="1.5" />
+    <Position X="15.25" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQIAAAAAAAggBgAAAAAAAAQAAAABAAAAAAAAAABEAAA=</HashCode>
       <FileName>BlastManager.h</FileName>
@@ -108,7 +108,7 @@
   <Class Name="Collision" Collapsed="true">
     <Position X="26.75" Y="10.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAIkAAAAICAAAAAAQCAAAAABAABAQCAAEEAAAAABAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Collision.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -127,7 +127,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="EnemyBomb" Collapsed="true">
-    <Position X="12" Y="10.25" Width="1.5" />
+    <Position X="9.25" Y="10" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAgAAAEAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>EnemyBomb.h</FileName>
@@ -162,7 +162,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="IDrawable" Collapsed="true">
-    <Position X="5.75" Y="3" Width="1.5" />
+    <Position X="6.25" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAQAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IDrawable.h</FileName>
@@ -204,21 +204,21 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Map" Collapsed="true">
-    <Position X="12.25" Y="4.25" Width="1.5" />
+    <Position X="17.75" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAEAAAABAQAgAAAAAIAAAAAAADAAAAAAAIAAAAAAA=</HashCode>
       <FileName>Map.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MapObject" Collapsed="true">
-    <Position X="8.75" Y="2.75" Width="2.5" />
+    <Position X="8.75" Y="2.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAEAAAAAACACAAYAAIAIAAAgAAEiAAAAYABgAAAAAAA=</HashCode>
       <FileName>MapObject.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MapObstacle" Collapsed="true">
-    <Position X="9.75" Y="6.25" Width="1.5" />
+    <Position X="10" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAIAAAAAQAAAAAAAAAAAAAAAAAAAIAggA=</HashCode>
       <FileName>MapObstacle.h</FileName>
@@ -232,14 +232,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="PlayerBomb" Collapsed="true">
-    <Position X="14.75" Y="10.25" Width="1.5" />
+    <Position X="12" Y="10" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAQAAAIAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>PlayerBomb.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Route" Collapsed="true">
-    <Position X="27.75" Y="0.75" Width="1.5" />
+    <Position X="27.5" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAEAABAAAAAAAACEAAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>Route.h</FileName>

@@ -27,7 +27,7 @@ Player::Player()
 	muki = DOWN;
 	flag =1;
 	animpat = 0;
-	Collision::GetInstance()->RegiPlayer(this);
+	Collision::GetInstance()->Register(this);
 }
 
 void Player::Draw()
