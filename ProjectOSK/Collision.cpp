@@ -9,6 +9,8 @@
 #include "DxLib.h"
 #include "Explosion.h"
 #include "ExplosionManager.h"
+#include "Item.h"
+#include "Charactor.h"
 #include <typeinfo.h>
 
 Collision::Collision(void)
@@ -18,7 +20,9 @@ Collision::Collision(void)
 	softBlock(),
 	hardBlock(),
 	map(),
-	fire()
+	fire(),
+	fragile(),
+	item()
 {
 }
 
@@ -39,10 +43,12 @@ void Collision::Register(ICollisionable *anythingCollisionable)
 	if( type == typeid(Player) )
 	{
 		character.push_back(anythingCollisionable);
+		fragile.push_back(anythingCollisionable);
 	}
 	else if( type  == typeid(PlayerBomb) || typeid(anythingCollisionable) == typeid(EnemyBomb) )
 	{
 		disableGoingThrough.push_back(anythingCollisionable);
+		fragile.push_back(anythingCollisionable);
 	}
 	else if( type == typeid(MapObstacle) )
 	{
@@ -56,6 +62,7 @@ void Collision::Register(ICollisionable *anythingCollisionable)
 		{
 			softBlock.push_back(anythingCollisionable);
 			disableGoingThrough.push_back(anythingCollisionable);
+			fragile.push_back(anythingCollisionable);
 		}
 	}
 }
@@ -63,6 +70,12 @@ void Collision::Register(ICollisionable *anythingCollisionable)
 void Collision::RegisterWithFire(ExplosionManager *fire)
 {
 	this->fire.push_back(fire);
+}
+
+void Collision::RegisterWithItem(Item *item)
+{
+	this->item.push_back(item);
+	fragile.push_back(item);
 }
 
 void Collision::CheckEnableToPass()
@@ -131,35 +144,39 @@ void Collision::CheckCollisionWithFire()
 	std::list<ExplosionManager*>::iterator itrFire;
 	std::list<ICollisionable*>::iterator itrHardBlock;
 	
+	//ある爆発を一つ抽出する
 	for (itrFire=fire.begin(); itrFire != fire.end() ; ++itrFire)
 	{
 		for(int k=1; k<=4; ++k)//kは初期位置(中心の火のすぐ隣の火); kは4本の爆風を回る
 		{
+			//下のループで,ある列の火すべてをループする
 			for (int i = 0, fireSize=((*itrFire)->GetSize()-1)/4; i < fireSize; ++i)
 			{
 				if((*itrFire)->GetFlag(k+4*i) == 1)
 				{
 					int x_fire = (*itrFire)->GetX(k+4*i);
 					int y_fire = (*itrFire)->GetY(k+4*i);
-			
+					
+					//ある一マスの火に対して、全てのハードブロックを回す
 					for (itrHardBlock = hardBlock.begin(); itrHardBlock != hardBlock.end(); ++itrHardBlock)
 					{
 						int x_hblock = (*itrHardBlock)->GetX();
 						int y_hblock = (*itrHardBlock)->GetY();
-			
+						
+						//ハードブロックと当ったら
 						if(CheckOneUponAnother(x_hblock,y_hblock,x_fire,y_fire) == 1)
 						{
 							(*itrFire)->SetFlag(k+4*i, 0);
-							//一つでも当たったので、
-							if(i+1 <= fireSize)//次のマスにまだ火があったら
+							
+							if(i+1 <= fireSize)//一つでも当たったので、次のマスにまだ火があったら
 							{
 								for (i++; i< fireSize; ++i)//それ以降すべて消す
 								{
 									(*itrFire)->SetFlag(k+4*i, 0);
 								}
 							}
-							break;//ここでbreakすれば、上で　i　をマックスまでループしてしまったので
-						}			   //最初のiのループも勝手に抜けられる
+							break;//ここでbreakすれば、上で i をマックスまでループしてしまったので
+						}			   //最初の i のループも勝手に抜けられる
 					}
 				}
 			}
@@ -167,8 +184,97 @@ void Collision::CheckCollisionWithFire()
 	}
 }
 
+void Collision::CheckCollisionFireAndFragile()
+{
+	std::list<ExplosionManager*>::iterator itrFire;
+	std::list<ICollisionable*>::iterator itrFragile;
+	
+	//ある爆発を一つ抽出する
+	for (itrFire=fire.begin(); itrFire != fire.end() ; ++itrFire)
+	{
+		for(int k=1; k<=4; ++k)//kは初期位置(中心の火のすぐ隣の火); kは4本の爆風を回る
+		{
+			//下のループで,ある列の火すべてをループする
+			for (int i = 0, fireSize=((*itrFire)->GetSize()-1)/4; i < fireSize; ++i)
+			{
+				if((*itrFire)->GetFlag(k+4*i) == 1)
+				{
+					int x_fire = (*itrFire)->GetX(k+4*i);
+					int y_fire = (*itrFire)->GetY(k+4*i);
+					
+					//ある一マスの火に対して、全てのハードブロックを回す
+					for (itrFragile = fragile.begin(); itrFragile != fragile.end(); ++itrFragile)
+					{
+						if((*itrFragile)->GetFlag() == 1)
+						{
+							int x_fragile = (*itrFragile)->GetX();
+							int y_fragile = (*itrFragile)->GetY();
+						
+							//ハードブロックと当ったら
+							if(CheckOneUponAnother(x_fragile,y_fragile,x_fire,y_fire) == 1)
+							{
+								(*itrFire)->SetFlag(k+4*i, 0);
+								(*itrFragile)->SetFlag(0);
+							
+								if(i+1 <= fireSize)//一つでも当たったので、次のマスにまだ火があったら
+								{
+									for (i++; i< fireSize; ++i)//それ以降すべて消す
+									{
+										(*itrFire)->SetFlag(k+4*i, 0);
+									}
+								}
+								break;//ここでbreakすれば、上で i をマックスまでループしてしまったので
+							}			   //最初の i のループも勝手に抜けられる
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+void Collision::CheckCollisionItemAndCharactor()
+{
+	std::vector<ICollisionable*>::iterator itrCharacter = character.begin();
+	for(itrCharacter; itrCharacter != character.end(); ++itrCharacter)
+	{
+		Charactor *chara = dynamic_cast<Charactor*>(*itrCharacter);
+		if(chara->GetFlag() == 1)
+		{
+			std::list<Item*>::iterator itrItem = item.begin();
+			for (itrItem; itrItem != item.end(); ++itrItem)
+			{
+				if((*itrItem)->GetFlag() == 1)
+				{
+					if(CheckOneUponAnother((*itrItem)->GetX(), (*itrItem)->GetY(), chara->GetX(), chara->GetY()))
+					{
+						switch ((*itrItem)->GetKind())
+						{
+						case Item::BOMB:
+							chara->AddBombNum();
+							break;
+						case Item::FIRE:
+							chara->AddFireLevel();
+							break;
+						case Item::SPEED:
+							chara->AddMV();
+							break;
+						default:
+							break;
+						}
+						(*itrItem)->SetFlag(0);
+					}
+				}
+			}
+		}
+	}
+
+}
+
 void Collision::CheckCollision()
 {
 	CheckEnableToPass();
 	CheckCollisionWithFire();
+	CheckCollisionFireAndFragile();
+	CheckCollisionItemAndCharactor();
 }

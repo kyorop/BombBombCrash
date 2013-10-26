@@ -10,9 +10,10 @@
 
 int Item::graph[KINDITEMNUM];
 
-Item::Item(void):
+Item::Item():
 	i_graph(GetRand(KINDITEMNUM-2)),
-	charactorHit(0)//何のアイテムを出すか決める
+	charactorHit(0),//何のアイテムを出すか決める
+	kind(GetRand(KINDITEMNUM-2))
 {
 	LoadDivGraph("itemup.bmp", 3, 3, 1, 32, 32, Item::graph, FALSE);
 	this->flag = 1;
@@ -43,6 +44,11 @@ void Item::Draw()
 int Item::GetKindGraph()
 {
 	return this->i_graph;
+}
+
+int Item::GetKind()const
+{
+	return kind;
 }
 
 int Item::GetCharactorHit()

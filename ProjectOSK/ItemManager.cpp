@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Charactor.h"
 #include "MapState.h"
+#include "Collision.h"
 #include "DxLib.h"
 #define FIRE 0
 #define BOMB 1
@@ -15,7 +16,9 @@ ItemManager::ItemManager(void):
 	for(int i=0; i<ITEMNUM; i++)
 	{
 		this->item[i] = new Item;
+		Collision::GetInstance()->RegisterWithItem(item[i]);
 	}
+
 }
 
 ItemManager::~ItemManager(void)
