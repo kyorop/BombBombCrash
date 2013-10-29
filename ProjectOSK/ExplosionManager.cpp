@@ -72,7 +72,7 @@ void ExplosionManager::Ready(int x, int y)
 
 void ExplosionManager::Update(const Bomb &bomb)
 {
-	if(bomb.GetFlag() == TRUE && explosion == 0)//爆弾が置かれたら、
+	if(bomb.GetFlag() == TRUE && explosion == 0 && fuse == 0)//爆弾が置かれたら、
 	{
 		fuse = TRUE;//導火線に火がつく
 		for(int i=0,size=vex.size(); i<size; ++i )

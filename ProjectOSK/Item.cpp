@@ -13,7 +13,7 @@ int Item::graph[KINDITEMNUM];
 Item::Item():
 	i_graph(GetRand(KINDITEMNUM-2)),
 	charactorHit(0),//何のアイテムを出すか決める
-	kind(GetRand(KINDITEMNUM-2))
+	kind(i_graph)
 {
 	LoadDivGraph("itemup.bmp", 3, 3, 1, 32, 32, Item::graph, FALSE);
 	this->flag = 1;

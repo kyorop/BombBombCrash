@@ -62,6 +62,6 @@ void CharacterSet::Draw()
 void CharacterSet::Update()
 {
 	UpdateNumber();
-	Set();
 	Move();
+	Set();
 }

@@ -20,24 +20,16 @@ BombSet::~BombSet(void)
 void BombSet::Set(int x, int y)
 {
 	if(bomb->GetFlag() == 0)
-	{
-		int x_center = (x + x+32) / 2;
-		int y_center = (y + y+32) / 2;
-		int i = y_center / 32;
-		int j = x_center / 32;
-		{
-			bomb->Set(x, y);
-		}
-	}
+		bomb->Set(x, y);
 }
 
 void BombSet::Update(void)
 {
 	bomb->Register();
 	explosion->Register();
-
-	explosion->Update(*bomb);
 	bomb->Maintain();
+	explosion->Update(*bomb);
+	
 }
 
 void BombSet::Draw(void)

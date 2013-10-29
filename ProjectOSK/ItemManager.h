@@ -1,7 +1,7 @@
 #pragma once
 #include "IDrawable.h"
 #include "IRegister.h"
-#define ITEMNUM 15
+#define ITEMNUM 9
 
 class Item;
 class Block;
