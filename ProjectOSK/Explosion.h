@@ -18,6 +18,7 @@ private:
 	Timer *time;
 	int fuse;
 	int explosion;
+	//HACK: ƒZƒ“ƒ^[‚Ì”p~
 	const int isCenter;
 	std::list<Explosion*> nextFire;
 

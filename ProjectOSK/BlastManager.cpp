@@ -29,8 +29,10 @@ BlastManager::~BlastManager(void)
 	}
 }
 
+// HACK 直す必要あり
 void BlastManager::FireLevelUp()
 {
+	//HACK: 火力アップがあったときちゃんと全ての火がアップするように直す必要あり
 	for(int i=0,size=blast.size(); i<size; ++i)
 	{
 		blast[i]->FireUp();
@@ -61,52 +63,6 @@ void BlastManager::Maintain()
 		blast[i]->Maintain();
 	}
 }
-
-//void BlastManager::CheckHitObject(MapObstacle *mapObstacle)
-//{
-//	for(int i=0,size=blast.size(); i<size; ++i)
-//	{
-//		blast[i]->CheckHitObject(mapObstacle);
-//	}
-//}
-//
-//void BlastManager::CheckHitCharactor(Charactor *charactor)
-//{
-//	for(int i=0,size=blast.size(); i<size; ++i)
-//	{
-//		blast[i]->CheckHitCharactor(charactor);
-//	}
-//}
-//
-//void BlastManager::CheckHitBomb(BombManager *bombManager)
-//{
-//	for(int i=0,size=blast.size(); i<size; ++i)
-//	{
-//		for(int j=0,sizebomb=bombManager->bomb.size(); j<sizebomb; ++j)
-//		{
-//			blast[i]->CheckHitBomb(bombManager->GetBombObject(j));
-//		}
-//	}
-//}
-//
-//void BlastManager::CheckHitItem(ItemManager *itemManager)
-//{
-//	for(int i=0,size=blast.size(); i<size; ++i)
-//	{
-//		for(int j=0; j<ITEMNUM; ++j)
-//		{
-//			blast[i]->CheckHitItem(itemManager->GetItemInstance(j));
-//		}
-//	}
-//}
-//
-//void BlastManager::CheckHit(MapObstacle *mapobstacle1, MapObstacle *mapobstacle2, Charactor *charactor, BombManager *bombManager, ItemManager *itemManager)
-//{
-//	for(int i=0,size=blast.size(); i<size; ++i)
-//	{
-//		blast[i]->CheckHit(mapobstacle1, mapobstacle2, charactor, bombManager,itemManager);
-//	}
-//}
 
 void BlastManager::Draw()
 {

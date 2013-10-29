@@ -2,23 +2,22 @@
 #include "MapObstacle.h"
 #include "IDrawable.h"
 #include "IRegister.h"
+#include "GameConstant.h"
 #define MAPSIZE_X 17
 #define MAPSIZE_Y 13
 
 class Charactor;
 class Block
-	:public MapObstacle,
-	public IDrawable,
+	:public IDrawable,
 	public IRegister
 {
 private:
-	int graph;
-
+	int image_softBlock;
+	MapObstacle block[GameConst::MAP_ROW][GameConst::MAP_LINE];
 public:
 	Block(void);
 	~Block(void);
-	
-	void CheckHit(Charactor *charactor);
+
 	void Register();
 	void Draw();
 };

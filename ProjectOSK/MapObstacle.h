@@ -7,6 +7,8 @@
 class MapObstacle
 	:public MapObject
 {
+public:
+	enum{FLOOR, HARDBLOCK, SOFTBLOCK};
 protected:
 	//int x[MAPSIZE_Y][MAPSIZE_X];
 	//int rx[MAPSIZE_Y][MAPSIZE_X];

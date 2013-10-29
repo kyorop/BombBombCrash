@@ -40,6 +40,9 @@
     <Filter Include="ソース ファイル\Bomb\ソースファイル">
       <UniqueIdentifier>{b9fb6436-23dd-4d0b-9e42-9ea0f3ba28d3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Map">
+      <UniqueIdentifier>{811da8c8-b229-4314-bf9c-2536e847e583}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -48,16 +51,10 @@
     <ClCompile Include="Player.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Explosion.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="ExplosionManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="MapObstacle.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Item.cpp">
@@ -138,8 +135,17 @@
     <ClCompile Include="Collision.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
     <ClCompile Include="GameField.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="MapObstacle.cpp">
+      <Filter>Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -156,12 +162,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="ItemManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="MapObstacle.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
@@ -251,8 +251,17 @@
     <ClInclude Include="ICollisionable.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Map</Filter>
+    </ClInclude>
     <ClInclude Include="GameField.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Block.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="MapObstacle.h">
+      <Filter>Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -48,6 +48,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		g_lasttime = curtime;
 		ClearDrawScreen();
 		//*********************************************
+		//ŒvŽZ
 		field.Update();
 		playerSet.Update();
 		Collision::GetInstance()->CheckCollision();
