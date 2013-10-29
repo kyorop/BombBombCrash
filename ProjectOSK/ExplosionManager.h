@@ -31,7 +31,8 @@ public:
 	int GetSize()const;
 	//void SetExplosion(const BombManager &bombManager);
 	void FireUp();	
-	void Set(int x, int y);
+	void Ready(int x, int y);
+	void Set();
 	void Maintain();
 	void Draw();
 	ExplosionManager();

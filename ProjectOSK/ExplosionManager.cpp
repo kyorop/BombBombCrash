@@ -20,11 +20,11 @@ ExplosionManager::ExplosionManager():
 	fireImage(LoadGraph("fire.bmp")),
 	beforeExplosion()
 {
-	Explosion *center = new Explosion(1,0,0,0,0);
-	Explosion *up = new Explosion(0,0,0,0,1);
-	Explosion *down = new Explosion(0,0,0,1,0);
-	Explosion *left = new Explosion(0,0,1,0,0);
-	Explosion *right = new Explosion(0,1,0,0,0);
+	Explosion *center = new Explosion(0,0,0,0);
+	Explosion *up = new Explosion(0,0,0,1);
+	Explosion *down = new Explosion(0,0,1,0);
+	Explosion *left = new Explosion(0,1,0,0);
+	Explosion *right = new Explosion(1,0,0,0);
 
 	//初期火力レベル、中心とその周り一マス
 	vex.push_back(center);//中心
@@ -49,21 +49,22 @@ void ExplosionManager::FireUp()
 	++nowFireLevel;//次増やすときは、一個隣に増やす
 
 	//一度に4枚増やす(四方に広がるから)
-	Explosion *up =		new Explosion(0,0,0,0,nowFireLevel);
-	Explosion *down =	new Explosion(0,0,0,nowFireLevel,0);
-	Explosion *left =		new Explosion(0,0,nowFireLevel,0,0);
-	Explosion *right =	new Explosion(0,nowFireLevel,0,0,0);
+	Explosion *up =		new Explosion(0,0,0,nowFireLevel);
+	Explosion *down =	new Explosion(0,0,nowFireLevel,0);
+	Explosion *left =		new Explosion(0,nowFireLevel,0,0);
+	Explosion *right =	new Explosion(nowFireLevel,0,0,0);
 	vex.push_back(up);
 	vex.push_back(down);
 	vex.push_back(left);
 	vex.push_back(right);
 }
 
-void ExplosionManager::Set(int x, int y)
+void ExplosionManager::Ready(int x, int y)
 {
 	if(explosion == 0)//爆弾が置かれたら、
 	{
 		fuse = TRUE;//導火線に火がつく
+		//すべての火タイルに座標を与える
 		for(int i=0,size=vex.size(); i<size; ++i )
 		{
 			vex[i]->Set(x, y);
@@ -71,21 +72,21 @@ void ExplosionManager::Set(int x, int y)
 	}
 }
 
-void ExplosionManager::Maintain()
+void ExplosionManager::Set()
 {
-	if(fuse == TRUE/* && bomb.GetFlag() == FALSE*/)//導火線に火がついたボムが消えたら
+	if(fuse == TRUE)//導火線に火がついたボムが消えたら
 	{
-		if(beforeExplosion.CountDown(timeBeforeExplosion) == 1)
+		fuse = FALSE;
+		explosion = TRUE;//爆発
+		for(int i=0,size=vex.size(); i<size; ++i )
 		{
-			this->fuse = FALSE;
-			this->explosion = TRUE;//爆発
-			for(int i=0,size=vex.size(); i<size; ++i )
-			{
-				vex[i]->SetExplosion(TRUE);
-			}
+			vex[i]->SetExplosion(TRUE);
 		}
 	}
+}
 
+void ExplosionManager::Maintain()
+{
 	if(this->explosion == TRUE)
 	{
 		if(retainFire.CountDown(displayingTime) == false)
@@ -112,18 +113,6 @@ void ExplosionManager::Draw()
 		}
 	}
 }
-
-/*
-void ExplosionManager::SetFlag(firestate flag)
-{
-	this->flag = flag;
-}
-
-firestate ExplosionManager::GetFlag()const
-{
-	return this->flag;
-}
-*/
 
 void ExplosionManager::Register(void)
 {

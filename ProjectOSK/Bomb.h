@@ -15,16 +15,15 @@ protected:
 	int count;
 	Key key;
 	Timer time;
+	int *const image_bomb;
 public:
 	Bomb();
 	virtual ~Bomb();
-
-	//void CheckHit(Charactor *charactor);
 	virtual void BombSet(int x, int y) = 0;
 	void MaintainBomb();
-	//int CheckBombExplosion();
 	void CheckBombOverlap(const Bomb & bomb);
 	virtual void SetFlag(int flag);
+	void Draw();
 public:
 	int GetFuse(void)const;
 	void SetFuse(int fuse);
