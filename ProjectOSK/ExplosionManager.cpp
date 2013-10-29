@@ -19,6 +19,7 @@ ExplosionManager::ExplosionManager():
 	fireImage(LoadGraph("fire.bmp")),
 	beforeExplosion()
 {
+	Collision::GetInstance()->RegisterWithFire(this);
 	Explosion *center = new Explosion(0,0,0,0);
 	Explosion *up = new Explosion(0,0,0,1);
 	Explosion *down = new Explosion(0,0,1,0);
@@ -88,27 +89,9 @@ void ExplosionManager::Update(const Bomb &bomb)
 		{
 			vex[i]->SetExplosion(TRUE);
 		}
-
-
- //       if(this->explosion == TRUE && bomb.GetFlag() == FALSE)//爆発したフレームのボムフラグはFALSEなので、爆発した後かつ爆発が終了する前に、ボムが置かれた時の爆風の座標の再取得を防げる
- //       {                                                                                          //爆発中にボムが置かれても座標の再取得が起こらないようにしている
-	//		for(int i=0,size=vex.size(); i<size; ++i )
-	//		{
-	//			vex[i]->Set(bomb.GetX(), bomb.GetY());
-	//		}
- //       }
 	}
 
 	Maintain();
-	//if(fuse == TRUE)//導火線に火がついたボムが消えたら
-	//{
-	//	fuse = FALSE;
-	//	explosion = TRUE;//爆発
-	//	for(int i=0,size=vex.size(); i<size; ++i )
-	//	{
-	//		vex[i]->SetExplosion(TRUE);
-	//	}
-	//}
 }
 
 void ExplosionManager::Maintain()

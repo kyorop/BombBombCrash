@@ -3,6 +3,7 @@
 #include "Bomb.h"
 #include "Charactor.h"
 #include "MapState.h"
+#include "Collision.h"
 #include "DxLib.h"
 #include <iostream>
 #define BOMBEXISTTIME 3000
@@ -20,6 +21,7 @@ Bomb::Bomb()
 	rx = x+32;
 	dy =y+32;
 	LoadDivGraph("bomb.png", 60, 6, 10, 32, 32, image_bomb, FALSE);
+	Collision::GetInstance()->Register(this);
 }
 
 Bomb::~Bomb()
