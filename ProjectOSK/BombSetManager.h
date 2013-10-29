@@ -16,5 +16,6 @@ public:
 	void Draw(void);
 	void UpNum(void);
 	void UpFireLevel(void);
+	void CheckBombOverlap(void);
 };
 

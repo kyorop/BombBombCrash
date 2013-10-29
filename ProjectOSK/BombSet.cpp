@@ -25,10 +25,8 @@ void BombSet::Set(int x, int y)
 		int y_center = (y + y+32) / 2;
 		int i = y_center / 32;
 		int j = x_center / 32;
-		if(MapState::GetInstance()->GetState(i, j, BOMB) == 0)
 		{
 			bomb->Set(x, y);
-			explosion->Ready(bomb->GetX(), bomb->GetY());
 		}
 	}
 }
@@ -37,14 +35,10 @@ void BombSet::Update(void)
 {
 	bomb->Register();
 	explosion->Register();
-	
-	bomb->Maintain();
-	explosion->Maintain();
-	
-	if(bomb->GetFlag() == 0)
-		explosion->Set();
-}
 
+	explosion->Update(*bomb);
+	bomb->Maintain();
+}
 
 void BombSet::Draw(void)
 {
@@ -52,8 +46,27 @@ void BombSet::Draw(void)
 	explosion->Draw();
 }
 
-
 void BombSet::UpFireLevel(void)
 {
 	explosion->FireUp();
+}
+
+int BombSet::GetBombX()const
+{
+	return bomb->GetX();
+}
+
+int BombSet::GetBombY()const
+{
+	return bomb->GetY();
+}
+
+int BombSet::GetFlag()const
+{
+	return bomb->GetFlag();
+}
+
+void BombSet::SetFlag(int flag)
+{
+	bomb->SetFlag(flag);
 }

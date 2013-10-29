@@ -18,7 +18,17 @@ void BombSetManager::Set(int x, int y)
 {
 	for(int i = 0, size = bombSet.size(); i < size; ++i)
 	{
-		bombSet[i]->Set(x, y);
+		for (int j = 0; j < size; j++)
+		{
+			bombSet[i]->Set(x, y);
+			if(i != j)
+			{
+				if(bombSet[j]->GetFlag() == 1 && bombSet[j]->GetBombX() == bombSet[i]->GetBombX() && bombSet[j]->GetBombY() == bombSet[i]->GetBombY())
+				{
+					bombSet[j]->SetFlag(0);
+				}
+			}
+		}
 	}
 }
 
@@ -58,4 +68,9 @@ void BombSetManager::UpFireLevel(void)
 		bombSet[i]->UpFireLevel();
 	}
 	++num_upFireLevel;
+}
+
+
+void BombSetManager::CheckBombOverlap(void)
+{
 }

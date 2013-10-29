@@ -16,5 +16,9 @@ public:
 	void Update(void);
 	void Draw(void);
 	void UpFireLevel(void);
+	int GetBombX()const;
+	int GetBombY()const;
+	int GetFlag()const;
+	void SetFlag(int flag);
 };
 

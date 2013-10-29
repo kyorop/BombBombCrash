@@ -69,17 +69,46 @@ void ExplosionManager::Ready(int x, int y)
 	}
 }
 
-void ExplosionManager::Set()
+void ExplosionManager::Update(const Bomb &bomb)
 {
-	if(fuse == TRUE)//導火線に火がついたボムが消えたら
+	if(bomb.GetFlag() == TRUE && explosion == 0)//爆弾が置かれたら、
 	{
-		fuse = FALSE;
-		explosion = TRUE;//爆発
+		fuse = TRUE;//導火線に火がつく
 		for(int i=0,size=vex.size(); i<size; ++i )
+		{
+			vex[i]->Set(bomb.GetX(), bomb.GetY());
+		}
+	}
+
+	if(fuse == TRUE && bomb.GetFlag() == FALSE)//導火線に火がついたボムが消えたら
+	{
+		 fuse = FALSE;
+		 explosion = TRUE;//爆発
+		 for(int i=0,size=vex.size(); i<size; ++i )
 		{
 			vex[i]->SetExplosion(TRUE);
 		}
+
+
+ //       if(this->explosion == TRUE && bomb.GetFlag() == FALSE)//爆発したフレームのボムフラグはFALSEなので、爆発した後かつ爆発が終了する前に、ボムが置かれた時の爆風の座標の再取得を防げる
+ //       {                                                                                          //爆発中にボムが置かれても座標の再取得が起こらないようにしている
+	//		for(int i=0,size=vex.size(); i<size; ++i )
+	//		{
+	//			vex[i]->Set(bomb.GetX(), bomb.GetY());
+	//		}
+ //       }
 	}
+
+	Maintain();
+	//if(fuse == TRUE)//導火線に火がついたボムが消えたら
+	//{
+	//	fuse = FALSE;
+	//	explosion = TRUE;//爆発
+	//	for(int i=0,size=vex.size(); i<size; ++i )
+	//	{
+	//		vex[i]->SetExplosion(TRUE);
+	//	}
+	//}
 }
 
 void ExplosionManager::Maintain()
@@ -153,4 +182,9 @@ int ExplosionManager::GetSize()const
 void ExplosionManager::SetFlag(int i, int flag)
 {
 	vex[i]->SetExplosion(flag);
+}
+
+int ExplosionManager::GetExplosion(void)
+{
+	return explosion;
 }

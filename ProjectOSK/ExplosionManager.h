@@ -30,7 +30,7 @@ public:
 	//void SetExplosion(const BombManager &bombManager);
 	void FireUp();	
 	void Ready(int x, int y);
-	void Set();
+	void Update(const Bomb &bomb);
 	void Maintain();
 	void Draw();
 	ExplosionManager();
@@ -40,5 +40,6 @@ std::vector<Explosion*> vex;
 
 void SetFuse(int flag);
 void Register(void);
+int GetExplosion(void);
 };
 
