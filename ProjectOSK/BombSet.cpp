@@ -3,8 +3,8 @@
 #include "ExplosionManager.h"
 #include "MapState.h"
 
-BombSet::BombSet(Bomb *bomb)
-	:bomb(bomb),
+BombSet::BombSet()
+	:bomb(new Bomb),
 	explosion(new ExplosionManager)
 {
 }
@@ -16,38 +16,44 @@ BombSet::~BombSet(void)
 	delete explosion;
 }
 
-void BombSet::Register()
-{
-	if(bomb->GetFlag() == 0)
-		MapState::GetInstance()->SetBombState(bomb->GetX(), bomb->GetY(), 0);
-	else
-	{
-		MapState::GetInstance()->SetBombState(bomb->GetX(), bomb[i]->GetY(), 1);
-		//MapState::GetInstance()->SetBombState(bomb[i]->GetX(), bomb[i]->GetY(), chara.GetFireLevel(), TRUE);
-	}
-
-	explosion->Register();
-}
 
 void BombSet::Set(int x, int y)
 {
-	bomb->BombSet(x, y);
-	if(bomb->GetFlag() == 1)
-		explosion->Ready(bomb->GetX(), bomb->GetY());
-	else
-		explosion->Set();
+	if(bomb->GetFlag() == 0)
+	{
+		int x_center = (x + x+32) / 2;
+		int y_center = (y + y+32) / 2;
+		int i = y_center / 32;
+		int j = x_center / 32;
+		if(MapState::GetInstance()->GetState(i, j, BOMB) == 0)
+		{
+			bomb->Set(x, y);
+			explosion->Ready(bomb->GetX(), bomb->GetY());
+		}
+	}
 }
-
 
 void BombSet::Update(void)
 {
-	Register();
-	bomb->MaintainBomb();
+	bomb->Register();
+	explosion->Register();
+	
+	bomb->Maintain();
 	explosion->Maintain();
+	
+	if(bomb->GetFlag() == 0)
+		explosion->Set();
 }
 
 
 void BombSet::Draw(void)
 {
+	bomb->Draw();
 	explosion->Draw();
+}
+
+
+void BombSet::UpFireLevel(void)
+{
+	explosion->FireUp();
 }

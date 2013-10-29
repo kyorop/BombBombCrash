@@ -86,11 +86,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BlastManager.cpp" />
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="Bomb.cpp" />
-    <ClCompile Include="BombManager.cpp" />
     <ClCompile Include="BombSet.cpp" />
+    <ClCompile Include="BombSetManager.cpp" />
     <ClCompile Include="CharacterSet.cpp" />
     <ClCompile Include="Charactor.cpp" />
     <ClCompile Include="Collision.cpp" />
@@ -99,7 +98,6 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyAI.cpp" />
     <ClCompile Include="EnemyBomb.cpp" />
-    <ClCompile Include="EnemyBombManager.cpp" />
     <ClCompile Include="Avoid.cpp" />
     <ClCompile Include="GameField.cpp" />
     <ClCompile Include="Graph.cpp" />
@@ -123,11 +121,10 @@
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BlastManager.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="Bomb.h" />
-    <ClInclude Include="BombManager.h" />
     <ClInclude Include="BombSet.h" />
+    <ClInclude Include="BombSetManager.h" />
     <ClInclude Include="CharacterSet.h" />
     <ClInclude Include="Charactor.h" />
     <ClInclude Include="Collision.h" />
@@ -136,7 +133,6 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyAI.h" />
     <ClInclude Include="EnemyBomb.h" />
-    <ClInclude Include="EnemyBombManager.h" />
     <ClInclude Include="Avoid.h" />
     <ClInclude Include="GameConstant.h" />
     <ClInclude Include="GameField.h" />

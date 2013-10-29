@@ -14,7 +14,6 @@
 ExplosionManager::ExplosionManager():
 	fuse(0),
 	explosion(0),
-	addFireNum(1),
 	nowFireLevel(1),
 	vex(),
 	fireImage(LoadGraph("fire.bmp")),
@@ -45,7 +44,6 @@ ExplosionManager::~ExplosionManager(void)
 
 void ExplosionManager::FireUp()
 {
-	++addFireNum;
 	++nowFireLevel;//次増やすときは、一個隣に増やす
 
 	//一度に4枚増やす(四方に広がるから)
@@ -61,11 +59,10 @@ void ExplosionManager::FireUp()
 
 void ExplosionManager::Ready(int x, int y)
 {
-	if(explosion == 0)//爆弾が置かれたら、
+	if(explosion == 0 && fuse == 0)//爆弾が置かれたら、
 	{
 		fuse = TRUE;//導火線に火がつく
-		//すべての火タイルに座標を与える
-		for(int i=0,size=vex.size(); i<size; ++i )
+		for(int i=0,size=vex.size(); i<size; ++i )//すべての火タイルに座標を与える
 		{
 			vex[i]->Set(x, y);
 		}
@@ -87,13 +84,11 @@ void ExplosionManager::Set()
 
 void ExplosionManager::Maintain()
 {
-	if(this->explosion == TRUE)
+	if(explosion == TRUE)
 	{
-		if(retainFire.CountDown(displayingTime) == false)
-			this->explosion = TRUE;
-		else
+		if(retainFire.CountDown(displayingTime) == true)
 		{
-			this->explosion = FALSE;
+			explosion = FALSE;
 			for(int i=0,size=vex.size(); i<size; i++ )
 			{
 				vex[i]->SetExplosion(FALSE);

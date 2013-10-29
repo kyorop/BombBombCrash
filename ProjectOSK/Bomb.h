@@ -10,24 +10,18 @@ class Charactor;
 class Bomb
 	:public MapObject
 {
-	friend class Explosion;
 protected:
 	int count;
-	Key key;
 	Timer time;
-	int *const image_bomb;
+	static int image_bomb[60];
 public:
 	Bomb();
 	virtual ~Bomb();
-	virtual void BombSet(int x, int y) = 0;
-	void MaintainBomb();
+	void Set(int x, int y);
+	void Maintain();
 	void CheckBombOverlap(const Bomb & bomb);
-	virtual void SetFlag(int flag);
+	void SetFlag(int flag) override;
+	void Register();
 	void Draw();
-public:
-	int GetFuse(void)const;
-	void SetFuse(int fuse);
-	int GetExplosion(void)const;
-	void SetExplosion(int explosion);
 };
 

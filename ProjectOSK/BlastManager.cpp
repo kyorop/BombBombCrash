@@ -56,7 +56,7 @@ void BlastManager::Set(int index, int x, int y)
 {
 	//for(int i=0,size=blast.size(); i<size; ++i)
 	//{
-		blast[index]->Set(x, y);
+		//blast[index]->Set(x, y);
 	//}
 }
 

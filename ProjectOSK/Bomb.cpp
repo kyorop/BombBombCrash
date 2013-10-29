@@ -2,26 +2,46 @@
 #include "Map.h"
 #include "Bomb.h"
 #include "Charactor.h"
+#include "MapState.h"
 #include "DxLib.h"
 #include <iostream>
 #define BOMBEXISTTIME 3000
 #define DHIT 5
 #define KBHABA 16
 
+int Bomb::image_bomb[60];
+
 //コンストラクタ
 Bomb::Bomb()
 {
-	this->count=0;
-	this->flag = 0;
-	this->x = 0;
-	this->y = 0;
-	this->rx = this->x+32;
-	this->dy = this->y+32;
+	flag = 0;
+	x = 0;
+	y = 0;
+	rx = x+32;
+	dy =y+32;
+	LoadDivGraph("bomb.png", 60, 6, 10, 32, 32, image_bomb, FALSE);
 }
 
 Bomb::~Bomb()
 {
 }
+
+void Bomb::Set(int x, int y)
+{
+	if(flag == 0 )
+	{
+		//プレイヤーの重心のいるマス
+		int xMasuNum = (x + x + 32) / 2 / 32;//左から何マス目か
+		int yMasuNum = (y + y + 32) / 2 / 32;//上から何マス目か
+		
+		this->x = 32 * xMasuNum;
+		this->y = 32 * yMasuNum;
+		this->rx = this->x+32;
+		this->dy = this->y+32;
+		flag = 1;
+	}
+}
+
 
 void Bomb::CheckBombOverlap(const Bomb &bomb)
 {
@@ -32,18 +52,14 @@ void Bomb::CheckBombOverlap(const Bomb &bomb)
 }
 
 
-void Bomb::MaintainBomb()
+void Bomb::Maintain()
 {	
-	if(this->flag == 0)
-	{
+	if(flag == 0)
 		time.TurnReset();
-	}
 	else
 	{
-		if(this->time.CountDown(BOMBEXISTTIME) == true)//三秒たったら
-		{
-			this->flag = 0;
-		}
+		if(time.CountDown(BOMBEXISTTIME) == true)//三秒たったら
+			flag = 0;
 	}
 }
 
@@ -52,7 +68,24 @@ void Bomb::SetFlag(int flag)
 {
 	this->flag = flag;
 	if(flag == FALSE)
-	{
 		this->time.TurnReset();
+}
+
+
+void Bomb::Draw()
+{
+	if(flag == 1)
+	{
+		SetTransColor(255,255,255);
+		DrawGraph(x, y, image_bomb[0], TRUE);
 	}
+}
+
+
+void Bomb::Register()
+{
+	if(flag == 0)
+		MapState::GetInstance()->SetBombState(x, y, 0);
+	else
+		MapState::GetInstance()->SetBombState(x, y, 1);
 }

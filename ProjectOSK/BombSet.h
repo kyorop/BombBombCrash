@@ -9,13 +9,12 @@ class BombSet
 private:
 	Bomb *const bomb;
 	ExplosionManager *const explosion;
-private:
-	void Register();
 public:
-	BombSet(Bomb *bomb);
+	BombSet();
 	~BombSet(void);
 	void Set(int x, int y);
 	void Update(void);
 	void Draw(void);
+	void UpFireLevel(void);
 };
 

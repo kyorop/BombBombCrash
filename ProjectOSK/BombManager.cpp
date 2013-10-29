@@ -30,7 +30,7 @@ void BombManager::BombSet(int x, int y)
 {
 	for(int i=0, size=bomb.size(); i<size; ++i)
 	{
-		bomb[i]->BombSet(x, y);
+		bomb[i]->Set(x, y);
 		for(int j=0,size=bomb.size(); j<size; ++j)
 		{
 			if( i != j )
@@ -49,7 +49,7 @@ void BombManager::MaintainBomb()
 		{
 			//if(bomb[i]->GetFlag()==TRUE)
 			//{
-				bomb[i]->MaintainBomb();
+				bomb[i]->Maintain();
 				//if(bomb[i]->GetFlag()==FALSE)
 					//break;
 			//}

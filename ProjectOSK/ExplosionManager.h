@@ -12,13 +12,11 @@ class Item;
 class ExplosionManager
 {
 private:
-	int addFireNum;
 	int nowFireLevel;
 	int fuse;
 	int explosion;
 	Timer retainFire;
 	Timer beforeExplosion;
-	static const int timeBeforeExplosion = 3000;
 	static const int displayingTime = 200; 
 	int fireImage;
 public:
