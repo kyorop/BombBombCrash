@@ -13,7 +13,7 @@
 
 BlastManager::BlastManager(void):
 	blast(0),
-	nowBlastNum(1)
+	num_levelUp(0)
 {
 	ExplosionManager *em = new ExplosionManager;
 	blast.push_back(em);
@@ -29,23 +29,27 @@ BlastManager::~BlastManager(void)
 	}
 }
 
-// HACK 直す必要あり
 void BlastManager::FireLevelUp()
 {
-	//HACK: 火力アップがあったときちゃんと全ての火がアップするように直す必要あり
 	for(int i=0,size=blast.size(); i<size; ++i)
 	{
 		blast[i]->FireUp();
 	}
+
+	++num_levelUp;
 }
 
 void BlastManager::Add()
 {
 	ExplosionManager *em = new ExplosionManager;
 	blast.push_back(em);
-	Collision::GetInstance()->RegisterWithFire(em);
-	//blast.push_back(new ExplosionManager);
-	++this->nowBlastNum;
+	//今まで火力を上げた分だけ火力を上げる
+	for (int i = 0; i < num_levelUp; ++i	)
+	{
+		em->FireUp();
+	}
+
+	Collision::GetInstance()->RegisterWithFire(em);	
 }
 
 void BlastManager::Set(int index, int x, int y)

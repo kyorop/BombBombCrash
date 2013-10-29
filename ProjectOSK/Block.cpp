@@ -54,13 +54,13 @@ Block::Block(void)
 	}
 
 	//CollisionƒNƒ‰ƒX‚Ö‚Ì“o˜^
-	for(int i=0; i<MAPSIZE_Y; ++i)
-	{
-		for(int j=0; j<MAPSIZE_X; ++j)
-		{
-			Collision::GetInstance()->Register(&block[i][j]);
-		}
-	}
+	//for(int i=0; i<MAPSIZE_Y; ++i)
+	//{
+	//	for(int j=0; j<MAPSIZE_X; ++j)
+	//	{
+	//		Collision::GetInstance()->Register(&block[i][j]);
+	//	}
+	//}
 }
 
 Block::~Block(void)

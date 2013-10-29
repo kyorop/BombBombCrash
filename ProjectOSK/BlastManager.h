@@ -14,7 +14,8 @@ class BlastManager:
 	virtual public IDrawable, virtual public IRegister
 {
 private:
-	int nowBlastNum;
+	//”š”­‚ğ•¡»‚µ‚½‚Æ‚«‚É‰Î—Í‚ğŒ»ó‚Æ“¯‚¶‚É‚·‚é‚½‚ß‚ÌƒJƒEƒ“ƒ^
+	int num_levelUp;
 public:
 	void FireLevelUp();
 	void Add();

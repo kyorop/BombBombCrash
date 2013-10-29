@@ -26,12 +26,12 @@ void GameField::Initialize()
 void GameField::Update()
 {
 	map->Register();
-	block->Register();
+	//block->Register();
 }
 
 void GameField::Draw()
 {
 	map->Draw();
 	item->Draw();
-	block->Draw();
+	//block->Draw();
 }
