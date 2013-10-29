@@ -18,11 +18,8 @@ protected:
 public:
 	Bomb();
 	virtual ~Bomb();
-
-	//void CheckHit(Charactor *charactor);
 	virtual void BombSet(int x, int y) = 0;
 	void MaintainBomb();
-	//int CheckBombExplosion();
 	void CheckBombOverlap(const Bomb & bomb);
 	virtual void SetFlag(int flag);
 public:

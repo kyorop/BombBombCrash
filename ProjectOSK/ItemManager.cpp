@@ -30,31 +30,44 @@ ItemManager::~ItemManager(void)
 
 void ItemManager::SetItem(const Block &block)
 {
+	while(1)
+	{
+		int i = GetRand(MAPSIZE_Y-1);
+		int j = GetRand(MAPSIZE_X-1);
+		if(block.IsSoftBlock(i, j) == 1)
+		{
+			item[1]->SetX(j * 32);
+			item[1]->SetY(i * 32);
+			item[1]->SetFlag(1);
+			break;
+		}
+	}
+
 	for (int n = 0; n < ITEMNUM; ++n)
 	{	
-		//int end = 0;
-		//while(!end)
+		while(1)
 		{
 			int i = GetRand(MAPSIZE_Y-1);
 			int j = GetRand(MAPSIZE_X-1);
 			if(block.IsSoftBlock(i, j) == 1)
 			{
-				item[n]->SetX(j * 32);
-				item[n]->SetY(i * 32);
-				item[n]->SetFlag(1);
-				//if(n == 0)
-				//	break;
-				//for(int m=0; m<n; ++m)
-				//{
-				//	if( item[n]->GetX() != item[m]->GetX() )
-				//	{
-				//		if(m == n-1)
-				//		end = 1;
-				//	}
-				//}
+				int overlap = 0;
+				for (int k = 0; k < n; ++k)
+				{
+					if(item[k]->GetX() == j*32 || item[k]->GetY() == i*32)
+					{
+						overlap = 1;
+						break;
+					}
+				}
+				if(overlap == 0)
+				{
+					item[n]->SetX(j * 32);
+					item[n]->SetY(i * 32);
+					item[n]->SetFlag(1);
+					break;
+				}
 			}
-			else
-				--n;
 		}
 	}
 
