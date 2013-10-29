@@ -2,6 +2,7 @@
 #include "ICollisionable.h"
 #include "PlayerBomb.h"
 #include "EnemyBomb.h"
+#include "Bomb.h"
 #include "MapObstacle.h"
 #include "Player.h"
 #include "MapObject.h"
@@ -45,7 +46,7 @@ void Collision::Register(ICollisionable *anythingCollisionable)
 		character.push_back(anythingCollisionable);
 		fragile.push_back(anythingCollisionable);
 	}
-	else if( type  == typeid(PlayerBomb) || typeid(anythingCollisionable) == typeid(EnemyBomb) )
+	else if(type == typeid(Bomb))
 	{
 		disableGoingThrough.push_back(anythingCollisionable);
 		fragile.push_back(anythingCollisionable);

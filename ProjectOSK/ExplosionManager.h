@@ -12,13 +12,11 @@ class Item;
 class ExplosionManager
 {
 private:
-	int addFireNum;
 	int nowFireLevel;
 	int fuse;
 	int explosion;
 	Timer retainFire;
 	Timer beforeExplosion;
-	static const int timeBeforeExplosion = 3000;
 	static const int displayingTime = 200; 
 	int fireImage;
 public:
@@ -31,7 +29,8 @@ public:
 	int GetSize()const;
 	//void SetExplosion(const BombManager &bombManager);
 	void FireUp();	
-	void Set(int x, int y);
+	void Ready(int x, int y);
+	void Update(const Bomb &bomb);
 	void Maintain();
 	void Draw();
 	ExplosionManager();
@@ -41,5 +40,6 @@ std::vector<Explosion*> vex;
 
 void SetFuse(int flag);
 void Register(void);
+int GetExplosion(void);
 };
 

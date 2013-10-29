@@ -24,7 +24,6 @@ public:
 	int GetFlag(int index)const;
 	int GetX(int index)const;
 	int GetY(int index)const;
-	//void CheckHit(Charactor *charactor);
 	Bomb* GetBombObject(int index)const;
 	BombManager(void);
 	virtual ~BombManager(void);

@@ -2,18 +2,17 @@
 #include "IMediator.h"
 
 class Player;
-class BombManager;
-class BlastManager;
+class BombSetManager;
 class CharacterSet
-	//:public IMediator
 {
 private:
-	Player *player;
-	BombManager *bomb;
-	BlastManager *fire;
+	Player *const player;
+	BombSetManager *const bomb;
 	int currentSpeed;
 	int currentBombNum;
 	int currentFireLevel;
+	int pre_i_bombSet;
+	int pre_j_bombSet;
 private:
 	//プレイヤーのアイテム取得で増やす
 	void UpdateNumber();
@@ -29,10 +28,5 @@ public:
 	void Update();
 	//全てのオブジェクトの表示
 	void Draw();
-
-
-	//void CreateColleague() override;
-	//void ColleagueChange() override;
-
 };
 

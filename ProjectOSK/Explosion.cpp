@@ -10,7 +10,7 @@
 #define DHIT 6
 
 //ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-Explosion::Explosion(int center, int right,int left,int down,int up):
+Explosion::Explosion(int right,int left,int down,int up):
 	graph( LoadGraph("fire.bmp") ), 
 	upx(right), 
 	downx(left),
@@ -18,9 +18,7 @@ Explosion::Explosion(int center, int right,int left,int down,int up):
 	downy(up),
 	time(new Timer),
 	fuse(0),
-	explosion(0),
-	isCenter(center),
-	nextFire()
+	explosion(0)
 {
 }
 
@@ -35,68 +33,6 @@ void Explosion::Set(int x, int y)//”š’e‚Ì‚ ‚ÆExplosionManager‚Ì’†‚Åˆê”Ô‰‚ß‚É•`‚
 	this->y = y + 32*upy - 32*downy;
 }
 
-//ƒvƒŒƒCƒ„[‚Æ‚Ì‚ ‚½‚è”»’è
-//int Explosion::CheckHItCharactor(Charactor *charactor)//Object‚ÌCheckHit‚ðƒI[ƒo[ƒ‰ƒCƒh
-//{
-//	if(explosion == TRUE)//‰Î‚ª‘¶Ý‚µ‚Ä‚¢‚é‚Æ‚«
-//	{
-//		if(x+32-DHIT > charactor->GetX() && x+DHIT < charactor->GetRX() && y+DHIT < charactor->GetDY() && charactor->GetY() < y+32-DHIT)
-//		{
-//			charactor->SetCharactorState(FALSE);
-//			return true;
-//		}
-//		else
-//			return false;
-//	}
-//	else
-//		return false;
-//}
-//
-////•Ç‚Æ‚Ì‚ ‚½‚è”»’è
-//void Explosion::CheckHitObject(MapObstacle *mapobstacle)
-//{
-//	int i = y / 32;
-//	int j = x / 32;
-//
-//	if(explosion == TRUE)
-//	{
-//		if(mapobstacle->GetID(i, j) == 1)//‰Î‚ª•`‚©‚ê‚é—\’è‚ÌêŠ‚ÌŽ¯•Ê’l‚ªƒ}ƒbƒv‚Ì•Ç‚È‚çA‰Î‚ð‘‚©‚È‚¢‚æ‚¤‚É‚·‚éB
-//		{
-//			explosion = FALSE;
-//		}
-//		else if(mapobstacle->GetFlag(i, j) == TRUE)//‰Î‚ª•`‚©‚ê‚é—\’è‚ÌêŠ‚ÌŽ¯•Ê’l‚ªA‰ó‚ê‚éƒuƒƒbƒN‚È‚çA‚»‚ÌƒuƒƒbƒN‚ð‰ó‚µ‚ÄA‰Î‚Í•`‚©‚È‚¢
-//		{
-//			mapobstacle->SetFlag(i, j, FALSE);//ƒuƒƒbƒN‚ðÁ‚·
-//			explosion = FALSE;//‰Î‚ÍÁ‚·
-//		}
-//	}
-//}
-//
-//void Explosion::CheckHitBomb(Bomb *bomb)
-//{
-//	if(explosion == TRUE && bomb->GetFlag() == TRUE)
-//	{
-//		if(x+32-DHIT > bomb->GetX() && x+DHIT < bomb->GetX()+32 && y+DHIT < bomb->GetY()+32 && bomb->GetY() < y+32-DHIT)
-//		{
-//			//explosion = FALSE;
-//			bomb->SetFlag(FALSE);
-//			//bomb->SetFuse(1);
-//		}
-//	}
-//}
-//
-//void Explosion::CheckHitItem(Item *item)
-//{
-//	if(explosion == TRUE && item->GetFlag() == TRUE)
-//	{
-//		if(x+32 > item->GetX() && x < item->GetX()+32 && y < item->GetY()+32 && y+32 > item->GetY() )
-//		{
-//			explosion = FALSE;
-//			item->SetFlag(FALSE);
-//		}
-//	}
-//}
-
 void Explosion::SetExplosion(int flag)
 {
 	explosion = flag;
@@ -106,8 +42,3 @@ int Explosion::GetExplosion()
 {
 	return explosion;
 }
-
-//void Explosion::SetNext(Explosion *next)
-//{
-//	nextFire.push_back(next);
-//}
