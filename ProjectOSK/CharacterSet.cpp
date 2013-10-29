@@ -33,19 +33,17 @@ void CharacterSet::UpdateNumber()
 	if(currentSpeed < player->GetMV())
 	{
 		player->AddMV();
-		currentSpeed = player->GetMV();
+		++currentSpeed;
 	}
 	if(currentBombNum < player->GetBombNum())
 	{
 		bomb->Add();
 		fire->Add();
-		//currentBombNum = player->GetBombNum();
 		++currentBombNum;
 	}
 	if(currentFireLevel < player->GetFireLevel())
 	{
 		fire->FireLevelUp();
-		//currentFireLevel = player->GetFireLevel();
 		++currentFireLevel;
 	}
 }
