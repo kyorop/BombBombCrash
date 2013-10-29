@@ -9,18 +9,15 @@ class Map
 	:public IDrawable,
 	public IRegister
 {
-public:
-	enum{FLOOR, HARDBLOCK, SOFTBLOCK};
 private:
-	int floor;
-	int hardBlock;
-	int softBlock;
+	int image_floor;
+	int image_hardBlock;
 	MapObstacle map[GameConst::MAP_ROW][GameConst::MAP_LINE];
 public:
 	Map(void);
 	~Map(void);
 
-	int IsSoftBlock(int i, int j)const;
+	//int IsSoftBlock(int i, int j)const;
 	void Register();
 	void Draw();
 

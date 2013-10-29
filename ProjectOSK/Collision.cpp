@@ -53,12 +53,12 @@ void Collision::Register(ICollisionable *anythingCollisionable)
 	else if( type == typeid(MapObstacle) )
 	{
 		MapObstacle *map = dynamic_cast<MapObstacle*>(anythingCollisionable);
-		if(map->GetId() == Map::HARDBLOCK)
+		if(map->GetId() == MapObstacle::HARDBLOCK)
 		{
 			hardBlock.push_back(anythingCollisionable);
 			disableGoingThrough.push_back(anythingCollisionable);
 		}
-		else if(map->GetId() == Map::SOFTBLOCK)
+		else if(map->GetId() == MapObstacle::SOFTBLOCK)
 		{
 			softBlock.push_back(anythingCollisionable);
 			disableGoingThrough.push_back(anythingCollisionable);

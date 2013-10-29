@@ -17,7 +17,7 @@ private:
 public:
 
 	Item* GetItemInstance(int index)const;
-	void SetItem(const Map &map);
+	void SetItem(const Block &block);
 	void Draw();
     //void CheckHitCharactor(Charactor *charctor)const;
 	int GetBombState()const;//FALSEのボムアイテム数を返す

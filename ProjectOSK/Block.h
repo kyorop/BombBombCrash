@@ -20,5 +20,7 @@ public:
 
 	void Register();
 	void Draw();
+	//(i,j)がソフトブロックなら１を返す
+	int IsSoftBlock(int i, int j)const;
 };
 

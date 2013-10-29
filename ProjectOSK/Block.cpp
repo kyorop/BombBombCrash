@@ -10,7 +10,7 @@
 #define KBHABA 16
 
 Block::Block(void)
-	:image_softBlock(LoadGraph("rimblock.bmp"))
+	:image_softBlock(LoadGraph("breakblock.bmp"))
 {
 	int temp[MAPSIZE_Y][MAPSIZE_X]=
 	{
@@ -67,7 +67,6 @@ Block::~Block(void)
 {
 }
 
-
 void Block::Draw()
 {
 	for(int i=0; i<MAPSIZE_Y; i++)
@@ -92,5 +91,10 @@ void Block::Register()
 				MapState::GetInstance()->SetBlockState(block[i][j].GetX(), block[i][j].GetY(), 0);
 		}
 	}
+}
+
+int Block::IsSoftBlock(int i, int j)const
+{
+	return block[i][j].GetFlag();
 }
 

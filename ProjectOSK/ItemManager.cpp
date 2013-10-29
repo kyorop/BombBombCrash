@@ -28,7 +28,7 @@ ItemManager::~ItemManager(void)
 		delete item[i];
 }
 
-void ItemManager::SetItem(const Map &map)
+void ItemManager::SetItem(const Block &block)
 {
 	for (int n = 0; n < ITEMNUM; ++n)
 	{	
@@ -37,7 +37,7 @@ void ItemManager::SetItem(const Map &map)
 		{
 			int i = GetRand(MAPSIZE_Y-1);
 			int j = GetRand(MAPSIZE_X-1);
-			if(map.IsSoftBlock(i,j) == 1)
+			if(block.IsSoftBlock(i, j) == 1)
 			{
 				item[n]->SetX(j * 32);
 				item[n]->SetY(i * 32);
@@ -59,14 +59,6 @@ void ItemManager::SetItem(const Map &map)
 	}
 
 }
-
-//void ItemManager::CheckHitCharactor(Charactor *charctor)const
-//{
-//	for(int i=0; i<ITEMNUM; ++i)
-//	{
-//		this->item[i]->CheckHItCharactor(charctor);
-//	}
-//}
 
 void ItemManager::Draw()
 {
