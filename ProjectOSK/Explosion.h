@@ -15,7 +15,6 @@ class Explosion:
 private:
 	const int graph;
 	const int upx,downx,upy,downy;
-	Timer *time;
 	int fuse;
 	int explosion;
 

@@ -16,9 +16,7 @@ ItemManager::ItemManager(void)
 	:item()
 {
 	for(int i=0; i<ITEMNUM; i++)
-	{
-		this->item[i] = new Item;
-	}
+		item[i] = new Item;
 
 }
 

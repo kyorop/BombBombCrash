@@ -16,7 +16,6 @@ Explosion::Explosion(int right,int left,int down,int up):
 	downx(left),
 	upy(down),
 	downy(up),
-	time(new Timer),
 	fuse(0),
 	explosion(0)
 {

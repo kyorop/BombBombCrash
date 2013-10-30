@@ -11,6 +11,11 @@ BombSetManager::BombSetManager(void)
 
 BombSetManager::~BombSetManager(void)
 {
+	std::vector<BombSet*>::iterator itr = bombSet.begin();
+	for (itr; itr != bombSet.end(); ++itr)
+	{
+		delete (*itr);
+	}
 }
 
 

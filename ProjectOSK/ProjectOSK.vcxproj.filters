@@ -99,9 +99,6 @@
     <ClCompile Include="Avoid.cpp">
       <Filter>ソース ファイル\AI</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerBomb.cpp">
-      <Filter>ソース ファイル\AI</Filter>
-    </ClCompile>
     <ClCompile Include="StopRoute.cpp">
       <Filter>ソース ファイル\AI</Filter>
     </ClCompile>
@@ -260,5 +257,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
 </Project>
