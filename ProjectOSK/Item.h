@@ -19,20 +19,17 @@ protected:
 	static int graph[KINDITEMNUM];//アイテムはこれを共用する
 private:
 	int charactorHit;
-	int i_graph;
-	const int kind;
+	const int i_graph;
+	//const int kind;
 public:
 	Item();
 	~Item(void);
-
-	//void CheckHItCharactor(Charactor *charactor);
-	int GetKindGraph();
-	int GetCharactorHit();
-	void SetItem(const Block &block);
+	//int GetKindGraph();
+	//int GetCharactorHit();
 	void Draw();
 	int GetKind()const;
 
-	bool operator== (const Item &other);
-	bool operator== (const Player &player);
+	//bool operator== (const Item &other);
+	//bool operator== (const Player &player);
 };
 

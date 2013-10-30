@@ -2,6 +2,7 @@
 #include "Block.h"
 #include "Player.h"
 #include "Charactor.h"
+#include "Collision.h"
 #include"DxLib.h"
 #define FIRE 0
 #define BOMB 1
@@ -12,25 +13,15 @@ int Item::graph[KINDITEMNUM];
 
 Item::Item():
 	i_graph(GetRand(KINDITEMNUM-2)),
-	charactorHit(0),//何のアイテムを出すか決める
-	kind(i_graph)
+	charactorHit(0)//何のアイテムを出すか決める
 {
+	Collision::GetInstance()->RegisterWithItem(this);
 	LoadDivGraph("itemup.bmp", 3, 3, 1, 32, 32, Item::graph, FALSE);
 	this->flag = 1;
 }
 
-void Item::SetItem(const Block &block)
+Item::~Item(void)
 {
-	int i = GetRand(MAPSIZE_Y);
-	int j = GetRand(MAPSIZE_X);
-	
-	//while(block.GetID(i, j) != 2)//IDが床になるまで乱数取得
-	{
-		i = GetRand(MAPSIZE_Y);
-		j = GetRand(MAPSIZE_X);
-	}
-	this->x = 32 * j;
-	this->y = 32 * i;
 }
 
 void Item::Draw()
@@ -41,59 +32,11 @@ void Item::Draw()
 	}
 }
 
-int Item::GetKindGraph()
-{
-	return this->i_graph;
-}
 
 int Item::GetKind()const
 {
-	return kind;
+	return i_graph;
 }
 
-int Item::GetCharactorHit()
-{
-	return this->charactorHit;
-}
 
-//void Item::CheckHItCharactor(Charactor *charactor)
-//{
-//	if(this->flag == 1)//アイテムが表示されているとき
-//	{
-//		if(this->x+32-DHIT > charactor->GetX() && this->x+DHIT < charactor->GetRX() && this->y+DHIT < charactor->GetDY() && charactor->GetY() < this->y+32-DHIT)
-//		{
-//			this->flag = 0;
-//			switch(i_graph)
-//			{
-//			case BOMB:
-//				charactor->AddBombNum();
-//				break;
-//			case FIRE:
-//				charactor->AddFireLevel();
-//				break;
-//			case SPEED:
-//				charactor->AddMV();
-//				break;
-//			}
-//			this->charactorHit = 1;
-//		}
-//	}	
-//}
 
-Item::~Item(void)
-{
-}
-
-//演算子オーバーロード
-bool Item::operator==(const Item &other)
-{
-	if(this->x == other.x && this->y == other.y)
-		return true;
-	else
-		return false;
-}
-
-bool Item::operator==(const Player &player)
-{
-	return 0;
-}
