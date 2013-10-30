@@ -16,11 +16,10 @@ Charactor::~Charactor(void)
 {
 }
 
-void Charactor::SetCharactorState(int flag)
-{
-	this->flag = flag;
-}
-
+//void Charactor::SetCharactorState(int flag)
+//{
+//	this->flag = flag;
+//}
 
 
 int Charactor::GetMV(void)const
@@ -28,11 +27,9 @@ int Charactor::GetMV(void)const
 	return this->mv;
 }
 
-int Charactor::GetBombNum(void)
-{
-	if(CheckHitKey(KEY_INPUT_SPACE) == 1)
-		++bombNum;
 
+int Charactor::GetBombNum(void)const
+{
 	return this->bombNum;
 }
 
@@ -45,25 +42,21 @@ int Charactor::GetFireLevel(void)const
 
 void Charactor::AddBombNum(void)
 {
-	++this->bombNum;
+	++bombNum;
 }
 
 
 void Charactor::AddFireLevel(void)
 {
-	++this->fireLevel;
+	++fireLevel;
 }
 
 
 void Charactor::AddMV(void)
 {
-	++this->mv;
+	++mv;
 }
 
-int Charactor::GetBombSet()const
-{
-	return 0;
-}
 
 void Charactor::Register()
 {

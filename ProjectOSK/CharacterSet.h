@@ -1,12 +1,12 @@
 #pragma once
 #include "IMediator.h"
 
-class Player;
+class Charactor;
 class BombSetManager;
 class CharacterSet
 {
 private:
-	Player *const player;
+	Charactor *const character;
 	BombSetManager *const bomb;
 	int currentSpeed;
 	int currentBombNum;
@@ -22,7 +22,7 @@ private:
 	void Move();
 
 public:
-	CharacterSet(void);
+	CharacterSet(Charactor *character);
 	~CharacterSet(void);
 
 	void Update();

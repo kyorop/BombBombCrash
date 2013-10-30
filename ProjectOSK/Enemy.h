@@ -18,13 +18,13 @@ private:
 	int animpat;
 	int bombSet;
 	int action[10];
+	EnemyAI *const AI;
 public:
 	Enemy(int x, int y);
-	~Enemy(void);
-	EnemyAI *const AI;
-	void Order();
-	void Move(int g_lastTime);
-	void Draw();
-	int GetBombSet(void)const;
+	~Enemy();
+
+	void Move()override;
+	void Draw()override;
+	int EnableBomb(void)const override;
 };
 

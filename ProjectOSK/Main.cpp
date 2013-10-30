@@ -13,14 +13,15 @@
 #include "CharacterSet.h"
 #include "Collision.h"
 #include "GameField.h"
+#include "Enemy.h"
 #include <iostream>
 #include <vector>
 #define REGISTERNUM 7
 
-#define _CRTDBG_MAP_ALLOC
-#include <stdlib.h>
-#include <crtdbg.h>
-#define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
+//#define _CRTDBG_MAP_ALLOC
+//#include <stdlib.h>
+//#include <crtdbg.h>
+//#define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
 
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nCmdShow)
@@ -34,7 +35,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 	SetDrawScreen(DX_SCREEN_BACK);
 	
 	GameField field;
-	CharacterSet playerSet;
+	CharacterSet playerSet(new Enemy(32*2, 32*1));
 
 	int g_lasttime = 0;
 	float g_frametime = 0;

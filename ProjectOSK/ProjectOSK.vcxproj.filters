@@ -25,22 +25,13 @@
     <Filter Include="ソース ファイル\GameState">
       <UniqueIdentifier>{33908562-84a2-4dd5-9ebc-529ec501c71c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\GameState\ソースファイル">
-      <UniqueIdentifier>{0c6d7365-41f8-4fd7-bcfd-d65e16af87b9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\GameState\ヘッダファイル">
-      <UniqueIdentifier>{be65043e-0921-4a8e-815d-709484b0104c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Bomb">
       <UniqueIdentifier>{c56bb18a-019e-4616-ba3d-17064fbbd24a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Bomb\ヘッダファイル">
-      <UniqueIdentifier>{79b198af-7b86-4a0b-8f04-a54a082f0d6c}</UniqueIdentifier>
+    <Filter Include="ヘッダー ファイル\Interface">
+      <UniqueIdentifier>{ce653aa3-d2b8-41a7-a60e-2f196b14a5a5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Bomb\ソースファイル">
-      <UniqueIdentifier>{b9fb6436-23dd-4d0b-9e42-9ea0f3ba28d3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Map">
+    <Filter Include="ソース ファイル\Map">
       <UniqueIdentifier>{811da8c8-b229-4314-bf9c-2536e847e583}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -57,12 +48,6 @@
     <ClCompile Include="ExplosionManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Item.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Charactor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -70,9 +55,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
-      <Filter>ソース ファイル\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyBomb.cpp">
       <Filter>ソース ファイル\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="EnemyAI.cpp">
@@ -102,18 +84,6 @@
     <ClCompile Include="StopRoute.cpp">
       <Filter>ソース ファイル\AI</Filter>
     </ClCompile>
-    <ClCompile Include="MapState.cpp">
-      <Filter>ソース ファイル\GameState\ソースファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="DangerState.cpp">
-      <Filter>ソース ファイル\GameState\ソースファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="IRegister.cpp">
-      <Filter>ソース ファイル\GameState\ソースファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Bomb.cpp">
-      <Filter>ソース ファイル\Bomb\ソースファイル</Filter>
-    </ClCompile>
     <ClCompile Include="MapObject.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -124,22 +94,40 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Map.cpp">
-      <Filter>Map</Filter>
+      <Filter>ソース ファイル\Map</Filter>
     </ClCompile>
     <ClCompile Include="GameField.cpp">
-      <Filter>Map</Filter>
+      <Filter>ソース ファイル\Map</Filter>
     </ClCompile>
     <ClCompile Include="Block.cpp">
-      <Filter>Map</Filter>
+      <Filter>ソース ファイル\Map</Filter>
     </ClCompile>
     <ClCompile Include="MapObstacle.cpp">
-      <Filter>Map</Filter>
+      <Filter>ソース ファイル\Map</Filter>
     </ClCompile>
-    <ClCompile Include="BombSet.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Bomb.cpp">
+      <Filter>ソース ファイル\Bomb</Filter>
     </ClCompile>
     <ClCompile Include="BombSetManager.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Bomb</Filter>
+    </ClCompile>
+    <ClCompile Include="BombSet.cpp">
+      <Filter>ソース ファイル\Bomb</Filter>
+    </ClCompile>
+    <ClCompile Include="DangerState.cpp">
+      <Filter>ソース ファイル\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="IRegister.cpp">
+      <Filter>ソース ファイル\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="MapState.cpp">
+      <Filter>ソース ファイル\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>ソース ファイル\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemManager.cpp">
+      <Filter>ソース ファイル\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -149,28 +137,10 @@
     <ClInclude Include="ExplosionManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="IDrawable.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Item.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Charactor.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyBomb.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerBomb.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Dijkstra.h">
@@ -181,18 +151,6 @@
     </ClInclude>
     <ClInclude Include="GameConstant.h">
       <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Route.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="IRegister.h">
-      <Filter>ソース ファイル\GameState\ヘッダファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="MapState.h">
-      <Filter>ソース ファイル\GameState\ヘッダファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="DangerState.h">
-      <Filter>ソース ファイル\GameState\ヘッダファイル</Filter>
     </ClInclude>
     <ClInclude Include="Search.h">
       <Filter>ソース ファイル\AI</Filter>
@@ -209,9 +167,6 @@
     <ClInclude Include="EnemyAI.h">
       <Filter>ソース ファイル\AI</Filter>
     </ClInclude>
-    <ClInclude Include="Bomb.h">
-      <Filter>ソース ファイル\Bomb\ヘッダファイル</Filter>
-    </ClInclude>
     <ClInclude Include="MapObject.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -224,35 +179,62 @@
     <ClInclude Include="CharacterSet.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="IColleague.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="IMediator.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Collision.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="ICollisionable.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Map.h">
-      <Filter>Map</Filter>
+      <Filter>ソース ファイル\Map</Filter>
     </ClInclude>
     <ClInclude Include="GameField.h">
-      <Filter>Map</Filter>
+      <Filter>ソース ファイル\Map</Filter>
     </ClInclude>
     <ClInclude Include="Block.h">
-      <Filter>Map</Filter>
+      <Filter>ソース ファイル\Map</Filter>
     </ClInclude>
     <ClInclude Include="MapObstacle.h">
-      <Filter>Map</Filter>
+      <Filter>ソース ファイル\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Bomb.h">
+      <Filter>ソース ファイル\Bomb</Filter>
     </ClInclude>
     <ClInclude Include="BombSet.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ソース ファイル\Bomb</Filter>
     </ClInclude>
     <ClInclude Include="BombSetManager.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ソース ファイル\Bomb</Filter>
+    </ClInclude>
+    <ClInclude Include="DangerState.h">
+      <Filter>ソース ファイル\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="IRegister.h">
+      <Filter>ソース ファイル\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="MapState.h">
+      <Filter>ソース ファイル\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="ICollisionable.h">
+      <Filter>ヘッダー ファイル\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="IDrawable.h">
+      <Filter>ヘッダー ファイル\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="IMediator.h">
+      <Filter>ヘッダー ファイル\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="IColleague.h">
+      <Filter>ヘッダー ファイル\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Route.h">
+      <Filter>ヘッダー ファイル\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemManager.h">
+      <Filter>ソース ファイル\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>ソース ファイル\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>ソース ファイル\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

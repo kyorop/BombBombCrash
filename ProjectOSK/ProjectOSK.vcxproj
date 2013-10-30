@@ -97,7 +97,6 @@
     <ClCompile Include="Dijkstra.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyAI.cpp" />
-    <ClCompile Include="EnemyBomb.cpp" />
     <ClCompile Include="Avoid.cpp" />
     <ClCompile Include="GameField.cpp" />
     <ClCompile Include="Graph.cpp" />
@@ -131,7 +130,6 @@
     <ClInclude Include="Dijkstra.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyAI.h" />
-    <ClInclude Include="EnemyBomb.h" />
     <ClInclude Include="Avoid.h" />
     <ClInclude Include="GameConstant.h" />
     <ClInclude Include="GameField.h" />
@@ -151,7 +149,6 @@
     <ClInclude Include="MapObstacle.h" />
     <ClInclude Include="MapState.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayerBomb.h" />
     <ClInclude Include="Route.h" />
     <ClInclude Include="Search.h" />
     <ClInclude Include="StopRoute.h" />

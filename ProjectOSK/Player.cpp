@@ -149,18 +149,18 @@ void Player::Move()
 	animpat = ( (GetNowCount() & INT_MAX) / (1000 / 12)) % 4;
 }
 
-int Player::GetStateFire(const Item &item)//存在がFALSE の物の数を数えればよい。その数を戻り値にする。
-{
-	//static int firelevel = 1;
-	if(item.GetFlag() == 0)
-	{
-		return TRUE;
-	}
-	else
-	{
-		return FALSE;
-	}
-}
+//int Player::GetStateFire(const Item &item)//存在がFALSE の物の数を数えればよい。その数を戻り値にする。
+//{
+//	//static int firelevel = 1;
+//	if(item.GetFlag() == 0)
+//	{
+//		return TRUE;
+//	}
+//	else
+//	{
+//		return FALSE;
+//	}
+//}
 
 int Player::EnableBomb()const
 {
@@ -170,12 +170,12 @@ int Player::EnableBomb()const
 		return 0;
 }
 
-int Player::GetStateBomb(const ItemManager &manageItem)
-{
-	static int bombNum;
-	return 0;
-
-}
+//int Player::GetStateBomb(const ItemManager &manageItem)
+//{
+//	static int bombNum;
+//	return 0;
+//
+//}
 
 Player::~Player(void)
 {

@@ -18,15 +18,13 @@ private:
 	int animpat;
 	
 public:	
-	//void CheckHit(Map &map);
-	//virtual void SetCharactorState(int flag);
-	 void Move();
-	 void Draw();
-	int GetStateFire(const Item &item);
-	int GetStateBomb(const ItemManager &manageItem);
-	int EnableBomb()const;
-	//void Register();
-	Player();//コンストラクタ
-	~Player(void);//デストラクタ
+	Player();
+	~Player();
+
+	 void Move()override;
+	 void Draw()override;
+	int EnableBomb()const override;
+	//int GetStateFire(const Item &item);
+	//int GetStateBomb(const ItemManager &manageItem);
 };
 

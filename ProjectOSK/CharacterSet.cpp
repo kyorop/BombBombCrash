@@ -1,11 +1,12 @@
 #include "CharacterSet.h"
+#include "Charactor.h"
 #include "Player.h"
 #include "BombManager.h"
 #include "BlastManager.h"
 #include "BombSetManager.h"
 
-CharacterSet::CharacterSet(void):
-	player(new Player),
+CharacterSet::CharacterSet(Charactor *pCharacter):
+	character(pCharacter),
 	bomb(new BombSetManager),
 	currentSpeed(1),
 	currentBombNum(1),
@@ -15,23 +16,23 @@ CharacterSet::CharacterSet(void):
 
 CharacterSet::~CharacterSet(void)
 {
-	delete player;
+	delete character;
 	delete bomb;
 }
 
 void CharacterSet::UpdateNumber()
 {
-	if(currentSpeed < player->GetMV())
+	if(currentSpeed < character->GetMV())
 	{
-		player->AddMV();
+		character->AddMV();
 		++currentSpeed;
 	}
-	if(currentBombNum < player->GetBombNum())
+	if(currentBombNum < character->GetBombNum())
 	{
 		bomb->UpNum();
 		++currentBombNum;
 	}
-	if(currentFireLevel < player->GetFireLevel())
+	if(currentFireLevel < character->GetFireLevel())
 	{
 		bomb->UpFireLevel();
 		++currentFireLevel;
@@ -40,15 +41,15 @@ void CharacterSet::UpdateNumber()
 
 void CharacterSet::Set()
 {
-	if(player->EnableBomb() == 1)//z‚ª‰Ÿ‚³‚ê‚½Žž
+	if(character->EnableBomb() == 1)//z‚ª‰Ÿ‚³‚ê‚½Žž
 	{
-		bomb->Set(player->GetX(), player->GetY());
+		bomb->Set(character->GetX(), character->GetY());
 	}
 }
 
 void CharacterSet::Move()
 {
-	player->Move();
+	character->Move();
 	bomb->Update();
 }
 
@@ -56,7 +57,7 @@ void CharacterSet::Draw()
 {
 	//‚±‚Ì•\Ž¦‚Ì‡”Ô‚ª‘åŽ–‚¾‚Á‚½‚èc
 	bomb->Draw();
-	player->Draw();
+	character->Draw();
 }
 
 void CharacterSet::Update()
