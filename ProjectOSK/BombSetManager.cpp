@@ -28,7 +28,7 @@ void BombSetManager::Set(int x, int y)
 			bombSet[i]->Set(x, y);
 			if(i != j)
 			{
-				if(bombSet[j]->GetFlag() == 1 && bombSet[j]->GetBombX() == bombSet[i]->GetBombX() && bombSet[j]->GetBombY() == bombSet[i]->GetBombY())
+				if(bombSet[j]->GetFlag() == 1 && bombSet[j]->GetBombX() == bombSet[i]->GetBombX() && bombSet[j]->GetBombY() == bombSet[i]->GetBombY())//ƒ{ƒ€‚ªd•¡‚µ‚Ä‚¢‚½‚çÁ‚·
 				{
 					bombSet[j]->SetFlag(0);
 				}

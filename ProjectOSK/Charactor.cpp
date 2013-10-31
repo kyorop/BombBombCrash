@@ -16,11 +16,6 @@ Charactor::~Charactor(void)
 {
 }
 
-//void Charactor::SetCharactorState(int flag)
-//{
-//	this->flag = flag;
-//}
-
 
 int Charactor::GetMV(void)const
 {

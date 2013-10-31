@@ -14,6 +14,7 @@ protected:
 	int count;
 	Timer time;
 	static int image_bomb[60];
+	int fireLevel;
 public:
 	Bomb();
 	virtual ~Bomb();
@@ -23,5 +24,6 @@ public:
 	void SetFlag(int flag) override;
 	void Register();
 	void Draw();
+	void SetFireLevel(int level);
 };
 

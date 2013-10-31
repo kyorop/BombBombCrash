@@ -5,6 +5,7 @@
 #include "Bomb.h"
 #include "MapObstacle.h"
 #include "Player.h"
+#include "Enemy.h"
 #include "MapObject.h"
 #include "Map.h"
 #include "DxLib.h"
@@ -41,7 +42,7 @@ void Collision::Register(ICollisionable *anythingCollisionable)
 {
 	const type_info &type = typeid( *anythingCollisionable );
 
-	if( type == typeid(Player) )
+	if( type == typeid(Player) || type == typeid(Enemy))
 	{
 		character.push_back(anythingCollisionable);
 		fragile.push_back(anythingCollisionable);
@@ -239,7 +240,8 @@ void Collision::CheckCollisionItemAndCharactor()
 	std::vector<ICollisionable*>::iterator itrCharacter = character.begin();
 	for(itrCharacter; itrCharacter != character.end(); ++itrCharacter)
 	{
-		Player *chara = dynamic_cast<Player*>(*itrCharacter);
+		//Player *chara = dynamic_cast<Player*>(*itrCharacter);
+		Charactor *chara = dynamic_cast<Charactor*>(*itrCharacter);
 		if(chara->GetFlag() == 1)
 		{
 			std::list<Item*>::iterator itrItem = item.begin();

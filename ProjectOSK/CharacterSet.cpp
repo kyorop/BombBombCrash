@@ -47,12 +47,6 @@ void CharacterSet::Set()
 	}
 }
 
-void CharacterSet::Move()
-{
-	character->Move();
-	bomb->Update();
-}
-
 void CharacterSet::Draw()
 {
 	//‚±‚Ì•\¦‚Ì‡”Ô‚ª‘å–‚¾‚Á‚½‚èc
@@ -63,6 +57,7 @@ void CharacterSet::Draw()
 void CharacterSet::Update()
 {
 	UpdateNumber();
-	Move();
+	character->Move();
+	bomb->Update();
 	Set();
 }

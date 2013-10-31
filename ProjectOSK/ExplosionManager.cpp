@@ -171,3 +171,8 @@ int ExplosionManager::GetExplosion(void)
 {
 	return explosion;
 }
+
+int ExplosionManager::GetFireLevel(void)
+{
+	return nowFireLevel;
+}

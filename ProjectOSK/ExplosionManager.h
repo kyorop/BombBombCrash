@@ -41,5 +41,6 @@ std::vector<Explosion*> vex;
 void SetFuse(int flag);
 void Register(void);
 int GetExplosion(void);
+int GetFireLevel(void);
 };
 

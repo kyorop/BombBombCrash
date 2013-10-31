@@ -9,13 +9,11 @@ BombSet::BombSet()
 {
 }
 
-
 BombSet::~BombSet(void)
 {
 	delete bomb;
 	delete explosion;
 }
-
 
 void BombSet::Set(int x, int y)
 {
@@ -25,11 +23,11 @@ void BombSet::Set(int x, int y)
 
 void BombSet::Update(void)
 {
+	bomb->SetFireLevel(explosion->GetFireLevel());
 	bomb->Register();
 	explosion->Register();
 	bomb->Maintain();
 	explosion->Update(*bomb);
-	
 }
 
 void BombSet::Draw(void)

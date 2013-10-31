@@ -18,9 +18,6 @@ private:
 	void UpdateNumber();
 	//座標やフラグのセット
 	void Set();
-	//各オブジェクトの描画系の更新
-	void Move();
-
 public:
 	CharacterSet(Charactor *character);
 	~CharacterSet(void);

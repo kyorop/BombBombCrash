@@ -70,49 +70,50 @@ int Search::SetGoal_base(const int i, const int j, std::vector<int> *i_goal, std
 	return success;
 }
 
-int Search::CheckAbleToMoveInitialized(const int i_start, const int j_start, int *const i_safe, int *const j_safe)
-{
-	//初期化。再帰関数なのでその関数中で初期化できないため
-	//for (int i = 0; i < GameConst::MAP_ROW; i++)
-	//{
-	//	for (int j = 0; j < GameConst::MAP_LINE; j++)
-	//		hasVisited[i][j] = 0;
-	//}
-	memset(hasVisited[0], 0, sizeof(int)*GameConst::MAP_LINE);
-	success = 0;
+//int Search::CheckAbleToMoveInitialized(const int i_start, const int j_start, int *const i_safe, int *const j_safe)
+//{
+//	//初期化。再帰関数なのでその関数中で初期化できないため
+//	//for (int i = 0; i < GameConst::MAP_ROW; i++)
+//	//{
+//	//	for (int j = 0; j < GameConst::MAP_LINE; j++)
+//	//		hasVisited[i][j] = 0;
+//	//}
+//	memset(hasVisited[0], 0, sizeof(int)*GameConst::MAP_LINE);
+//	success = 0;
+//
+//	return CheckAbleToMove(i_start, j_start, i_safe, j_safe);
+//}
 
-	return CheckAbleToMove(i_start, j_start, i_safe, j_safe);
-}
-int Search::CheckAbleToMove(const int i, const int j, int *const i_safe, int *const j_safe)
-{
-	//移動しても爆風に巻き込まれないなら
-	if(MAP(i, 0, j, 0) == 0 && BLOCK(i, 0, j, 0) == 0 && MapState::GetInstance()->GetState(i, j, BOMB) == 0 && DangerState::GetInstance()->GetDangerState(i, j) == 0)
-	{
-		*i_safe = i;
-		*j_safe = j;
-		success = 1;
-	}
-
-	//通れるところに進む
-	if(success == 0 && hasVisited[i-1][j] == 0 && MAP(i, -1, j, 0) == 0 && BLOCK(i, -1, j, 0) == 0 && MapState::GetInstance()->GetDangerState(i-1, j) == NODENGER)
-	{
-		CheckAbleToMove(i-1, j, i_safe, j_safe);
-	}
-	if( success == 0 && hasVisited[i+1][j] == 0 && MAP(i, 1, j, 0) == 0 && BLOCK(i, 1, j, 0) == 0 && MapState::GetInstance()->GetDangerState(i+1, j) == NODENGER)
-	{
-		CheckAbleToMove(i+1, j, i_safe, j_safe);
-	}
-	if( success == 0 && hasVisited[i][j-1] == 0 && MAP(i, 0, j, -1) == 0 && BLOCK(i, 0, j, -1) == 0 && MapState::GetInstance()->GetDangerState(i, j-1) == NODENGER)
-	{
-		CheckAbleToMove(i, j-1, i_safe, j_safe);
-	}
-	if( success == 0 && hasVisited[i][j+1] == 0 && MAP(i, 0, j, 1) == 0 && BLOCK(i, 0, j, 1) == 0 && MapState::GetInstance()->GetDangerState(i, j+1) == NODENGER)
-	{
-		CheckAbleToMove(i, j+1, i_safe, j_safe);
-	}
-
-	return success;
-}
+//int Search::CheckAbleToMove(const int i, const int j, int *const i_safe, int *const j_safe)
+//{
+//	//移動しても爆風に巻き込まれないなら
+//	if(MAP(i, 0, j, 0) == 0 && BLOCK(i, 0, j, 0) == 0 && MapState::GetInstance()->GetState(i, j, BOMB) == 0 && DangerState::GetInstance()->GetDangerState(i, j) == 0)
+//	{
+//		*i_safe = i;
+//		*j_safe = j;
+//		success = 1;
+//	}
+//
+//	//通れるところに進む
+//	if(success == 0 && hasVisited[i-1][j] == 0 && MAP(i, -1, j, 0) == 0 && BLOCK(i, -1, j, 0) == 0 && MapState::GetInstance()->GetDangerState(i-1, j) == NODENGER)
+//	{
+//		CheckAbleToMove(i-1, j, i_safe, j_safe);
+//	}
+//	if( success == 0 && hasVisited[i+1][j] == 0 && MAP(i, 1, j, 0) == 0 && BLOCK(i, 1, j, 0) == 0 && MapState::GetInstance()->GetDangerState(i+1, j) == NODENGER)
+//	{
+//		CheckAbleToMove(i+1, j, i_safe, j_safe);
+//	}
+//	if( success == 0 && hasVisited[i][j-1] == 0 && MAP(i, 0, j, -1) == 0 && BLOCK(i, 0, j, -1) == 0 && MapState::GetInstance()->GetDangerState(i, j-1) == NODENGER)
+//	{
+//		CheckAbleToMove(i, j-1, i_safe, j_safe);
+//	}
+//	if( success == 0 && hasVisited[i][j+1] == 0 && MAP(i, 0, j, 1) == 0 && BLOCK(i, 0, j, 1) == 0 && MapState::GetInstance()->GetDangerState(i, j+1) == NODENGER)
+//	{
+//		CheckAbleToMove(i, j+1, i_safe, j_safe);
+//	}
+//
+//	return success;
+//}
 
 int Search::SetEscapeRouteWhenInDanger(int i_start, int j_start, std::list<int> *escapeRoute)
 {
@@ -220,41 +221,41 @@ int Search::SetEscapeRouteWhenInDanger(int i_start, int j_start, std::list<int> 
 	return success;
 }
 
-int Search::OnlyCheckAbleToMove(int i, int j, int i_end, int j_end)
-{
-
-	++count;
-	hasVisited[i][j] = 1;
-	
-	if(i == i_end && j == j_end)
-	{
-		success = 1;
-	}
-	if(count > GameConst::MAP_ROW * GameConst::MAP_LINE)
-	{
-		success = 1;
-	}
-
-	//通れるところに進む
-	if(success == 0 && hasVisited[i-1][j] == 0 && MAP(i, -1, j, 0) == 0 && BLOCK(i, -1, j, 0) == 0 && MapState::GetInstance()->GetDangerState(i-1, j) == NODENGER)
-	{
-		OnlyCheckAbleToMove(i-1, j, i_end, j_end);
-	}
-	if( success == 0 && hasVisited[i+1][j] == 0 && MAP(i, 1, j, 0) == 0 && BLOCK(i, 1, j, 0) == 0 && MapState::GetInstance()->GetDangerState(i+1, j) == NODENGER)
-	{
-		OnlyCheckAbleToMove(i+1, j, i_end, j_end);
-	}
-	if( success == 0 && hasVisited[i][j-1] == 0 && MAP(i, 0, j, -1) == 0 && BLOCK(i, 0, j, -1) == 0 && MapState::GetInstance()->GetDangerState(i, j-1) == NODENGER)
-	{
-		OnlyCheckAbleToMove(i, j-1, i_end, j_end);
-	}
-	if( success == 0 && hasVisited[i][j+1] == 0 && MAP(i, 0, j, 1) == 0 && BLOCK(i, 0, j, 1) == 0 && MapState::GetInstance()->GetDangerState(i, j+1) == NODENGER)
-	{
-		OnlyCheckAbleToMove(i, j+1, i_end, j_end);
-	}
-
-	return success;
-}
+//int Search::OnlyCheckAbleToMove(int i, int j, int i_end, int j_end)
+//{
+//
+//	++count;
+//	hasVisited[i][j] = 1;
+//	
+//	if(i == i_end && j == j_end)
+//	{
+//		success = 1;
+//	}
+//	if(count > GameConst::MAP_ROW * GameConst::MAP_LINE)
+//	{
+//		success = 1;
+//	}
+//
+//	//通れるところに進む
+//	if(success == 0 && hasVisited[i-1][j] == 0 && MAP(i, -1, j, 0) == 0 && BLOCK(i, -1, j, 0) == 0 && MapState::GetInstance()->GetDangerState(i-1, j) == NODENGER)
+//	{
+//		OnlyCheckAbleToMove(i-1, j, i_end, j_end);
+//	}
+//	if( success == 0 && hasVisited[i+1][j] == 0 && MAP(i, 1, j, 0) == 0 && BLOCK(i, 1, j, 0) == 0 && MapState::GetInstance()->GetDangerState(i+1, j) == NODENGER)
+//	{
+//		OnlyCheckAbleToMove(i+1, j, i_end, j_end);
+//	}
+//	if( success == 0 && hasVisited[i][j-1] == 0 && MAP(i, 0, j, -1) == 0 && BLOCK(i, 0, j, -1) == 0 && MapState::GetInstance()->GetDangerState(i, j-1) == NODENGER)
+//	{
+//		OnlyCheckAbleToMove(i, j-1, i_end, j_end);
+//	}
+//	if( success == 0 && hasVisited[i][j+1] == 0 && MAP(i, 0, j, 1) == 0 && BLOCK(i, 0, j, 1) == 0 && MapState::GetInstance()->GetDangerState(i, j+1) == NODENGER)
+//	{
+//		OnlyCheckAbleToMove(i, j+1, i_end, j_end);
+//	}
+//
+//	return success;
+//}
 
 void Search::SetEscapeRouteToStop(int i_now, int j_now, std::list<int> escapeRoute)
 {

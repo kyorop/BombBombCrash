@@ -2,8 +2,8 @@
 #include "MapState.h"
 #include <iostream>
 
-DangerState::DangerNode DangerState::node[GameConst::MAP_ROW][GameConst::MAP_LINE];
-int DangerState::fireNode[GameConst::MAP_ROW][GameConst::MAP_LINE];
+//DangerState::DangerNode DangerState::node[GameConst::MAP_ROW][GameConst::MAP_LINE];
+//int DangerState::fireNode[GameConst::MAP_ROW][GameConst::MAP_LINE];
 
 DangerState::DangerNode::DangerNode():
 	danger(0),

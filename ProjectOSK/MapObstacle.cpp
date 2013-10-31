@@ -1,6 +1,8 @@
 #include "MapObstacle.h"
+#include "Collision.h"
 
 MapObstacle::MapObstacle(void)
+	:id()
 {
 }
 
@@ -17,15 +19,3 @@ int MapObstacle::GetId()const
 {
 	return id;
 }
- 
-//void MapObstacle::SetFlag(int i, int j, int flag)
-//{
-//	this->flag[i][j] = flag;
-//}
-//
-//int MapObstacle::GetFlag(int i, int j)const
-//{
-//	return this->flag[i][j];
-//}
-
-

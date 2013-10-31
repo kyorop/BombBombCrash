@@ -7,8 +7,6 @@ private:
 	struct DangerNode
 	{
 	public:
-		//DangerNode (*pBrastCenter)[];
-		//DangerNode *pBrastCenter;
 		int danger;
 		int i_brastCenter;
 		int j_brastCenter;
@@ -17,14 +15,12 @@ private:
 	};
 
 public:
-	static DangerNode node[GameConst::MAP_ROW][GameConst::MAP_LINE];
-	static int fireNode[GameConst::MAP_ROW][GameConst::MAP_LINE];
-
+	DangerNode node[GameConst::MAP_ROW][GameConst::MAP_LINE];
+	int fireNode[GameConst::MAP_ROW][GameConst::MAP_LINE];
 private:
 	DangerState(void);
 	DangerState(const DangerState &ds);
 	~DangerState(void);
-
 public:
 	static DangerState *GetInstance()
 	{

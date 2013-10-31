@@ -1,8 +1,8 @@
 #include "MapState.h"
 
 
-int MapState::mapState[row][line][objects][topic];
-dangerState MapState::hazardMap[row][line];
+//int MapState::mapState[row][line][objects][topic];
+//dangerState MapState::hazardMap[row][line];
 
 MapState::MapState(void)
 {
@@ -10,7 +10,7 @@ MapState::MapState(void)
 	{
 		for(int j=0; j<line; ++j)
 		{
-			hazardMap[i][j] = NODENGER;
+			//hazardMap[i][j] = NODENGER;
 			for(int k=0; j<objects; ++j)
 			{
 				for(int l=0; l<topic; ++l)
@@ -28,12 +28,6 @@ void MapState::Initialize()
 {
 	
 }
-
-//MapState* MapState::GetInstance()
-//{
-//	static MapState msInstance;
-//	return &msInstance;
-//}
 
 void MapState::SetState(int x, int y, int object, int state, int option)
 {
@@ -84,39 +78,39 @@ int MapState::GetState(int i, int j, int object, int option)
 		return MapState::mapState[i][j][object][option];
 }
 
-void MapState::SetDanger(int i_center, int j_center, int fireLvel, int state)
-{
-	for (int i = i_center-fireLvel; i <= i_center+fireLvel; ++i)
-	{
-		if(0 <= i && i < row)
-		{
-			if(state == 0)
-				hazardMap[i][j_center] = NODENGER;
-			else
-				hazardMap[i][j_center] = BOMBRANGE;
-		}
-	}
+//void MapState::SetDanger(int i_center, int j_center, int fireLvel, int state)
+//{
+//	for (int i = i_center-fireLvel; i <= i_center+fireLvel; ++i)
+//	{
+//		if(0 <= i && i < row)
+//		{
+//			if(state == 0)
+//				hazardMap[i][j_center] = NODENGER;
+//			else
+//				hazardMap[i][j_center] = BOMBRANGE;
+//		}
+//	}
+//
+//	for (int j = j_center-fireLvel; j <= j_center+fireLvel; ++j)
+//	{
+//		if(0 <= j && j < line)
+//		{
+//			if(state == 0)
+//				hazardMap[i_center][j] = NODENGER;
+//			else
+//				hazardMap[i_center][j] = BOMBRANGE;
+//		}
+//	}
+//
+//}
 
-	for (int j = j_center-fireLvel; j <= j_center+fireLvel; ++j)
-	{
-		if(0 <= j && j < line)
-		{
-			if(state == 0)
-				hazardMap[i_center][j] = NODENGER;
-			else
-				hazardMap[i_center][j] = BOMBRANGE;
-		}
-	}
-
-}
-
-dangerState MapState::GetDangerState(int i, int j)
-{
-	if( !(i < 0 || row < i || j < 0 || line < j) )
-		return hazardMap[i][j];
-	else
-		return FINISH;
-}
+//dangerState MapState::GetDangerState(int i, int j)
+//{
+//	if( !(i < 0 || row < i || j < 0 || line < j) )
+//		return hazardMap[i][j];
+//	else
+//		return FINISH;
+//}
 
 MapState::~MapState(void)
 {

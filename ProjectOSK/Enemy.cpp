@@ -3,6 +3,7 @@
 #include "MapState.h"
 #include "DxLib.h"
 #include "EnemyAI.h"
+#include "Collision.h"
 #define MV 1
 #define HABA 10
 
@@ -30,6 +31,7 @@ Enemy::Enemy(int x, int y):
 	LoadDivGraph("redbombman.png", 20, 4, 5, 32, 32, this->graph, FALSE);
 	this->x = x;
 	this->y = y;
+	Collision::GetInstance()->Register(this);
 }
 
 Enemy::~Enemy(void)
