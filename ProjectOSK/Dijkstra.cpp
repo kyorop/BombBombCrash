@@ -18,18 +18,12 @@ enum
 const int Dijkstra::ud[4] = {-1,1,0,0};
 const int Dijkstra::lr[4] = {0,0,-1,1};
 
-Dijkstra::Dijkstra():
-	i_currentNode(),
+Dijkstra::Dijkstra()
+	:i_currentNode(),
 	j_currentNode(),
 	graph(new Graph)
-	//vecRoute()
 {
 }
-
-//void Dijkstra::ResetRoute()
-//{
-//	vecRoute.clear();
-//}
 
 void Dijkstra::SearchShortestPath(int i_start, int j_start, int i_goal, int j_goal, std::list<int> *shortestRoute)
 {
@@ -128,22 +122,6 @@ void Dijkstra::SetRoute(int i_start, int j_start, int i_goal, int j_goal, std::l
 		}
 	}
 }
-
-//int Dijkstra::GetRoute(int num)const
-//{
-//	int size = vecRoute.size();
-//
-//	//配列をオーバーしたらルート終了を知らせる
-//	if(num >= size)
-//		return -1;
-//	
-//		return vecRoute[num];
-//}
-//
-//void Dijkstra::SetBombAction(int bombState)
-//{
-//	vecRoute.push_back(bombState);
-//}
 
 Dijkstra::~Dijkstra(void)
 {

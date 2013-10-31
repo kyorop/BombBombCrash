@@ -18,23 +18,18 @@ enum dangerState
 
 class MapState
 {
-
 private:
 	static const int row = 13;
 	static const int line = 17;
 	static const int objects = 6;
 	static const int topic = 2;
 	 int mapState[row][line][objects][topic];
-	//static dangerState hazardMap[row][line];
-
 private:
 	MapState(void);
 	MapState(const MapState &ms);
 	~MapState(void);
 	void SetState(int x, int y, int object, int state, int option=0);
 public:
-	void Initialize();
-
 	static MapState *GetInstance()
 	{
 		static MapState msInstance;
