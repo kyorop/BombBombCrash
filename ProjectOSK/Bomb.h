@@ -15,6 +15,7 @@ protected:
 	Timer time;
 	static int image_bomb[60];
 	int fireLevel;
+	int animpat;
 public:
 	Bomb();
 	virtual ~Bomb();

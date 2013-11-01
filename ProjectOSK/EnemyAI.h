@@ -31,9 +31,7 @@ private:
 	int hasCalculated;
 	int x_next;
 	int y_next;
-
 public:
-	//int nowExploring;
 	Target *const target;
 	Avoid *const avoid;
 	StopRoute *const stop;

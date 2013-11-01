@@ -3,11 +3,12 @@
 #include "Dijkstra.h"
 #include "Enemy.h"
 #include "GameConstant.h"
+#include "MapState.h"
 #include "DxLib.h"
 
 Target::Target(void):
-	i_to(),
-	j_to(),
+	i_toList(),
+	j_toList(),
 	rand(0),
 	routeList(),
 	search(new Search),
@@ -25,6 +26,31 @@ Target::~Target(void)
 	delete dijkstra;
 }
 
+int Target::CheckExistenceOfCharacterAroundMyself(int i_now, int j_now, int *i_to, int *j_to)
+{
+	int success = 0;
+	for(int i=i_now-radiusOfSearch; i<=i_now+radiusOfSearch; ++i)
+	{
+		for(int j=j_now-radiusOfSearch; j<=j_now+radiusOfSearch; ++j)
+		{
+			if(i != i_now && j != j_now)
+			{
+				if(MapState::GetInstance()->GetState(i, j, CHARACTOR) == 1)//他のキャラクターを見つけたら
+				{
+					if(search->CheckAbleToGoTo(i_now, j_now, i, j) == 1)//そこに行けるか調べて
+					{
+						*i_to = i;
+						*j_to = j;
+						success = 1;
+					}
+				}
+			}
+		}
+	}
+
+	return success;
+}
+
 void Target::DecideGoal(const Enemy &myself)
 {
 	hasCalculated = 0;
@@ -33,22 +59,30 @@ void Target::DecideGoal(const Enemy &myself)
 void Target::SetRoute(const Enemy &myself)
 {
 	//初期化
-	i_to.clear();
-	j_to.clear();
+	i_toList.clear();
+	j_toList.clear();
 	//初期化
 	routeList.clear();
 
 	int x_center = (myself.GetX()+myself.GetX()+32)/2;
 	int y_center = (myself.GetY()+myself.GetY()+32)/2;
+	int i_center = y_center/32;
+	int j_center = x_center/32;
 
-	if(search->SetGoal(y_center/32, x_center/32, &i_to, &j_to) == 1)
+	int i_to;
+	int j_to;
+	if(CheckExistenceOfCharacterAroundMyself(i_center, j_center, &i_to, &j_to) == 1)
+	{
+		dijkstra->SearchShortestPath(i_center, j_center, i_to, j_to, &routeList);
+		routeList.push_back(BOMBSET);
+	}
+	else if(search->SetGoal(y_center/32, x_center/32, &i_toList, &j_toList) == 1)
 	{
 		//目的地は候補の内から乱数で決める
-		rand = GetRand(i_to.size() - 1);
+		rand = GetRand(i_toList.size() - 1);
 
 		//最短経路のセット
-		//dijkstra->SearchShortestPath(myself.GetY()/32, myself.GetX()/32, i_to[rand], j_to[rand], &routeList);
-		dijkstra->SearchShortestPath(y_center/32, x_center/32, i_to[rand], j_to[rand], &routeList);
+		dijkstra->SearchShortestPath(y_center/32, x_center/32, i_toList[rand], j_toList[rand], &routeList);
 		routeList.push_back(BOMBSET);
 	}
 }

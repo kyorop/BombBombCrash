@@ -10,6 +10,7 @@
 #include "GameConstant.h"
 #include "DangerState.h"
 #include "DxLib.h"
+
 enum
 {
 	END = -1,
@@ -30,7 +31,6 @@ EnemyAI::EnemyAI():
 	currentState(END),
 	route(target),
 	hasCalculated(0),
-	//nowExploring(0),
 	target(new Target),
 	avoid(new Avoid),
 	stop(new StopRoute),

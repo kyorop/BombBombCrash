@@ -44,13 +44,13 @@ int Search::SetGoal(const int i, const int j, std::vector<int> *i_goal, std::vec
 
 	return SetGoal_base(i , j, i_goal, j_goal);
 }
+
 int Search::SetGoal_base(const int i, const int j, std::vector<int> *i_goal, std::vector<int> *j_goal)
 {
 	//一度通ったところにまた通らないように通過フラグを立てる
 	hasVisited[i][j] = 1;
 
 	//目的地になるか調査
-	//if(BLOCK(i, 0, j, 0) || BLOCK(i, -1, j, 0) || BLOCK(i, 1, j, 0) || BLOCK(i, 0, j, -1) || BLOCK(i, 0, j, 1))
 	if(MapState::GetInstance()->GetState(i-1, j, BLOCK) == 1
 		|| MapState::GetInstance()->GetState(i+1, j, BLOCK) == 1
 		|| MapState::GetInstance()->GetState(i, j-1, BLOCK) == 1
@@ -259,7 +259,6 @@ int Search::SetEscapeRouteWhenInDanger(int i_start, int j_start, std::list<int> 
 
 void Search::SetEscapeRouteToStop(int i_now, int j_now, std::list<int> escapeRoute)
 {
-
 }
 
 int Search::CheckInClosedInterval(int i_now, int j_now)
@@ -423,3 +422,46 @@ Search::~Search(void)
 //	}
 //
 //}
+
+int Search::CheckAbleToGoTo(int i_start, int j_start, int i_goal, int j_goal)
+{
+	//初期化
+	success = 0;
+	memset(hasVisited[0], 0, sizeof(int)*GameConst::MAP_ROW*GameConst::MAP_LINE);
+
+	return CheckAbleToGoTo_base(i_start, j_start, i_goal, j_goal);
+}
+
+int Search::CheckAbleToGoTo_base(const int i, const int j, const int i_goal, const int j_goal)
+{
+	//一度通ったところにまた通らないように通過フラグを立てる
+	hasVisited[i][j] = 1;
+
+	//目的地についたら
+	if(i == i_goal && j == j_goal)
+		success = 1;
+
+	//通れるところに進む
+	if(success == 0 && hasVisited[i-1][j] == 0 && CheckAbleToPass(i-1, j) == 1) CheckAbleToGoTo_base(i-1, j, i_goal, j_goal);
+	if(success == 0 && hasVisited[i+1][j] == 0 && CheckAbleToPass(i+1, j) == 1) CheckAbleToGoTo_base(i+1, j, i_goal, j_goal);
+	if(success == 0 && hasVisited[i][j-1] == 0 && CheckAbleToPass(i, j-1) == 1) CheckAbleToGoTo_base(i, j-1, i_goal, j_goal);
+	if(success == 0 && hasVisited[i][j+1] == 0 && CheckAbleToPass(i, j+1) == 1)CheckAbleToGoTo_base(i, j+1, i_goal, j_goal);
+
+	return success;
+}
+
+int Search::CheckAbleToPass(int i, int j)
+{
+	//ダイクストラが考慮する障害物と同じにしなければならない
+	if(MapState::GetInstance()->GetState(i, j, MAP) == 0
+		&& MapState::GetInstance()->GetState(i, j, BLOCK) == 0
+		&& MapState::GetInstance()->GetState(i, j, BOMB) == 0 
+		&& DangerState::GetInstance()->GetDangerState(i, j) == 0 
+		&& DangerState::GetInstance()->GetFireState(i, j) == 0 
+		)
+	{
+		return 1;
+	}
+	else
+		return 0;
+}

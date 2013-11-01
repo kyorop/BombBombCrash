@@ -15,6 +15,7 @@ protected:
 	int mv;//スピード
 	int bombNum;//出せるボムの個数
 	int fireLevel;//中心からの火のマス数(中心は含めない)
+	//static int id;
 public:
 	Charactor(void);
 	virtual ~Charactor(void);

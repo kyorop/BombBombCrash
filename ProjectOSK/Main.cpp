@@ -36,7 +36,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 	SetDrawScreen(DX_SCREEN_BACK);
 	
 	GameField field;
-	CharacterSet playerSet(new Enemy(32*2, 32*1));
+	CharacterSet player(new Player);
+	CharacterSet enemy(new Enemy(GameConst::FIRST_X_RIGHT, GameConst::FIRST_Y_UP));
+	CharacterSet enemy2(new Enemy(GameConst::FIRST_X_RIGHT, GameConst::FIRST_Y_DOWN));
+	CharacterSet enemy3(new Enemy(GameConst::FIRST_X_LEFT, GameConst::FIRST_Y_DOWN));
+	CharacterSet enemy4(new Enemy(32*8, 32*5));
 	//CharacterSet playerSet(new Player);
 	
 	int g_lasttime = 0;
@@ -54,13 +58,20 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		//ŒvŽZ
 		DangerState::GetInstance()->Update();
 		field.Update();
-		playerSet.Update();
+		player.Update();
+		enemy.Update();
+		enemy2.Update();
+		enemy3.Update();
+		enemy4.Update();
 		Collision::GetInstance()->CheckCollision();
 
 		//•`‰æ•”
 		field.Draw();
-		playerSet.Draw();
-
+		player.Draw();
+		enemy.Draw();
+		enemy2.Draw();
+		enemy3.Draw();
+		enemy4.Draw();
 
 		int black = GetColor(255,255,255);
 		int red = GetColor(255,0,0);
@@ -75,9 +86,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 					cannotWalkBlockColor = deepskyblue;
 				else
 					cannotWalkBlockColor = black;
-				//DrawFormatString(640+15*j,80+15*i,black,"%d",MapState::GetInstance()->GetState(i,j,BLOCK));
-				//DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",MapState::GetInstance()->GetDangerState(i, j));
-				DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",DangerState::GetInstance()->GetDangerState(i, j));
+				DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",MapState::GetInstance()->GetState(i,j,MAP));
+				//DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",MapState::GetInstance()->GetState(i, j, CHARACTOR));
+				//DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",DangerState::GetInstance()->GetDangerState(i, j));
 				//DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",DangerState::GetInstance()->GetFireState(i, j));
 			}
 		}

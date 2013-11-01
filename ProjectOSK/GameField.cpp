@@ -6,7 +6,7 @@
 GameField::GameField(void)
 	:item(new ItemManager),
 	map(new Map),
-	block(new Block)
+	block(new Block )
 {
 	//アイテムの配置
 	item->SetItem(*block);

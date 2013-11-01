@@ -14,7 +14,8 @@ int Bomb::image_bomb[60];
 
 //コンストラクタ
 Bomb::Bomb()
-	:fireLevel(1)
+	:fireLevel(1),
+	animpat(0)
 {
 	flag = 0;
 	x = 0;
@@ -77,10 +78,11 @@ void Bomb::SetFlag(int flag)
 
 void Bomb::Draw()
 {
+	animpat = ( (GetNowCount() & INT_MAX) / (1000 / 12)) % 3;
 	if(flag == 1)
 	{
 		SetTransColor(255,255,255);
-		DrawGraph(x, y, image_bomb[0], TRUE);
+		DrawGraph(x, y, image_bomb[0+animpat], TRUE);
 	}
 }
 

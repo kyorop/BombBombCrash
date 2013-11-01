@@ -5,7 +5,7 @@
 #include "MapState.h"
 #include "Collision.h"
 #include "DxLib.h"
-#define MV 4
+#define MV 1
 #define HABA 0
 #define DHIT 5
 enum

@@ -41,54 +41,56 @@ Enemy::~Enemy(void)
 
 void Enemy::Move()
 {
-	AI->Analyse(this->y/32, this->x/32, *this);
-
-	bombSet = 0;
-	switch(AI->GetAction(*this))
+	if(flag == 1)
 	{
-	case STOP:
-		stop = 1;
-		break;
-	case UP:
-		this->muki = UP;
-		this->y -= this->mv;
-		break;
-	case DOWN:
-		this->muki = DOWN;
-		this->y += this->mv;
-		break;
-	case LEFT:
-		this->muki = LEFT;
-		this->x -= this->mv;
-		break;
-	case RIGHT:
-		this->muki = RIGHT;
-		this->x += this->mv;
-		break;
-	case BOMBSET:
-		this->bombSet = 1;
-		break;
-	case BOMBSETOFF:
-		break;
-	case -1:
-		break;
+		AI->Analyse(this->y/32, this->x/32, *this);
+
+		bombSet = 0;
+		switch(AI->GetAction(*this))
+		{
+		case STOP:
+			stop = 1;
+			break;
+		case UP:
+			this->muki = UP;
+			this->y -= this->mv;
+			break;
+		case DOWN:
+			this->muki = DOWN;
+			this->y += this->mv;
+			break;
+		case LEFT:
+			this->muki = LEFT;
+			this->x -= this->mv;
+			break;
+		case RIGHT:
+			this->muki = RIGHT;
+			this->x += this->mv;
+			break;
+		case BOMBSET:
+			this->bombSet = 1;
+			break;
+		case BOMBSETOFF:
+			break;
+		case -1:
+			break;
+		}
+
+		if(this->x < 64)this->x = 64;
+		if(this->x > 32*14)this->x = 32*14;
+		if(this->y < 32)this->y = 32;
+		if(this->y > 32*11)this->y = 32*11;
+
+		this->rx = this->x+32;
+		this->dy = this->y+32;
+
+		//this->animpat = (g_lastTime / (1000 / 12)) % 4;
+		animpat = ( (GetNowCount() & INT_MAX) / (1000 / 12)) % 4;
 	}
-
-	if(this->x < 64)this->x = 64;
-	if(this->x > 32*14)this->x = 32*14;
-	if(this->y < 32)this->y = 32;
-	if(this->y > 32*11)this->y = 32*11;
-
-	this->rx = this->x+32;
-	this->dy = this->y+32;
-
-	//this->animpat = (g_lastTime / (1000 / 12)) % 4;
-	animpat = ( (GetNowCount() & INT_MAX) / (1000 / 12)) % 4;
 }
 
 void Enemy::Draw(void)
 {
-
 	if(this->flag == 1)
 	{
 		if(stop == 1)
