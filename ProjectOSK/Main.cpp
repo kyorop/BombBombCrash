@@ -36,7 +36,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 	SetDrawScreen(DX_SCREEN_BACK);
 	
 	GameField field;
-	CharacterSet player(new Player);
+	//CharacterSet player(new Player);
 	CharacterSet enemy(new Enemy(GameConst::FIRST_X_RIGHT, GameConst::FIRST_Y_UP));
 	CharacterSet enemy2(new Enemy(GameConst::FIRST_X_RIGHT, GameConst::FIRST_Y_DOWN));
 	CharacterSet enemy3(new Enemy(GameConst::FIRST_X_LEFT, GameConst::FIRST_Y_DOWN));
@@ -58,7 +58,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		//ŒvŽZ
 		DangerState::GetInstance()->Update();
 		field.Update();
-		player.Update();
+		//player.Update();
 		enemy.Update();
 		enemy2.Update();
 		enemy3.Update();
@@ -67,7 +67,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 
 		//•`‰æ•”
 		field.Draw();
-		player.Draw();
+		//player.Draw();
 		enemy.Draw();
 		enemy2.Draw();
 		enemy3.Draw();

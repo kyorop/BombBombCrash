@@ -3,13 +3,17 @@
 #include "MapState.h"
 #include "DxLib.h"
 
+int Charactor::idGenerator;
+
 Charactor::Charactor(void)
 	:preX(),
 	preY(),
 	mv(3),
 	bombNum(1),
-	fireLevel(1)
+	fireLevel(1),
+	id(idGenerator)
 {
+	++idGenerator;
 }
 
 Charactor::~Charactor(void)
