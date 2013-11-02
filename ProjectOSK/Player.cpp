@@ -54,7 +54,6 @@ void Player::Move()
 		this->muki = LEFT;
 		if(CheckHitKey(KEY_INPUT_UP) == 1)this->y -= MV;			
 		if(CheckHitKey(KEY_INPUT_DOWN) == 1)this->y += MV;
-		
 	}	
 	else if(CheckHitKey(KEY_INPUT_RIGHT) == 1 && CheckHitKey(KEY_INPUT_DOWN) == 0 && CheckHitKey(KEY_INPUT_UP) == 0)	
 	{

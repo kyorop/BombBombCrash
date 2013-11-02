@@ -9,12 +9,13 @@
 #include "BlastManager.h"
 #include "MapState.h"
 #include "EnemyBombManager.h"
-#include "DxLib.h"
 #include "CharacterSet.h"
 #include "Collision.h"
 #include "GameField.h"
 #include "Enemy.h"
 #include "DangerState.h"
+#include "SceneManger.h"
+#include "DxLib.h"
 #include <iostream>
 #include <vector>
 #define REGISTERNUM 7
@@ -35,18 +36,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		return -1;
 	SetDrawScreen(DX_SCREEN_BACK);
 	
-	GameField field;
-	//CharacterSet player(new Player);
-	CharacterSet enemy(new Enemy(GameConst::FIRST_X_RIGHT, GameConst::FIRST_Y_UP));
-	CharacterSet enemy2(new Enemy(GameConst::FIRST_X_RIGHT, GameConst::FIRST_Y_DOWN));
-	CharacterSet enemy3(new Enemy(GameConst::FIRST_X_LEFT, GameConst::FIRST_Y_DOWN));
-	CharacterSet enemy4(new Enemy(32*8, 32*5));
-	//CharacterSet playerSet(new Player);
+	SceneManger sceneMrg;
 	
 	int g_lasttime = 0;
 	float g_frametime = 0;
-
-	field.Initialize();
 
 	while(CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
@@ -56,42 +49,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		ClearDrawScreen();
 		//*********************************************
 		//ŒvŽZ
-		DangerState::GetInstance()->Update();
-		field.Update();
-		//player.Update();
-		enemy.Update();
-		enemy2.Update();
-		enemy3.Update();
-		enemy4.Update();
-		Collision::GetInstance()->CheckCollision();
+		sceneMrg.Update();
+		sceneMrg.Draw();
 
-		//•`‰æ•”
-		field.Draw();
-		//player.Draw();
-		enemy.Draw();
-		enemy2.Draw();
-		enemy3.Draw();
-		enemy4.Draw();
-
-		int black = GetColor(255,255,255);
-		int red = GetColor(255,0,0);
-		int blue = GetColor(0,0,255);
-		int deepskyblue = GetColor(0, 191, 255);
-		int cannotWalkBlockColor;
-		for(int i=0; i<GameConst::MAP_ROW; ++i)
-		{
-			for(int j=0; j<GameConst::MAP_LINE; ++j)
-			{
-				if(i == 0 || i == 12 || j == 0 || j == 1 || j == 15 || j == 16 || MapState::GetInstance()->GetState(i, j, MAP) == 1)
-					cannotWalkBlockColor = deepskyblue;
-				else
-					cannotWalkBlockColor = black;
-				DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",MapState::GetInstance()->GetState(i,j,MAP));
-				//DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",MapState::GetInstance()->GetState(i, j, CHARACTOR));
-				//DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",DangerState::GetInstance()->GetDangerState(i, j));
-				//DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",DangerState::GetInstance()->GetFireState(i, j));
-			}
-		}
 		//*********************************************
 		ScreenFlip();
 		if(ProcessMessage() == -1)
