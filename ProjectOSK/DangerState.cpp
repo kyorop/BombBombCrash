@@ -9,13 +9,44 @@ DangerState::DangerNode::DangerNode():
 {
 }
 
-DangerState::DangerState(void)
+void DangerState::DangerNode::Finalize()
 {
+	danger = 0;
+	i_brastCenter = -1;
+	j_brastCenter = -1;
 }
+
+DangerState::DangerState(void)
+	:node(),
+	fireNode()
+{
+	for (int i = 0; i < GameConst::MAP_ROW; ++i)
+	{
+		for (int j = 0; j < GameConst::MAP_LINE; ++j)
+		{
+			fireNode[i][j]= 0;
+		}
+	}
+}
+
 
 DangerState::~DangerState(void)
 {
 }
+
+
+void DangerState::Finalize()
+{
+	for (int i = 0; i < GameConst::MAP_ROW; ++i)
+	{
+		for (int j = 0; j < GameConst::MAP_LINE; ++j)
+		{
+			node[i][j].Finalize();
+			fireNode[i][j] = 0;
+		}
+	}
+}
+
 
 void DangerState::Update()
 {

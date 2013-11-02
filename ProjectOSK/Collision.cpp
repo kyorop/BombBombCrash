@@ -38,6 +38,19 @@ Collision* Collision::GetInstance()
 	return &collision;
 }
 
+void Collision::Finalize()
+{
+	disableGoingThrough.clear();
+	bomb.clear();
+	character.clear();
+	softBlock.clear();
+	hardBlock.clear();
+	map.clear();
+	fire.clear();
+	fragile.clear();
+	item.clear();
+}
+
 void Collision::Register(ICollisionable *anythingCollisionable)
 {
 	const type_info &type = typeid( *anythingCollisionable );

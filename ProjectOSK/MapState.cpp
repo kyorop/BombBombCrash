@@ -31,6 +31,23 @@ void MapState::SetState(int x, int y, int object, int state, int option)
 		mapState[i][j][object][option] = state;
 }
 
+
+void MapState::Finalize()
+{
+	for(int i=0;i<row;++i)
+	{
+		for(int j=0; j<line; ++j)
+		{
+			for(int k=0; j<objects; ++j)
+			{
+				for(int l=0; l<topic; ++l)
+					mapState[i][j][k][l] = 0;
+			}
+		}
+	}
+}
+
+
 void MapState::SetMapState(int x, int y, int state, int option)
 {
 	SetState(x, y, MAP, state);

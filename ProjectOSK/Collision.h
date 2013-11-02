@@ -39,6 +39,7 @@ private:
 public:
 	~Collision(void);
 	static Collision* GetInstance();
+	void Finalize();
 	void Register(ICollisionable *anythingCollisionable);
 	void RegisterWithFire(ExplosionManager *fire);
 	void RegisterWithItem(Item *item);

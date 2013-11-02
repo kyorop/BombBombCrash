@@ -14,4 +14,3 @@ public:
 	void Update(void) override;
 	void Draw(void) override;
 };
-

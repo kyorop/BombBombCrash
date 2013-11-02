@@ -12,6 +12,7 @@ private:
 		int j_brastCenter;
 	public:
 		DangerNode();
+		void Finalize();
 	};
 
 public:
@@ -28,6 +29,7 @@ public:
 		return &dsInstance;
 	}
 	
+	void Finalize();
 	void Update();
 	int GetDangerState(int i, int j)const;
 	int GetFireState(int i, int j)const;

@@ -20,6 +20,7 @@ private:
 public:
 	Scene_Game();
 	~Scene_Game();
+	void Finalize() override;
 	void Update() override;
 	void Draw() override;
 };

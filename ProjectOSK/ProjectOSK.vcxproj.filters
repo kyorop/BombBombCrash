@@ -75,9 +75,6 @@
     <ClCompile Include="MapObject.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Collision.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Map.cpp">
       <Filter>ソース ファイル\Map</Filter>
     </ClCompile>
@@ -147,6 +144,9 @@
     <ClCompile Include="Scene_Base.cpp">
       <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>ソース ファイル\GameState</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Explosion.h">
@@ -179,9 +179,6 @@
     <ClInclude Include="Timer.h">
       <Filter>ソース ファイル\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="Collision.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Map.h">
       <Filter>ソース ファイル\Map</Filter>
     </ClInclude>
@@ -207,9 +204,6 @@
       <Filter>ソース ファイル\GameState</Filter>
     </ClInclude>
     <ClInclude Include="IRegister.h">
-      <Filter>ソース ファイル\GameState</Filter>
-    </ClInclude>
-    <ClInclude Include="MapState.h">
       <Filter>ソース ファイル\GameState</Filter>
     </ClInclude>
     <ClInclude Include="ICollisionable.h">
@@ -268,6 +262,12 @@
     </ClInclude>
     <ClInclude Include="SceneManger.h">
       <Filter>ソース ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MapState.h">
+      <Filter>ソース ファイル\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>ソース ファイル\GameState</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

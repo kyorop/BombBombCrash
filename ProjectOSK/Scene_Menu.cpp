@@ -18,12 +18,13 @@ void Scene_Menu::UpdateScene()
 {
 	if(CheckHitKey(KEY_INPUT_RETURN) == 1)
 	{
-		sceneMrg->ChangeScene(new Scene_Game);
+		sceneMrg->ChangeScene(ISceneChanger::SCENE_GAME);
 	}
 }
 
 void Scene_Menu::Update(void)
 {
+	//シーン更新
 	UpdateScene();
 }
 

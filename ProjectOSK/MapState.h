@@ -36,7 +36,7 @@ public:
 		return &msInstance;
 	}
 
-	void SetDanger(int i, int j, int fireLevel, int state);
+	void Finalize();
 	//セット系はそれを用いるクラスが直交座標系なので x, y で指定する
 	//ゲット系はそれを用いるクラスが行列形式で管理しているので i, j で指定する
 	void SetMapState(int x, int y, int flag, int option=0);

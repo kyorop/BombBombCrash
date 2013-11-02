@@ -38,14 +38,25 @@ void Scene_Game::UpdateScene()
 {
 	if(CheckHitKey(KEY_INPUT_DELETE) == 1)
 	{
-		sceneMrg->ChangeScene(new Scene_Menu);
+		sceneMrg->ChangeScene(ISceneChanger::SCENE_MENU);
 	}
+}
+
+
+void Scene_Game::Finalize()
+{
+	MapState::GetInstance()->Finalize();
+	DangerState::GetInstance()->Finalize();
+	Collision::GetInstance()->Finalize();
 }
 
 
 void Scene_Game::Update()
 {
+	//シーン切り替え
 	UpdateScene();
+
+	//ゲーム更新
 	DangerState::GetInstance()->Update();
 	gameScreen->Update();
 	player->Update();
@@ -54,6 +65,7 @@ void Scene_Game::Update()
 	enemy3->Update();
 	enemy4->Update();
 	Collision::GetInstance()->CheckCollision();
+	
 }
 
 

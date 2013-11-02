@@ -4,7 +4,8 @@
 #include "Scene_Game.h"
 
 SceneManger::SceneManger(void)
-	:scene(new Scene_Menu)
+	:nextScene(NOCHANGE),
+	scene(new Scene_Menu)
 {
 	scene->SetManager(this);
 }
@@ -12,11 +13,31 @@ SceneManger::SceneManger(void)
 
 SceneManger::~SceneManger(void)
 {
+	delete scene;
 }
 
 
 void SceneManger::Update(void)
 {
+	if(nextScene != NOCHANGE)
+	{	
+		scene->Finalize();		//次のシーンに変わる前に今のシーンの初期化
+		delete scene;
+
+		switch(nextScene)
+		{
+		case ISceneChanger::SCENE_MENU:
+			scene  = new Scene_Menu;
+			break;
+		case ISceneChanger::SCENE_GAME:
+			scene = new Scene_Game;
+			break;
+		}
+		nextScene = ISceneChanger::NOCHANGE;
+		scene->Initialize();
+		scene->SetManager(this);
+	}
+
 	scene->Update();
 }
 
@@ -27,9 +48,7 @@ void SceneManger::Draw(void)
 }
 
 
-void SceneManger::ChangeScene(Scene_Base *nextScene)
+void SceneManger::ChangeScene(int next)
 {
-	delete scene;
-	scene = nextScene;
-	scene->SetManager(this);
+	nextScene = next;
 }
