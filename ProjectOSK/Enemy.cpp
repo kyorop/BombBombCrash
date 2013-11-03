@@ -101,6 +101,7 @@ void Enemy::Draw(void)
 			animpat = 0;
 			stop = 0;
 		}
+		SetTransColor(255,255,255);
 		switch(this->muki)
 		{
 		case STOP:

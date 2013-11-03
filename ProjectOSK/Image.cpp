@@ -24,10 +24,10 @@ void Image::Initialize()
 	floor = LoadGraph("yuka.bmp");
 	hardBlock = LoadGraph("rimblock.bmp");
 	softBlock = LoadGraph("breakblock.bmp");
-	LoadDivGraph("itemup.bmp", 3, 3, 1, 32, 32, item, FALSE);
-	LoadDivGraph("bombman.png", 20, 4, 5, 32, 32, player, FALSE);
-	LoadDivGraph("redbombman.png", 20, 4, 5, 32, 32, enemy, FALSE);
-	LoadDivGraph("bomb.png", 60, 6, 10, 32, 32, bomb, FALSE);
+	LoadDivGraph("itemup.bmp", 3, 3, 1, 32, 32, item);
+	LoadDivGraph("bombman.png", 20, 4, 5, 32, 32, player);
+	LoadDivGraph("redbombman.png", 20, 4, 5, 32, 32, enemy);
+	LoadDivGraph("bomb.png", 60, 6, 10, 32, 32, bomb);
 	fire = LoadGraph("fire.bmp");
 }
 

@@ -44,14 +44,14 @@ void Player::Draw()
 {
 	if(this->flag == 1)
 	{
-		if(CheckHitKey(KEY_INPUT_LEFT) == 1)			DrawGraph(this->x, this->y, image_left[animpat], TRUE);//動いているときはアニメーション
-		else if(CheckHitKey(KEY_INPUT_RIGHT) == 1)	DrawGraph(this->x, this->y, image_right[animpat], TRUE);
-		else if(CheckHitKey(KEY_INPUT_UP) == 1)		DrawGraph(this->x, this->y, image_up[animpat], TRUE);
-		else if(CheckHitKey(KEY_INPUT_DOWN) == 1)	DrawGraph(this->x, this->y, image_down[animpat], TRUE);	
-		else if(this->muki == LEFT)		DrawGraph(this->x, this->y, *image_left, TRUE);//止まっているときは最後の向きを表示
-		else if(this->muki == RIGHT)	DrawGraph(this->x, this->y, *image_right, TRUE);
-		else if(this->muki == UP)		DrawGraph(this->x, this->y, *image_up,TRUE);
-		else if(this->muki == DOWN)	DrawGraph(this->x, this->y, *image_down, TRUE);
+		if(CheckHitKey(KEY_INPUT_LEFT) == 1)DrawGraph(this->x, this->y, image_left[animpat], FALSE);//動いているときはアニメーション
+		else if(CheckHitKey(KEY_INPUT_RIGHT) == 1)DrawGraph(this->x, this->y, image_right[animpat], FALSE);
+		else if(CheckHitKey(KEY_INPUT_UP) == 1)DrawGraph(this->x, this->y, image_up[animpat], FALSE);
+		else if(CheckHitKey(KEY_INPUT_DOWN) == 1)DrawGraph(this->x, this->y, image_down[animpat], FALSE);	
+		else if(this->muki == LEFT)		DrawGraph(this->x, this->y, *image_left, FALSE);//止まっているときは最後の向きを表示
+		else if(this->muki == RIGHT)	DrawGraph(this->x, this->y, *image_right, FALSE);
+		else if(this->muki == UP)		DrawGraph(this->x, this->y, *image_up,FALSE);
+		else if(this->muki == DOWN)	DrawGraph(this->x, this->y, *image_down, FALSE);
 	}
 }
 

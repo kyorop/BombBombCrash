@@ -14,6 +14,7 @@ SceneManger::SceneManger(void)
 
 SceneManger::~SceneManger(void)
 {
+	scene->Finalize();
 	delete scene;
 }
 

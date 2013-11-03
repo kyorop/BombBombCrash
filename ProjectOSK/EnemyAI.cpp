@@ -40,10 +40,10 @@ EnemyAI::EnemyAI():
 
 EnemyAI::~EnemyAI(void)
 {
-	delete target;
-	delete avoid;
-	delete stop;
 	delete search;
+	delete stop;
+	delete avoid;
+	delete target;
 }
 
 int EnemyAI::CheckBombCAroundMyself(const Enemy &myself)

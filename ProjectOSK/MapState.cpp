@@ -6,7 +6,7 @@ MapState::MapState(void)
 	{
 		for(int j=0; j<line; ++j)
 		{
-			for(int k=0; j<objects; ++j)
+			for(int k=0; k<objects; ++k)
 			{
 				for(int l=0; l<topic; ++l)
 					mapState[i][j][k][l] = 0;
@@ -38,7 +38,7 @@ void MapState::Finalize()
 	{
 		for(int j=0; j<line; ++j)
 		{
-			for(int k=0; j<objects; ++j)
+			for(int k=0; k<objects; ++k)
 			{
 				for(int l=0; l<topic; ++l)
 					mapState[i][j][k][l] = 0;
