@@ -84,7 +84,6 @@ void Bomb::Draw()
 	if(flag == 1)
 	{
 		SetTransColor(255,255,255);
-		//DrawGraph(x, y, image_bomb[0+animpat], TRUE);
 		DrawGraph(x, y, image_bomb[animpat], TRUE);
 	}
 }

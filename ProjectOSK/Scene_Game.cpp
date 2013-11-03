@@ -11,6 +11,7 @@
 #include "ISceneChanger.h"
 #include "Scene_Menu.h"
 #include "SceneManger.h"
+#include "Timer.h"
 #include "DxLib.h"
 
 Scene_Game::Scene_Game()
@@ -26,18 +27,12 @@ Scene_Game::Scene_Game()
 
 Scene_Game::~Scene_Game(void)
 {
-	//delete gameScreen;
-	//delete player;
-	//delete enemy;
-	//delete enemy2;
-	//delete enemy3;
-	//delete enemy4;
 }
 
 
 void Scene_Game::UpdateScene()
 {
-	if(CheckHitKey(KEY_INPUT_DELETE) == 1)
+	if(timer->CountDown(128000) == true)
 	{
 		sceneMrg->ChangeScene(ISceneChanger::SCENE_MENU);
 	}
@@ -56,11 +51,13 @@ void Scene_Game::Initialize()
 	enemy2 = new CharacterSet(new Enemy(GameConst::FIRST_X_LEFT, GameConst::FIRST_Y_DOWN));
 	enemy3 = new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT, GameConst::FIRST_Y_DOWN));
 	enemy4 = new CharacterSet(new Enemy(32*8, 32*5));
+	timer = new Timer;
 }
 
 
 void Scene_Game::Finalize()
 {
+	delete timer;
 	delete enemy4;
 	delete enemy3;
 	delete enemy2;
@@ -121,6 +118,20 @@ void Scene_Game::Draw()
 			//DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",DangerState::GetInstance()->GetFireState(i, j));
 		}
 	}
+
+	int currentMilliSecond = timer->GetLeftedTime();		//残り時間(ミリ秒)
+	int minute = currentMilliSecond / (60*1000);		//残り時間(分)
+	int second = (currentMilliSecond - ( (60 * minute) * 1000))/1000;		//残り時間(秒)
+	
+	int haba = 0;
+	if(second < 10)
+	{
+		haba = 9;
+		DrawFormatString(640, 65, red, "%d", 0);
+	}
+	DrawFormatString(640, 50, red, "%d", minute);
+	DrawFormatString(640+haba, 65, red, "%d", second);
+
 }
 
 

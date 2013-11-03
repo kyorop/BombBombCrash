@@ -2,34 +2,50 @@
 #include "DxLib.h"
 
 Timer::Timer(void)
+	:count(0),
+	reset(true),
+	startTime(0),
+	limitedTime()
 {
-	this->reset = true;
-	this->startTime = 0;
-	this->count = 0;
 }
 
-bool Timer::CountDown(int time)
-{
-	if(this->reset == true)
-	{
-		this->startTime = GetNowCount();
-		this->reset = false;
-	}
-	if(GetNowCount() - this->startTime < time)
-		return false;
-	else
-	{
-		this->reset = true;
-		return true;
-	}
-}
 
 Timer::~Timer(void)
 {
 }
 
 
+bool Timer::CountDown(int time)
+{
+	limitedTime = time;
+	if(this->reset == true)
+	{
+		startTime = GetNowCount();
+		reset = false;
+	}
+
+	if(GetNowCount() - startTime < time)
+		return false;
+	else
+	{
+		reset = true;
+		return true;
+	}
+}
+
+
+
+
 void Timer::TurnReset(void)
 {
-	this->reset = true;
+	reset = true;
+}
+
+
+int Timer::GetLeftedTime()const
+{
+	if(reset == false)
+		return limitedTime - (GetNowCount() - startTime);
+	else
+		return -1;
 }

@@ -5,6 +5,7 @@
 //class ISceneChanger;
 class GameField;
 class CharacterSet;
+class Timer;
 class Scene_Game
 	:public Scene_Base
 {
@@ -15,6 +16,7 @@ private:
 	CharacterSet *enemy2;
 	CharacterSet *enemy3;
 	CharacterSet *enemy4;
+	Timer* timer;
 private:
 	void UpdateScene() override;
 public:
