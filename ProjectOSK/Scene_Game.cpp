@@ -107,7 +107,7 @@ void Scene_Game::Draw()
 	{
 		for(int j=0; j<GameConst::MAP_LINE; ++j)
 		{
-			if(i == 0 || i == 12 || j == 0 || j == 1 || j == 15 || j == 16 || MapState::GetInstance()->GetState(i, j, MAP) == 1)
+			if(i == 0 || i == 12 || j == 0 || j == 1 || j == 15 || j == 16 || MapState::GetInstance()->GetState(i, j, MapState::MAP) == 1)
 				cannotWalkBlockColor = deepskyblue;
 			else
 				cannotWalkBlockColor = black;

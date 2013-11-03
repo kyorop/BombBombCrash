@@ -1,51 +1,24 @@
 #pragma once
 #include "GameConstant.h"
-////#include <vector>
-#include <list>
-////#include <queue>
-////#include <stack>
-////#include <vector>
-#define MAPSIZE_X 17
-#define MAPSIZE_Y 13
+#include "IStateChanger.h"
 
+class State;
 class Enemy;
-class Dijkstra;
-class Search;
-class Route;
-class Target;
-class Avoid;
-class StopRoute;
 class EnemyAI
+	:public IStateChanger
 {
 private:
-	enum procedure
-	{
-		END,
-		TARGET,
-		AVOID,
-		STOPTHINKING,
-	};
-	 procedure nextState;
-	 procedure currentState;
-	 
-	int hasCalculated;
-	int x_next;
-	int y_next;
-public:
-	Target *const target;
-	Avoid *const avoid;
-	StopRoute *const stop;
-	Search *const search;
-	Route *route;
+	int nextState;
+	State* state;
 private:
-	int CheckBombCAroundMyself(const Enemy &myself);
-	int CheckDanager(const Enemy &myself);
-	int CheckAbleToMove(const Enemy &myself);
+	void UpdateState();
 public:
-	void Analyse(int i_current, int j_current, const Enemy &myself);
-	int GetAction(const Enemy &myself);
-		
 	EnemyAI();
 	~EnemyAI(void);
+	
+	void ChangeState(int nextState)override;
+	void Analyse(const Enemy &myself);
+	int GetAction(const Enemy &myself);
+
 };
 

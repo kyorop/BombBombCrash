@@ -5,20 +5,9 @@
 #include "EnemyAI.h"
 #include "Collision.h"
 #include "Image.h"
+#include "GameConstant.h"
 #define MV 1
 #define HABA 10
-
-enum
-{
-	END = -1,
-	STOP,
-	LEFT,
-	RIGHT,
-	UP,
-	DOWN,
-	BOMBSET,
-	BOMBSETOFF,
-};
 
 
 Enemy::Enemy(int x, int y)
@@ -27,7 +16,7 @@ Enemy::Enemy(int x, int y)
 	image_up(Image::GetInstance()->GetEnemyImage(Image::UP)),
 	image_down(Image::GetInstance()->GetEnemyImage(Image::DOWN)),
 	AI(new EnemyAI),
-	muki(STOP),
+	muki(GameConst::EnemyAction::STOP),
 	stop(0),
 	bombSet(0)
 {
@@ -47,34 +36,34 @@ void Enemy::Move()
 {
 	if(flag == 1)
 	{
-		AI->Analyse(this->y/32, this->x/32, *this);
+		AI->Analyse(*this);
 
 		bombSet = 0;
 		switch(AI->GetAction(*this))
 		{
-		case STOP:
+		case GameConst::EnemyAction::STOP:
 			stop = 1;
 			break;
-		case UP:
-			this->muki = UP;
+		case GameConst::EnemyAction::UP:
+			this->muki = GameConst::EnemyAction::UP;
 			this->y -= this->mv;
 			break;
-		case DOWN:
-			this->muki = DOWN;
+		case GameConst::EnemyAction::DOWN:
+			this->muki = GameConst::EnemyAction::DOWN;
 			this->y += this->mv;
 			break;
-		case LEFT:
-			this->muki = LEFT;
+		case GameConst::EnemyAction::LEFT:
+			this->muki = GameConst::EnemyAction::LEFT;
 			this->x -= this->mv;
 			break;
-		case RIGHT:
-			this->muki = RIGHT;
+		case GameConst::EnemyAction::RIGHT:
+			this->muki = GameConst::EnemyAction::RIGHT;
 			this->x += this->mv;
 			break;
-		case BOMBSET:
+		case GameConst::EnemyAction::BOMBSET:
 			this->bombSet = 1;
 			break;
-		case BOMBSETOFF:
+		case GameConst::EnemyAction::BOMBSETOFF:
 			break;
 		case -1:
 			break;
@@ -104,15 +93,15 @@ void Enemy::Draw(void)
 		SetTransColor(255,255,255);
 		switch(this->muki)
 		{
-		case STOP:
+		case GameConst::EnemyAction::STOP:
 			DrawGraph(x, y, *image_down, FALSE);break;
-		case LEFT:
+		case GameConst::EnemyAction::LEFT:
 			DrawGraph(x, y, image_left[animpat], FALSE);break;
-		case RIGHT:
+		case GameConst::EnemyAction::RIGHT:
 			DrawGraph(x, y, image_right[animpat], FALSE);break;
-		case UP:
+		case GameConst::EnemyAction::UP:
 			DrawGraph(x, y, image_up[animpat], FALSE);break;
-		case DOWN:
+		case GameConst::EnemyAction::DOWN:
 			DrawGraph(x, y, image_down[animpat], FALSE);break;
 		}
 	}

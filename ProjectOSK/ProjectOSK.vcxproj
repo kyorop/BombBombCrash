@@ -86,6 +86,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AttackOtherCharacter.cpp" />
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="BombSet.cpp" />
@@ -119,11 +120,13 @@
     <ClCompile Include="Scene_Game.cpp" />
     <ClCompile Include="Scene_Menu.cpp" />
     <ClCompile Include="Search.cpp" />
+    <ClCompile Include="State.cpp" />
     <ClCompile Include="StopRoute.cpp" />
     <ClCompile Include="Target.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AttackOtherCharacter.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="BombSet.h" />
@@ -146,6 +149,7 @@
     <ClInclude Include="IMediator.h" />
     <ClInclude Include="IRegister.h" />
     <ClInclude Include="ISceneChanger.h" />
+    <ClInclude Include="IStateChanger.h" />
     <ClInclude Include="Key.h" />
     <ClInclude Include="Explosion.h" />
     <ClInclude Include="ExplosionManager.h" />
@@ -162,6 +166,7 @@
     <ClInclude Include="Scene_Game.h" />
     <ClInclude Include="Scene_Menu.h" />
     <ClInclude Include="Search.h" />
+    <ClInclude Include="State.h" />
     <ClInclude Include="StopRoute.h" />
     <ClInclude Include="Target.h" />
     <ClInclude Include="Timer.h" />

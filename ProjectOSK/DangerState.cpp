@@ -55,7 +55,7 @@ void DangerState::Update()
 		for (int j = 0; j < GameConst::MAP_LINE; ++j)
 		{
 			//中心が消えたら他も全部消す
-			if(node[i][j].danger == 1 && MapState::GetInstance()->GetState(node[i][j].i_brastCenter, node[i][j].j_brastCenter, BOMB) == 0)
+			if(node[i][j].danger == 1 && MapState::GetInstance()->GetState(node[i][j].i_brastCenter, node[i][j].j_brastCenter, MapState::BOMB) == 0)
 			{
 				node[i][j].danger = 0; 
 			}
@@ -66,7 +66,7 @@ void DangerState::Update()
 	{
 		for (int j = 0; j < GameConst::MAP_LINE; ++j)
 		{
-			if(MapState::GetInstance()->GetState(i, j, FIRE) == 1)
+			if(MapState::GetInstance()->GetState(i, j, MapState::FIRE) == 1)
 				fireNode[i][j] = 1;
 			else
 				fireNode[i][j] = 0;
@@ -78,9 +78,9 @@ void DangerState::Update()
 		for (int j_node = 0; j_node < GameConst::MAP_LINE; ++j_node)
 		{
 			//ボムが置かれているなら
-			if(MapState::GetInstance()->GetState(i_node, j_node, BOMB) == 1)
+			if(MapState::GetInstance()->GetState(i_node, j_node, MapState::BOMB) == 1)
 			{
-				int fireLevel = MapState::GetInstance()->GetState(i_node, j_node, BOMB, 1);
+				int fireLevel = MapState::GetInstance()->GetState(i_node, j_node, MapState::BOMB, 1);
 				//ボムが置かれた場所は常に１にしておく
 				node[i_node][j_node].danger = 1;
 				node[i_node][j_node].i_brastCenter = i_node;
@@ -93,11 +93,11 @@ void DangerState::Update()
 				{
 					if(0 <= i && i < GameConst::MAP_ROW)
 					{
-						if(MapState::GetInstance()->GetState(i, j_node, MAP) == 1
-							|| MapState::GetInstance()->GetState(i, j_node, BLOCK) == 1
-							||MapState::GetInstance()->GetState(i, j_node, ITEM) == 1
-							||MapState::GetInstance()->GetState(i, j_node, BOMB) == 1
-							//||MapState::GetInstance()->GetState(i, j_node, CHARACTOR) == 1
+						if(MapState::GetInstance()->GetState(i, j_node, MapState::MAP) == 1
+							|| MapState::GetInstance()->GetState(i, j_node, MapState::BLOCK) == 1
+							||MapState::GetInstance()->GetState(i, j_node, MapState::ITEM) == 1
+							||MapState::GetInstance()->GetState(i, j_node, MapState::BOMB) == 1
+							//||MapState::GetInstance()->GetState(i, j_node, MapState::CHARACTOR) == 1
 							)
 						{
 							break;
@@ -116,11 +116,11 @@ void DangerState::Update()
 				{
 					if(0 <= i && i < GameConst::MAP_ROW)
 					{
-						if(MapState::GetInstance()->GetState(i, j_node, MAP) == 1
-							|| MapState::GetInstance()->GetState(i, j_node, BLOCK) == 1
-							||MapState::GetInstance()->GetState(i, j_node, ITEM) == 1
-							||MapState::GetInstance()->GetState(i, j_node, BOMB) == 1
-							//||MapState::GetInstance()->GetState(i, j_node, CHARACTOR) == 1
+						if(MapState::GetInstance()->GetState(i, j_node, MapState::MAP) == 1
+							|| MapState::GetInstance()->GetState(i, j_node, MapState::BLOCK) == 1
+							||MapState::GetInstance()->GetState(i, j_node, MapState::ITEM) == 1
+							||MapState::GetInstance()->GetState(i, j_node, MapState::BOMB) == 1
+							//||MapState::GetInstance()->GetState(i, j_node, MapState::CHARACTOR) == 1
 							)
 						{
 							break;
@@ -139,10 +139,10 @@ void DangerState::Update()
 				{
 					if(0 <= j && j < GameConst::MAP_LINE)
 					{
-						if(MapState::GetInstance()->GetState(i_node, j, MAP) == 1
-							|| MapState::GetInstance()->GetState(i_node, j, BLOCK) == 1
-							||MapState::GetInstance()->GetState(i_node, j, ITEM) == 1
-							||MapState::GetInstance()->GetState(i_node, j, BOMB) == 1
+						if(MapState::GetInstance()->GetState(i_node, j, MapState::MAP) == 1
+							|| MapState::GetInstance()->GetState(i_node, j, MapState::BLOCK) == 1
+							||MapState::GetInstance()->GetState(i_node, j, MapState::ITEM) == 1
+							||MapState::GetInstance()->GetState(i_node, j, MapState::BOMB) == 1
 							//||MapState::GetInstance()->GetState(i_node, j, CHARACTOR) == 1
 							)
 						{
@@ -162,10 +162,10 @@ void DangerState::Update()
 				{
 					if(0 <= j && j < GameConst::MAP_LINE)
 					{
-						if(MapState::GetInstance()->GetState(i_node, j, MAP) == 1
-							|| MapState::GetInstance()->GetState(i_node, j, BLOCK) == 1
-							||MapState::GetInstance()->GetState(i_node, j, ITEM) == 1
-							||MapState::GetInstance()->GetState(i_node, j, BOMB) == 1
+						if(MapState::GetInstance()->GetState(i_node, j, MapState::MAP) == 1
+							|| MapState::GetInstance()->GetState(i_node, j, MapState::BLOCK) == 1
+							||MapState::GetInstance()->GetState(i_node, j, MapState::ITEM) == 1
+							||MapState::GetInstance()->GetState(i_node, j, MapState::BOMB) == 1
 							//||MapState::GetInstance()->GetState(i_node, j, CHARACTOR) == 1
 							)
 						{

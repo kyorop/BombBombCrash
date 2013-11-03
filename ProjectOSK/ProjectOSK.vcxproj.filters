@@ -40,15 +40,12 @@
     <Filter Include="ソース ファイル\Scene">
       <UniqueIdentifier>{27dff125-c8be-4686-91a4-a1bbd06fc9ac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\AI\State">
+      <UniqueIdentifier>{ce5d6ff7-37a0-4b52-8049-dd31fad6af7e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Explosion.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="ExplosionManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="IDrawable.cpp">
@@ -62,15 +59,6 @@
     </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>ソース ファイル\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Target.cpp">
-      <Filter>ソース ファイル\AI</Filter>
-    </ClCompile>
-    <ClCompile Include="Avoid.cpp">
-      <Filter>ソース ファイル\AI</Filter>
-    </ClCompile>
-    <ClCompile Include="StopRoute.cpp">
-      <Filter>ソース ファイル\AI</Filter>
     </ClCompile>
     <ClCompile Include="MapObject.cpp">
       <Filter>ソース ファイル</Filter>
@@ -144,31 +132,37 @@
     <ClCompile Include="Collision.cpp">
       <Filter>ソース ファイル\GameState</Filter>
     </ClCompile>
-    <ClCompile Include="Image.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>ソース ファイル\Character</Filter>
     </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>ソース ファイル\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Explosion.cpp">
+      <Filter>ソース ファイル\Bomb</Filter>
+    </ClCompile>
+    <ClCompile Include="ExplosionManager.cpp">
+      <Filter>ソース ファイル\Bomb</Filter>
+    </ClCompile>
+    <ClCompile Include="Avoid.cpp">
+      <Filter>ソース ファイル\AI\State</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>ソース ファイル\AI\State</Filter>
+    </ClCompile>
+    <ClCompile Include="StopRoute.cpp">
+      <Filter>ソース ファイル\AI\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Target.cpp">
+      <Filter>ソース ファイル\AI\State</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackOtherCharacter.cpp">
+      <Filter>ソース ファイル\AI\State</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Explosion.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="ExplosionManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="GameConstant.h">
       <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Avoid.h">
-      <Filter>ソース ファイル\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="Target.h">
-      <Filter>ソース ファイル\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="StopRoute.h">
-      <Filter>ソース ファイル\AI</Filter>
     </ClInclude>
     <ClInclude Include="EnemyAI.h">
       <Filter>ソース ファイル\AI</Filter>
@@ -221,9 +215,6 @@
     <ClInclude Include="IColleague.h">
       <Filter>ヘッダー ファイル\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="Route.h">
-      <Filter>ヘッダー ファイル\Interface</Filter>
-    </ClInclude>
     <ClInclude Include="ItemManager.h">
       <Filter>ソース ファイル\Map</Filter>
     </ClInclude>
@@ -273,7 +264,34 @@
       <Filter>ソース ファイル\GameState</Filter>
     </ClInclude>
     <ClInclude Include="Image.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ソース ファイル\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplosionManager.h">
+      <Filter>ソース ファイル\Bomb</Filter>
+    </ClInclude>
+    <ClInclude Include="Explosion.h">
+      <Filter>ソース ファイル\Bomb</Filter>
+    </ClInclude>
+    <ClInclude Include="IStateChanger.h">
+      <Filter>ヘッダー ファイル\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Avoid.h">
+      <Filter>ソース ファイル\AI\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Route.h">
+      <Filter>ソース ファイル\AI\State</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>ソース ファイル\AI\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Target.h">
+      <Filter>ソース ファイル\AI\State</Filter>
+    </ClInclude>
+    <ClInclude Include="StopRoute.h">
+      <Filter>ソース ファイル\AI\State</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackOtherCharacter.h">
+      <Filter>ソース ファイル\AI\State</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

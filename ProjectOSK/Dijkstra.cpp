@@ -2,18 +2,19 @@
 #include "MapState.h"
 #include "DangerState.h"
 #include "Graph.h"
+#include "GameConstant.h"
 #include "DxLib.h"
 #include <climits>
-enum
-{
-	STOP,
-	LEFT,
-	RIGHT,
-	UP,
-	DOWN,
-	BOMBSET,
-	BOMBSETOFF,
-};
+//enum
+//{
+//	STOP,
+//	LEFT,
+//	RIGHT,
+//	UP,
+//	DOWN,
+//	BOMBSET,
+//	BOMBSETOFF,
+//};
 
 const int Dijkstra::ud[4] = {-1,1,0,0};
 const int Dijkstra::lr[4] = {0,0,-1,1};
@@ -49,9 +50,9 @@ void Dijkstra::SearchShortestPath(int i_start, int j_start, int i_goal, int j_go
 			costSum = graph->GetCost(i_currentNode, j_currentNode) + edgeCost ;
 
 			//Œq‚ª‚Á‚Ä‚¢‚éƒm[ƒh‚ÌŒŸõ
-			if(MapState::GetInstance()->GetState(i_next, j_next, BLOCK) == 0
-				&& MapState::GetInstance()->GetState(i_next, j_next, MAP) == 0
-				&& MapState::GetInstance()->GetState(i_next, j_next, BOMB) == 0
+			if(MapState::GetInstance()->GetState(i_next, j_next, MapState::BLOCK) == 0
+				&& MapState::GetInstance()->GetState(i_next, j_next, MapState::MAP) == 0
+				&& MapState::GetInstance()->GetState(i_next, j_next, MapState::BOMB) == 0
 				&& DangerState::GetInstance()->GetDangerState(i_next, j_next) == 0
 				&& DangerState::GetInstance()->GetFireState(i_next, j_next) == 0)
 			{
@@ -72,9 +73,9 @@ void Dijkstra::SearchShortestPath(int i_start, int j_start, int i_goal, int j_go
 		{
 			for (int j = 0; j < MAPSIZE_X; ++j)
 			{
-				if(MapState::GetInstance()->GetState(i, j, BLOCK) == 0
-					&& MapState::GetInstance()->GetState(i, j, MAP) == 0
-					&& MapState::GetInstance()->GetState(i, j, BOMB) == 0
+				if(MapState::GetInstance()->GetState(i, j, MapState::BLOCK) == 0
+					&& MapState::GetInstance()->GetState(i, j, MapState::MAP) == 0
+					&& MapState::GetInstance()->GetState(i, j, MapState::BOMB) == 0
 					&& DangerState::GetInstance()->GetDangerState(i, j) == 0
 					&& DangerState::GetInstance()->GetFireState(i, j) == 0
 					&& graph->GetSettled(i, j) == 0 
@@ -102,22 +103,22 @@ void Dijkstra::SetRoute(int i_start, int j_start, int i_goal, int j_goal, std::l
 	{
 		if(i_now > graph->GetPreNode_i(i_now, j_now) && j_now == graph->GetPreNode_j(i_now, j_now))
 		{
-			shortestRoute->push_back(UP);
+			shortestRoute->push_back(GameConst::EnemyAction::UP);
 			i_now = graph->GetPreNode_i(i_now, j_now);
 		}
 		else if(i_now < graph->GetPreNode_i(i_now, j_now) && j_now == graph->GetPreNode_j(i_now, j_now))
 		{
-			shortestRoute->push_back(DOWN);
+			shortestRoute->push_back(GameConst::EnemyAction::DOWN);
 			i_now = graph->GetPreNode_i(i_now, j_now);
 		}
 		else if(i_now == graph->GetPreNode_i(i_now, j_now) && j_now > graph->GetPreNode_j(i_now, j_now))
 		{
-			shortestRoute->push_back(LEFT);
+			shortestRoute->push_back(GameConst::EnemyAction::LEFT);
 			j_now = graph->GetPreNode_j(i_now, j_now);
 		}
 		else if(i_now == graph->GetPreNode_i(i_now, j_now) && j_now < graph->GetPreNode_j(i_now, j_now))
 		{
-			shortestRoute->push_back(RIGHT);
+			shortestRoute->push_back(GameConst::EnemyAction::RIGHT);
 			j_now = graph->GetPreNode_j(i_now, j_now);
 		}
 	}

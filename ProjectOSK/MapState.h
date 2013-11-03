@@ -1,13 +1,5 @@
 #pragma once
-enum object
-{
-	MAP,
-	BLOCK,
-	ITEM,
-	CHARACTOR,
-	BOMB,
-	FIRE,
-};
+
 
 enum dangerState
 {
@@ -18,6 +10,16 @@ enum dangerState
 
 class MapState
 {
+public:
+	enum object
+	{
+		MAP,
+		BLOCK,
+		ITEM,
+		CHARACTOR,
+		BOMB,
+		FIRE,
+	};
 private:
 	static const int row = 13;
 	static const int line = 17;
