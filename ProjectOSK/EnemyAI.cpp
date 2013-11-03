@@ -11,12 +11,13 @@
 #include "DangerState.h"
 #include "State.h"
 #include "AttackOtherCharacter.h"
+#include "BreakBlock.h"
 #include "DxLib.h"
 
 
 EnemyAI::EnemyAI()
 	:nextState(IStateChanger::NOCHAGE),
-	state(new AttackOtherCharacter(this))
+	state(new BreakBlock(this))
 {
 }
 
@@ -52,6 +53,7 @@ void EnemyAI::ChangeState(int next)
 
 void EnemyAI::Analyse(const Enemy &myself)
 {
+	UpdateState();
 	state->Analyse(myself);
 }
 

@@ -3,6 +3,7 @@
 #include "Dijkstra.h"
 #include "Enemy.h"
 #include "MapState.h"
+#include "DangerState.h"
 
 Avoid::Avoid(IStateChanger *stateMrg)
 	:State(stateMrg)
@@ -19,7 +20,10 @@ void Avoid::ChangeState()
 	//キャラクターがちょうどマスピッタリにいる時だけステートの切り替えを行う
 	if(x_now%32 == 0 && y_now%32 == 0)
 	{
-		if(CheckAroundMyself(i_center, j_center, MapState::CHARACTOR, 8) == 1 )
+		if(DangerState::GetInstance()->GetDangerState(i_center, j_center) == 1)
+		{
+		}
+		else if(CheckAroundMyself(i_center, j_center, MapState::CHARACTOR, 8) == 1 )
 		{
 			stateMrg->ChangeState(IStateChanger::ATTACK);
 			
@@ -46,7 +50,7 @@ void Avoid::Analyse(const Enemy &myself)
 	{
 		routeList.clear();
 		//ルートセット
-		if(search->SetEscapeRouteWhenInDanger(i_center, j_center, &routeList) == 0)
+		if(search->SetEscapeRouteWhenInDanger(y_now/32, x_now/32, &routeList) == 0)
 		{
 			reset = 0;
 		}

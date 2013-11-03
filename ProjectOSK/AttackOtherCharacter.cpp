@@ -40,7 +40,7 @@ int AttackOtherCharacter::CheckCharacterAroundMyself(int i_now, int j_now, int* 
 		{
 			if(i != i_now && j != j_now)
 			{
-				if(MapState::GetInstance()->GetState(i, j, MapState::CHARACTOR) == 1)//他のキャラクターを見つけたら
+				if(MapState::GetInstance()->GetState(i, j, MapState::BLOCK) == 1)//他のキャラクターを見つけたら
 				{
 					if(search->CheckAbleToGoTo(i_now, j_now, i, j) == 1)//そこに行けるか調べて
 					{

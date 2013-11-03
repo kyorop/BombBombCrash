@@ -55,7 +55,7 @@ void Collision::Register(ICollisionable *anythingCollisionable)
 {
 	const type_info &type = typeid( *anythingCollisionable );
 
-	if( type == typeid(Player) || type == typeid(Enemy))
+	if( type == typeid(Player) || type == typeid(Enemy) )
 	{
 		character.push_back(anythingCollisionable);
 		fragile.push_back(anythingCollisionable);

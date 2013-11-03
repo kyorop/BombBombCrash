@@ -17,10 +17,10 @@
 Scene_Game::Scene_Game()
 	:gameScreen(),
 	player(),
-	enemy(),
+	enemy()/*,
 	enemy2(),
 	enemy3(),
-	enemy4()
+	enemy4()*/
 {
 }
 
@@ -32,7 +32,7 @@ Scene_Game::~Scene_Game(void)
 
 void Scene_Game::UpdateScene()
 {
-	if(timer->CountDown(128000) == true)
+	if(timer->CountDown(300000) == true || CheckHitKey(KEY_INPUT_DELETE) == 1)
 	{
 		sceneMrg->ChangeScene(ISceneChanger::SCENE_MENU);
 	}
@@ -48,9 +48,9 @@ void Scene_Game::Initialize()
 	gameScreen = new GameField;
 	player = new CharacterSet(new Player);
 	enemy = new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT, GameConst::FIRST_Y_UP));
-	enemy2 = new CharacterSet(new Enemy(GameConst::FIRST_X_LEFT, GameConst::FIRST_Y_DOWN));
-	enemy3 = new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT, GameConst::FIRST_Y_DOWN));
-	enemy4 = new CharacterSet(new Enemy(32*8, 32*5));
+	//enemy2 = new CharacterSet(new Enemy(GameConst::FIRST_X_LEFT, GameConst::FIRST_Y_DOWN));
+	//enemy3 = new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT, GameConst::FIRST_Y_DOWN));
+	//enemy4 = new CharacterSet(new Enemy(32*8, 32*5));
 	timer = new Timer;
 }
 
@@ -58,9 +58,9 @@ void Scene_Game::Initialize()
 void Scene_Game::Finalize()
 {
 	delete timer;
-	delete enemy4;
-	delete enemy3;
-	delete enemy2;
+	//delete enemy4;
+	//delete enemy3;
+	//delete enemy2;
 	delete enemy;
 	delete player;
 	delete gameScreen;
@@ -81,9 +81,9 @@ void Scene_Game::Update()
 	gameScreen->Update();
 	player->Update();
 	enemy->Update();
-	enemy2->Update();
-	enemy3->Update();
-	enemy4->Update();
+	//enemy2->Update();
+	//enemy3->Update();
+	//enemy4->Update();
 	Collision::GetInstance()->CheckCollision();
 	
 }
@@ -94,9 +94,9 @@ void Scene_Game::Draw()
 	gameScreen->Draw();
 	player->Draw();
 	enemy->Draw();
-	enemy2->Draw();
-	enemy3->Draw();
-	enemy4->Draw();
+	//enemy2->Draw();
+	//enemy3->Draw();
+	//enemy4->Draw();
 
 	int black = GetColor(255,255,255);
 	int red = GetColor(255,0,0);

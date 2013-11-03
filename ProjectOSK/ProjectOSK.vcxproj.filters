@@ -159,6 +159,9 @@
     <ClCompile Include="AttackOtherCharacter.cpp">
       <Filter>ソース ファイル\AI\State</Filter>
     </ClCompile>
+    <ClCompile Include="BreakBlock.cpp">
+      <Filter>ソース ファイル\AI\State</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameConstant.h">
@@ -291,6 +294,9 @@
       <Filter>ソース ファイル\AI\State</Filter>
     </ClInclude>
     <ClInclude Include="AttackOtherCharacter.h">
+      <Filter>ソース ファイル\AI\State</Filter>
+    </ClInclude>
+    <ClInclude Include="BreakBlock.h">
       <Filter>ソース ファイル\AI\State</Filter>
     </ClInclude>
   </ItemGroup>
