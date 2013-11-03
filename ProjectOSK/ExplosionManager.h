@@ -18,7 +18,7 @@ private:
 	Timer retainFire;
 	Timer beforeExplosion;
 	static const int displayingTime = 200; 
-	int fireImage;
+	const int image_fire;
 public:
 	int GetX(int i)const;
 	int GetRX(int i)const;

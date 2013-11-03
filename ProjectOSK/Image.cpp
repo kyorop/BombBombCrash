@@ -84,17 +84,39 @@ int Image::GetItemImage(int kind)
 }
 
 
-int Image::GetCharacterImage(int direction)
+int* Image::GetPlayerImage(int direction)
 {
 	switch(direction)
 	{
 	case LEFT:
-		return player[8];
+		return &player[8];
 	case RIGHT:
-		return player[12];
+		return &player[12];
 	case UP:
-		return player[0];
+		return &player[0];
 	case DOWN:
-		return player[4];
+		return &player[4];
 	}
+}
+
+
+int* Image::GetEnemyImage(int direction)
+{
+	switch(direction)
+	{
+	case LEFT:
+		return &enemy[8];
+	case RIGHT:
+		return &enemy[12];
+	case UP:
+		return &enemy[0];
+	case DOWN:
+		return &enemy[4];
+	}
+}
+
+
+int* Image::GetBombImage()
+{
+	return bomb;
 }

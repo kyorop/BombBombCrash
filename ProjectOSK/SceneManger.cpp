@@ -8,6 +8,7 @@ SceneManger::SceneManger(void)
 	scene(new Scene_Menu)
 {
 	scene->SetManager(this);
+	scene->Initialize();
 }
 
 

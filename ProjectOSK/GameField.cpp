@@ -14,9 +14,9 @@ GameField::GameField(void)
 
 GameField::~GameField(void)
 {
-	delete item;
-	delete map;
 	delete block;
+	delete map;
+	delete item;
 }
 
 void GameField::Initialize()

@@ -4,6 +4,7 @@
 #include "DxLib.h"
 #include "EnemyAI.h"
 #include "Collision.h"
+#include "Image.h"
 #define MV 1
 #define HABA 10
 
@@ -20,7 +21,11 @@ enum
 };
 
 
-Enemy::Enemy(int x, int y):
+Enemy::Enemy(int x, int y)
+	:image_left(Image::GetInstance()->GetEnemyImage(Image::LEFT)),
+	image_right(Image::GetInstance()->GetEnemyImage(Image::RIGHT)),
+	image_up(Image::GetInstance()->GetEnemyImage(Image::UP)),
+	image_down(Image::GetInstance()->GetEnemyImage(Image::DOWN)),
 	AI(new EnemyAI),
 	muki(STOP),
 	stop(0),
@@ -28,7 +33,6 @@ Enemy::Enemy(int x, int y):
 {
 	mv = MV;
 	flag = 1;
-	LoadDivGraph("redbombman.png", 20, 4, 5, 32, 32, this->graph, FALSE);
 	this->x = x;
 	this->y = y;
 	Collision::GetInstance()->Register(this);
@@ -84,7 +88,6 @@ void Enemy::Move()
 		this->rx = this->x+32;
 		this->dy = this->y+32;
 
-		//this->animpat = (g_lastTime / (1000 / 12)) % 4;
 		animpat = ( (GetNowCount() & INT_MAX) / (1000 / 12)) % 4;
 	}
 }
@@ -101,15 +104,15 @@ void Enemy::Draw(void)
 		switch(this->muki)
 		{
 		case STOP:
-			DrawGraph(this->x, this->y, this->graph[4], TRUE);break;
+			DrawGraph(x, y, *image_down, TRUE);break;
 		case LEFT:
-			DrawGraph(this->x, this->y, this->graph[animpat+8], TRUE);break;
+			DrawGraph(x, y, image_left[animpat], TRUE);break;
 		case RIGHT:
-			DrawGraph(this->x, this->y, this->graph[animpat+12], TRUE);break;
+			DrawGraph(x, y, image_right[animpat], TRUE);break;
 		case UP:
-			DrawGraph(this->x, this->y, this->graph[animpat+0], TRUE);break;
+			DrawGraph(x, y, image_up[animpat], TRUE);break;
 		case DOWN:
-			DrawGraph(this->x, this->y, this->graph[animpat+4], TRUE);	break;
+			DrawGraph(x, y, image_down[animpat], TRUE);break;
 		}
 	}
 }

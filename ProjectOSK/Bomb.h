@@ -13,7 +13,7 @@ class Bomb
 protected:
 	int count;
 	Timer time;
-	static int image_bomb[60];
+	int* image_bomb;
 	int fireLevel;
 	int animpat;
 public:

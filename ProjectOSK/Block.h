@@ -12,7 +12,7 @@ class Block
 	public IRegister
 {
 private:
-	int image_softBlock;
+	const int image_softBlock;
 	MapObstacle block[GameConst::MAP_ROW][GameConst::MAP_LINE];
 public:
 	Block(void);

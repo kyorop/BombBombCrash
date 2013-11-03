@@ -12,7 +12,10 @@ class Enemy:
 	public Charactor
 {
 private:
-	int graph[20];
+	const int* image_left;
+	const int* image_right;
+	const int* image_up;
+	const int* image_down;
 	int muki;
 	int stop;
 	int animpat;

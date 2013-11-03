@@ -10,9 +10,8 @@
 #define DHIT 6
 
 //コンストラクタ
-Explosion::Explosion(int right,int left,int down,int up):
-	graph( LoadGraph("fire.bmp") ), 
-	upx(right), 
+Explosion::Explosion(int right,int left,int down,int up)
+	:upx(right), 
 	downx(left),
 	upy(down),
 	downy(up),

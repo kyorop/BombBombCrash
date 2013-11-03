@@ -3,6 +3,7 @@
 #include "Charactor.h"
 #include "MapState.h"
 #include "Collision.h"
+#include "Image.h"
 #include "DxLib.h"
 #include <cstring>
 #include <algorithm>
@@ -11,7 +12,7 @@
 #define KBHABA 16
 
 Block::Block(void)
-	:image_softBlock(LoadGraph("breakblock.bmp"))
+	:image_softBlock(Image::GetInstance()->GetImage(Image::SOFTBLOCK))
 {
 	int temp[MAPSIZE_Y][MAPSIZE_X]=
 	{

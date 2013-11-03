@@ -4,25 +4,27 @@
 #include "Charactor.h"
 #include "MapState.h"
 #include "Collision.h"
+#include "Image.h"
 #include "DxLib.h"
 #include <iostream>
 #define BOMBEXISTTIME 3000
 #define DHIT 5
 #define KBHABA 16
 
-int Bomb::image_bomb[60];
+//int Bomb::image_bomb[60];
 
 //コンストラクタ
 Bomb::Bomb()
 	:fireLevel(1),
-	animpat(0)
+	animpat(0),
+	image_bomb(Image::GetInstance()->GetBombImage())
 {
 	flag = 0;
 	x = 0;
 	y = 0;
 	rx = x+32;
 	dy =y+32;
-	LoadDivGraph("bomb.png", 60, 6, 10, 32, 32, image_bomb, FALSE);
+	//LoadDivGraph("bomb.png", 60, 6, 10, 32, 32, image_bomb, FALSE);
 	Collision::GetInstance()->Register(this);
 }
 
@@ -82,7 +84,8 @@ void Bomb::Draw()
 	if(flag == 1)
 	{
 		SetTransColor(255,255,255);
-		DrawGraph(x, y, image_bomb[0+animpat], TRUE);
+		//DrawGraph(x, y, image_bomb[0+animpat], TRUE);
+		DrawGraph(x, y, image_bomb[animpat], TRUE);
 	}
 }
 

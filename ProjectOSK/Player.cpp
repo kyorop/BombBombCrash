@@ -4,6 +4,7 @@
 #include "ItemManager.h"
 #include "MapState.h"
 #include "Collision.h"
+#include "Image.h"
 #include "DxLib.h"
 #define MV 1
 #define HABA 0
@@ -18,8 +19,11 @@ enum
 };
 
 Player::Player()
+	:image_left(Image::GetInstance()->GetPlayerImage(Image::LEFT)),
+	image_right(Image::GetInstance()->GetPlayerImage(Image::RIGHT)),
+	image_up(Image::GetInstance()->GetPlayerImage(Image::UP)),
+	image_down(Image::GetInstance()->GetPlayerImage(Image::DOWN))
 {
-	LoadDivGraph("bombman.png", 20, 4, 5, 32, 32, this->graph, FALSE);
 	x = 32*2;
 	rx = x+32;
 	y = 32*1;
@@ -30,19 +34,24 @@ Player::Player()
 	Collision::GetInstance()->Register(this);
 }
 
+
+Player::~Player(void)
+{
+}
+
+
 void Player::Draw()
 {
-	//int animpat = (g_lasttime / (1000 / 12)) % 4;
 	if(this->flag == 1)
 	{
-		if(CheckHitKey(KEY_INPUT_LEFT) == 1)	DrawGraph(this->x, this->y, this->graph[animpat+8], TRUE);//動いているときはアニメーション
-		else if(CheckHitKey(KEY_INPUT_RIGHT) == 1)DrawGraph(this->x, this->y, this->graph[animpat+12], TRUE);
-		else if(CheckHitKey(KEY_INPUT_UP) == 1)DrawGraph(this->x, this->y, this->graph[animpat], TRUE);
-		else if(CheckHitKey(KEY_INPUT_DOWN) == 1)	DrawGraph(this->x, this->y, this->graph[animpat+4], TRUE);	
-		else if(this->muki == LEFT)DrawGraph(this->x, this->y, this->graph[8], TRUE);//止まっているときは最後の向きを表示
-		else if(this->muki == RIGHT)DrawGraph(this->x, this->y, this->graph[12], TRUE);
-		else if(this->muki == UP)DrawGraph(this->x, this->y, this->graph[0], TRUE);
-		else if(this->muki == DOWN)DrawGraph(this->x, this->y, this->graph[4], TRUE);
+		if(CheckHitKey(KEY_INPUT_LEFT) == 1)			DrawGraph(this->x, this->y, image_left[animpat], TRUE);//動いているときはアニメーション
+		else if(CheckHitKey(KEY_INPUT_RIGHT) == 1)	DrawGraph(this->x, this->y, image_right[animpat], TRUE);
+		else if(CheckHitKey(KEY_INPUT_UP) == 1)		DrawGraph(this->x, this->y, image_up[animpat], TRUE);
+		else if(CheckHitKey(KEY_INPUT_DOWN) == 1)	DrawGraph(this->x, this->y, image_down[animpat], TRUE);	
+		else if(this->muki == LEFT)		DrawGraph(this->x, this->y, *image_left, TRUE);//止まっているときは最後の向きを表示
+		else if(this->muki == RIGHT)	DrawGraph(this->x, this->y, *image_right, TRUE);
+		else if(this->muki == UP)		DrawGraph(this->x, this->y, *image_up,TRUE);
+		else if(this->muki == DOWN)	DrawGraph(this->x, this->y, *image_down, TRUE);
 	}
 }
 
@@ -148,18 +157,6 @@ void Player::Move()
 	animpat = ( (GetNowCount() & INT_MAX) / (1000 / 12)) % 4;
 }
 
-//int Player::GetStateFire(const Item &item)//存在がFALSE の物の数を数えればよい。その数を戻り値にする。
-//{
-//	//static int firelevel = 1;
-//	if(item.GetFlag() == 0)
-//	{
-//		return TRUE;
-//	}
-//	else
-//	{
-//		return FALSE;
-//	}
-//}
 
 int Player::EnableBomb()const
 {
@@ -169,13 +166,6 @@ int Player::EnableBomb()const
 		return 0;
 }
 
-//int Player::GetStateBomb(const ItemManager &manageItem)
-//{
-//	static int bombNum;
-//	return 0;
-//
-//}
 
-Player::~Player(void)
-{
-}
+
+

@@ -10,8 +10,8 @@ class Map
 	public IRegister
 {
 private:
-	int image_floor;
-	int image_hardBlock;
+	const int image_floor;
+	const int image_hardBlock;
 	MapObstacle map[GameConst::MAP_ROW][GameConst::MAP_LINE];
 public:
 	Map(void);

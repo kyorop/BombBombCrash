@@ -45,7 +45,7 @@ private:
 public:
 	~Image(void);
 
-	Image* GetInstance()
+	static Image* GetInstance()
 	{
 		static Image image;
 		return &image;
@@ -55,6 +55,8 @@ public:
 	void Finalize();
 	int GetImage(int kindofImage);
 	int GetItemImage(int kindofItem);
-	int GetCharacterImage(int direction);
+	int* GetPlayerImage(int direction);
+	int* GetEnemyImage(int direction);
+	int* GetBombImage();
 };
 

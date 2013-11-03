@@ -2,7 +2,6 @@
 #include "Charactor.h"
 #include "IDrawable.h"
 #include "IRegister.h"
-#define PLAYERDEVIDENUMBER 20
 #define MAPSIZE_X 17
 #define MAPSIZE_Y 13
 
@@ -13,10 +12,12 @@ class Player:
 	public Charactor
 {
 private:
-	int graph[PLAYERDEVIDENUMBER];
 	int muki;
 	int animpat;
-	
+	const int* image_left;
+	const int* image_right;
+	const int* image_up;
+	const int* image_down;
 public:	
 	Player();
 	~Player();
@@ -24,7 +25,5 @@ public:
 	 void Move()override;
 	 void Draw()override;
 	int EnableBomb()const override;
-	//int GetStateFire(const Item &item);
-	//int GetStateBomb(const ItemManager &manageItem);
 };
 

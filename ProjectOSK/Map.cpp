@@ -4,6 +4,7 @@
 #include "Charactor.h"
 #include "MapState.h"
 #include "Collision.h"
+#include "Image.h"
 #include <cstring>
 #define MAPSIZE_X 17
 #define MAPSIZE_Y 13
@@ -12,10 +13,10 @@
 #define KBHABA 16
 #define MV 4
 
-Map::Map(void):
-	image_floor(LoadGraph("yuka.bmp")),
-	image_hardBlock(LoadGraph("rimblock.bmp")),
-	map()
+Map::Map(void)
+	:map(),
+	image_floor(Image::GetInstance()->GetImage(Image::FLOOR)),
+	image_hardBlock(Image::GetInstance()->GetImage(Image::HARDBLOCK))
 {
 	int temp[MAPSIZE_Y][MAPSIZE_X]=
 	{
@@ -102,14 +103,6 @@ void Map::Register()
 		}
 	}
 }
-
-//int Map::IsSoftBlock(int i, int j)const
-//{
-//	if(map[i][j].GetId() == SOFTBLOCK)
-//		return 1;
-//	else 
-//		return 0;
-//}
 
 
 

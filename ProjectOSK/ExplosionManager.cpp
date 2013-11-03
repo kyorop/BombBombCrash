@@ -9,6 +9,7 @@
 #include "Item.h"
 #include "MapState.h"
 #include "Collision.h"
+#include "Image.h"
 #include "DxLib.h"
 
 ExplosionManager::ExplosionManager():
@@ -16,7 +17,7 @@ ExplosionManager::ExplosionManager():
 	explosion(0),
 	nowFireLevel(1),
 	vex(),
-	fireImage(LoadGraph("fire.bmp")),
+	image_fire(Image::GetInstance()->GetImage(Image::FIRE)),
 	beforeExplosion()
 {
 	Collision::GetInstance()->RegisterWithFire(this);
@@ -116,7 +117,7 @@ void ExplosionManager::Draw()
 		for(int i=0,size=vex.size(); i<size; ++i )
 		{
 			if(vex[i]->GetExplosion() == 1)
-				DrawGraph(vex[i]->GetX(), vex[i]->GetY(), fireImage, FALSE);
+				DrawGraph(vex[i]->GetX(), vex[i]->GetY(), image_fire, FALSE);
 		}
 	}
 }
