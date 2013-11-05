@@ -47,7 +47,7 @@ void Scene_Game::Initialize()
 	Image::GetInstance()->Initialize();
 	gameScreen = new GameField;
 	player = new CharacterSet(new Player);
-	enemy = new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT, GameConst::FIRST_Y_UP));
+	enemy = new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT, GameConst::FIRST_Y_DOWN));
 	//enemy2 = new CharacterSet(new Enemy(GameConst::FIRST_X_LEFT, GameConst::FIRST_Y_DOWN));
 	//enemy3 = new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT, GameConst::FIRST_Y_DOWN));
 	//enemy4 = new CharacterSet(new Enemy(32*8, 32*5));

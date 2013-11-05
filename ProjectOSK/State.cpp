@@ -92,7 +92,7 @@ int State::GetRoute(const Enemy &myself)
 				routeList.pop_front();
 				return GameConst::EnemyAction::BOMBSET;
 			default:
-				return -1;
+				break;
 			}
 		}
 		hasCalculated = 1;

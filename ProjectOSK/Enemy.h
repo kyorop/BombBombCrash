@@ -19,7 +19,7 @@ private:
 	int muki;
 	int stop;
 	int animpat;
-	int bombSet;
+	mutable int bombSet;
 	int action[10];
 	EnemyAI *const AI;
 public:

@@ -23,9 +23,9 @@ void Avoid::ChangeState()
 		if(DangerState::GetInstance()->GetDangerState(i_center, j_center) == 1)
 		{
 		}
-		else if(CheckAroundMyself(i_center, j_center, MapState::CHARACTOR, 8) == 1 )
+		else/* if(CheckAroundMyself(i_center, j_center, MapState::BLOCK, 8) == 1 )*/
 		{
-			stateMrg->ChangeState(IStateChanger::ATTACK);
+			stateMrg->ChangeState(IStateChanger::BREAKBLOCK);
 			
 			//切り替えが決まったら、これ以上移動しないようにする
 			routeList.clear();
@@ -50,8 +50,9 @@ void Avoid::Analyse(const Enemy &myself)
 	{
 		routeList.clear();
 		//ルートセット
-		if(search->SetEscapeRouteWhenInDanger(y_now/32, x_now/32, &routeList) == 0)
+		if(search->SetEscapeRouteWhenInDanger(y_now/32, x_now/32, &routeList) == 1)
 		{
+			routeList.push_back(GameConst::EnemyAction::STOP);
 			reset = 0;
 		}
 	}

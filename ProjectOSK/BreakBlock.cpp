@@ -57,7 +57,7 @@ void BreakBlock::Analyse(const Enemy &myself)
 		{
 			int rand = GetRand(i_to.size()-1);
 			dijkstra->SearchShortestPath(i_center, j_center, i_to[rand], j_to[rand], &routeList);
-			//routeList.push_back(GameConst::EnemyAction::BOMBSET);
+			routeList.push_back(GameConst::EnemyAction::BOMBSET);
 			reset = 0;
 		}
 	}

@@ -40,6 +40,9 @@ void EnemyAI::UpdateState()
 		case IStateChanger::AVOID:
 			state =new Avoid(this);
 			break;
+		case IStateChanger::BREAKBLOCK:
+			state = new BreakBlock(this);
+			break;
 		}
 		nextState = IStateChanger::NOCHAGE;
 	}

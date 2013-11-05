@@ -9,6 +9,7 @@ public:
 		ATTACK,
 		ITEM,
 		AVOID,
+		BREAKBLOCK,
 	};
 public:
 	virtual ~IStateChanger(){};

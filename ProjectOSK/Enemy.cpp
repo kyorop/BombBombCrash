@@ -34,11 +34,13 @@ Enemy::~Enemy(void)
 
 void Enemy::Move()
 {
+	bombSet = 0;
 	if(flag == 1)
 	{
+		bombSet = 0;
 		AI->Analyse(*this);
 
-		bombSet = 0;
+		
 		switch(AI->GetAction(*this))
 		{
 		case GameConst::EnemyAction::STOP:
@@ -66,6 +68,7 @@ void Enemy::Move()
 		case GameConst::EnemyAction::BOMBSETOFF:
 			break;
 		case -1:
+			stop = 1;
 			break;
 		}
 
@@ -109,6 +112,12 @@ void Enemy::Draw(void)
 
 int Enemy::EnableBomb(void)const
 {
-	return bombSet;
+	if(bombSet == 1)
+	{
+		bombSet = 0;
+		return 1;
+	}
+	else 
+		return 0;
 }
 
