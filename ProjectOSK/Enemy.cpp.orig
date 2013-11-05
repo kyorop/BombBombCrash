@@ -96,16 +96,29 @@ void Enemy::Draw(void)
 		SetTransColor(255,255,255);
 		switch(this->muki)
 		{
+<<<<<<< HEAD
 		case GameConst::EnemyAction::STOP:
-			DrawGraph(x, y, *image_down, TRUE);break;
+			DrawGraph(x, y, *image_down, FALSE);break;
 		case GameConst::EnemyAction::LEFT:
-			DrawGraph(x, y, image_left[animpat], TRUE);break;
+			DrawGraph(x, y, image_left[animpat], FALSE);break;
 		case GameConst::EnemyAction::RIGHT:
-			DrawGraph(x, y, image_right[animpat], TRUE);break;
+			DrawGraph(x, y, image_right[animpat], FALSE);break;
 		case GameConst::EnemyAction::UP:
-			DrawGraph(x, y, image_up[animpat], TRUE);break;
+			DrawGraph(x, y, image_up[animpat], FALSE);break;
 		case GameConst::EnemyAction::DOWN:
+			DrawGraph(x, y, image_down[animpat], FALSE);break;
+=======
+		case STOP:
+			DrawGraph(x, y, *image_down, TRUE);break;
+		case LEFT:
+			DrawGraph(x, y, image_left[animpat], TRUE);break;
+		case RIGHT:
+			DrawGraph(x, y, image_right[animpat], TRUE);break;
+		case UP:
+			DrawGraph(x, y, image_up[animpat], TRUE);break;
+		case DOWN:
 			DrawGraph(x, y, image_down[animpat], TRUE);break;
+>>>>>>> fix_player_image_bug
 		}
 	}
 }

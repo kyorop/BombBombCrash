@@ -11,9 +11,7 @@
 #define DHIT 5
 #define KBHABA 16
 
-//int Bomb::image_bomb[60];
 
-//コンストラクタ
 Bomb::Bomb()
 	:fireLevel(1),
 	animpat(0),
@@ -24,7 +22,6 @@ Bomb::Bomb()
 	y = 0;
 	rx = x+32;
 	dy =y+32;
-	//LoadDivGraph("bomb.png", 60, 6, 10, 32, 32, image_bomb, FALSE);
 	Collision::GetInstance()->Register(this);
 }
 

@@ -41,10 +41,10 @@ void Scene_Game::UpdateScene()
 
 void Scene_Game::Initialize()
 {
+	Image::GetInstance()->Initialize();
 	MapState::GetInstance();
 	DangerState::GetInstance();
 	Collision::GetInstance();
-	Image::GetInstance()->Initialize();
 	gameScreen = new GameField;
 	player = new CharacterSet(new Player);
 	enemy = new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT, GameConst::FIRST_Y_DOWN));
