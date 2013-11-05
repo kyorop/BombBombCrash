@@ -77,9 +77,11 @@ int Image::GetItemImage(int kind)
 	case FIREUP:
 		return item[FIREUP];
 	case BOMBUP:
-		return item[kind];
+		return item[BOMBUP];
 	case SPEEDUP:
 		return item[SPEEDUP];
+	default:
+		return item[BOMBUP];
 	}
 }
 
@@ -96,6 +98,8 @@ int* Image::GetPlayerImage(int direction)
 		return &player[0];
 	case DOWN:
 		return &player[4];
+	default:
+		return &player[4];
 	}
 }
 
@@ -111,6 +115,8 @@ int* Image::GetEnemyImage(int direction)
 	case UP:
 		return &enemy[0];
 	case DOWN:
+		return &enemy[4];
+	default:
 		return &enemy[4];
 	}
 }

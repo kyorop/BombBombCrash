@@ -32,7 +32,7 @@ Scene_Game::~Scene_Game(void)
 
 void Scene_Game::UpdateScene()
 {
-	if(timer->CountDown(128000) == true)
+	if(timer->CountDown(128000) == true || CheckHitKey(KEY_INPUT_DELETE) == 1)
 	{
 		sceneMrg->ChangeScene(ISceneChanger::SCENE_MENU);
 	}
@@ -41,10 +41,10 @@ void Scene_Game::UpdateScene()
 
 void Scene_Game::Initialize()
 {
+	Image::GetInstance()->Initialize();
 	MapState::GetInstance();
 	DangerState::GetInstance();
 	Collision::GetInstance();
-	Image::GetInstance()->Initialize();
 	gameScreen = new GameField;
 	player = new CharacterSet(new Player);
 	enemy = new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT, GameConst::FIRST_Y_UP));

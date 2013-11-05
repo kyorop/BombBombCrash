@@ -161,6 +161,8 @@ void EnemyAI::Analyse(int i_current, int j_current, const Enemy &myself)
 		}
 	}
 
+	//nextstateがcurrentstateと同じ時は切り替えをしない(今の思考状態でいたい)
+	//違うときはnextstateがセットされたということだから、切り替えてほしいということと同値
 	if(nextState != currentState)
 	{
 		currentState = nextState;

@@ -105,15 +105,15 @@ void Enemy::Draw(void)
 		switch(this->muki)
 		{
 		case STOP:
-			DrawGraph(x, y, *image_down, FALSE);break;
+			DrawGraph(x, y, *image_down, TRUE);break;
 		case LEFT:
-			DrawGraph(x, y, image_left[animpat], FALSE);break;
+			DrawGraph(x, y, image_left[animpat], TRUE);break;
 		case RIGHT:
-			DrawGraph(x, y, image_right[animpat], FALSE);break;
+			DrawGraph(x, y, image_right[animpat], TRUE);break;
 		case UP:
-			DrawGraph(x, y, image_up[animpat], FALSE);break;
+			DrawGraph(x, y, image_up[animpat], TRUE);break;
 		case DOWN:
-			DrawGraph(x, y, image_down[animpat], FALSE);break;
+			DrawGraph(x, y, image_down[animpat], TRUE);break;
 		}
 	}
 }

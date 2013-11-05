@@ -44,14 +44,30 @@ void Player::Draw()
 {
 	if(this->flag == 1)
 	{
-		if(CheckHitKey(KEY_INPUT_LEFT) == 1)DrawGraph(this->x, this->y, image_left[animpat], FALSE);//動いているときはアニメーション
-		else if(CheckHitKey(KEY_INPUT_RIGHT) == 1)DrawGraph(this->x, this->y, image_right[animpat], FALSE);
-		else if(CheckHitKey(KEY_INPUT_UP) == 1)DrawGraph(this->x, this->y, image_up[animpat], FALSE);
-		else if(CheckHitKey(KEY_INPUT_DOWN) == 1)DrawGraph(this->x, this->y, image_down[animpat], FALSE);	
-		else if(this->muki == LEFT)		DrawGraph(this->x, this->y, *image_left, FALSE);//止まっているときは最後の向きを表示
-		else if(this->muki == RIGHT)	DrawGraph(this->x, this->y, *image_right, FALSE);
-		else if(this->muki == UP)		DrawGraph(this->x, this->y, *image_up,FALSE);
-		else if(this->muki == DOWN)	DrawGraph(this->x, this->y, *image_down, FALSE);
+		int image;
+		if(CheckHitKey(KEY_INPUT_LEFT) == 1) 
+			image = image_left[animpat];
+		else if(CheckHitKey(KEY_INPUT_RIGHT) == 1) 
+			image = image_right[animpat];
+		else if(CheckHitKey(KEY_INPUT_UP) == 1)
+			image = image_up[animpat];
+		else if(CheckHitKey(KEY_INPUT_DOWN) == 1) 
+			image = image_down[animpat];
+		else
+		{
+			//キーを押してないときはアニメーションしないことを意味する
+			animpat = 0;
+			if(muki == LEFT)
+				image = image_left[animpat];
+			else if(muki == RIGHT)
+				image = image_right[animpat];
+			else if(muki == UP)
+				image = image_up[animpat];
+			else if(muki == DOWN)
+				image = image_down[animpat];
+		}
+
+		DrawGraph(x, y, image, TRUE);
 	}
 }
 
