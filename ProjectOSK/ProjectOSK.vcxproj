@@ -147,6 +147,7 @@
     <ClInclude Include="IColleague.h" />
     <ClInclude Include="ICollisionable.h" />
     <ClInclude Include="IDrawable.h" />
+    <ClInclude Include="IGettable.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="IMediator.h" />
     <ClInclude Include="IRegister.h" />

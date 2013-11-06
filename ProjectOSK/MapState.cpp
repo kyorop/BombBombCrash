@@ -1,4 +1,7 @@
 #include "MapState.h"
+#include "Bomb.h"
+#include "IGettable.h"
+#include "GameConstant.h"
 
 MapState::MapState(void)
 {
@@ -32,6 +35,39 @@ void MapState::SetState(int x, int y, int object, int state, int option)
 }
 
 
+void MapState::Register(Bomb* pBomb)
+{
+	bomb.push_back(pBomb);
+}
+
+
+void MapState::Update()
+{
+	for (int i = 0; i < GameConst::MAP_ROW; ++i)
+	{
+		for (int j = 0; j < GameConst::MAP_LINE; ++j)
+		{
+			mapState[i][j][BOMB][0] = 0;
+			mapState[i][j][BOMB][1] = 0;
+		}
+	}
+
+	std::list<Bomb*>::iterator itr = bomb.begin();
+	for(itr; itr != bomb.end(); ++itr)
+	{
+		if( (*itr)->GetFlag() == 1 )
+		{
+			int x_center = ( (*itr)->GetX() + (*itr)->GetX()+32 ) / 2;
+			int y_center = ( (*itr)->GetY() + (*itr)->GetY()+32 ) / 2;
+			int i_center = x_center / 32;
+			int j_center = y_center / 32;
+			SetState(x_center, y_center, BOMB, 1);
+			SetState(x_center, y_center, BOMB, (*itr)->GetFireLevel(), 1);
+		}
+	}
+}
+
+
 void MapState::Finalize()
 {
 	for(int i=0;i<row;++i)
@@ -45,7 +81,11 @@ void MapState::Finalize()
 			}
 		}
 	}
+	bomb.clear();
 }
+
+
+
 
 
 void MapState::SetMapState(int x, int y, int state, int option)

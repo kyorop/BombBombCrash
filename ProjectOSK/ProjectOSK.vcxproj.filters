@@ -299,6 +299,9 @@
     <ClInclude Include="BreakBlock.h">
       <Filter>ソース ファイル\AI\State</Filter>
     </ClInclude>
+    <ClInclude Include="IGettable.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

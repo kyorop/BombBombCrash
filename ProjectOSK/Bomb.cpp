@@ -22,6 +22,7 @@ Bomb::Bomb()
 	y = 0;
 	rx = x+32;
 	dy =y+32;
+	MapState::GetInstance()->Register(this);
 	Collision::GetInstance()->Register(this);
 }
 
@@ -86,18 +87,24 @@ void Bomb::Draw()
 }
 
 
-void Bomb::Register()
-{
-	if(flag == 0)
-		MapState::GetInstance()->SetBombState(x, y, 0);
-	else
-	{
-		MapState::GetInstance()->SetBombState(x, y, 1);
-		MapState::GetInstance()->SetBombState(x, y, fireLevel, 1);
-	}
-}
+//void Bomb::Register()
+//{
+//	if(flag == 0)
+//		MapState::GetInstance()->SetBombState(x, y, 0);
+//	else
+//	{
+//		MapState::GetInstance()->SetBombState(x, y, 1);
+//		MapState::GetInstance()->SetBombState(x, y, fireLevel, 1);
+//	}
+//}
 
 void Bomb::SetFireLevel(int level)
 {
 	fireLevel = level;
+}
+
+
+int Bomb::GetFireLevel()const
+{
+	return fireLevel;
 }

@@ -24,7 +24,7 @@ void BombSet::Set(int x, int y)
 void BombSet::Update(void)
 {
 	bomb->SetFireLevel(explosion->GetFireLevel());
-	bomb->Register();
+	//bomb->Register();
 	explosion->Register();
 	bomb->Maintain();
 	explosion->Update(*bomb);

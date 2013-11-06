@@ -3,26 +3,33 @@
   <Class Name="EnemyAI" Collapsed="true">
     <Position X="21.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAAAAgAApEAACAIAAAAAFAAAAgAAAgECQAQAAAAAA=</HashCode>
+      <HashCode>AAAAAAAgAAJEBACAAAAAAAAAAAAAAAAEAAAABAAAAAA=</HashCode>
       <FileName>EnemyAI.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Avoid" Collapsed="true">
-    <Position X="0.75" Y="7.75" Width="1.5" />
+    <Position X="12.25" Y="9.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAQABAAAAAAAAEAABAAAAgAIBAABAAAgACAAQAAAAAQ=</HashCode>
+      <HashCode>AAAAAAAAAAIABAAAAAAAAAAIAAABAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Avoid.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="StopRoute" Collapsed="true">
-    <Position X="3" Y="7.75" Width="1.5" />
+    <Position X="14.5" Y="9.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EAQABAAAAAAAAEAABAAAAgAABAAIAAAgACAAQAAAAAQ=</HashCode>
       <FileName>StopRoute.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Target" Collapsed="true">
-    <Position X="5.25" Y="7.75" Width="1.5" />
+    <Position X="16.75" Y="9.75" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="Target::__unnamed_enum_012b_1" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Target.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
     <TypeIdentifier>
       <HashCode>UAQBAIAAAAAIAGAABAAIACAABAAAAAAgACAAQAAAAAQ=</HashCode>
       <FileName>Target.h</FileName>
@@ -38,14 +45,14 @@
   <Class Name="Timer" Collapsed="true">
     <Position X="23.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAEAAAAAAAABAAwAAAAAAAAAAAAAAAAAEAEAgA=</HashCode>
+      <HashCode>AAAAAAAEAAAAAAAABAAwAAAAAAAAAAABAAAAAEAEAgA=</HashCode>
       <FileName>Timer.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DangerState" Collapsed="true">
     <Position X="25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQQCAAAAAAAACAAAAAAAAAAABAQAAAAAIAACAAAAAAA=</HashCode>
+      <HashCode>AQQCAAAAAAAACAAAAAAAAAAABAQAgAAAIAACAAAAAAA=</HashCode>
       <FileName>DangerState.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -59,7 +66,7 @@
   <Class Name="MapState" Collapsed="true">
     <Position X="19.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>YAMCBFAAAACAAAAAAAAAgAACNQAAAAQAAAAAAAABAAA=</HashCode>
+      <HashCode>YAECBFAAAACAAAAAAACAgAACNQABgAQAAAAAAAABAAA=</HashCode>
       <FileName>MapState.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -101,7 +108,7 @@
   <Class Name="Item" Collapsed="true">
     <Position X="10" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAEAAACAAAgAAQAAAIAAECAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAECAAAgAAQAAAIAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Item.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -143,14 +150,14 @@
   <Class Name="Enemy" Collapsed="true">
     <Position X="5.5" Y="5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AwAABhBAAIAAhgAAAAAAAAAACAAgAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AwgABhBAAIAAhgAAAAAAiAAAAAAgAAAAAAAAAAAAAgA=</HashCode>
       <FileName>Enemy.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Player" Collapsed="true">
     <Position X="7.75" Y="5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAABAAAIAAhgAAAAAAAAAACAAAAAAAAAAAAQAAABA=</HashCode>
+      <HashCode>AAgAABAAAIAAhgAAAAAAiAAAAAAAAAAAAAAAAQAAAhA=</HashCode>
       <FileName>Player.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -175,59 +182,66 @@
       <FileName>Search.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ISceneChanger">
-    <Position X="13.5" Y="6.75" Width="1.5" />
+  <Class Name="ISceneChanger" Collapsed="true">
+    <Position X="24.25" Y="8" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="ISceneChanger::__unnamed_enum_01be_1" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ISceneChanger.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
       <FileName>ISceneChanger.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Scene_Game">
-    <Position X="8.5" Y="10" Width="1.5" />
+  <Class Name="Scene_Game" Collapsed="true">
+    <Position X="19.25" Y="11.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAAQiAAAAAAEAAAAgAAAAABAAAAAAAAAAI=</HashCode>
+      <HashCode>AAQAAAAAAAAAQyAAAAAAEAAAAgAAgAABAAAAAAAAAAI=</HashCode>
       <FileName>Scene_Game.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Scene_Menu">
-    <Position X="10.75" Y="10" Width="1.5" />
+  <Class Name="Scene_Menu" Collapsed="true">
+    <Position X="21.5" Y="11.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAEAAAgAAAAAAAAAAAgAAAAIAAAAAAAAAAAA=</HashCode>
       <FileName>Scene_Menu.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Scene_Base">
-    <Position X="9.5" Y="6.75" Width="1.5" />
+    <Position X="20.25" Y="8" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAEAgAAAAAAAAAACgAAAAAAAACAAAAAAAA=</HashCode>
+      <HashCode>AAQAAAAAAAAEAwAAAAAAAEAACgAAgAAAAACAAAAAAAA=</HashCode>
       <FileName>Scene_Base.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SceneManger">
-    <Position X="13.5" Y="9" Width="1.5" />
+  <Class Name="SceneManger" Collapsed="true">
+    <Position X="24.25" Y="10.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQQAAAAAAAAAAgAAAAAAAIAAAAAAAAAAAAAAAAACAgA=</HashCode>
+      <HashCode>AQQAAAAAAAAAAgAAAAAAAIAAAAAAACAAAAAAAAACAgA=</HashCode>
       <FileName>SceneManger.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Collision" Collapsed="true">
     <Position X="23.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAIEAEAgICQAAAgAQSAAAAABEADAQGABEEACAAAAAA=</HashCode>
+      <HashCode>AAAIEAEAgICQAAAgAQSAAAAABEADgQGABEEACAAAAAA=</HashCode>
       <FileName>Collision.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Explosion" Collapsed="true">
     <Position X="3.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAEBAAAAAAABAAAAAACAAAGCAAARAAAAAAAAgAAAEA=</HashCode>
+      <HashCode>AAAEBAAAAAAABAAAAAACAAAGAAAARAAAAAAAAgAAAEA=</HashCode>
       <FileName>Explosion.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ExplosionManager" Collapsed="true">
     <Position X="23.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AIQBBAQAACAgAgGAQCAABAAgAAEDBAAAcAAgAAACAGA=</HashCode>
+      <HashCode>AAQBBAQAACAgAgGAQCAABAAgAAEDBAAAcAAgABACAGA=</HashCode>
       <FileName>ExplosionManager.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -267,55 +281,27 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Route" Collapsed="true">
-    <Position X="3" Y="6.5" Width="1.5" />
+    <Position X="14.5" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAEAABAAAAAAAACEAAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>Route.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Enum Name="__unnamed_enum_0116_1" Collapsed="true">
-    <Position X="25" Y="4.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>IAAAAABAAAAAAgAAAAAAAAAAgAICAAAoAAAAAAAAAAA=</HashCode>
-      <FileName>EnemyAI.cpp</FileName>
-    </TypeIdentifier>
-  </Enum>
-  <Enum Name="object" Collapsed="true">
-    <Position X="23.25" Y="5.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAABAAAAAAAAAAAAAAAABAAAAAAAIAAASAQAAAAAA=</HashCode>
-      <FileName>MapState.h</FileName>
-    </TypeIdentifier>
-  </Enum>
-  <Enum Name="dangerState" Collapsed="true">
+  <Enum Name="dangerState">
     <Position X="21.5" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAABAAAACAAAAAAAAAAAAAAAAAAAAACAAAAA=</HashCode>
       <FileName>MapState.h</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="__unnamed_enum_0114_1" Collapsed="true">
-    <Position X="23.25" Y="4.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>IAAAAABAAAAAAgAAAAAAAAAAgAICAAAoAAAAAAAAAAA=</HashCode>
-      <FileName>Enemy.cpp</FileName>
-    </TypeIdentifier>
-  </Enum>
-  <Enum Name="__unnamed_enum_001e_1" Collapsed="true">
-    <Position X="19.75" Y="4.75" Width="1.5" />
+  <Enum Name="__unnamed_enum_001e_1">
+    <Position X="23.25" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAICAAAhAAAAAAAAAAA=</HashCode>
       <FileName>Player.cpp</FileName>
     </TypeIdentifier>
   </Enum>
-  <Enum Name="__unnamed_enum_0112_1" Collapsed="true">
-    <Position X="21.5" Y="4.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>IAAAAABAAAAAAgAAAAAAAAAAAAICAAAoAAAAAAAAAAA=</HashCode>
-      <FileName>Dijkstra.cpp</FileName>
-    </TypeIdentifier>
-  </Enum>
-  <Enum Name="GameConst::EnemyAction::__unnamed_enum_011c_1" Collapsed="true">
+  <Enum Name="GameConst::EnemyAction::__unnamed_enum_011c_1">
     <Position X="19.75" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>IAAAAABAAAAAAgAAAAAAAAAAgAICAAAoAAAAAAAAAAA=</HashCode>

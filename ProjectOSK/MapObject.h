@@ -1,5 +1,6 @@
 #pragma once
 #include "ICollisionable.h"
+#include "IGettable.h"
 
 class MapObject
 	:public ICollisionable

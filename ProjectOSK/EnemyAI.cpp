@@ -58,46 +58,6 @@ void EnemyAI::Analyse(const Enemy &myself)
 {
 	UpdateState();
 	state->Analyse(myself);
-	int x_center = (myself.GetX()*2 + 32) / 2;
-	int y_center = (myself.GetY()*2 + 32) / 2;
-
-	//ちょうどマスぴったりにいるときに
-	if(myself.GetX() % 32 == 0 && myself.GetY() % 32 == 0)
-	{	
-		if(CheckDanager(myself) == 1)
-		{
-			if(currentState != AVOID)
-			{
-				route = avoid;	//危険地にいるなら逃げる
-				nextState = AVOID;
-			}
-		}
-		else if(search->CheckInClosedInterval(y_center/32, x_center/32) == 1 && DangerState::GetInstance()->GetDangerState(y_center/32, x_center/32) == 0)
-		{
-			if(currentState != STOPTHINKING)
-			{
-				route = stop;	//閉区間にいるならストップ
-				nextState = STOPTHINKING;
-			}
-		}
-		else
-		{ 
-			if(currentState != TARGET)
-			{
-				route = target;	//どれでもないならターゲットを狙う
-				nextState = TARGET;
-			}
-		}
-	}
-
-	//nextstateがcurrentstateと同じ時は切り替えをしない(今の思考状態でいたい)
-	//違うときはnextstateがセットされたということだから、切り替えてほしいということと同値
-	if(nextState != currentState)
-	{
-		currentState = nextState;
-		route->DecideGoal(myself);
-		route->SetRoute(myself);	
-	}
 }
 
 int EnemyAI::GetAction(const Enemy &myself)

@@ -42,9 +42,9 @@ void Scene_Game::UpdateScene()
 void Scene_Game::Initialize()
 {
 	Image::GetInstance()->Initialize();
-	MapState::GetInstance();
-	DangerState::GetInstance();
-	Collision::GetInstance();
+	//MapState::GetInstance();
+	//DangerState::GetInstance();
+	//Collision::GetInstance();
 	gameScreen = new GameField;
 	player = new CharacterSet(new Player);
 	enemy = new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT, GameConst::FIRST_Y_DOWN));
@@ -77,6 +77,7 @@ void Scene_Game::Update()
 	UpdateScene();
 
 	//ƒQ[ƒ€XV
+	MapState::GetInstance()->Update();
 	DangerState::GetInstance()->Update();
 	gameScreen->Update();
 	player->Update();
@@ -112,7 +113,7 @@ void Scene_Game::Draw()
 			else
 				cannotWalkBlockColor = black;
 
-			//DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",MapState::GetInstance()->GetState(i,j,MAP));
+			//DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",MapState::GetInstance()->GetState(i,j,MapState::BOMB));
 			//DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",MapState::GetInstance()->GetState(i, j, CHARACTOR));
 			DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",DangerState::GetInstance()->GetDangerState(i, j));
 			//DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",DangerState::GetInstance()->GetFireState(i, j));

@@ -1,4 +1,5 @@
 #pragma once
+#include <list>
 
 
 enum dangerState
@@ -8,6 +9,9 @@ enum dangerState
 	BOMBRANGE,
 };
 
+
+class Bomb;
+class IGettable;
 class MapState
 {
 public:
@@ -26,6 +30,7 @@ private:
 	static const int objects = 6;
 	static const int topic = 2;
 	 int mapState[row][line][objects][topic];
+	 std::list<Bomb*> bomb;
 private:
 	MapState(void);
 	MapState(const MapState &ms);
@@ -38,6 +43,8 @@ public:
 		return &msInstance;
 	}
 
+	void Register(Bomb* pBomb);
+	void Update();
 	void Finalize();
 	//セット系はそれを用いるクラスが直交座標系なので x, y で指定する
 	//ゲット系はそれを用いるクラスが行列形式で管理しているので i, j で指定する
