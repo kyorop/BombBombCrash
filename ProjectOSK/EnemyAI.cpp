@@ -66,3 +66,6 @@ int EnemyAI::GetAction(const Enemy &myself)
 }
 
 
+void EnemyAI::ShowState()
+{
+}

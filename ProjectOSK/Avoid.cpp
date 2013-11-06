@@ -20,8 +20,45 @@ void Avoid::ChangeState()
 	//キャラクターがちょうどマスピッタリにいる時だけステートの切り替えを行う
 	if(x_now%32 == 0 && y_now%32 == 0)
 	{
+		int i_next;
+		int j_next;
+		switch(routeList.empty() ? -1 : routeList.front())
+		{
+			case GameConst::EnemyAction::UP:
+				i_next = i_center-1;
+				j_next = j_center;
+				break;
+			case GameConst::EnemyAction::DOWN:
+				i_next = i_center+1;
+				j_next = j_center;
+				break;
+			case GameConst::EnemyAction::LEFT:
+				i_next = i_center;
+				j_next = j_center-1;
+				break;
+			case GameConst::EnemyAction::RIGHT:
+				i_next = i_center;
+				j_next = j_center+1;
+				break;
+			default:
+				i_next = -1;
+				j_next = -1;
+				break;
+		}
 		if(DangerState::GetInstance()->GetDangerState(i_center, j_center) == 1)
 		{
+			//まだ危険地帯にいるから今の状態を継続
+		}
+		else if(DangerState::GetInstance()->GetFireState(i_next, j_next) == 1 || DangerState::GetInstance()->GetDangerState(i_next, j_next) == 1)
+		{
+			reset = 1;
+		}
+		else if(search->CheckInClosedInterval(i_center, j_center) == 1)
+		{
+			//上の条件を抜けてきたから危険地にはいない
+			routeList.clear();
+			routeList.push_back(GameConst::EnemyAction::STOP);
+			reset = 0;
 		}
 		else/* if(CheckAroundMyself(i_center, j_center, MapState::BLOCK, 8) == 1 )*/
 		{
@@ -44,6 +81,9 @@ void Avoid::Analyse(const Enemy &myself)
 	i_center = y_center/32;
 	j_center = x_center/32;
 	
+	if(routeList.empty())
+		reset = 1;
+
 	ChangeState();
 	
 	if(reset == 1)

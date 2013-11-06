@@ -70,7 +70,7 @@ int State::GetRoute(const Enemy &myself)
 	
 		if( !routeList.empty() )
 		{
-			switch(routeList.empty() ? -1 : routeList.front())
+			switch( routeList.front() )
 			{
 			case GameConst::EnemyAction::UP:
 				x_next = (j_current + 0) * 32;
@@ -88,14 +88,18 @@ int State::GetRoute(const Enemy &myself)
 				x_next = (j_current + 1) * 32;
 				y_next = (i_current + 0) * 32;
 				break;
+			case GameConst::EnemyAction::BOMBREADY:
+				routeList.pop_front();
+				return GameConst::EnemyAction::STOP;
 			case GameConst::EnemyAction::BOMBSET:
 				routeList.pop_front();
 				return GameConst::EnemyAction::BOMBSET;
 			default:
 				break;
 			}
+			//次の移動先の計算が終わったので、ここで計算終了フラグを立てる
+			hasCalculated = 1;
 		}
-		hasCalculated = 1;
 	}
 
 	if(myself.GetX() == x_next && myself.GetY() == y_next)
@@ -105,15 +109,25 @@ int State::GetRoute(const Enemy &myself)
 
 		if(routeList.empty() == 0)
 			routeList.pop_front();
+
+		return GameConst::EnemyAction::STOP;
+	}
+	else 
+	{
+		if( !routeList.empty() )
+			return routeList.front();
+		else
+			return GameConst::EnemyAction::STOP;
 	}
 
-	if( routeList.empty() )
-	{
-		reset = 1;
-		return -1;		//リストが空なら終了(エラー)として－１を返す
-	}
-	else
-	{
-		return routeList.front();
-	}
+
+	//if( routeList.empty() )
+	//{
+	//	reset = 1;
+	//	return -1;		//リストが空なら終了(エラー)として－１を返す
+	//}
+	//else
+	//{
+	//	return routeList.front();
+	//}
 }

@@ -34,10 +34,8 @@ Enemy::~Enemy(void)
 
 void Enemy::Move()
 {
-	bombSet = 0;
 	if(flag == 1)
 	{
-		bombSet = 0;
 		AI->Analyse(*this);
 
 		
@@ -64,8 +62,6 @@ void Enemy::Move()
 			break;
 		case GameConst::EnemyAction::BOMBSET:
 			this->bombSet = 1;
-			break;
-		case GameConst::EnemyAction::BOMBSETOFF:
 			break;
 		case -1:
 			stop = 1;

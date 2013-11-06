@@ -20,5 +20,7 @@ public:
 	void Analyse(const Enemy &myself);
 	int GetAction(const Enemy &myself);
 
+
+	static void ShowState();
 };
 

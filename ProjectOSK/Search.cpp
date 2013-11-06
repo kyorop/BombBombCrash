@@ -145,13 +145,16 @@ int Search::SetEscapeRouteWhenInDanger(int i_start, int j_start, std::list<int> 
 			i = que_i.front();
 			j = que_j.front();
 
-			if(MAP(i, 0, j, 0) == 0 && BLOCK(i, 0, j, 0) == 0 && MapState::GetInstance()->GetState(i, j, MapState::BOMB) == 0 && DangerState::GetInstance()->GetDangerState(i, j) == 0)
+			if( !(i == i_start && j == j_start) )
 			{
-				visited[i][j] = 1;
-				i_goal = i;
-				j_goal = j;
-				success = 1;
-				break;
+				if(MAP(i, 0, j, 0) == 0 && BLOCK(i, 0, j, 0) == 0 && MapState::GetInstance()->GetState(i, j, MapState::BOMB) == 0 && DangerState::GetInstance()->GetDangerState(i, j) == 0)
+				{
+					visited[i][j] = 1;
+					i_goal = i;
+					j_goal = j;
+					success = 1;
+					break;
+				}
 			}
 
 			//逃げれないならキューの更新

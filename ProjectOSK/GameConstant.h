@@ -12,8 +12,8 @@ namespace GameConst
 			RIGHT,
 			UP,
 			DOWN,
+			BOMBREADY,
 			BOMBSET,
-			BOMBSETOFF,
 		};
 	}
 

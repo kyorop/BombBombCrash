@@ -17,10 +17,10 @@
 Scene_Game::Scene_Game()
 	:gameScreen(),
 	player(),
-	enemy()/*,
-	enemy2(),
-	enemy3(),
-	enemy4()*/
+	enemy(),
+	enemy2()
+	//enemy3(),
+	//enemy4()
 {
 }
 
@@ -48,7 +48,7 @@ void Scene_Game::Initialize()
 	gameScreen = new GameField;
 	player = new CharacterSet(new Player);
 	enemy = new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT, GameConst::FIRST_Y_DOWN));
-	//enemy2 = new CharacterSet(new Enemy(GameConst::FIRST_X_LEFT, GameConst::FIRST_Y_DOWN));
+	enemy2 = new CharacterSet(new Enemy(GameConst::FIRST_X_LEFT, GameConst::FIRST_Y_DOWN));
 	//enemy3 = new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT, GameConst::FIRST_Y_DOWN));
 	//enemy4 = new CharacterSet(new Enemy(32*8, 32*5));
 	timer = new Timer;
@@ -60,7 +60,7 @@ void Scene_Game::Finalize()
 	delete timer;
 	//delete enemy4;
 	//delete enemy3;
-	//delete enemy2;
+	delete enemy2;
 	delete enemy;
 	delete player;
 	delete gameScreen;
@@ -82,7 +82,7 @@ void Scene_Game::Update()
 	gameScreen->Update();
 	player->Update();
 	enemy->Update();
-	//enemy2->Update();
+	enemy2->Update();
 	//enemy3->Update();
 	//enemy4->Update();
 	Collision::GetInstance()->CheckCollision();
@@ -95,7 +95,7 @@ void Scene_Game::Draw()
 	gameScreen->Draw();
 	player->Draw();
 	enemy->Draw();
-	//enemy2->Draw();
+	enemy2->Draw();
 	//enemy3->Draw();
 	//enemy4->Draw();
 
