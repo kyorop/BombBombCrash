@@ -30,10 +30,11 @@ protected:
 	int y_center;
 	int i_center;
 	int j_center;
-	int hasCalculated;
 	int x_next;
 	int y_next;
 	int reset;
+	int currentAction;
+	int resetCalc;
 protected:
 	//指定した対象が指定した半径にあり、かつそこへ行けるなら１を返す
 	int CheckAroundMyself(int i_now, int j_now/*, int* i_to, int* j_to*/, int TRAGET, int radius);

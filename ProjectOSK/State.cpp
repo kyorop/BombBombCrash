@@ -14,10 +14,11 @@ State::State(IStateChanger *stateMrg)
 	y_now(-1),
 	i_center(-1),
 	j_center(-1),
-	hasCalculated(0),
 	x_next(-1),
 	y_next(-1),
-	reset(1)
+	reset(1),
+	currentAction(-1),
+	resetCalc(1)
 {
 }
 
@@ -54,9 +55,13 @@ int State::CheckAroundMyself(int i_now, int j_now/*, int* i_to, int* j_to*/, int
 	return success;
 }
 
+
 int State::GetRoute(const Enemy &myself)
-{
-	if(hasCalculated == 0)
+{	
+	if(myself.GetX() == x_next && myself.GetY() == y_next)
+		resetCalc = 1;
+
+	if(resetCalc == 1)
 	{
 		//次に進む場所の座標の計算
 		int x_center, y_center;
@@ -72,62 +77,51 @@ int State::GetRoute(const Enemy &myself)
 		{
 			switch( routeList.front() )
 			{
+			case GameConst::EnemyAction::STOP:
+				currentAction = routeList.front();
+				routeList.pop_front();
+				break;
 			case GameConst::EnemyAction::UP:
 				x_next = (j_current + 0) * 32;
 				y_next = (i_current - 1) * 32;
+				currentAction = routeList.front();
+				routeList.pop_front();
+				resetCalc = 0;
 				break;
 			case GameConst::EnemyAction::DOWN:
 				x_next = (j_current + 0) * 32;
 				y_next = (i_current + 1) * 32;
+				currentAction = routeList.front();
+				routeList.pop_front();
+				resetCalc = 0;
 				break;
 			case GameConst::EnemyAction::LEFT:
 				x_next = (j_current - 1) * 32;
 				y_next = (i_current + 0) * 32;
+				currentAction = routeList.front();
+				routeList.pop_front();
+				resetCalc = 0;
 				break;
 			case GameConst::EnemyAction::RIGHT:
 				x_next = (j_current + 1) * 32;
 				y_next = (i_current + 0) * 32;
+				currentAction = routeList.front();
+				routeList.pop_front();
+				resetCalc = 0;
 				break;
 			case GameConst::EnemyAction::BOMBREADY:
 				routeList.pop_front();
-				return GameConst::EnemyAction::STOP;
+				currentAction = GameConst::EnemyAction::STOP;
+				break;
 			case GameConst::EnemyAction::BOMBSET:
+				currentAction = routeList.front();
 				routeList.pop_front();
-				return GameConst::EnemyAction::BOMBSET;
+				break;
 			default:
 				break;
 			}
-			//次の移動先の計算が終わったので、ここで計算終了フラグを立てる
-			hasCalculated = 1;
 		}
 	}
 
-	if(myself.GetX() == x_next && myself.GetY() == y_next)
-	{
-		//次の目標マスを再計算する
-		hasCalculated = 0;
-
-		if(routeList.empty() == 0)
-			routeList.pop_front();
-
-		return GameConst::EnemyAction::STOP;
-	}
-	else 
-	{
-		if( !routeList.empty() )
-			return routeList.front();
-		else
-			return GameConst::EnemyAction::STOP;
-	}
-
-
-	//if( routeList.empty() )
-	//{
-	//	reset = 1;
-	//	return -1;		//リストが空なら終了(エラー)として－１を返す
-	//}
-	//else
-	//{
-	//	return routeList.front();
-	//}
+	return currentAction;
 }
