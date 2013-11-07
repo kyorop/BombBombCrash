@@ -7,7 +7,7 @@
 #include "Image.h"
 #include "DxLib.h"
 #include <iostream>
-#define BOMBEXISTTIME 3000
+#define BOMBEXISTTIME 2500
 #define DHIT 5
 #define KBHABA 16
 
@@ -62,7 +62,7 @@ void Bomb::Maintain()
 		time.TurnReset();
 	else
 	{
-		if(time.CountDown(BOMBEXISTTIME) == true)//ŽO•b‚½‚Á‚½‚ç
+		if(time.CountDownFrame(BOMBEXISTTIME) == true)//ŽO•b‚½‚Á‚½‚ç
 			flag = 0;
 	}
 }
@@ -97,6 +97,7 @@ void Bomb::Draw()
 //		MapState::GetInstance()->SetBombState(x, y, fireLevel, 1);
 //	}
 //}
+
 
 void Bomb::SetFireLevel(int level)
 {

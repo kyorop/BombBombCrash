@@ -99,7 +99,7 @@ void ExplosionManager::Maintain()
 {
 	if(explosion == TRUE)
 	{
-		if(retainFire.CountDown(displayingTime) == true)
+		if(retainFire.CountDownFrame(displayingTime) == true)
 		{
 			explosion = FALSE;
 			for(int i=0,size=vex.size(); i<size; i++ )

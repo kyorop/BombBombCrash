@@ -90,7 +90,7 @@ void BreakBlock::Analyse(const Enemy &myself)
 	if(routeList.empty())
 		reset = 1;
 
-	ChangeState();
+	
 	
 	if(reset == 1)
 	{
@@ -106,4 +106,6 @@ void BreakBlock::Analyse(const Enemy &myself)
 			reset = 0;
 		}
 	}
+	
+	ChangeState();
 }

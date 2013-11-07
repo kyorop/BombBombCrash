@@ -15,7 +15,7 @@ Timer::~Timer(void)
 }
 
 
-bool Timer::CountDown(int time)
+bool Timer::CountDownRealTime(int time)
 {
 	limitedTime = time;
 	if(this->reset == true)
@@ -34,6 +34,25 @@ bool Timer::CountDown(int time)
 }
 
 
+bool Timer::CountDownFrame(int time)
+{
+	if(reset == true)
+	{
+		count = 0;
+		reset = false;
+	}
+	
+	if(count < time / frameTime)
+	{
+		++count;
+		return false;
+	}
+	else
+	{
+		reset = true;
+		return true;
+	}
+}
 
 
 void Timer::TurnReset(void)
