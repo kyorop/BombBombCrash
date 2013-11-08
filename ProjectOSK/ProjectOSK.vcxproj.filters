@@ -150,6 +150,9 @@
     <ClCompile Include="Player.cpp">
       <Filter>ソース ファイル\Character</Filter>
     </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Explosion.h">
@@ -274,6 +277,15 @@
     </ClInclude>
     <ClInclude Include="Image.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="ISoundPlayer.h">
+      <Filter>ヘッダー ファイル\Interface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,7 @@
 #include "MapState.h"
 #include "Collision.h"
 #include "Image.h"
+#include "Sound.h"
 #include "DxLib.h"
 #include <iostream>
 #define BOMBEXISTTIME 3000
@@ -15,7 +16,8 @@
 Bomb::Bomb()
 	:fireLevel(1),
 	animpat(0),
-	image_bomb(Image::GetInstance()->GetBombImage())
+	image_bomb(Image::GetInstance()->GetBombImage()),
+	soundOn(0)
 {
 	flag = 0;
 	x = 0;
@@ -23,6 +25,7 @@ Bomb::Bomb()
 	rx = x+32;
 	dy =y+32;
 	Collision::GetInstance()->Register(this);
+	Sound::GetInstance()->Register(this);
 }
 
 Bomb::~Bomb()
@@ -62,7 +65,10 @@ void Bomb::Maintain()
 	else
 	{
 		if(time.CountDown(BOMBEXISTTIME) == true)//ŽO•b‚½‚Á‚½‚ç
+		{
 			flag = 0;
+			soundOn = 1;
+		}
 	}
 }
 
@@ -71,7 +77,10 @@ void Bomb::SetFlag(int flag)
 {
 	this->flag = flag;
 	if(flag == FALSE)
+	{
 		this->time.TurnReset();
+		soundOn = 1;
+	}
 }
 
 
@@ -100,4 +109,16 @@ void Bomb::Register()
 void Bomb::SetFireLevel(int level)
 {
 	fireLevel = level;
+}
+
+
+int Bomb::EnableToPlaySound()const
+{
+	if(soundOn)
+	{
+		soundOn = 0;
+		return 1;
+	}
+	else
+		return 0;
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include "MapObject.h"
 #include "IColleague.h"
+#include "ISoundPlayer.h"
 #include "Key.h"
 #include "Timer.h"
 
@@ -8,7 +9,8 @@ class Player;
 class Map;
 class Charactor;
 class Bomb
-	:public MapObject
+	:public MapObject,
+	public ISoundPlayer
 {
 protected:
 	int count;
@@ -16,6 +18,7 @@ protected:
 	int* image_bomb;
 	int fireLevel;
 	int animpat;
+	mutable int soundOn;
 public:
 	Bomb();
 	virtual ~Bomb();
@@ -26,5 +29,6 @@ public:
 	void Register();
 	void Draw();
 	void SetFireLevel(int level);
+	int EnableToPlaySound()const override;
 };
 

@@ -119,6 +119,7 @@
     <ClCompile Include="Scene_Game.cpp" />
     <ClCompile Include="Scene_Menu.cpp" />
     <ClCompile Include="Search.cpp" />
+    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="StopRoute.cpp" />
     <ClCompile Include="Target.cpp" />
     <ClCompile Include="Timer.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="IMediator.h" />
     <ClInclude Include="IRegister.h" />
     <ClInclude Include="ISceneChanger.h" />
+    <ClInclude Include="ISoundPlayer.h" />
     <ClInclude Include="Key.h" />
     <ClInclude Include="Explosion.h" />
     <ClInclude Include="ExplosionManager.h" />
@@ -156,12 +158,14 @@
     <ClInclude Include="MapObstacle.h" />
     <ClInclude Include="MapState.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Resource.h" />
     <ClInclude Include="Route.h" />
     <ClInclude Include="Scene_Base.h" />
     <ClInclude Include="SceneManger.h" />
     <ClInclude Include="Scene_Game.h" />
     <ClInclude Include="Scene_Menu.h" />
     <ClInclude Include="Search.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="StopRoute.h" />
     <ClInclude Include="Target.h" />
     <ClInclude Include="Timer.h" />

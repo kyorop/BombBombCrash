@@ -26,5 +26,6 @@ public:
 	void Finalize() override;
 	void Update() override;
 	void Draw() override;
+	void PlaySE() override;
 };
 
