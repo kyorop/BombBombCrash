@@ -84,6 +84,8 @@ void Avoid::Analyse(const Enemy &myself)
 	if(routeList.empty())
 		reset = 1;
 
+	ChangeState();
+	
 	if(reset == 1)
 	{
 		routeList.clear();
@@ -95,5 +97,5 @@ void Avoid::Analyse(const Enemy &myself)
 		}
 	}
 
-	ChangeState();
+	
 }

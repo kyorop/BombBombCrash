@@ -12,16 +12,15 @@
 #include "Scene_Menu.h"
 #include "SceneManger.h"
 #include "Timer.h"
+#include "EnemyAI.h"
 #include "DxLib.h"
 
 Scene_Game::Scene_Game()
 	:gameScreen(),
 	player(),
-	enemy(),
-	enemy2()
-	//enemy3(),
-	//enemy4()
+	enemy()
 {
+	
 }
 
 
@@ -47,10 +46,10 @@ void Scene_Game::Initialize()
 	//Collision::GetInstance();
 	gameScreen = new GameField;
 	player = new CharacterSet(new Player);
-	enemy = new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT, GameConst::FIRST_Y_DOWN));
-	enemy2 = new CharacterSet(new Enemy(GameConst::FIRST_X_LEFT, GameConst::FIRST_Y_DOWN));
-	//enemy3 = new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT, GameConst::FIRST_Y_DOWN));
-	//enemy4 = new CharacterSet(new Enemy(32*8, 32*5));
+	enemy.push_back(new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT,GameConst::FIRST_Y_DOWN)));
+	enemy.push_back(new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT,GameConst::FIRST_Y_UP)));
+	enemy.push_back(new CharacterSet(new Enemy(GameConst::FIRST_X_LEFT,GameConst::FIRST_Y_DOWN)));
+	enemy.push_back(new CharacterSet(new Enemy(32*8, 32*5)));
 	timer = new Timer;
 }
 
@@ -58,10 +57,10 @@ void Scene_Game::Initialize()
 void Scene_Game::Finalize()
 {
 	delete timer;
-	//delete enemy4;
-	//delete enemy3;
-	delete enemy2;
-	delete enemy;
+	for (int i=0,size=enemy.size(); i<size; ++i)
+	{
+		delete enemy[i];
+	}
 	delete player;
 	delete gameScreen;
 	Image::GetInstance()->Finalize();
@@ -81,10 +80,10 @@ void Scene_Game::Update()
 	DangerState::GetInstance()->Update();
 	gameScreen->Update();
 	player->Update();
-	enemy->Update();
-	enemy2->Update();
-	//enemy3->Update();
-	//enemy4->Update();
+	for (int i=0,size=enemy.size(); i<size; ++i)
+	{
+		enemy[i]->Update();
+	}
 	Collision::GetInstance()->CheckCollision();
 	
 }
@@ -94,10 +93,10 @@ void Scene_Game::Draw()
 {
 	gameScreen->Draw();
 	player->Draw();
-	enemy->Draw();
-	enemy2->Draw();
-	//enemy3->Draw();
-	//enemy4->Draw();
+	for (int i=0,size=enemy.size(); i<size; ++i)
+	{
+		enemy[i]->Draw();
+	}
 
 	int black = GetColor(255,255,255);
 	int red = GetColor(255,0,0);
@@ -119,6 +118,8 @@ void Scene_Game::Draw()
 			//DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",DangerState::GetInstance()->GetFireState(i, j));
 		}
 	}
+
+	//EnemyAI::ShowState(640,0);
 
 	int currentMilliSecond = timer->GetLeftedTime();		//Žc‚èŽžŠÔ(ƒ~ƒŠ•b)
 	int minute = currentMilliSecond / (60*1000);		//Žc‚èŽžŠÔ(•ª)

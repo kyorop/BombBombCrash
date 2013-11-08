@@ -60,7 +60,7 @@ void BreakBlock::ChangeState()
 			routeList.clear();
 			reset = 0;
 		}
-		else if(DangerState::GetInstance()->GetFireState(i_next, j_next) == 1 || DangerState::GetInstance()->GetDangerState(i_next, j_next) == 1)
+		else if(MapState::GetInstance()->GetState(i_next, j_next, MapState::FIRE) == 1 || DangerState::GetInstance()->GetFireState(i_next, j_next) == 1 || DangerState::GetInstance()->GetDangerState(i_next, j_next) == 1)
 		{
 			routeList.clear();
 			routeList.push_back(GameConst::EnemyAction::STOP);
@@ -89,8 +89,8 @@ void BreakBlock::Analyse(const Enemy &myself)
 	
 	if(routeList.empty())
 		reset = 1;
-
 	
+	ChangeState();
 	
 	if(reset == 1)
 	{
@@ -107,5 +107,5 @@ void BreakBlock::Analyse(const Enemy &myself)
 		}
 	}
 	
-	ChangeState();
+	
 }

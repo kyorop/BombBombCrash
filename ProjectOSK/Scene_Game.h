@@ -12,10 +12,7 @@ class Scene_Game
 private:
 	GameField *gameScreen;
 	CharacterSet *player;
-	CharacterSet *enemy;
-	CharacterSet *enemy2;
-	//CharacterSet *enemy3;
-	//CharacterSet *enemy4;
+	std::vector<CharacterSet*> enemy;
 	Timer* timer;
 private:
 	void UpdateScene() override;

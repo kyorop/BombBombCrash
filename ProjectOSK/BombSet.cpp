@@ -21,14 +21,15 @@ void BombSet::Set(int x, int y)
 		bomb->Set(x, y);
 }
 
+
 void BombSet::Update(void)
 {
 	bomb->SetFireLevel(explosion->GetFireLevel());
-	//bomb->Register();
-	explosion->Register();
 	bomb->Maintain();
 	explosion->Update(*bomb);
+	explosion->Register();
 }
+
 
 void BombSet::Draw(void)
 {
@@ -36,25 +37,30 @@ void BombSet::Draw(void)
 	explosion->Draw();
 }
 
+
 void BombSet::UpFireLevel(void)
 {
 	explosion->FireUp();
 }
+
 
 int BombSet::GetBombX()const
 {
 	return bomb->GetX();
 }
 
+
 int BombSet::GetBombY()const
 {
 	return bomb->GetY();
 }
 
+
 int BombSet::GetFlag()const
 {
 	return bomb->GetFlag();
 }
+
 
 void BombSet::SetFlag(int flag)
 {

@@ -13,12 +13,15 @@
 #include "AttackOtherCharacter.h"
 #include "BreakBlock.h"
 #include "DxLib.h"
+#include <typeinfo.h>
 
+//State* EnemyAI::state;
 
 EnemyAI::EnemyAI()
-	:nextState(IStateChanger::NOCHAGE),
-	state(new BreakBlock(this))
+	:nextState(IStateChanger::NOCHAGE)
+	//state(new BreakBlock(this))
 {
+	state = new BreakBlock(this);
 }
 
 EnemyAI::~EnemyAI(void)
@@ -66,6 +69,21 @@ int EnemyAI::GetAction(const Enemy &myself)
 }
 
 
-void EnemyAI::ShowState()
-{
-}
+//void EnemyAI::ShowState(int x, int y)
+//{
+//	int color = GetColor(0, 255, 102);
+//	
+//	if(state != 0)
+//	{
+//		const type_info &type = typeid( *state );
+//		
+//		if(type == typeid(Avoid))
+//			DrawFormatString(x, y, color,"Avoid");
+//		else if(type == typeid(BreakBlock))
+//			DrawFormatString(x, y, color,"BreakBlock");
+//		else if(type == typeid(AttackOtherCharacter))
+//			DrawFormatString(x, y, color,"AttackOtherCharacter");
+//	}
+//	else
+//		DrawFormatString(x, y, color,"NULL");
+//}

@@ -15,6 +15,8 @@
 #include "Charactor.h"
 #include <typeinfo.h>
 
+
+
 Collision::Collision(void)
 	:disableGoingThrough(),
 	bomb(),

@@ -56,9 +56,10 @@ void CharacterSet::Draw()
 
 void CharacterSet::Update()
 {
-	character->Register();
 	UpdateNumber();
 	character->Move();
+	character->Register();
 	bomb->Update();
 	Set();
+	
 }

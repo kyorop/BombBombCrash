@@ -21,6 +21,6 @@ public:
 	int GetAction(const Enemy &myself);
 
 
-	static void ShowState();
+	//static void ShowState(int x, int y);
 };
 
