@@ -8,6 +8,7 @@
 #include "DangerState.h"
 #include "Collision.h"
 #include "Image.h"
+#include "Sound.h"
 #include "ISceneChanger.h"
 #include "Scene_Menu.h"
 #include "SceneManger.h"
@@ -41,9 +42,7 @@ void Scene_Game::UpdateScene()
 void Scene_Game::Initialize()
 {
 	Image::GetInstance()->Initialize();
-	//MapState::GetInstance();
-	//DangerState::GetInstance();
-	//Collision::GetInstance();
+	Sound::GetInstance()->InitializeForGame();
 	gameScreen = new GameField;
 	player = new CharacterSet(new Player);
 	enemy.push_back(new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT,GameConst::FIRST_Y_DOWN)));
@@ -63,6 +62,7 @@ void Scene_Game::Finalize()
 	}
 	delete player;
 	delete gameScreen;
+	Sound::GetInstance()->FinalizeForGame();
 	Image::GetInstance()->Finalize();
 	Collision::GetInstance()->Finalize();
 	DangerState::GetInstance()->Finalize();
@@ -136,5 +136,9 @@ void Scene_Game::Draw()
 
 }
 
+void Scene_Game::PlaySE()
+{
+	Sound::GetInstance()->PlaySE();
+}
 
 

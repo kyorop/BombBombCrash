@@ -15,6 +15,7 @@ public:
 	virtual void Initialize(){}
 	virtual void Update(void) = 0;
 	virtual void Draw(void) = 0;
-	virtual void Finalize(){};
+	virtual void Finalize(){}
+	virtual void PlaySE(){};
 };
 

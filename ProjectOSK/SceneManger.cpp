@@ -54,3 +54,8 @@ void SceneManger::ChangeScene(int next)
 {
 	nextScene = next;
 }
+
+void SceneManger::PlaySE(void)
+{
+	scene->PlaySE();
+}

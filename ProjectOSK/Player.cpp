@@ -181,7 +181,3 @@ int Player::EnableBomb()const
 	else
 		return 0;
 }
-
-
-
-

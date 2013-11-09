@@ -29,6 +29,10 @@ public:
 	//void Register();
 	void Draw();
 	void SetFireLevel(int level);
+<<<<<<< HEAD
+	int GetFireLevel()const;
+=======
 	int EnableToPlaySound()const override;
+>>>>>>> develop
 };
 
