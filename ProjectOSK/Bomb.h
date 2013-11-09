@@ -26,9 +26,9 @@ public:
 	void Maintain();
 	void CheckBombOverlap(const Bomb & bomb);
 	void SetFlag(int flag) override;
-	//void Register();
 	void Draw();
 	void SetFireLevel(int level);
+	int GetFireLevel()const{return fireLevel;}
 	int EnableToPlaySound()const override;
 };
 

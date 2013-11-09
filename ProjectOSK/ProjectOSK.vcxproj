@@ -121,6 +121,7 @@
     <ClCompile Include="Scene_Game.cpp" />
     <ClCompile Include="Scene_Menu.cpp" />
     <ClCompile Include="Search.cpp" />
+    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StopRoute.cpp" />
     <ClCompile Include="Target.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="IMediator.h" />
     <ClInclude Include="IRegister.h" />
     <ClInclude Include="ISceneChanger.h" />
+    <ClInclude Include="ISoundPlayer.h" />
     <ClInclude Include="IStateChanger.h" />
     <ClInclude Include="Key.h" />
     <ClInclude Include="Explosion.h" />
@@ -169,6 +171,7 @@
     <ClInclude Include="Scene_Game.h" />
     <ClInclude Include="Scene_Menu.h" />
     <ClInclude Include="Search.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StopRoute.h" />
     <ClInclude Include="Target.h" />

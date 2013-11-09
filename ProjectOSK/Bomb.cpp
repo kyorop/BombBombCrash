@@ -96,18 +96,6 @@ void Bomb::Draw()
 }
 
 
-//void Bomb::Register()
-//{
-//	if(flag == 0)
-//		MapState::GetInstance()->SetBombState(x, y, 0);
-//	else
-//	{
-//		MapState::GetInstance()->SetBombState(x, y, 1);
-//		MapState::GetInstance()->SetBombState(x, y, fireLevel, 1);
-//	}
-//}
-
-
 void Bomb::SetFireLevel(int level)
 {
 	fireLevel = level;

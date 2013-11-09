@@ -43,6 +43,9 @@
     <Filter Include="ソース ファイル\AI\State">
       <UniqueIdentifier>{ce5d6ff7-37a0-4b52-8049-dd31fad6af7e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Resource">
+      <UniqueIdentifier>{93593741-6d8c-4f41-8b8b-b657625fcb68}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -135,9 +138,6 @@
     <ClCompile Include="Player.cpp">
       <Filter>ソース ファイル\Character</Filter>
     </ClCompile>
-    <ClCompile Include="Image.cpp">
-      <Filter>ソース ファイル\GameState</Filter>
-    </ClCompile>
     <ClCompile Include="Explosion.cpp">
       <Filter>ソース ファイル\Bomb</Filter>
     </ClCompile>
@@ -161,6 +161,12 @@
     </ClCompile>
     <ClCompile Include="BreakBlock.cpp">
       <Filter>ソース ファイル\AI\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>ソース ファイル\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>ソース ファイル\Resource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -266,9 +272,6 @@
     <ClInclude Include="Collision.h">
       <Filter>ソース ファイル\GameState</Filter>
     </ClInclude>
-    <ClInclude Include="Image.h">
-      <Filter>ソース ファイル\GameState</Filter>
-    </ClInclude>
     <ClInclude Include="ExplosionManager.h">
       <Filter>ソース ファイル\Bomb</Filter>
     </ClInclude>
@@ -301,6 +304,15 @@
     </ClInclude>
     <ClInclude Include="IGettable.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="ISoundPlayer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>ソース ファイル\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>ソース ファイル\Resource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
