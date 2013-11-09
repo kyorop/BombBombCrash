@@ -1,11 +1,9 @@
 #pragma once
-#include "Resource.h"
 #include <list>
 
 
 class ISoundPlayer;
 class Sound
-	:public Resource
 {
 private:
 	int explosion;
@@ -25,11 +23,11 @@ public:
 	}
 
 	void Register(ISoundPlayer* anythingToPlaySound);
-	void Initialize();
-	void Finalize();
-	//int GetExplosionHandle();
+	void InitializeForGame();
+	void InitializeForMenu();
+	void FinalizeForGame();
+	void FinalizeForMenu();
 	void PlayTitleMusic();
 	void PlaySE();
-
 };
 

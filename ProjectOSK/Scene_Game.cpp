@@ -43,7 +43,7 @@ void Scene_Game::UpdateScene()
 void Scene_Game::Initialize()
 {
 	Image::GetInstance()->Initialize();
-	Sound::GetInstance()->Initialize();
+	Sound::GetInstance()->InitializeForGame();
 	MapState::GetInstance();
 	DangerState::GetInstance();
 	Collision::GetInstance();
@@ -66,7 +66,7 @@ void Scene_Game::Finalize()
 	delete enemy;
 	delete player;
 	delete gameScreen;
-	Sound::GetInstance()->Finalize();
+	Sound::GetInstance()->FinalizeForGame();
 	Image::GetInstance()->Finalize();
 	Collision::GetInstance()->Finalize();
 	DangerState::GetInstance()->Finalize();

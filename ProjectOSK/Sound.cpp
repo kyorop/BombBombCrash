@@ -20,22 +20,31 @@ void Sound::Register(ISoundPlayer* anythingToPlaySound)
 }
 
 
-void Sound::Initialize()
+
+void Sound::InitializeForGame()
 {
 	explosion = LoadSoundMem("explosion.mp3");
 }
 
 
-void Sound::Finalize()
+void Sound::InitializeForMenu()
 {
-	DeleteSoundMem(explosion);
+
 }
 
 
-//int Sound::GetExplosionHandle()
-//{
-//	return explosion;
-//}
+
+void Sound::FinalizeForGame()
+{
+	DeleteSoundMem(explosion);
+	soundList.clear();
+}
+
+
+void Sound::FinalizeForMenu()
+{
+
+}
 
 
 void Sound::PlayTitleMusic()
