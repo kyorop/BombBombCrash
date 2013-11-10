@@ -1,12 +1,15 @@
 #include "Timer.h"
 #include "DxLib.h"
 
+int Timer::number[10];
+
 Timer::Timer(void)
 	:count(0),
 	reset(true),
 	startTime(0),
-	limitedTime()
+	limitedTime(0)
 {
+	LoadDivGraph("zerotonine.png", 10, 10, 1, 16,32, number);
 }
 
 
@@ -34,8 +37,6 @@ bool Timer::CountDown(int time)
 }
 
 
-
-
 void Timer::TurnReset(void)
 {
 	reset = true;
@@ -48,4 +49,24 @@ int Timer::GetLeftedTime()const
 		return limitedTime - (GetNowCount() - startTime);
 	else
 		return -1;
+}
+
+
+void Timer::DrawGraphicalTime(int x, int y)
+{
+	if(limitedTime > 0)
+	{
+		int leftedTime = limitedTime - (GetNowCount() - startTime);
+		int minute = leftedTime / (60*1000);
+		//int second = ( limitedTime - 60*minute*1000 ) / 1000;
+		int second = ( leftedTime % (60*1000) ) / 1000;
+
+		int minute_onesplace = minute;
+		int second_tensplace = second/10;
+		int second_onesplace = second - 10*second_tensplace;
+
+		DrawGraph(x, y, number[minute_onesplace], true);
+		DrawGraph(x+20, y, number[second_tensplace], true);
+		DrawGraph(x+20+16, y, number[second_onesplace], true);
+	}
 }
