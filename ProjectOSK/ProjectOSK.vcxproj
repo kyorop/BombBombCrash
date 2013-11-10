@@ -119,6 +119,7 @@
     <ClCompile Include="Scene_Game.cpp" />
     <ClCompile Include="Scene_Menu.cpp" />
     <ClCompile Include="Search.cpp" />
+    <ClCompile Include="SecretCommand.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="StopRoute.cpp" />
     <ClCompile Include="Target.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="Scene_Game.h" />
     <ClInclude Include="Scene_Menu.h" />
     <ClInclude Include="Search.h" />
+    <ClInclude Include="SecretCommand.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="StopRoute.h" />
     <ClInclude Include="Target.h" />

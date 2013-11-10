@@ -30,9 +30,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 {
 
 	_CrtSetDbgFlag(_CRTDBG_LEAK_CHECK_DF | _CRTDBG_ALLOC_MEM_DF);
+	ChangeWindowMode(true);
 	//SetGraphMode(1024,768,16);
 	SetGraphMode(800, 600, 16);
-	ChangeWindowMode(true);
+	SetBackgroundColor(255,255,255);
+	
+
 	
 	if(DxLib_Init() == -1)
 		return -1;

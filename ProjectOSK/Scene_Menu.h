@@ -6,6 +6,8 @@ class Scene_Menu
 	:public Scene_Base
 {
 private:
+	const int pushEnter;
+private:
 	void UpdateScene() override;
 public:
 	Scene_Menu();
