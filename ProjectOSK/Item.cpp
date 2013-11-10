@@ -5,23 +5,19 @@
 #include "Collision.h"
 #include "Image.h"
 #include"DxLib.h"
-#define FIRE 0
-#define BOMB 1
-#define SPEED 2
-#define DHIT 10
-#define KINDITEMNUM 3
+
 
 Item::Item():
-	i_graph( GetRand(KINDITEMNUM-2) ),
+	i_graph( GetRand(itemNum-2) ),
 	image_item( Image::GetInstance()->GetItemImage(i_graph) )
 {
 	Collision::GetInstance()->RegisterWithItem(this);
-	flag = 1;
 }
 
 Item::~Item(void)
 {
 }
+
 
 void Item::Draw()
 {

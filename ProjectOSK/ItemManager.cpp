@@ -8,9 +8,7 @@
 #include "Map.h"
 #include "DxLib.h"
 #include <list>
-#define FIRE 0
-#define BOMB 1
-#define SPEED 2
+
 
 ItemManager::ItemManager(void)
 	:item()
