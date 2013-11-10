@@ -11,9 +11,9 @@ private:
 	void ChangeState();
 	int CheckCharacterAroundMyself(int i_now, int j_now, int* i_to, int* j_to);
 public:
-	AttackOtherCharacter(IStateChanger *stateMrg);
+	AttackOtherCharacter(IStateChanger *stateMrg, const Enemy& myself);
 	~AttackOtherCharacter(void);
 
-	void Analyse(const Enemy &myself)override;
+	void Analyse()override;
 };
 

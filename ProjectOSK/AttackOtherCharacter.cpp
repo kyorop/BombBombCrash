@@ -3,31 +3,14 @@
 #include "DangerState.h"
 #include "GameConstant.h"
 
-AttackOtherCharacter::AttackOtherCharacter(IStateChanger *stateMrg)
-	:State(stateMrg)
+AttackOtherCharacter::AttackOtherCharacter(IStateChanger *stateMrg, const Enemy& myself)
+	:State(stateMrg, myself)
 {
 }
 
 
 AttackOtherCharacter::~AttackOtherCharacter(void)
 {
-}
-
-
-void AttackOtherCharacter::ChangeState()
-{
-	//キャラクターがちょうどマスピッタリにいる時だけステートの切り替えを行う
-	if(x_now%32 == 0 && y_now%32 == 0)
-	{
-		if(search->CheckInClosedInterval(i_center, j_center) == 1 && DangerState::GetInstance()->GetDangerState(i_center, j_center) == 0)
-		{
-			stateMrg->ChangeState(IStateChanger::AVOID);
-			
-			//切り替えが決まったら、これ以上移動しないようにする
-			routeList.clear();
-			reset = 0;
-		}
-	}
 }
 
 
@@ -40,7 +23,7 @@ int AttackOtherCharacter::CheckCharacterAroundMyself(int i_now, int j_now, int* 
 		{
 			if(i != i_now && j != j_now)
 			{
-				if(MapState::GetInstance()->GetState(i, j, MapState::BLOCK) == 1)//他のキャラクターを見つけたら
+				if(MapState::GetInstance()->GetState(i, j, MapState::CHARACTOR) == 1)//他のキャラクターを見つけたら
 				{
 					if(search->CheckAbleToGoTo(i_now, j_now, i, j) == 1)//そこに行けるか調べて
 					{
@@ -57,18 +40,60 @@ int AttackOtherCharacter::CheckCharacterAroundMyself(int i_now, int j_now, int* 
 }
 
 
-void AttackOtherCharacter::Analyse(const Enemy &myself)
+void AttackOtherCharacter::ChangeState()
 {
-	ChangeState();
-	//初期化
-	routeList.clear();
+	int i_next, j_next;
+	int i_current = y_next / 32;		//現在の移動が完了した時にいる場所
+	int j_current = x_next / 32;
+	switch(routeList.empty() ? -1 : routeList.front())
+	{
+		case GameConst::EnemyAction::UP:
+			i_next = i_current-1;
+			j_next = j_current;
+			break;
+		case GameConst::EnemyAction::DOWN:
+			i_next = i_current+1;
+			j_next = j_current;
+			break;
+		case GameConst::EnemyAction::LEFT:
+			i_next = i_current;
+			j_next = j_current-1;
+			break;
+		case GameConst::EnemyAction::RIGHT:
+			i_next = i_current;
+			j_next = j_current+1;
+			break;
+		default:
+			i_next = -1;
+			j_next = -1;
+			break;
+	}
+	if(DangerState::GetInstance()->GetDangerState(i_center, j_center) == 1)
+	{
+		stateMrg->ChangeState(IStateChanger::AVOID);
+	}
+	else if(MapState::GetInstance()->GetState(i_next, j_next, MapState::FIRE) == 1 || DangerState::GetInstance()->GetFireState(i_next, j_next) == 1 || DangerState::GetInstance()->GetDangerState(i_next, j_next) == 1)
+	{
+		routeList.clear();
+		routeList.push_back(GameConst::EnemyAction::STOP);
+		resetRoute = 0;
+	}
+}
 
+
+void AttackOtherCharacter::Analyse()
+{
 	x_center = (myself.GetX()+myself.GetX()+32)/2;
 	y_center = (myself.GetY()+myself.GetY()+32)/2;
 	i_center = y_center/32;
 	j_center = x_center/32;
 
-	if(reset == 1)
+	if(routeList.empty())
+		routeList.clear();
+	
+	ChangeState();
+
+	if(resetRoute == 1)
 	{
 		int i_to;
 		int j_to;
@@ -76,7 +101,7 @@ void AttackOtherCharacter::Analyse(const Enemy &myself)
 		{
 			dijkstra->SearchShortestPath(i_center, j_center, i_to, j_to, &routeList);
 			routeList.push_back(GameConst::EnemyAction::BOMBSET);
-			reset = 0;
+			resetRoute = 0;
 		}
 	}
 }

@@ -4,8 +4,8 @@
 #include "DxLib.h"
 #include <vector>
 
-BreakBlock::BreakBlock(IStateChanger *stateMrg)
-	:State(stateMrg)
+BreakBlock::BreakBlock(IStateChanger *stateMrg, const Enemy& myself)
+	:State(stateMrg, myself)
 {
 }
 
@@ -17,82 +17,72 @@ BreakBlock::~BreakBlock(void)
 
 void BreakBlock::ChangeState()
 {
-	//キャラクターがちょうどマスピッタリにいる時だけステートの切り替えを行う
-	if(x_now%32 == 0 && y_now%32 == 0)
+	int i_next, j_next;
+	int i_current = y_next / 32;		//現在の移動が完了した時にいる場所
+	int j_current = x_next / 32;
+	switch(routeList.empty() ? -1 : routeList.front())
 	{
-		int i_next;
-		int j_next;
-		switch(routeList.empty() ? -1 : routeList.front())
-		{
-			case GameConst::EnemyAction::UP:
-				i_next = i_center-1;
-				j_next = j_center;
-				break;
-			case GameConst::EnemyAction::DOWN:
-				i_next = i_center+1;
-				j_next = j_center;
-				break;
-			case GameConst::EnemyAction::LEFT:
-				i_next = i_center;
-				j_next = j_center-1;
-				break;
-			case GameConst::EnemyAction::RIGHT:
-				i_next = i_center;
-				j_next = j_center+1;
-				break;
-			default:
-				i_next = i_center;
-				j_next = j_center;
-				break;
-		}
-		if(GameConst::EnemyAction::BOMBSET == (routeList.empty() ? -1 : routeList.front()))
-		{
-			std::list<int> temp;
-			if(search->SetEscapeRouteWhenInDanger(i_center, j_center, &temp) == 0)
-			{
-				routeList.clear();
-				reset = 0;
-			}
-		}
-		else if(DangerState::GetInstance()->GetDangerState(i_center, j_center) == 1)
-		{
-			stateMrg->ChangeState(IStateChanger::AVOID);
-			routeList.clear();
-			reset = 0;
-		}
-		else if(MapState::GetInstance()->GetState(i_next, j_next, MapState::FIRE) == 1 || DangerState::GetInstance()->GetFireState(i_next, j_next) == 1 || DangerState::GetInstance()->GetDangerState(i_next, j_next) == 1)
+		case GameConst::EnemyAction::UP:
+			i_next = i_current-1;
+			j_next = j_current;
+			break;
+		case GameConst::EnemyAction::DOWN:
+			i_next = i_current+1;
+			j_next = j_current;
+			break;
+		case GameConst::EnemyAction::LEFT:
+			i_next = i_current;
+			j_next = j_current-1;
+			break;
+		case GameConst::EnemyAction::RIGHT:
+			i_next = i_current;
+			j_next = j_current+1;
+			break;
+		default:
+			i_next = -1;
+			j_next = -1;
+			break;
+	}
+
+	if(GameConst::EnemyAction::BOMBSET == (routeList.empty() ? -1 : routeList.front()))
+	{
+		std::list<int> temp;
+		if(search->SetEscapeRouteWhenInDanger(i_center, j_center, &temp) == 0)
 		{
 			routeList.clear();
-			routeList.push_back(GameConst::EnemyAction::STOP);
-			reset = 0;
+			resetRoute = 0;
 		}
-		
-		//else if(CheckAroundMyself(i_center, j_center, MapState::CHARACTOR, 2) == 1 )
-		//{
-		//	stateMrg->ChangeState(IStateChanger::ATTACK);
-		//	//切り替えが決まったら、これ以上移動しないようにする
-		//	routeList.clear();
-		//	reset = 0;
-		//}
+	}
+	else if(DangerState::GetInstance()->GetDangerState(i_center, j_center) == 1)
+	{
+		stateMrg->ChangeState(IStateChanger::AVOID);
+	}
+	else if(MapState::GetInstance()->GetState(i_next, j_next, MapState::FIRE) == 1 || DangerState::GetInstance()->GetFireState(i_next, j_next) == 1 || DangerState::GetInstance()->GetDangerState(i_next, j_next) == 1)
+	{
+		routeList.clear();
+		routeList.push_back(GameConst::EnemyAction::STOP);
+		resetRoute = 0;
+	}
+	else if(CheckAroundMyself(i_center, j_center, MapState::CHARACTOR, 8) == 1 )
+	{
+		stateMrg->ChangeState(IStateChanger::ATTACK);
 	}
 }
 
 
-void BreakBlock::Analyse(const Enemy &myself)
+void BreakBlock::Analyse()
 {
-	x_now = myself.GetX();
-	y_now = myself.GetY();
 	x_center = (myself.GetX()+myself.GetX()+32)/2;
 	y_center = (myself.GetY()+myself.GetY()+32)/2;
 	i_center = y_center/32;
 	j_center = x_center/32;
 	
 	if(routeList.empty())
-		reset = 1;
+		resetRoute = 1;
 	
 	ChangeState();
 	
-	if(reset == 1)
+	if(resetRoute == 1)
 	{
 		std::vector<int> i_to, j_to;
 		routeList.clear();
@@ -103,7 +93,7 @@ void BreakBlock::Analyse(const Enemy &myself)
 			dijkstra->SearchShortestPath(i_center, j_center, i_to[rand], j_to[rand], &routeList);
 			routeList.push_back(GameConst::EnemyAction::BOMBREADY);
 			routeList.push_back(GameConst::EnemyAction::BOMBSET);
-			reset = 0;
+			resetRoute = 0;
 		}
 	}
 	

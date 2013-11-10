@@ -5,18 +5,17 @@
 #include "GameConstant.h"
 #include "MapState.h"
 
-State::State(IStateChanger *stateMrg)
+State::State(IStateChanger *stateMrg, const Enemy &myself)
 	:stateMrg(stateMrg),
 	routeList(),
 	search(new Search),
 	dijkstra(new Dijkstra),
-	x_now(-1),
-	y_now(-1),
+	myself(myself),
 	i_center(-1),
 	j_center(-1),
 	x_next(-1),
 	y_next(-1),
-	reset(1),
+	resetRoute(1),
 	currentAction(-1),
 	resetCalc(1)
 {
@@ -56,7 +55,7 @@ int State::CheckAroundMyself(int i_now, int j_now/*, int* i_to, int* j_to*/, int
 }
 
 
-int State::GetRoute(const Enemy &myself)
+int State::GetRoute()
 {	
 	if(myself.GetX() == x_next && myself.GetY() == y_next)
 		resetCalc = 1;

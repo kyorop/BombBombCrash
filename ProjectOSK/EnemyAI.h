@@ -1,6 +1,6 @@
 #pragma once
-#include "GameConstant.h"
 #include "IStateChanger.h"
+
 
 class State;
 class Enemy;
@@ -10,17 +10,15 @@ class EnemyAI
 private:
 	int nextState;
 	State* state;
+	const Enemy& myself;
 private:
 	void UpdateState();
 public:
-	EnemyAI();
-	~EnemyAI(void);
+	EnemyAI(const Enemy& myself);
+	~EnemyAI();
 	
 	void ChangeState(int nextState)override;
 	void Analyse(const Enemy &myself);
 	int GetAction(const Enemy &myself);
-
-
-	//static void ShowState(int x, int y);
 };
 

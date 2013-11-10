@@ -15,7 +15,7 @@ Enemy::Enemy(int x, int y)
 	image_right(Image::GetInstance()->GetEnemyImage(Image::RIGHT)),
 	image_up(Image::GetInstance()->GetEnemyImage(Image::UP)),
 	image_down(Image::GetInstance()->GetEnemyImage(Image::DOWN)),
-	AI(new EnemyAI),
+	AI(new EnemyAI(*this)),
 	muki(GameConst::EnemyAction::STOP),
 	stop(0),
 	bombSet(0)

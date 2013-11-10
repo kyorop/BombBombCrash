@@ -5,6 +5,8 @@
 #include "Enemy.h"
 #include "IStateChanger.h"
 
+
+class Enemy;
 class State
 {
 protected:
@@ -24,15 +26,14 @@ protected:
 	std::list<int> routeList;
 	Search *const search;
 	Dijkstra *const dijkstra;
-	int x_now;
-	int y_now;
+	const Enemy& myself;
 	int x_center;
 	int y_center;
 	int i_center;
 	int j_center;
 	int x_next;
 	int y_next;
-	int reset;
+	int resetRoute;
 	int currentAction;
 	int resetCalc;
 protected:
@@ -40,9 +41,9 @@ protected:
 	int CheckAroundMyself(int i_now, int j_now/*, int* i_to, int* j_to*/, int TRAGET, int radius);
 	virtual void ChangeState() = 0;
 public:
-	State(IStateChanger *stateMrg);
+	State(IStateChanger *stateMrg, const Enemy &myself);
 	virtual ~State(void);
-	virtual void Analyse(const Enemy &myself) = 0;
-	virtual int GetRoute(const Enemy &myself);
+	virtual void Analyse() = 0;
+	virtual int GetRoute();
 };
 

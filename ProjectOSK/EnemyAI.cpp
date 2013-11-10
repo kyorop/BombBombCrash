@@ -15,13 +15,12 @@
 #include "DxLib.h"
 #include <typeinfo.h>
 
-//State* EnemyAI::state;
 
-EnemyAI::EnemyAI()
-	:nextState(IStateChanger::NOCHAGE)
-	//state(new BreakBlock(this))
+EnemyAI::EnemyAI(const Enemy& myself)
+	:nextState(IStateChanger::NOCHAGE),
+	state(new BreakBlock(this, myself)),
+	myself(myself)
 {
-	state = new BreakBlock(this);
 }
 
 EnemyAI::~EnemyAI(void)
@@ -32,22 +31,25 @@ EnemyAI::~EnemyAI(void)
 
 void EnemyAI::UpdateState()
 {
-	if(nextState != IStateChanger::NOCHAGE)
+	if(myself.GetX()%32 == 0 && myself.GetY()%32 == 0)
 	{
-		delete state;
-		switch(nextState)
+		if(nextState != IStateChanger::NOCHAGE)
 		{
-		case IStateChanger::ATTACK:
-			state = new AttackOtherCharacter(this);
-			break;
-		case IStateChanger::AVOID:
-			state =new Avoid(this);
-			break;
-		case IStateChanger::BREAKBLOCK:
-			state = new BreakBlock(this);
-			break;
+			delete state;
+			switch(nextState)
+			{
+			case IStateChanger::ATTACK:
+				state = new AttackOtherCharacter(this, myself);
+				break;
+			case IStateChanger::AVOID:
+				state =new Avoid(this, myself);
+				break;
+			case IStateChanger::BREAKBLOCK:
+				state = new BreakBlock(this, myself);
+				break;
+			}
+			nextState = IStateChanger::NOCHAGE;
 		}
-		nextState = IStateChanger::NOCHAGE;
 	}
 }
 
@@ -59,31 +61,11 @@ void EnemyAI::ChangeState(int next)
 
 void EnemyAI::Analyse(const Enemy &myself)
 {
+	state->Analyse();
 	UpdateState();
-	state->Analyse(myself);
 }
 
 int EnemyAI::GetAction(const Enemy &myself)
 {
-	return state->GetRoute(myself);
+	return state->GetRoute();
 }
-
-
-//void EnemyAI::ShowState(int x, int y)
-//{
-//	int color = GetColor(0, 255, 102);
-//	
-//	if(state != 0)
-//	{
-//		const type_info &type = typeid( *state );
-//		
-//		if(type == typeid(Avoid))
-//			DrawFormatString(x, y, color,"Avoid");
-//		else if(type == typeid(BreakBlock))
-//			DrawFormatString(x, y, color,"BreakBlock");
-//		else if(type == typeid(AttackOtherCharacter))
-//			DrawFormatString(x, y, color,"AttackOtherCharacter");
-//	}
-//	else
-//		DrawFormatString(x, y, color,"NULL");
-//}

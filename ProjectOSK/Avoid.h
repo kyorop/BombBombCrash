@@ -9,11 +9,11 @@ class Avoid :
 	public State
 {
 public:
-	Avoid(IStateChanger *stateMrg);
+	Avoid(IStateChanger *stateMrg, const Enemy& myself);
 	~Avoid(void);
 private:
 	void ChangeState()override;
 public:
-	void Analyse(const Enemy &myself)override;
+	void Analyse()override;
 };
 
