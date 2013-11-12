@@ -40,6 +40,23 @@ int AttackOtherCharacter::CheckCharacterAroundMyself(int i_now, int j_now, int* 
 }
 
 
+int AttackOtherCharacter::CheckCharacterInSameRowOrLine(int i_now, int j_now)
+{
+	for(int j=0; j<GameConst::MAP_LINE; ++j)
+	{
+		if(MapState::GetInstance()->GetState(i_now, j, MapState::CHARACTOR))
+			return 1;
+	}
+	for(int i=0; i<GameConst::MAP_LINE; ++i)
+	{
+		if(MapState::GetInstance()->GetState(i, j_now, MapState::CHARACTOR))
+			return 1;
+	}
+
+	return 0;
+}
+
+
 void AttackOtherCharacter::ChangeState()
 {
 	int i_next, j_next;
@@ -112,7 +129,7 @@ void AttackOtherCharacter::Analyse()
 			resetRoute = 0;
 		}
 	}
-	if(DangerState::GetInstance()->GetDangerState(i_center, j_center) == 1)
+	else if(CheckCharacterInSameRowOrLine(i_center, j_center))
 	{
 		routeList.push_front(GameConst::EnemyAction::BOMBSET);
 	}
