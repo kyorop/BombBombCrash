@@ -84,15 +84,15 @@ void Collision::Register(ICollisionable *anythingCollisionable)
 	}
 }
 
-void Collision::RegisterWithFire(ExplosionManager *fire)
+void Collision::RegisterWithFire(ExplosionManager *pFire)
 {
-	this->fire.push_back(fire);
+	fire.push_back(pFire);
 }
 
-void Collision::RegisterWithItem(Item *item)
+void Collision::RegisterWithItem(Item *pItem)
 {
-	this->item.push_back(item);
-	fragile.push_back(item);
+	item.push_back(pItem);
+	fragile.push_back(pItem);
 }
 
 void Collision::CheckEnableToPass()
@@ -148,9 +148,9 @@ void Collision::CheckEnableToPass()
 	}
 }
 
-int Collision::CheckOneUponAnother(int x1, int y1,int x2, int y2)
+int Collision::CheckOneUponAnother(int x1, int y1,int x2, int y2, int collisionLevel)
 {
-	if( (x2 < x1+32-degreeOfHit) && (x1+degreeOfHit < x2+32) && (y1+degreeOfHit < y2+32) && (y2 < y1+32-degreeOfHit) )
+	if( (x2 < x1+32-collisionLevel) && (x1+collisionLevel < x2+32) && (y1+collisionLevel < y2+32) && (y2 < y1+32-collisionLevel) )
 		return 1;
 	else 
 		return 0;
@@ -181,7 +181,7 @@ void Collision::CheckCollisionWithFire()
 						int y_hblock = (*itrHardBlock)->GetY();
 						
 						//ハードブロックと当ったら
-						if(CheckOneUponAnother(x_hblock,y_hblock,x_fire,y_fire) == 1)
+						if(CheckOneUponAnother(x_hblock,y_hblock,x_fire,y_fire, collisionLevelWithFire) == 1)
 						{
 							(*itrFire)->SetFlag(k+4*i, 0);
 							
@@ -228,7 +228,7 @@ void Collision::CheckCollisionFireAndFragile()
 							int y_fragile = (*itrFragile)->GetY();
 						
 							//ハードブロックと当ったら
-							if(CheckOneUponAnother(x_fragile,y_fragile,x_fire,y_fire) == 1)
+							if(CheckOneUponAnother(x_fragile,y_fragile,x_fire,y_fire, collisionLevelWithFire) == 1)
 							{
 								(*itrFire)->SetFlag(k+4*i, 0);
 								(*itrFragile)->SetFlag(0);
@@ -264,7 +264,7 @@ void Collision::CheckCollisionItemAndCharactor()
 			{
 				if((*itrItem)->GetFlag() == 1)
 				{
-					if(CheckOneUponAnother((*itrItem)->GetX(), (*itrItem)->GetY(), chara->GetX(), chara->GetY()))
+					if(CheckOneUponAnother((*itrItem)->GetX(), (*itrItem)->GetY(), chara->GetX(), chara->GetY(), degreeOfHit))
 					{
 						switch ((*itrItem)->GetKind())
 						{

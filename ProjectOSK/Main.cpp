@@ -30,8 +30,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 {
 
 	_CrtSetDbgFlag(_CRTDBG_LEAK_CHECK_DF | _CRTDBG_ALLOC_MEM_DF);
-	SetGraphMode(1024,768,16);
+	//SetGraphMode(1024,768,16);
+	SetGraphMode(800, 600, 16);
 	ChangeWindowMode(true);
+	
 	if(DxLib_Init() == -1)
 		return -1;
 	SetDrawScreen(DX_SCREEN_BACK);
@@ -51,7 +53,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		//ŒvŽZ
 		sceneMrg.Update();
 		sceneMrg.Draw();
-		sceneMrg.PlaySE();
+		//sceneMrg.PlaySE();
 
 		//*********************************************
 		ScreenFlip();

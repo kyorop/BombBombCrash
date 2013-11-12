@@ -20,7 +20,8 @@ private:
 	std::list<ICollisionable*> fragile;
 	std::list<Item*> item;
 
-	static const int degreeOfHit = 5;
+	static const int degreeOfHit = 2;
+	static const int collisionLevelWithFire = 5;
 	static const int haba = 16;
 private:
 	Collision(void);
@@ -29,7 +30,7 @@ private:
 	//’Ê‚ê‚È‚¢Œn
 	void CheckEnableToPass();
 	//’Êí‚Ì‚ ‚½‚è”»’è
-	int CheckOneUponAnother(int x1, int y1,int x2, int y2);
+	int CheckOneUponAnother(int x1, int y1,int x2, int y2, int collisionLevel);
 	//‰Î‚Æ‚ÌÚG”»’è
 	void CheckCollisionWithFire();
 	//‰Î‚ª“–‚½‚é‚Æ‰ó‚ê‚é•¨‚Ì‚ ‚½‚è”»’è

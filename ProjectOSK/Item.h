@@ -12,11 +12,12 @@ public:
 		SPEED,
 	};
 private:
-	const int image_item;
+	static const int itemNum = 3;
 	const int i_graph;
+	const int image_item;
 public:
 	Item();
-	~Item(void);
+	~Item();
 	void Draw();
 	int GetKind()const;
 };
