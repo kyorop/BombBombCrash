@@ -71,11 +71,19 @@ void AttackOtherCharacter::ChangeState()
 	if(DangerState::GetInstance()->GetDangerState(i_center, j_center) == 1)
 	{
 		stateMrg->ChangeState(IStateChanger::AVOID);
+		routeList.clear();
+		resetRoute = 0;
+	}
+	else if(DangerState::GetInstance()->GetDangerState(i_next, j_next) == 1)
+	{
+		stateMrg->ChangeState(IStateChanger::AVOID);
+		routeList.clear();
+		resetRoute = 0;
 	}
 	else if(MapState::GetInstance()->GetState(i_next, j_next, MapState::FIRE) == 1 || DangerState::GetInstance()->GetFireState(i_next, j_next) == 1 || DangerState::GetInstance()->GetDangerState(i_next, j_next) == 1)
 	{
+		stateMrg->ChangeState(IStateChanger::AVOID);
 		routeList.clear();
-		routeList.push_back(GameConst::EnemyAction::STOP);
 		resetRoute = 0;
 	}
 }
@@ -103,5 +111,9 @@ void AttackOtherCharacter::Analyse()
 			routeList.push_back(GameConst::EnemyAction::BOMBSET);
 			resetRoute = 0;
 		}
+	}
+	if(DangerState::GetInstance()->GetDangerState(i_center, j_center) == 1)
+	{
+		routeList.push_front(GameConst::EnemyAction::BOMBSET);
 	}
 }

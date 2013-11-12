@@ -37,7 +37,8 @@ bool Timer::CountDownRealTime(int time)
 }
 
 
-bool Timer::CountDownFrame(int time);{
+bool Timer::CountDownFrame(int time)
+{
 	if(reset == true)
 	{
 		count = 0;
