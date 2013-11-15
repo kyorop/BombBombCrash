@@ -1,18 +1,21 @@
 #include "MapState.h"
+#include "Player.h"
 
 MapState::MapState(void)
+	:player(),
+	playerInfo()
 {
-	for(int i=0;i<row;++i)
-	{
-		for(int j=0; j<line; ++j)
-		{
-			for(int k=0; k<objects; ++k)
-			{
-				for(int l=0; l<topic; ++l)
-					mapState[i][j][k][l] = 0;
-			}
-		}
-	}
+	//for(int i=0;i<row;++i)
+	//{
+	//	for(int j=0; j<line; ++j)
+	//	{
+	//		for(int k=0; k<objects; ++k)
+	//		{
+	//			for(int l=0; l<topic; ++l)
+	//				mapState[i][j][k][l] = 0;
+	//		}
+	//	}
+	//}
 }
 
 MapState::MapState(const MapState &ms)
@@ -32,8 +35,26 @@ void MapState::SetState(int x, int y, int object, int state, int option)
 }
 
 
+void MapState::Initialize()
+{
+	for(int i=0;i<row;++i)
+	{
+		for(int j=0; j<line; ++j)
+		{
+			for(int k=0; k<objects; ++k)
+			{
+				for(int l=0; l<topic; ++l)
+					mapState[i][j][k][l] = 0;
+			}
+		}
+	}
+	playerInfo = new PlayerState();
+}
+
+
 void MapState::Finalize()
 {
+	delete playerInfo;
 	for(int i=0;i<row;++i)
 	{
 		for(int j=0; j<line; ++j)
@@ -86,3 +107,25 @@ int MapState::GetState(int i, int j, int object, int option)
 		return MapState::mapState[i][j][object][option];
 }
 
+
+void MapState::RegisterWithPlayer(const Player* pPlayer)
+{
+	player = pPlayer;
+}
+
+
+void MapState::Update()
+{
+	playerInfo->x = player->GetX();
+	playerInfo->y = player->GetY();
+	playerInfo->flag = player->GetFlag();
+	playerInfo->bombLevel = player->GetBombNum();
+	playerInfo->fireLevel = player->GetFireLevel();
+	playerInfo->speedLevel = player->GetMV();
+}
+
+
+const MapState::PlayerState*  MapState::GetPlayerState()
+{
+	return playerInfo;
+}

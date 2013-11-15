@@ -5,8 +5,7 @@
 #include "EnemyAI.h"
 #include "Collision.h"
 #include "Image.h"
-//#define MV 1
-#define HABA 10
+
 
 enum
 {
@@ -127,7 +126,7 @@ void Enemy::AddMV()
 {
 	if(mv <= 4)
 	{
-		++hitNumSpeedUpItem;		//今までに獲得したスピードアップアイテム数
+		++hitNumSpeedUpItem;		//??????l???????X?s?[?h?A?b?v?A?C?e????
 		if(32%(mv+1) == 0)
 			++mv;
 		else if(32%hitNumSpeedUpItem == 0)

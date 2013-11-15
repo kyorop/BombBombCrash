@@ -34,10 +34,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 	//SetGraphMode(1024,768,16);
 	SetGraphMode(800, 600, 16);
 	//SetBackgroundColor(255,255,255);
-
 	
+
 	if(DxLib_Init() == -1)
 		return -1;
+
 	SetDrawScreen(DX_SCREEN_BACK);
 	
 	SceneManger sceneMrg;
