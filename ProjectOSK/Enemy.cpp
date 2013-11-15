@@ -5,7 +5,7 @@
 #include "EnemyAI.h"
 #include "Collision.h"
 #include "Image.h"
-#define MV 1
+//#define MV 1
 #define HABA 10
 
 enum
@@ -29,9 +29,10 @@ Enemy::Enemy(int x, int y)
 	AI(new EnemyAI),
 	muki(STOP),
 	stop(0),
-	bombSet(0)
+	bombSet(0),
+	hitNumSpeedUpItem(0)
 {
-	mv = MV;
+	//mv = MV;
 	flag = 1;
 	this->x = x;
 	this->y = y;
@@ -123,3 +124,14 @@ int Enemy::EnableBomb(void)const
 	return bombSet;
 }
 
+void Enemy::AddMV()
+{
+	if(mv <= 5)
+	{
+		++hitNumSpeedUpItem;		//今までに獲得したスピードアップアイテム数
+		if(32%(mv+1) == 0)
+			++mv;
+		else if(32%hitNumSpeedUpItem == 0)
+			mv = hitNumSpeedUpItem;
+	}
+}

@@ -22,12 +22,12 @@ public:
 	virtual ~Charactor(void);
 
 	//virtual void SetCharactorState(int flag);
-	int GetBombNum(void)const;
-	int GetFireLevel(void)const;
-	int GetMV(void)const;
-	void AddBombNum(void);
-	void AddFireLevel(void);
-	void AddMV(void);
+	int GetBombNum()const;
+	int GetFireLevel()const;
+	int GetMV()const;
+	void AddBombNum();
+	void AddFireLevel();
+	virtual void AddMV();
 	virtual void Move() = 0;
 	virtual void Draw() = 0;
 	void Register();

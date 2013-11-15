@@ -8,13 +8,13 @@
 
 
 Item::Item():
-	i_graph( GetRand(itemNum-2) ),
+	i_graph( GetRand(itemNum-1) ),
 	image_item( Image::GetInstance()->GetItemImage(i_graph) )
 {
 	Collision::GetInstance()->RegisterWithItem(this);
 }
 
-Item::~Item(void)
+Item::~Item()
 {
 }
 

@@ -33,7 +33,7 @@ Scene_Game::~Scene_Game(void)
 
 void Scene_Game::UpdateScene()
 {
-	if(timer->CountDown(5*60*1000) == true || CheckHitKey(KEY_INPUT_DELETE) == 1)
+	if(timer->CountDown(3*60*1000) == true || CheckHitKey(KEY_INPUT_DELETE) == 1)
 	{
 		sceneMrg->ChangeScene(ISceneChanger::SCENE_MENU);
 	}

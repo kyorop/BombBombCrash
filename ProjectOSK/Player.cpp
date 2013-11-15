@@ -6,9 +6,9 @@
 #include "Collision.h"
 #include "Image.h"
 #include "DxLib.h"
-#define MV 1
-#define HABA 0
-#define DHIT 5
+//#define MV 1
+
+
 enum
 {
 	LEFT,
@@ -75,58 +75,58 @@ void Player::Move()
 {
 	if(CheckHitKey(KEY_INPUT_LEFT) == 1 && CheckHitKey(KEY_INPUT_DOWN) == 0 && CheckHitKey(KEY_INPUT_UP) == 0 && CheckHitKey(KEY_INPUT_RIGHT) == 0)
 	{
-		this->x -=	MV;
+		this->x -=	mv;
 		this->muki = LEFT;
-		if(CheckHitKey(KEY_INPUT_UP) == 1)this->y -= MV;			
-		if(CheckHitKey(KEY_INPUT_DOWN) == 1)this->y += MV;
+		if(CheckHitKey(KEY_INPUT_UP) == 1)this->y -= mv;			
+		if(CheckHitKey(KEY_INPUT_DOWN) == 1)this->y += mv;
 	}	
 	else if(CheckHitKey(KEY_INPUT_RIGHT) == 1 && CheckHitKey(KEY_INPUT_DOWN) == 0 && CheckHitKey(KEY_INPUT_UP) == 0)	
 	{
-		this->x += MV;
+		this->x += mv;
 		this->muki = RIGHT;
-		if(CheckHitKey(KEY_INPUT_UP) == 1)this->y -= MV;			
-		if(CheckHitKey(KEY_INPUT_DOWN) == 1)this->y += MV;
+		if(CheckHitKey(KEY_INPUT_UP) == 1)this->y -= mv;			
+		if(CheckHitKey(KEY_INPUT_DOWN) == 1)this->y += mv;
 		
 	}			
 	else if(CheckHitKey(KEY_INPUT_UP) == 1  && CheckHitKey(KEY_INPUT_DOWN) == 0)
 	{
-		this->y	-=	MV;
+		this->y	-=	mv;
 		this->muki = UP; 
-		if(CheckHitKey(KEY_INPUT_LEFT) == 1) this->x -= MV;
-		if(CheckHitKey(KEY_INPUT_RIGHT) == 1) this->x += MV;
+		if(CheckHitKey(KEY_INPUT_LEFT) == 1) this->x -= mv;
+		if(CheckHitKey(KEY_INPUT_RIGHT) == 1) this->x += mv;
 		
 	}				
 	else if(CheckHitKey(KEY_INPUT_DOWN) == 1)
 	{
-		this->y	+=	MV;
+		this->y	+=	mv;
 		this->muki = DOWN; 
-		if(CheckHitKey(KEY_INPUT_LEFT) == 1) this->x -= MV;
-		if(CheckHitKey(KEY_INPUT_RIGHT) == 1) this->x += MV;
+		if(CheckHitKey(KEY_INPUT_LEFT) == 1) this->x -= mv;
+		if(CheckHitKey(KEY_INPUT_RIGHT) == 1) this->x += mv;
 		
 	}
 	
 	if(CheckHitKey(KEY_INPUT_BACKSLASH)==1)
 	{
-		this->x += MV;
-		this->y += MV;
+		this->x += mv;
+		this->y += mv;
 		this->muki = LEFT;
 	}
 	else if(CheckHitKey(KEY_INPUT_SLASH)==1)
 	{
-		this->x -= MV;
-		this->y += MV;
+		this->x -= mv;
+		this->y += mv;
 		this->muki = RIGHT;
 	}
 	else if(CheckHitKey(KEY_INPUT_SEMICOLON)==1)
 	{
-		this->x -= MV;
-		this->y -= MV;
+		this->x -= mv;
+		this->y -= mv;
 		this->muki = LEFT;
 	}
 	else if(CheckHitKey(KEY_INPUT_COLON)==1)
 	{
-		this->x += MV;
-		this->y -= MV;
+		this->x += mv;
+		this->y -= mv;
 		this->muki = RIGHT;
 	}
 
