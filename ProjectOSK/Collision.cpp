@@ -253,7 +253,6 @@ void Collision::CheckCollisionItemAndCharactor()
 	std::vector<ICollisionable*>::iterator itrCharacter = character.begin();
 	for(itrCharacter; itrCharacter != character.end(); ++itrCharacter)
 	{
-		//Player *chara = dynamic_cast<Player*>(*itrCharacter);
 		Charactor *chara = dynamic_cast<Charactor*>(*itrCharacter);
 		if(chara->GetFlag() == 1)
 		{
@@ -287,7 +286,7 @@ void Collision::CheckCollisionItemAndCharactor()
 
 }
 
-void Collision::CheckCollision()
+void Collision::CheckAllCollision()
 {
 	CheckEnableToPass();
 	CheckCollisionWithFire();

@@ -53,7 +53,9 @@ void Charactor::AddFireLevel(void)
 
 void Charactor::AddMV(void)
 {
-	++mv;
+	//スピードの上限は４まで
+	if(mv <= 4)
+		++mv;
 }
 
 

@@ -30,9 +30,8 @@ Enemy::Enemy(int x, int y)
 	muki(STOP),
 	stop(0),
 	bombSet(0),
-	hitNumSpeedUpItem(0)
+	hitNumSpeedUpItem(1)
 {
-	//mv = MV;
 	flag = 1;
 	this->x = x;
 	this->y = y;
@@ -126,7 +125,7 @@ int Enemy::EnableBomb(void)const
 
 void Enemy::AddMV()
 {
-	if(mv <= 5)
+	if(mv <= 4)
 	{
 		++hitNumSpeedUpItem;		//今までに獲得したスピードアップアイテム数
 		if(32%(mv+1) == 0)

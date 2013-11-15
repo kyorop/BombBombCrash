@@ -20,7 +20,7 @@ private:
 	std::list<ICollisionable*> fragile;
 	std::list<Item*> item;
 
-	static const int degreeOfHit = 2;
+	static const int degreeOfHit = 5;
 	static const int collisionLevelWithFire = 5;
 	static const int haba = 16;
 private:
@@ -44,6 +44,6 @@ public:
 	void Register(ICollisionable *anythingCollisionable);
 	void RegisterWithFire(ExplosionManager *fire);
 	void RegisterWithItem(Item *item);
-	void CheckCollision();
+	void CheckAllCollision();
 };
 

@@ -87,7 +87,7 @@ void Scene_Game::Update()
 	enemy2->Update();
 	enemy3->Update();
 	enemy4->Update();
-	Collision::GetInstance()->CheckCollision();
+	Collision::GetInstance()->CheckAllCollision();
 	
 }
 
@@ -122,18 +122,6 @@ void Scene_Game::Draw()
 		}
 	}
 
-	//int currentMilliSecond = timer->GetLeftedTime();		//残り時間(ミリ秒)
-	//int minute = currentMilliSecond / (60*1000);		//残り時間(分)
-	//int second = (currentMilliSecond - ( (60 * minute) * 1000))/1000;		//残り時間(秒)
-	//
-	//int haba = 0;
-	//if(second < 10)
-	//{
-	//	haba = 9;
-	//	DrawFormatString(640, 65, red, "%d", 0);
-	//}
-	//DrawFormatString(640, 50, red, "%d", minute);
-	//DrawFormatString(640+haba, 65, red, "%d", second);
 	timer->DrawGraphicalTime(0, 416+32);
 
 }
