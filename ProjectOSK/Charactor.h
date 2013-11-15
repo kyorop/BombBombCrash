@@ -27,10 +27,10 @@ public:
 	int GetMV()const;
 	void AddBombNum();
 	void AddFireLevel();
-	virtual void AddMV();
+	virtual void AddMV() = 0;
 	virtual void Move() = 0;
 	virtual void Draw() = 0;
+	virtual int EnableBomb()const = 0;
 	void Register();
-	virtual int EnableBomb(void)const = 0;
 };
 

@@ -109,21 +109,7 @@ void Scene_Game::Draw()
 	int blue = GetColor(0,0,255);
 	int deepskyblue = GetColor(0, 191, 255);
 	int cannotWalkBlockColor;
-	//for(int i=0; i<GameConst::MAP_ROW; ++i)
-	//{
-	//	for(int j=0; j<GameConst::MAP_LINE; ++j)
-	//	{
-	//		if(i == 0 || i == 12 || j == 0 || j == 1 || j == 15 || j == 16 || MapState::GetInstance()->GetState(i, j, MAP) == 1)
-	//			cannotWalkBlockColor = deepskyblue;
-	//		else
-	//			cannotWalkBlockColor = black;
 
-		}
-	}
-
-	timer->DrawGraphicalTime(0, 416+32);
-
-	
 	timer->DrawGraphicalTime(32*18, 10);
 	gameEffect->DrawGameEffect();
 }

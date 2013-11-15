@@ -51,14 +51,6 @@ void Charactor::AddFireLevel(void)
 }
 
 
-void Charactor::AddMV(void)
-{
-	//スピードの上限は４まで
-	if(mv <= 4)
-		++mv;
-}
-
-
 void Charactor::Register()
 {
 	MapState::GetInstance()->SetCharactorState(this->preX, this->preY, 0);

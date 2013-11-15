@@ -124,9 +124,9 @@ int Enemy::EnableBomb(void)const
 
 void Enemy::AddMV()
 {
-	if(mv <= 4)
+	if(mv < 4)
 	{
-		++hitNumSpeedUpItem;		//??????l???????X?s?[?h?A?b?v?A?C?e????
+		++hitNumSpeedUpItem;
 		if(32%(mv+1) == 0)
 			++mv;
 		else if(32%hitNumSpeedUpItem == 0)

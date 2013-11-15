@@ -6,7 +6,6 @@
 #include "Collision.h"
 #include "Image.h"
 #include "DxLib.h"
-//#define MV 1
 
 
 enum
@@ -172,6 +171,16 @@ void Player::Move()
 	if(this->y > 32*11)this->y = 32*11;
 
 	animpat = ( (GetNowCount() & INT_MAX) / (1000 / 12)) % 4;
+}
+
+
+void Player::AddMV(void)
+{
+	//スピードの上限は４まで
+	if(mv < 4)
+	{
+		++mv;
+	}
 }
 
 

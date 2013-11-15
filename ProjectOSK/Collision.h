@@ -2,9 +2,9 @@
 #include <vector>
 #include <list>
 
-class ICollisionable;
 
 //シングルトン
+class ICollisionable;
 class ExplosionManager;
 class Item;
 class Collision
@@ -29,14 +29,19 @@ private:
 
 	//通れない系
 	void CheckEnableToPass();
+
 	//通常のあたり判定
 	int CheckOneUponAnother(int x1, int y1,int x2, int y2, int collisionLevel);
+
 	//火との接触判定
 	void CheckCollisionWithFire();
+
 	//火が当たると壊れる物のあたり判定
 	void CheckCollisionFireAndFragile();
+
 	//キャラクターとアイテムのあたり判定
 	void CheckCollisionItemAndCharactor();
+
 public:
 	~Collision(void);
 	static Collision* GetInstance();
