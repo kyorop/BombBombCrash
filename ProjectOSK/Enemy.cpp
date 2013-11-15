@@ -5,8 +5,7 @@
 #include "EnemyAI.h"
 #include "Collision.h"
 #include "Image.h"
-#define MV 1
-#define HABA 10
+
 
 enum
 {
@@ -31,7 +30,6 @@ Enemy::Enemy(int x, int y)
 	stop(0),
 	bombSet(0)
 {
-	mv = MV;
 	flag = 1;
 	this->x = x;
 	this->y = y;

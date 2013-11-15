@@ -37,7 +37,7 @@
     <Filter Include="ソース ファイル\Algo">
       <UniqueIdentifier>{7b59add8-db4a-4610-8eb2-31e4e09f0c5c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Scene">
+    <Filter Include="ソース ファイル\GameScene">
       <UniqueIdentifier>{27dff125-c8be-4686-91a4-a1bbd06fc9ac}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -130,16 +130,16 @@
       <Filter>ソース ファイル\Algo</Filter>
     </ClCompile>
     <ClCompile Include="SceneManger.cpp">
-      <Filter>ソース ファイル\Scene</Filter>
+      <Filter>ソース ファイル\GameScene</Filter>
     </ClCompile>
     <ClCompile Include="Scene_Game.cpp">
-      <Filter>ソース ファイル\Scene</Filter>
+      <Filter>ソース ファイル\GameScene</Filter>
     </ClCompile>
     <ClCompile Include="Scene_Menu.cpp">
-      <Filter>ソース ファイル\Scene</Filter>
+      <Filter>ソース ファイル\GameScene</Filter>
     </ClCompile>
     <ClCompile Include="Scene_Base.cpp">
-      <Filter>ソース ファイル\Scene</Filter>
+      <Filter>ソース ファイル\GameScene</Filter>
     </ClCompile>
     <ClCompile Include="Collision.cpp">
       <Filter>ソース ファイル\GameState</Filter>
@@ -154,6 +154,9 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="SecretCommand.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEffect.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -258,19 +261,19 @@
       <Filter>ソース ファイル\Algo</Filter>
     </ClInclude>
     <ClInclude Include="ISceneChanger.h">
-      <Filter>ソース ファイル\Scene</Filter>
+      <Filter>ソース ファイル\GameScene</Filter>
     </ClInclude>
     <ClInclude Include="Scene_Game.h">
-      <Filter>ソース ファイル\Scene</Filter>
+      <Filter>ソース ファイル\GameScene</Filter>
     </ClInclude>
     <ClInclude Include="Scene_Menu.h">
-      <Filter>ソース ファイル\Scene</Filter>
+      <Filter>ソース ファイル\GameScene</Filter>
     </ClInclude>
     <ClInclude Include="Scene_Base.h">
-      <Filter>ソース ファイル\Scene</Filter>
+      <Filter>ソース ファイル\GameScene</Filter>
     </ClInclude>
     <ClInclude Include="SceneManger.h">
-      <Filter>ソース ファイル\Scene</Filter>
+      <Filter>ソース ファイル\GameScene</Filter>
     </ClInclude>
     <ClInclude Include="MapState.h">
       <Filter>ソース ファイル\GameState</Filter>
@@ -291,6 +294,9 @@
       <Filter>ヘッダー ファイル\Interface</Filter>
     </ClInclude>
     <ClInclude Include="SecretCommand.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEffect.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

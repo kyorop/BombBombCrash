@@ -8,7 +8,7 @@ int Charactor::idGenerator;
 Charactor::Charactor(void)
 	:preX(),
 	preY(),
-	mv(3),
+	mv(1),
 	bombNum(1),
 	fireLevel(1),
 	id(idGenerator)

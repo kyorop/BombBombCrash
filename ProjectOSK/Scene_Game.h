@@ -2,10 +2,11 @@
 #include "Scene_Base.h"
 #include <vector>
 
-//class ISceneChanger;
+
 class GameField;
 class CharacterSet;
 class Timer;
+class GameEffect;
 class Scene_Game
 	:public Scene_Base
 {
@@ -17,6 +18,7 @@ private:
 	CharacterSet *enemy3;
 	CharacterSet *enemy4;
 	Timer* timer;
+	GameEffect* gameEffect;
 private:
 	void UpdateScene() override;
 public:

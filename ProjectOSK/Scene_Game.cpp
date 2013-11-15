@@ -13,15 +13,17 @@
 #include "Scene_Menu.h"
 #include "SceneManger.h"
 #include "Timer.h"
+#include "GameEffect.h"
 #include "DxLib.h"
 
 Scene_Game::Scene_Game()
-	:gameScreen(),
-	player(),
-	enemy(),
-	enemy2(),
-	enemy3(),
-	enemy4()
+	:gameScreen(NULL),
+	player(NULL),
+	enemy(NULL),
+	enemy2(NULL),
+	enemy3(NULL),
+	enemy4(NULL),
+	gameEffect(NULL)
 {
 }
 
@@ -44,9 +46,7 @@ void Scene_Game::Initialize()
 {
 	Image::GetInstance()->Initialize();
 	Sound::GetInstance()->InitializeForGame();
-	MapState::GetInstance();
-	DangerState::GetInstance();
-	Collision::GetInstance();
+	MapState::GetInstance()->Initialize();
 	gameScreen = new GameField;
 	player = new CharacterSet(new Player);
 	enemy = new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT, GameConst::FIRST_Y_UP));
@@ -54,11 +54,13 @@ void Scene_Game::Initialize()
 	enemy3 = new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT, GameConst::FIRST_Y_DOWN));
 	enemy4 = new CharacterSet(new Enemy(32*8, 32*5));
 	timer = new Timer;
+	gameEffect = new GameEffect;
 }
 
 
 void Scene_Game::Finalize()
 {
+	delete gameEffect;
 	delete timer;
 	delete enemy4;
 	delete enemy3;
@@ -80,6 +82,7 @@ void Scene_Game::Update()
 	UpdateScene();
 
 	//ゲーム更新
+	MapState::GetInstance()->Update();
 	DangerState::GetInstance()->Update();
 	gameScreen->Update();
 	player->Update();
@@ -106,36 +109,25 @@ void Scene_Game::Draw()
 	int blue = GetColor(0,0,255);
 	int deepskyblue = GetColor(0, 191, 255);
 	int cannotWalkBlockColor;
-	for(int i=0; i<GameConst::MAP_ROW; ++i)
-	{
-		for(int j=0; j<GameConst::MAP_LINE; ++j)
-		{
-			if(i == 0 || i == 12 || j == 0 || j == 1 || j == 15 || j == 16 || MapState::GetInstance()->GetState(i, j, MAP) == 1)
-				cannotWalkBlockColor = deepskyblue;
-			else
-				cannotWalkBlockColor = black;
-
-			//DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",MapState::GetInstance()->GetState(i,j,MAP));
-			//DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",MapState::GetInstance()->GetState(i, j, CHARACTOR));
-			DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",DangerState::GetInstance()->GetDangerState(i, j));
-			//DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",DangerState::GetInstance()->GetFireState(i, j));
-		}
-	}
-
-	//int currentMilliSecond = timer->GetLeftedTime();		//残り時間(ミリ秒)
-	//int minute = currentMilliSecond / (60*1000);		//残り時間(分)
-	//int second = (currentMilliSecond - ( (60 * minute) * 1000))/1000;		//残り時間(秒)
-	//
-	//int haba = 0;
-	//if(second < 10)
+	//for(int i=0; i<GameConst::MAP_ROW; ++i)
 	//{
-	//	haba = 9;
-	//	DrawFormatString(640, 65, red, "%d", 0);
-	//}
-	//DrawFormatString(640, 50, red, "%d", minute);
-	//DrawFormatString(640+haba, 65, red, "%d", second);
-	timer->DrawGraphicalTime(0, 416+32);
+	//	for(int j=0; j<GameConst::MAP_LINE; ++j)
+	//	{
+	//		if(i == 0 || i == 12 || j == 0 || j == 1 || j == 15 || j == 16 || MapState::GetInstance()->GetState(i, j, MAP) == 1)
+	//			cannotWalkBlockColor = deepskyblue;
+	//		else
+	//			cannotWalkBlockColor = black;
 
+	//		//DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",MapState::GetInstance()->GetState(i,j,MAP));
+	//		//DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",MapState::GetInstance()->GetState(i, j, CHARACTOR));
+	//		DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",DangerState::GetInstance()->GetDangerState(i, j));
+	//		//DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",DangerState::GetInstance()->GetFireState(i, j));
+	//	}
+	//}
+
+	
+	timer->DrawGraphicalTime(32*18, 10);
+	gameEffect->DrawGameEffect();
 }
 
 void Scene_Game::PlaySE()
