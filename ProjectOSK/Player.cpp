@@ -30,7 +30,7 @@ Player::Player()
 	muki = DOWN;
 	flag =1;
 	animpat = 0;
-	MapState::GetInstance()->RegisterWithPlayer(this);
+	MapState::GetInstance()->RegisterWithCharacter(this);
 	Collision::GetInstance()->Register(this);
 }
 

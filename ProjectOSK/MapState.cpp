@@ -1,21 +1,12 @@
 #include "MapState.h"
 #include "Player.h"
+#include "Enemy.h"
+#include <typeinfo>
 
 MapState::MapState(void)
 	:player(),
 	playerInfo()
 {
-	//for(int i=0;i<row;++i)
-	//{
-	//	for(int j=0; j<line; ++j)
-	//	{
-	//		for(int k=0; k<objects; ++k)
-	//		{
-	//			for(int l=0; l<topic; ++l)
-	//				mapState[i][j][k][l] = 0;
-	//		}
-	//	}
-	//}
 }
 
 MapState::MapState(const MapState &ms)
@@ -54,6 +45,7 @@ void MapState::Initialize()
 
 void MapState::Finalize()
 {
+	enemy.clear();
 	delete playerInfo;
 	for(int i=0;i<row;++i)
 	{
@@ -108,9 +100,14 @@ int MapState::GetState(int i, int j, int object, int option)
 }
 
 
-void MapState::RegisterWithPlayer(const Player* pPlayer)
+void MapState::RegisterWithCharacter(const Charactor* pCharactor)
 {
-	player = pPlayer;
+	const type_info& charaType = typeid(*pCharactor);
+
+	if(charaType == typeid(Player))
+		player = pCharactor;
+	else if(charaType == typeid(Enemy))
+		enemy.push_back(pCharactor);
 }
 
 
@@ -122,10 +119,23 @@ void MapState::Update()
 	playerInfo->bombLevel = player->GetBombNum();
 	playerInfo->fireLevel = player->GetFireLevel();
 	playerInfo->speedLevel = player->GetMV();
-}
 
+	if(!enemy.empty())
+	{
+		std::list<const Charactor*>::iterator itrEnemy = enemy.begin();
+		while (itrEnemy != enemy.end())	
+		{
+			if((*itrEnemy)->GetFlag() == 0)
+			{
+				itrEnemy = enemy.erase(itrEnemy);
+				if(!enemy.empty())
+					++itrEnemy;
+				else
+					break;
+			}
+			else
+				++itrEnemy;
+		}
+	}
 
-const MapState::PlayerState*  MapState::GetPlayerState()
-{
-	return playerInfo;
 }

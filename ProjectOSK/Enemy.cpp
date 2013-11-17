@@ -35,6 +35,7 @@ Enemy::Enemy(int x, int y)
 	this->x = x;
 	this->y = y;
 	Collision::GetInstance()->Register(this);
+	MapState::GetInstance()->RegisterWithCharacter(this);
 }
 
 Enemy::~Enemy(void)

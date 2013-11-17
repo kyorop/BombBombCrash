@@ -1,4 +1,7 @@
 #pragma once
+#include <list>
+
+
 enum object
 {
 	MAP,
@@ -17,6 +20,7 @@ enum dangerState
 };
 
 class Player;
+class Charactor;
 class MapState
 {
 	struct PlayerState
@@ -35,8 +39,9 @@ private:
 	static const int objects = 6;
 	static const int topic = 2;
 	 int mapState[row][line][objects][topic];
-	 const Player* player;
+	 const Charactor* player;
 	 PlayerState* playerInfo;
+	 std::list<const Charactor*> enemy;
 private:
 	MapState(void);
 	MapState(const MapState &ms);
@@ -63,8 +68,9 @@ public:
 	int GetState(int i, int j, int object, int option=0);
 	dangerState GetDangerState(int i , int j);
 
-	void RegisterWithPlayer(const Player* pPlayer);
+	void RegisterWithCharacter(const Charactor* pCharacter);
 	void Update();
-	const PlayerState* GetPlayerState();
+	const PlayerState* GetPlayerState(){return playerInfo;}
+	int GetEnemyNum()const{return enemy.size();}
 };
 

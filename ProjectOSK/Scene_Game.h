@@ -14,9 +14,6 @@ private:
 	GameField *gameScreen;
 	CharacterSet *player;
 	CharacterSet *enemy;
-	CharacterSet *enemy2;
-	CharacterSet *enemy3;
-	CharacterSet *enemy4;
 	Timer* timer;
 	GameEffect* gameEffect;
 private:
