@@ -28,3 +28,5 @@ void GameEffect::DrawMenuEffect()
 {
 
 }
+
+

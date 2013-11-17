@@ -11,6 +11,7 @@
 #include "Sound.h"
 #include "ISceneChanger.h"
 #include "Scene_Menu.h"
+#include "Scene_Score.h"
 #include "SceneManger.h"
 #include "Timer.h"
 #include "GameEffect.h"
@@ -38,6 +39,11 @@ void Scene_Game::UpdateScene()
 	if(timer->CountDown(3*60*1000) == true || CheckHitKey(KEY_INPUT_DELETE) == 1)
 	{
 		sceneMrg->ChangeScene(ISceneChanger::SCENE_MENU);
+	}
+	if(MapState::GetInstance()->GetPlayerState()->flag == 0)
+	{
+		Scene_Score::IncrementLose();
+		sceneMrg->ChangeScene(ISceneChanger::SCENE_SCORE);
 	}
 }
 
@@ -78,9 +84,6 @@ void Scene_Game::Finalize()
 
 void Scene_Game::Update()
 {
-	//シーン切り替え
-	UpdateScene();
-
 	//ゲーム更新
 	MapState::GetInstance()->Update();
 	DangerState::GetInstance()->Update();
@@ -92,6 +95,8 @@ void Scene_Game::Update()
 	enemy4->Update();
 	Collision::GetInstance()->CheckAllCollision();
 	
+	//シーン切り替え
+	UpdateScene();
 }
 
 
@@ -104,15 +109,10 @@ void Scene_Game::Draw()
 	enemy3->Draw();
 	enemy4->Draw();
 
-	int black = GetColor(255,255,255);
-	int red = GetColor(255,0,0);
-	int blue = GetColor(0,0,255);
-	int deepskyblue = GetColor(0, 191, 255);
-	int cannotWalkBlockColor;
-
 	timer->DrawGraphicalTime(32*18, 10);
 	gameEffect->DrawGameEffect();
 }
+
 
 void Scene_Game::PlaySE()
 {

@@ -18,7 +18,7 @@ void Scene_Menu::UpdateScene()
 {
 	if(CheckHitKey(KEY_INPUT_RETURN) == 1)
 	{
-		sceneMrg->ChangeScene(ISceneChanger::SCENE_GAME);
+		sceneMrg->ChangeScene(ISceneChanger::SCENE_ROUND);
 	}
 }
 
