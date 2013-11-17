@@ -1,4 +1,5 @@
 #include "Scene_Score.h"
+#include "Scene_Round.h"
 #include "Timer.h"
 #include "DxLib.h"
 
@@ -20,13 +21,21 @@ Scene_Score::~Scene_Score(void)
 void Scene_Score::UpdateScene()
 {
 	if(timer->CountDown(3*1000))
-		sceneMrg->ChangeScene(ISceneChanger::SCENE_ROUND);
+	{
+		if(winNum == win_max || loseNum == lose_max)
+		{
+			Scene_Round::ResetRound();
+			sceneMrg->ChangeScene(ISceneChanger::SCENE_MENU);
+		}
+		else
+			sceneMrg->ChangeScene(ISceneChanger::SCENE_ROUND);
+	}
 }
 
 
-void Scene_Score::Initialize()
+void Scene_Score::Finalize()
 {
-	if(winNum > win_max || loseNum > lose_max)
+	if(winNum >= win_max || loseNum >= lose_max)
 	{
 		winNum = 0;
 		loseNum = 0;

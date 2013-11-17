@@ -13,9 +13,11 @@ private:
 public:
 	Scene_Round(void);
 	~Scene_Round(void);
-	void Initialize()override;
+	//void Initialize()override;
 	void Finalize()override;
 	void Update()override;
 	void Draw()override;
+
+	static void ResetRound();
 };
 

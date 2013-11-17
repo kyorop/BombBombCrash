@@ -17,7 +17,7 @@ public:
 	Scene_Score(void);
 	~Scene_Score(void);
 
-	void Initialize()override;
+	void Finalize()override;
 	void Update()override;
 	void Draw()override;
 
