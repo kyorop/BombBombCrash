@@ -1,21 +1,12 @@
 #include "MapState.h"
-#include "Bomb.h"
-#include "IGettable.h"
-#include "GameConstant.h"
+#include "Player.h"
+#include "Enemy.h"
+#include <typeinfo>
 
 MapState::MapState(void)
+	:player(),
+	playerInfo()
 {
-	for(int i=0;i<row;++i)
-	{
-		for(int j=0; j<line; ++j)
-		{
-			for(int k=0; k<objects; ++k)
-			{
-				for(int l=0; l<topic; ++l)
-					mapState[i][j][k][l] = 0;
-			}
-		}
-	}
 }
 
 MapState::MapState(const MapState &ms)
@@ -35,41 +26,26 @@ void MapState::SetState(int x, int y, int object, int state, int option)
 }
 
 
-void MapState::Register(Bomb* pBomb)
+void MapState::Initialize()
 {
-	bomb.push_back(pBomb);
-}
-
-
-void MapState::Update()
-{
-	for (int i = 0; i < GameConst::MAP_ROW; ++i)
+	for(int i=0;i<row;++i)
 	{
-		for (int j = 0; j < GameConst::MAP_LINE; ++j)
+		for(int j=0; j<line; ++j)
 		{
-			mapState[i][j][BOMB][0] = 0;
-			mapState[i][j][BOMB][1] = 0;
+			for(int k=0; k<objects; ++k)
+			{
+				for(int l=0; l<topic; ++l)
+					mapState[i][j][k][l] = 0;
+			}
 		}
 	}
-
-	std::list<Bomb*>::iterator itr = bomb.begin();
-	for(itr; itr != bomb.end(); ++itr)
-	{
-		if( (*itr)->GetFlag() == 1 )
-		{
-			int x_center = ( (*itr)->GetX() + (*itr)->GetX()+32 ) / 2;
-			int y_center = ( (*itr)->GetY() + (*itr)->GetY()+32 ) / 2;
-			int i_center = x_center / 32;
-			int j_center = y_center / 32;
-			SetState(x_center, y_center, BOMB, 1);
-			SetState(x_center, y_center, BOMB, (*itr)->GetFireLevel(), 1);
-		}
-	}
+	playerInfo = new PlayerState();
 }
-
 
 void MapState::Finalize()
 {
+	enemy.clear();
+	delete playerInfo;
 	for(int i=0;i<row;++i)
 	{
 		for(int j=0; j<line; ++j)
@@ -126,3 +102,43 @@ int MapState::GetState(int i, int j, int object, int option)
 		return MapState::mapState[i][j][object][option];
 }
 
+
+void MapState::RegisterWithCharacter(const Charactor* pCharactor)
+{
+	const type_info& charaType = typeid(*pCharactor);
+
+	if(charaType == typeid(Player))
+		player = pCharactor;
+	else if(charaType == typeid(Enemy))
+		enemy.push_back(pCharactor);
+}
+
+
+void MapState::Update()
+{
+	playerInfo->x = player->GetX();
+	playerInfo->y = player->GetY();
+	playerInfo->flag = player->GetFlag();
+	playerInfo->bombLevel = player->GetBombNum();
+	playerInfo->fireLevel = player->GetFireLevel();
+	playerInfo->speedLevel = player->GetMV();
+
+	if(!enemy.empty())
+	{
+		std::list<const Charactor*>::iterator itrEnemy = enemy.begin();
+		while (itrEnemy != enemy.end())	
+		{
+			if((*itrEnemy)->GetFlag() == 0)
+			{
+				itrEnemy = enemy.erase(itrEnemy);
+				if(!enemy.empty())
+					++itrEnemy;
+				else
+					break;
+			}
+			else
+				++itrEnemy;
+		}
+	}
+
+}

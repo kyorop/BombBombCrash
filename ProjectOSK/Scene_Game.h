@@ -2,10 +2,11 @@
 #include "Scene_Base.h"
 #include <vector>
 
-//class ISceneChanger;
+
 class GameField;
 class CharacterSet;
 class Timer;
+class GameEffect;
 class Scene_Game
 	:public Scene_Base
 {
@@ -14,6 +15,7 @@ private:
 	CharacterSet *player;
 	std::vector<CharacterSet*> enemy;
 	Timer* timer;
+	GameEffect* gameEffect;
 private:
 	void UpdateScene() override;
 public:
@@ -26,3 +28,19 @@ public:
 	void PlaySE() override;
 };
 
+
+class GameEffect
+{
+private:
+	int image_bombLevel;
+	int image_fireLevel;
+	const int white;
+	const int x;
+	const int y;
+public:
+	GameEffect(void);
+	~GameEffect(void);
+
+	void DrawGameEffect();
+	void DrawMenuEffect();
+};

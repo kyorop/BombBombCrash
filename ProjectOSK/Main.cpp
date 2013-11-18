@@ -18,6 +18,7 @@
 #include "DxLib.h"
 #include <iostream>
 #include <vector>
+#include <stdio.h>
 #define REGISTERNUM 7
 
 #define _CRTDBG_MAP_ALLOC
@@ -28,14 +29,16 @@
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nCmdShow)
 {
-
 	_CrtSetDbgFlag(_CRTDBG_LEAK_CHECK_DF | _CRTDBG_ALLOC_MEM_DF);
+	ChangeWindowMode(true);
 	//SetGraphMode(1024,768,16);
 	SetGraphMode(800, 600, 16);
-	ChangeWindowMode(true);
+	//SetBackgroundColor(255,255,255);
 	
+
 	if(DxLib_Init() == -1)
 		return -1;
+
 	SetDrawScreen(DX_SCREEN_BACK);
 	
 	SceneManger sceneMrg;
@@ -53,7 +56,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		//ŒvŽZ
 		sceneMrg.Update();
 		sceneMrg.Draw();
-		//sceneMrg.PlaySE();
+		sceneMrg.PlaySE();
 
 		//*********************************************
 		ScreenFlip();

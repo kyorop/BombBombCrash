@@ -1,6 +1,7 @@
 #pragma once
+#include "ISceneChanger.h"
 
-class ISceneChanger;
+
 class Scene_Base
 {
 protected:

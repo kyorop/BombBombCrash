@@ -24,6 +24,7 @@ public:
 
 	 void Move()override;
 	 void Draw()override;
+	 void AddMV()override;
 	int EnableBomb()const override;
 };
 

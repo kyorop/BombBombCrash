@@ -5,9 +5,6 @@
 #include "EnemyAI.h"
 #include "Collision.h"
 #include "Image.h"
-#include "GameConstant.h"
-#define MV 1
-#define HABA 10
 
 
 Enemy::Enemy(int x, int y)
@@ -18,13 +15,14 @@ Enemy::Enemy(int x, int y)
 	AI(new EnemyAI(*this)),
 	muki(GameConst::EnemyAction::STOP),
 	stop(0),
-	bombSet(0)
+	bombSet(0),
+	hitNumSpeedUpItem(1)
 {
-	mv = MV;
 	flag = 1;
 	this->x = x;
 	this->y = y;
 	Collision::GetInstance()->Register(this);
+	MapState::GetInstance()->RegisterWithCharacter(this);
 }
 
 Enemy::~Enemy(void)
@@ -117,3 +115,14 @@ int Enemy::EnableBomb(void)const
 		return 0;
 }
 
+void Enemy::AddMV()
+{
+	if(mv < 4)
+	{
+		++hitNumSpeedUpItem;
+		if(32%(mv+1) == 0)
+			++mv;
+		else if(32%hitNumSpeedUpItem == 0)
+			mv = hitNumSpeedUpItem;
+	}
+}

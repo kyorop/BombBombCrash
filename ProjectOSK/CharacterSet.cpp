@@ -22,11 +22,6 @@ CharacterSet::~CharacterSet(void)
 
 void CharacterSet::UpdateNumber()
 {
-	if(currentSpeed < character->GetMV())
-	{
-		character->AddMV();
-		++currentSpeed;
-	}
 	if(currentBombNum < character->GetBombNum())
 	{
 		bomb->UpNum();

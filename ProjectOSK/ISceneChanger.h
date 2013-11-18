@@ -9,6 +9,8 @@ public:
 		NOCHANGE,
 		SCENE_MENU,
 		SCENE_GAME,
+		SCENE_ROUND,
+		SCENE_SCORE,
 	};
 public:
 	virtual ~ISceneChanger(void){};

@@ -2,6 +2,8 @@
 #include "Scene_Base.h"
 #include "Scene_Menu.h"
 #include "Scene_Game.h"
+#include "Scene_Round.h"
+#include "Scene_Score.h"
 
 SceneManger::SceneManger(void)
 	:nextScene(NOCHANGE),
@@ -33,6 +35,12 @@ void SceneManger::Update(void)
 			break;
 		case ISceneChanger::SCENE_GAME:
 			scene = new Scene_Game;
+			break;
+		case ISceneChanger::SCENE_ROUND:
+			scene = new Scene_Round;
+			break;
+		case ISceneChanger::SCENE_SCORE:
+			scene = new Scene_Score;
 			break;
 		}
 		nextScene = ISceneChanger::NOCHANGE;

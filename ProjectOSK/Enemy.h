@@ -21,6 +21,7 @@ private:
 	int animpat;
 	mutable int bombSet;
 	int action[10];
+	int hitNumSpeedUpItem;
 	EnemyAI *const AI;
 public:
 	Enemy(int x, int y);
@@ -29,5 +30,6 @@ public:
 	void Move()override;
 	void Draw()override;
 	int EnableBomb(void)const override;
+	void AddMV()override;
 };
 

@@ -9,9 +9,8 @@ enum dangerState
 	BOMBRANGE,
 };
 
-
-class Bomb;
-class IGettable;
+class Player;
+class Charactor;
 class MapState
 {
 public:
@@ -30,11 +29,14 @@ private:
 	static const int objects = 6;
 	static const int topic = 2;
 	 int mapState[row][line][objects][topic];
-	 std::list<Bomb*> bomb;
+	 const Charactor* player;
+	 PlayerState* playerInfo;
+	 std::list<const Charactor*> enemy;
 private:
 	MapState(void);
 	MapState(const MapState &ms);
 	~MapState(void);
+
 	void SetState(int x, int y, int object, int state, int option=0);
 public:
 	static MapState *GetInstance()
@@ -43,7 +45,7 @@ public:
 		return &msInstance;
 	}
 
-	void Register(Bomb* pBomb);
+	void Initialize();
 	void Update();
 	void Finalize();
 	//セット系はそれを用いるクラスが直交座標系なので x, y で指定する
@@ -56,5 +58,10 @@ public:
 	void SetFireState(int x, int y, int state, int option=0);
 	int GetState(int i, int j, int object, int option=0);
 	dangerState GetDangerState(int i , int j);
+
+	void RegisterWithCharacter(const Charactor* pCharacter);
+	void Update();
+	const PlayerState* GetPlayerState(){return playerInfo;}
+	int GetEnemyNum()const{return enemy.size();}
 };
 

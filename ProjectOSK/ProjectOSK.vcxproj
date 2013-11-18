@@ -120,7 +120,10 @@
     <ClCompile Include="SceneManger.cpp" />
     <ClCompile Include="Scene_Game.cpp" />
     <ClCompile Include="Scene_Menu.cpp" />
+    <ClCompile Include="Scene_Round.cpp" />
+    <ClCompile Include="Scene_Score.cpp" />
     <ClCompile Include="Search.cpp" />
+    <ClCompile Include="SecretCommand.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StopRoute.cpp" />
@@ -170,7 +173,10 @@
     <ClInclude Include="SceneManger.h" />
     <ClInclude Include="Scene_Game.h" />
     <ClInclude Include="Scene_Menu.h" />
+    <ClInclude Include="Scene_Round.h" />
+    <ClInclude Include="Scene_Score.h" />
     <ClInclude Include="Search.h" />
+    <ClInclude Include="SecretCommand.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StopRoute.h" />

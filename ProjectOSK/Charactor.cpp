@@ -8,7 +8,7 @@ int Charactor::idGenerator;
 Charactor::Charactor(void)
 	:preX(),
 	preY(),
-	mv(3),
+	mv(1),
 	bombNum(1),
 	fireLevel(1),
 	id(idGenerator)
@@ -23,19 +23,19 @@ Charactor::~Charactor(void)
 
 int Charactor::GetMV(void)const
 {
-	return this->mv;
+	return mv;
 }
 
 
 int Charactor::GetBombNum(void)const
 {
-	return this->bombNum;
+	return bombNum;
 }
 
 
 int Charactor::GetFireLevel(void)const
 {
-	return this->fireLevel;
+	return fireLevel;
 }
 
 
@@ -48,12 +48,6 @@ void Charactor::AddBombNum(void)
 void Charactor::AddFireLevel(void)
 {
 	++fireLevel;
-}
-
-
-void Charactor::AddMV(void)
-{
-	++mv;
 }
 
 
