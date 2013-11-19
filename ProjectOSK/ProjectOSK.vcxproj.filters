@@ -177,6 +177,9 @@
     <ClCompile Include="Scene_Score.cpp">
       <Filter>ソース ファイル\GameScene</Filter>
     </ClCompile>
+    <ClCompile Include="GetItem.cpp">
+      <Filter>ソース ファイル\AI\State</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameConstant.h">
@@ -331,6 +334,9 @@
     </ClInclude>
     <ClInclude Include="Scene_Score.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GetItem.h">
+      <Filter>ソース ファイル\AI\State</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

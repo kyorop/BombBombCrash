@@ -12,6 +12,7 @@
 #include "State.h"
 #include "AttackOtherCharacter.h"
 #include "BreakBlock.h"
+#include "GetItem.h"
 #include "DxLib.h"
 #include <typeinfo.h>
 
@@ -46,6 +47,9 @@ void EnemyAI::UpdateState()
 				break;
 			case IStateChanger::BREAKBLOCK:
 				state = new BreakBlock(this, myself);
+				break;
+			case IStateChanger::GETITEM:
+				state = new GetItem(this, myself);
 				break;
 			}
 			nextState = IStateChanger::NOCHAGE;

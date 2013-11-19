@@ -4,6 +4,7 @@
 #include "Enemy.h"
 #include "GameConstant.h"
 #include "MapState.h"
+#include "DangerState.h"
 
 State::State(IStateChanger *stateMrg, const Enemy &myself)
 	:stateMrg(stateMrg),
@@ -54,6 +55,56 @@ int State::CheckAroundMyself(int i_now, int j_now/*, int* i_to, int* j_to*/, int
 	return success;
 }
 
+
+void State::ChangeStateBase()
+{
+	int i_next, j_next;
+	int i_current = y_next / 32;		//Œ»Ý‚ÌˆÚ“®‚ªŠ®—¹‚µ‚½Žž‚É‚¢‚éêŠ
+	int j_current = x_next / 32;
+	switch(routeList.empty() ? -1 : routeList.front())
+	{
+		case GameConst::EnemyAction::UP:
+			i_next = i_current-1;
+			j_next = j_current;
+			break;
+		case GameConst::EnemyAction::DOWN:
+			i_next = i_current+1;
+			j_next = j_current;
+			break;
+		case GameConst::EnemyAction::LEFT:
+			i_next = i_current;
+			j_next = j_current-1;
+			break;
+		case GameConst::EnemyAction::RIGHT:
+			i_next = i_current;
+			j_next = j_current+1;
+			break;
+		default:
+			i_next = -1;
+			j_next = -1;
+			break;
+	}
+
+	if(MapState::GetInstance()->GetState(i_next, j_next, MapState::FIRE) == 1 || DangerState::GetInstance()->GetDangerState(i_next, j_next) == 1)
+	{
+		resetRoute = 1;
+	}
+	else if(search->CheckInClosedInterval(i_center, j_center) == 1)
+	{
+		//ã‚ÌðŒ‚ð”²‚¯‚Ä‚«‚½‚©‚çŠëŒ¯’n‚É‚Í‚¢‚È‚¢
+		routeList.clear();
+		routeList.push_back(GameConst::EnemyAction::STOP);
+		resetRoute = 0;
+	}else if(search->CheckInClosedInterval(i_next, j_next) == 1)
+	{
+		routeList.clear();
+		resetRoute = 1;
+	}
+	else
+	{
+		stateMrg->ChangeState(IStateChanger::BREAKBLOCK);
+	}
+}
 
 int State::GetRoute()
 {	

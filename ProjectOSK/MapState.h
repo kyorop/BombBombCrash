@@ -11,6 +11,8 @@ enum dangerState
 
 class Player;
 class Charactor;
+class Bomb;
+class IGettable;
 class MapState
 {
 public:
@@ -24,6 +26,16 @@ public:
 		FIRE,
 	};
 private:
+	struct PlayerState
+	{
+		int x;
+		int y;
+		int flag;
+		int bombLevel;
+		int fireLevel;
+		int speedLevel;
+	};
+private:
 	static const int row = 13;
 	static const int line = 17;
 	static const int objects = 6;
@@ -32,12 +44,14 @@ private:
 	 const Charactor* player;
 	 PlayerState* playerInfo;
 	 std::list<const Charactor*> enemy;
+	 std::list<const Bomb*> bomb;
 private:
 	MapState(void);
 	MapState(const MapState &ms);
 	~MapState(void);
 
 	void SetState(int x, int y, int object, int state, int option=0);
+	void InitOneObject(object kind);
 public:
 	static MapState *GetInstance()
 	{
@@ -60,7 +74,7 @@ public:
 	dangerState GetDangerState(int i , int j);
 
 	void RegisterWithCharacter(const Charactor* pCharacter);
-	void Update();
+	void Register(IGettable* anythingGettable);
 	const PlayerState* GetPlayerState(){return playerInfo;}
 	int GetEnemyNum()const{return enemy.size();}
 };

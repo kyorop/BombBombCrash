@@ -5,6 +5,7 @@
 #include "EnemyAI.h"
 #include "Collision.h"
 #include "Image.h"
+#include "GameConstant.h"
 
 
 Enemy::Enemy(int x, int y)

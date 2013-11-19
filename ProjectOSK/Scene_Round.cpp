@@ -18,7 +18,7 @@ Scene_Round::~Scene_Round(void)
 
 void Scene_Round::UpdateScene()
 {
-	if(timer->CountDown(2*1000))
+	if(timer->CountDownRealTime(2*1000))
 	{
 		sceneMrg->ChangeScene(ISceneChanger::SCENE_GAME);
 	}

@@ -40,6 +40,7 @@ protected:
 	//指定した対象が指定した半径にあり、かつそこへ行けるなら１を返す
 	int CheckAroundMyself(int i_now, int j_now/*, int* i_to, int* j_to*/, int TRAGET, int radius);
 	virtual void ChangeState() = 0;
+	void ChangeStateBase();
 public:
 	State(IStateChanger *stateMrg, const Enemy &myself);
 	virtual ~State(void);

@@ -1,6 +1,9 @@
 #include "MapState.h"
+#include "GameConstant.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Bomb.h"
+#include "IGettable.h"
 #include <typeinfo>
 
 MapState::MapState(void)
@@ -25,6 +28,18 @@ void MapState::SetState(int x, int y, int object, int state, int option)
 		mapState[i][j][object][option] = state;
 }
 
+
+void MapState::InitOneObject(object kind)
+{
+	for (int i = 0; i < GameConst::MAP_ROW; ++i)
+	{
+		for (int j = 0; j < GameConst::MAP_LINE; ++j)
+		{
+			mapState[i][j][kind][0] = 0;
+			mapState[i][j][kind][1] = 0;
+		}
+	}
+}
 
 void MapState::Initialize()
 {
@@ -57,7 +72,6 @@ void MapState::Finalize()
 			}
 		}
 	}
-	bomb.clear();
 }
 
 
@@ -114,6 +128,15 @@ void MapState::RegisterWithCharacter(const Charactor* pCharactor)
 }
 
 
+void MapState::Register(IGettable* anythigGettable)
+{
+	const type_info& type = typeid(*anythigGettable);
+
+	if(type == typeid(Bomb))
+		bomb.push_back(dynamic_cast<Bomb*>(anythigGettable));
+}
+
+
 void MapState::Update()
 {
 	playerInfo->x = player->GetX();
@@ -122,6 +145,22 @@ void MapState::Update()
 	playerInfo->bombLevel = player->GetBombNum();
 	playerInfo->fireLevel = player->GetFireLevel();
 	playerInfo->speedLevel = player->GetMV();
+
+
+	InitOneObject(BOMB);
+	std::list<const Bomb*>::iterator itr = bomb.begin();
+	for(itr; itr != bomb.end(); ++itr)
+	{
+		if( (*itr)->GetFlag() == 1 )
+		{
+			int x_center = ( (*itr)->GetX() + (*itr)->GetX()+32 ) / 2;
+			int y_center = ( (*itr)->GetY() + (*itr)->GetY()+32 ) / 2;
+			int i_center = x_center / 32;
+			int j_center = y_center / 32;
+			SetState(x_center, y_center, BOMB, 1);
+			SetState(x_center, y_center, BOMB, (*itr)->GetFireLevel(), 1);
+		}
+	}
 
 	if(!enemy.empty())
 	{

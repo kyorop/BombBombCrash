@@ -133,6 +133,7 @@ void Scene_Game::Draw()
 			//DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",DangerState::GetInstance()->GetFireState(i, j));
 		}
 	}
+}
 
 void Scene_Game::PlaySE()
 {

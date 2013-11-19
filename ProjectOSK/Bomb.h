@@ -2,6 +2,7 @@
 #include "MapObject.h"
 #include "IColleague.h"
 #include "ISoundPlayer.h"
+#include "IGettable.h"
 #include "Key.h"
 #include "Timer.h"
 

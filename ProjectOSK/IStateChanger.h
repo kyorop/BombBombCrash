@@ -10,6 +10,7 @@ public:
 		ITEM,
 		AVOID,
 		BREAKBLOCK,
+		GETITEM,
 	};
 public:
 	virtual ~IStateChanger(){};

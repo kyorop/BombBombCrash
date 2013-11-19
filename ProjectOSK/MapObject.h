@@ -3,7 +3,8 @@
 #include "IGettable.h"
 
 class MapObject
-	:public ICollisionable
+	:public ICollisionable,
+	public IGettable
 {
 protected:
 	int x;

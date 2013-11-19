@@ -101,6 +101,7 @@
     <ClCompile Include="EnemyAI.cpp" />
     <ClCompile Include="Avoid.cpp" />
     <ClCompile Include="GameField.cpp" />
+    <ClCompile Include="GetItem.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="IDrawable.cpp" />
     <ClCompile Include="Image.cpp" />
@@ -147,6 +148,7 @@
     <ClInclude Include="Avoid.h" />
     <ClInclude Include="GameConstant.h" />
     <ClInclude Include="GameField.h" />
+    <ClInclude Include="GetItem.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="IColleague.h" />
     <ClInclude Include="ICollisionable.h" />

@@ -20,7 +20,7 @@ Scene_Score::~Scene_Score(void)
 
 void Scene_Score::UpdateScene()
 {
-	if(timer->CountDown(3*1000))
+	if(timer->CountDownRealTime(3*1000))
 	{
 		if(winNum == win_max || loseNum == lose_max)
 		{

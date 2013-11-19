@@ -24,9 +24,9 @@ Bomb::Bomb()
 	y = 0;
 	rx = x+32;
 	dy =y+32;
-	MapState::GetInstance()->Register(this);
 	Collision::GetInstance()->Register(this);
 	Sound::GetInstance()->Register(this);
+	MapState::GetInstance()->Register(this);
 }
 
 Bomb::~Bomb()
