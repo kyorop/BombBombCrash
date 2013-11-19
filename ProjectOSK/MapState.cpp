@@ -59,6 +59,7 @@ void MapState::Initialize()
 
 void MapState::Finalize()
 {
+	bomb.clear();
 	enemy.clear();
 	delete playerInfo;
 	for(int i=0;i<row;++i)
