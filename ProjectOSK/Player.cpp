@@ -18,10 +18,10 @@ enum
 };
 
 Player::Player()
-	:image_left(Image::GetInstance()->GetPlayerImage(Image::LEFT)),
-	image_right(Image::GetInstance()->GetPlayerImage(Image::RIGHT)),
-	image_up(Image::GetInstance()->GetPlayerImage(Image::UP)),
-	image_down(Image::GetInstance()->GetPlayerImage(Image::DOWN))
+	:image_left(Image::GetInstance()->GetCharacterImage(id, Image::LEFT)),
+	image_right(Image::GetInstance()->GetCharacterImage(id, Image::RIGHT)),
+	image_up(Image::GetInstance()->GetCharacterImage(id, Image::UP)),
+	image_down(Image::GetInstance()->GetCharacterImage(id, Image::DOWN))
 {
 	x = 32*2;
 	rx = x+32;

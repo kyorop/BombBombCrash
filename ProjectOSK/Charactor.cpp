@@ -18,6 +18,7 @@ Charactor::Charactor(void)
 
 Charactor::~Charactor(void)
 {
+	--idGenerator;
 }
 
 

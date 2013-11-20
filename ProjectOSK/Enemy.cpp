@@ -9,10 +9,10 @@
 
 
 Enemy::Enemy(int x, int y)
-	:image_left(Image::GetInstance()->GetEnemyImage(Image::LEFT)),
-	image_right(Image::GetInstance()->GetEnemyImage(Image::RIGHT)),
-	image_up(Image::GetInstance()->GetEnemyImage(Image::UP)),
-	image_down(Image::GetInstance()->GetEnemyImage(Image::DOWN)),
+	:image_left(Image::GetInstance()->GetCharacterImage(id, Image::LEFT)),
+	image_right(Image::GetInstance()->GetCharacterImage(id, Image::RIGHT)),
+	image_up(Image::GetInstance()->GetCharacterImage(id, Image::UP)),
+	image_down(Image::GetInstance()->GetCharacterImage(id, Image::DOWN)),
 	AI(new EnemyAI(*this)),
 	muki(GameConst::EnemyAction::STOP),
 	stop(0),

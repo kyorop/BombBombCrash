@@ -35,7 +35,10 @@ private:
 	int softBlock;
 	int item[itemDivideNum];
 	int player[characterDivideNum];
-	int enemy[characterDivideNum];
+	int redEnemy[characterDivideNum];
+	int blackEnemy[characterDivideNum];
+	int greenEnemy[characterDivideNum];
+	int purpleEnemy[characterDivideNum];
 	int bomb[bombDivideNum];
 	int fire;
 private:
@@ -55,8 +58,7 @@ public:
 	void Finalize();
 	int GetImage(int kindofImage);
 	int GetItemImage(int kindofItem);
-	int* GetPlayerImage(int direction);
-	int* GetEnemyImage(int direction);
+	int* GetCharacterImage(int id, int direction);
 	int* GetBombImage();
 };
 

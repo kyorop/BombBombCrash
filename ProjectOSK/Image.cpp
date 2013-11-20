@@ -7,7 +7,10 @@ Image::Image(void)
 	softBlock(),
 	item(),
 	player(),
-	enemy(),
+	redEnemy(),
+	blackEnemy(),
+	greenEnemy(),
+	purpleEnemy(),
 	bomb(),
 	fire()
 {
@@ -26,7 +29,10 @@ void Image::Initialize()
 	softBlock = LoadGraph("breakblock.bmp");
 	LoadDivGraph("itemup.bmp", 3, 3, 1, 32, 32, item);
 	LoadDivGraph("bombman.png", 20, 4, 5, 32, 32, player);
-	LoadDivGraph("redbombman.png", 20, 4, 5, 32, 32, enemy);
+	LoadDivGraph("redbombman.png", 20, 4, 5, 32, 32, redEnemy);
+	LoadDivGraph("blackbombman.png", 20, 4, 5, 32, 32, blackEnemy);
+	LoadDivGraph("greenbombman.png", 20, 4, 5, 32, 32, greenEnemy);
+	LoadDivGraph("purplebombman.png", 20, 4, 5, 32, 32, purpleEnemy);
 	LoadDivGraph("bomb.png", 60, 6, 10, 32, 32, bomb);
 	fire = LoadGraph("fire.bmp");
 }
@@ -44,7 +50,10 @@ void Image::Finalize()
 	for (int i = 0; i < characterDivideNum; i++)
 	{
 		DeleteGraph(player[i]);
-		DeleteGraph(enemy[i]);
+		DeleteGraph(redEnemy[i]);
+		DeleteGraph(blackEnemy[i]);
+		DeleteGraph(greenEnemy[i]);
+		DeleteGraph(purpleEnemy[i]);
 	}
 	for (int i = 0; i < bombDivideNum; i++)
 	{
@@ -86,38 +95,42 @@ int Image::GetItemImage(int kind)
 }
 
 
-int* Image::GetPlayerImage(int direction)
+int* Image::GetCharacterImage(int id, int direction)
 {
-	switch(direction)
+	int* enemyColor;
+	switch(id)
 	{
-	case LEFT:
-		return &player[8];
-	case RIGHT:
-		return &player[12];
-	case UP:
-		return &player[0];
-	case DOWN:
-		return &player[4];
+	case 0:
+		enemyColor = player;
+		break;
+	case 1:
+		enemyColor = blackEnemy;
+		break;
+	case 2:
+		enemyColor = redEnemy;
+		break;
+	case 3:
+		enemyColor = greenEnemy;
+		break;
+	case 4:
+		enemyColor = purpleEnemy;
+		break;
 	default:
-		return &player[4];
+		enemyColor = redEnemy;
+		break;
 	}
-}
-
-
-int* Image::GetEnemyImage(int direction)
-{
-	switch(direction)
+	switch (direction)	
 	{
 	case LEFT:
-		return &enemy[8];
+		return &enemyColor[8];
 	case RIGHT:
-		return &enemy[12];
+		return &enemyColor[12];
 	case UP:
-		return &enemy[0];
+		return &enemyColor[0];
 	case DOWN:
-		return &enemy[4];
+		return &enemyColor[4];
 	default:
-		return &enemy[4];
+		return &enemyColor[4];
 	}
 }
 
