@@ -63,7 +63,11 @@ void BreakBlock::ChangeState()
 		routeList.push_back(GameConst::EnemyAction::STOP);
 		resetRoute = 0;
 	}
-	else if(CheckAroundMyself(i_center, j_center, MapState::CHARACTOR, 8) == 1 )
+	else if(CheckAroundMyself(i_center, j_center, MapState::ITEM, 8))
+	{
+		stateMrg->ChangeState(IStateChanger::GETITEM);
+	}
+	else if(CheckAroundMyself(i_center, j_center, MapState::CHARACTOR, 8))
 	{
 		stateMrg->ChangeState(IStateChanger::ATTACK);
 	}
@@ -72,10 +76,7 @@ void BreakBlock::ChangeState()
 
 void BreakBlock::Analyse()
 {
-	x_center = (myself.GetX()+myself.GetX()+32)/2;
-	y_center = (myself.GetY()+myself.GetY()+32)/2;
-	i_center = y_center/32;
-	j_center = x_center/32;
+	UpdateCoordinate();
 	
 	if(routeList.empty())
 		resetRoute = 1;

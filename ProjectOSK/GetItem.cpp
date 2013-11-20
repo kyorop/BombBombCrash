@@ -1,4 +1,6 @@
 #include "GetItem.h"
+#include "MapState.h"
+#include "DangerState.h"
 
 
 GetItem::GetItem(IStateChanger *stateMrg, const Enemy& myself)
@@ -14,16 +16,58 @@ GetItem::~GetItem(void)
 
 void GetItem::ChangeState()
 {
-
+	int i_next, j_next;
+	int i_current = y_next / 32;		//現在の移動が完了した時にいる場所
+	int j_current = x_next / 32;
+	switch(routeList.empty() ? -1 : routeList.front())
+	{
+		case GameConst::EnemyAction::UP:
+			i_next = i_current-1;
+			j_next = j_current;
+			break;
+		case GameConst::EnemyAction::DOWN:
+			i_next = i_current+1;
+			j_next = j_current;
+			break;
+		case GameConst::EnemyAction::LEFT:
+			i_next = i_current;
+			j_next = j_current-1;
+			break;
+		case GameConst::EnemyAction::RIGHT:
+			i_next = i_current;
+			j_next = j_current+1;
+			break;
+		default:
+			i_next = -1;
+			j_next = -1;
+			break;
+	}
+	if(DangerState::GetInstance()->GetDangerState(i_center, j_center) == 1)
+	{
+		stateMrg->ChangeState(IStateChanger::AVOID);
+		routeList.clear();
+		resetRoute = 0;
+	}
+	else if(DangerState::GetInstance()->GetDangerState(i_next, j_next) == 1)
+	{
+		stateMrg->ChangeState(IStateChanger::AVOID);
+		routeList.clear();
+		resetRoute = 0;
+	}
+	else if(MapState::GetInstance()->GetState(i_next, j_next, MapState::FIRE) == 1 
+			|| DangerState::GetInstance()->GetFireState(i_next, j_next) == 1 
+			|| DangerState::GetInstance()->GetDangerState(i_next, j_next) == 1)
+	{
+		stateMrg->ChangeState(IStateChanger::AVOID);
+		routeList.clear();
+		resetRoute = 0;
+	}
 }
 
 
 void GetItem::Analyse()
 {
-	x_center = (myself.GetX()+myself.GetX()+32)/2;
-	y_center = (myself.GetY()+myself.GetY()+32)/2;
-	i_center = y_center/32;
-	j_center = x_center/32;
+	UpdateCoordinate();
 	
 	if(routeList.empty())
 		resetRoute = 1;
@@ -32,16 +76,13 @@ void GetItem::Analyse()
 	
 	if(resetRoute == 1)
 	{
-		std::vector<int> i_to, j_to;
 		routeList.clear();
 		//ルートセット
-		if(search->SetGoal(i_center, j_center, &i_to, &j_to) == 1)
+		int i_to;
+		int j_to;
+		if(CheckObjectAroundAndAbleToGoThere(i_center, j_center, &i_to, &j_to,MapState::ITEM, 8))
 		{
-			//int rand = GetRand(i_to.size()-1);
-			//dijkstra->SearchShortestPath(i_center, j_center, i_to[rand], j_to[rand], &routeList);
-			routeList.push_back(GameConst::EnemyAction::BOMBREADY);
-			routeList.push_back(GameConst::EnemyAction::BOMBSET);
-			resetRoute = 0;
+			dijkstra->SearchShortestPath(i_center, j_center, i_to, j_to, &routeList);
 		}
 	}
 }

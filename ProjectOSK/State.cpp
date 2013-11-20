@@ -30,7 +30,15 @@ State::~State(void)
 }
 
 
-int State::CheckAroundMyself(int i_now, int j_now/*, int* i_to, int* j_to*/, int TRAGET, int radius)
+void State::UpdateCoordinate()
+{
+	x_center = (myself.GetX()+myself.GetX()+32)/2;
+	y_center = (myself.GetY()+myself.GetY()+32)/2;
+	i_center = y_center/32;
+	j_center = x_center/32;
+}
+
+int State::CheckAroundMyself(int i_now, int j_now, int TRAGET, int radius)
 {
 	int success = 0;
 	for(int i=i_now-radius; i<=i_now+radius; ++i)
@@ -43,8 +51,6 @@ int State::CheckAroundMyself(int i_now, int j_now/*, int* i_to, int* j_to*/, int
 				{
 					if(search->CheckAbleToGoTo(i_now, j_now, i, j) == 1)//そこに行けるか調べて
 					{
-						//*i_to = i;
-						//*j_to = j;
 						success = 1;
 					}
 				}
@@ -53,6 +59,30 @@ int State::CheckAroundMyself(int i_now, int j_now/*, int* i_to, int* j_to*/, int
 	}
 
 	return success;
+}
+
+
+int State::CheckObjectAroundAndAbleToGoThere(int i_now, int j_now, int* i_to, int* j_to, int OBJECT, int radius)
+{
+	for(int i=i_now-radius; i<=i_now+radius; ++i)
+	{
+		for(int j=j_now-radius; j<=j_now+radius; ++j)
+		{
+			if(i != i_now && j != j_now)
+			{
+				if(MapState::GetInstance()->GetState(i, j, OBJECT))//他のキャラクターを見つけたら
+				{
+					if(search->CheckAbleToGoTo(i_now, j_now, i, j))//そこに行けるか調べて
+					{
+						*i_to = i;
+						*j_to = j;
+						return 1;
+					}
+				}
+			}
+		}
+	}
+	return 0;
 }
 
 

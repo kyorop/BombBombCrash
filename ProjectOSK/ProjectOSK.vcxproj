@@ -127,8 +127,6 @@
     <ClCompile Include="SecretCommand.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="State.cpp" />
-    <ClCompile Include="StopRoute.cpp" />
-    <ClCompile Include="Target.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -181,8 +179,6 @@
     <ClInclude Include="SecretCommand.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="State.h" />
-    <ClInclude Include="StopRoute.h" />
-    <ClInclude Include="Target.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>

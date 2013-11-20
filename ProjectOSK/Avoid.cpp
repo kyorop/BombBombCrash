@@ -65,19 +65,19 @@ void Avoid::ChangeState()
 		routeList.clear();
 		resetRoute = 1;
 	}
+	else if(CheckAroundMyself(i_center, j_center, MapState::ITEM, 5))
+		stateMrg->ChangeState(IStateChanger::GETITEM);
+	else if(CheckAroundMyself(i_center, j_center, MapState::CHARACTOR, 5))
+		stateMrg->ChangeState(IStateChanger::ATTACK);
 	else
-	{
 		stateMrg->ChangeState(IStateChanger::BREAKBLOCK);
-	}
+
 }
 
 
 void Avoid::Analyse()
 {
-	x_center = (myself.GetX()+myself.GetRX()) / 2;
-	y_center = (myself.GetY()+myself.GetDY()) / 2;
-	i_center = y_center/32;
-	j_center = x_center/32;
+	UpdateCoordinate();
 	
 	if(routeList.empty())
 		resetRoute = 1;

@@ -150,12 +150,6 @@
     <ClCompile Include="State.cpp">
       <Filter>ソース ファイル\AI\State</Filter>
     </ClCompile>
-    <ClCompile Include="StopRoute.cpp">
-      <Filter>ソース ファイル\AI\State</Filter>
-    </ClCompile>
-    <ClCompile Include="Target.cpp">
-      <Filter>ソース ファイル\AI\State</Filter>
-    </ClCompile>
     <ClCompile Include="AttackOtherCharacter.cpp">
       <Filter>ソース ファイル\AI\State</Filter>
     </ClCompile>
@@ -300,12 +294,6 @@
       <Filter>ソース ファイル\AI\State</Filter>
     </ClInclude>
     <ClInclude Include="State.h">
-      <Filter>ソース ファイル\AI\State</Filter>
-    </ClInclude>
-    <ClInclude Include="Target.h">
-      <Filter>ソース ファイル\AI\State</Filter>
-    </ClInclude>
-    <ClInclude Include="StopRoute.h">
       <Filter>ソース ファイル\AI\State</Filter>
     </ClInclude>
     <ClInclude Include="AttackOtherCharacter.h">

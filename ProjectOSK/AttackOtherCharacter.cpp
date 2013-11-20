@@ -108,10 +108,7 @@ void AttackOtherCharacter::ChangeState()
 
 void AttackOtherCharacter::Analyse()
 {
-	x_center = (myself.GetX()+myself.GetX()+32)/2;
-	y_center = (myself.GetY()+myself.GetY()+32)/2;
-	i_center = y_center/32;
-	j_center = x_center/32;
+	UpdateCoordinate();
 
 	if(routeList.empty())
 		routeList.clear();

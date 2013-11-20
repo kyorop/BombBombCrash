@@ -56,7 +56,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		//ŒvŽZ
 		sceneMrg.Update();
 		sceneMrg.Draw();
-		sceneMrg.PlaySE();
+		//sceneMrg.PlaySE();
 
 		//*********************************************
 		ScreenFlip();
