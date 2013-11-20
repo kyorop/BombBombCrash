@@ -21,6 +21,9 @@ protected:
 			BOMBSET,
 			BOMBSETOFF,
 		};
+	static const int scoutingRadius_character = 8;
+	static const int scoutingRadius_item = 8;
+	static const int scoutingRadius_block = 5;
 protected:
 	IStateChanger*const stateMrg;
 	std::list<int> routeList;

@@ -47,7 +47,7 @@ int AttackOtherCharacter::CheckCharacterInSameRowOrLine(int i_now, int j_now)
 		if(MapState::GetInstance()->GetState(i_now, j, MapState::CHARACTOR))
 			return 1;
 	}
-	for(int i=0; i<GameConst::MAP_LINE; ++i)
+	for(int i=0; i<GameConst::MAP_ROW; ++i)
 	{
 		if(MapState::GetInstance()->GetState(i, j_now, MapState::CHARACTOR))
 			return 1;
@@ -119,7 +119,7 @@ void AttackOtherCharacter::Analyse()
 	{
 		int i_to;
 		int j_to;
-		if(CheckCharacterAroundMyself(i_center, j_center, &i_to, &j_to) == 1)
+		if(CheckCharacterAroundMyself(i_center, j_center, &i_to, &j_to))
 		{
 			dijkstra->SearchShortestPath(i_center, j_center, i_to, j_to, &routeList);
 			routeList.push_back(GameConst::EnemyAction::BOMBSET);

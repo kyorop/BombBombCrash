@@ -59,10 +59,10 @@ void Scene_Game::Initialize()
 	MapState::GetInstance()->Initialize();
 	gameScreen = new GameField;
 	player = new CharacterSet(new Player);
-	enemy.push_back(new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT,GameConst::FIRST_Y_DOWN)));
-	//enemy2 = new CharacterSet(new Enemy(GameConst::FIRST_X_LEFT, GameConst::FIRST_Y_DOWN));
-	//enemy3 = new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT, GameConst::FIRST_Y_DOWN));
-	//enemy4 = new CharacterSet(new Enemy(32*8, 32*5));
+	enemy.push_back(new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT,GameConst::FIRST_Y_UP)));
+	enemy.push_back(new CharacterSet(new Enemy(GameConst::FIRST_X_LEFT, GameConst::FIRST_Y_DOWN)));
+	enemy.push_back(new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT, GameConst::FIRST_Y_DOWN)));
+	enemy.push_back(new CharacterSet(new Enemy(32*8, 32*5)));
 	timer = new Timer;
 	gameEffect = new GameEffect;
 }

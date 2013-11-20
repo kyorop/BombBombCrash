@@ -171,9 +171,7 @@ void MapState::Update()
 			if((*itrEnemy)->GetFlag() == 0)
 			{
 				itrEnemy = enemy.erase(itrEnemy);
-				if(!enemy.empty())
-					++itrEnemy;
-				else
+				if(enemy.empty())
 					break;
 			}
 			else

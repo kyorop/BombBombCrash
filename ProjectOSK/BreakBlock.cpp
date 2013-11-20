@@ -53,7 +53,7 @@ void BreakBlock::ChangeState()
 			resetRoute = 0;
 		}
 	}
-	else if(DangerState::GetInstance()->GetDangerState(i_center, j_center) == 1)
+	else if(DangerState::GetInstance()->GetDangerState(i_center, j_center))
 	{
 		stateMrg->ChangeState(IStateChanger::AVOID);
 	}
@@ -63,13 +63,13 @@ void BreakBlock::ChangeState()
 		routeList.push_back(GameConst::EnemyAction::STOP);
 		resetRoute = 0;
 	}
-	else if(CheckAroundMyself(i_center, j_center, MapState::ITEM, 8))
-	{
-		stateMrg->ChangeState(IStateChanger::GETITEM);
-	}
-	else if(CheckAroundMyself(i_center, j_center, MapState::CHARACTOR, 8))
+	else if(CheckAroundMyself(i_center, j_center, MapState::CHARACTOR, scoutingRadius_character))
 	{
 		stateMrg->ChangeState(IStateChanger::ATTACK);
+	}
+	else if(CheckAroundMyself(i_center, j_center, MapState::ITEM, scoutingRadius_item))
+	{
+		stateMrg->ChangeState(IStateChanger::GETITEM);
 	}
 }
 
@@ -88,7 +88,7 @@ void BreakBlock::Analyse()
 		std::vector<int> i_to, j_to;
 		routeList.clear();
 		//ルートセット
-		if(search->SetGoal(i_center, j_center, &i_to, &j_to) == 1)
+		if(search->SetGoal(i_center, j_center, &i_to, &j_to))
 		{
 			int rand = GetRand(i_to.size()-1);
 			dijkstra->SearchShortestPath(i_center, j_center, i_to[rand], j_to[rand], &routeList);
