@@ -40,15 +40,19 @@ void Scene_Game::UpdateScene()
 	}
 	else if(MapState::GetInstance()->GetPlayerState()->flag == 0)
 	{
-		//Scene_Score::IncrementLose();
-		Scene_Score::SetResult(Scene_Score::LOSE);
-		sceneMrg->ChangeScene(ISceneChanger::SCENE_SCORE);
+		if(loseTimer->CountDownFrame(3*1000))
+		{
+			Scene_Score::SetResult(Scene_Score::LOSE);
+			sceneMrg->ChangeScene(ISceneChanger::SCENE_SCORE);
+		}
 	}
 	else if(MapState::GetInstance()->GetEnemyNum() == 0)
 	{
-		//Scene_Score::IncrementWin();
-		Scene_Score::SetResult(Scene_Score::WIN);
-		sceneMrg->ChangeScene(ISceneChanger::SCENE_SCORE);
+		if(winTimer->CountDownFrame(3*1000))
+		{
+			Scene_Score::SetResult(Scene_Score::WIN);
+			sceneMrg->ChangeScene(ISceneChanger::SCENE_SCORE);
+		}
 	}
 
 }
@@ -59,20 +63,24 @@ void Scene_Game::Initialize()
 	Image::GetInstance()->Initialize();
 	Sound::GetInstance()->InitializeForGame();
 	MapState::GetInstance()->Initialize();
-	gameScreen = new GameField;
+	gameScreen = new GameField();
 	player = new CharacterSet(new Player);
 	enemy.push_back(new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT,GameConst::FIRST_Y_UP)));
 	enemy.push_back(new CharacterSet(new Enemy(GameConst::FIRST_X_LEFT, GameConst::FIRST_Y_DOWN)));
 	enemy.push_back(new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT, GameConst::FIRST_Y_DOWN)));
 	enemy.push_back(new CharacterSet(new Enemy(32*8, 32*5)));
-	timer = new Timer;
-	gameEffect = new GameEffect;
+	timer = new Timer();
+	loseTimer = new Timer();
+	winTimer = new Timer();
+	gameEffect = new GameEffect();
 }
 
 
 void Scene_Game::Finalize()
 {
 	delete gameEffect;
+	delete winTimer;
+	delete loseTimer;
 	delete timer;
 	for (int i=0,size=enemy.size(); i<size; ++i)
 	{
@@ -135,7 +143,9 @@ void Scene_Game::Draw()
 			//DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",DangerState::GetInstance()->GetFireState(i, j));
 		}
 	}
+
 	gameEffect->DrawGameEffect();
+	timer->DrawGraphicalTime(32*18, 20);
 }
 
 void Scene_Game::PlaySE()

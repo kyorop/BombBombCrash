@@ -15,6 +15,8 @@ private:
 	CharacterSet *player;
 	std::vector<CharacterSet*> enemy;
 	Timer* timer;
+	Timer* winTimer;
+	Timer* loseTimer;
 	GameEffect* gameEffect;
 private:
 	void UpdateScene() override;
