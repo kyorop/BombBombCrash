@@ -209,7 +209,7 @@ void Collision::CheckCollisionFireAndFragile()
 	//ある爆発を一つ抽出する
 	for (itrFire=fire.begin(); itrFire != fire.end() ; ++itrFire)
 	{
-		for(int k=1; k<=4; ++k)//kは初期位置(中心の火のすぐ隣の火); kは4本の爆風を回る
+		for(int k=0; k<=4; ++k)//kは初期位置(中心の火のすぐ隣の火); kは4本の爆風を回る
 		{
 			//下のループで,ある列の火すべてをループする
 			for (int i = 0, fireSize=((*itrFire)->GetSize()-1)/4; i < fireSize; ++i)
@@ -219,16 +219,16 @@ void Collision::CheckCollisionFireAndFragile()
 					int x_fire = (*itrFire)->GetX(k+4*i);
 					int y_fire = (*itrFire)->GetY(k+4*i);
 					
-					//ある一マスの火に対して、全てのハードブロックを回す
+					//ある一マスの火に対して、全ての壊れる物を回す
 					for (itrFragile = fragile.begin(); itrFragile != fragile.end(); ++itrFragile)
 					{
-						if((*itrFragile)->GetFlag() == 1)
+						if((*itrFragile)->GetFlag())
 						{
 							int x_fragile = (*itrFragile)->GetX();
 							int y_fragile = (*itrFragile)->GetY();
 						
-							//ハードブロックと当ったら
-							if(CheckOneUponAnother(x_fragile,y_fragile,x_fire,y_fire, collisionLevelWithFire) == 1)
+							//壊れる物と当ったら
+							if(CheckOneUponAnother(x_fragile,y_fragile,x_fire,y_fire, collisionLevelWithFire))
 							{
 								(*itrFire)->SetFlag(k+4*i, 0);
 								(*itrFragile)->SetFlag(0);
