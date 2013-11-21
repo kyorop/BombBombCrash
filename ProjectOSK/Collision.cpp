@@ -30,15 +30,18 @@ Collision::Collision(void)
 {
 }
 
+
 Collision::~Collision(void)
 {
 }
+
 
 Collision* Collision::GetInstance()
 {
 	static Collision collision;
 	return &collision;
 }
+
 
 void Collision::Finalize()
 {
@@ -52,6 +55,7 @@ void Collision::Finalize()
 	fragile.clear();
 	item.clear();
 }
+
 
 void Collision::Register(ICollisionable *anythingCollisionable)
 {
@@ -84,16 +88,19 @@ void Collision::Register(ICollisionable *anythingCollisionable)
 	}
 }
 
+
 void Collision::RegisterWithFire(ExplosionManager *pFire)
 {
 	fire.push_back(pFire);
 }
+
 
 void Collision::RegisterWithItem(Item *pItem)
 {
 	item.push_back(pItem);
 	fragile.push_back(pItem);
 }
+
 
 void Collision::CheckEnableToPass()
 {
@@ -148,6 +155,7 @@ void Collision::CheckEnableToPass()
 	}
 }
 
+
 int Collision::CheckOneUponAnother(int x1, int y1,int x2, int y2, int collisionLevel)
 {
 	if( (x2 < x1+32-collisionLevel) && (x1+collisionLevel < x2+32) && (y1+collisionLevel < y2+32) && (y2 < y1+32-collisionLevel) )
@@ -155,6 +163,7 @@ int Collision::CheckOneUponAnother(int x1, int y1,int x2, int y2, int collisionL
 	else 
 		return 0;
 }
+
 
 void Collision::CheckCollisionWithFire()
 {
@@ -200,6 +209,7 @@ void Collision::CheckCollisionWithFire()
 		}
 	}
 }
+
 
 void Collision::CheckCollisionFireAndFragile()
 {
@@ -250,6 +260,7 @@ void Collision::CheckCollisionFireAndFragile()
 	}
 }
 
+
 void Collision::CheckCollisionItemAndCharactor()
 {
 	std::vector<ICollisionable*>::iterator itrCharacter = character.begin();
@@ -287,6 +298,7 @@ void Collision::CheckCollisionItemAndCharactor()
 	}
 
 }
+
 
 void Collision::CheckAllCollision()
 {

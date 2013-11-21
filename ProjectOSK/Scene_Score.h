@@ -5,10 +5,19 @@ class Timer;
 class Scene_Score
 	:public Scene_Base
 {
+public:
+	enum result
+	{
+		WIN,
+		LOSE,
+		NONE,
+	};
 private:
 	Timer* timer;
 	static int winNum;
 	static int loseNum;
+	int hasIncremented;
+	static result winOrLose;
 	static const int win_max = 3;
 	static const int lose_max = 3;
 private:
@@ -21,7 +30,6 @@ public:
 	void Update()override;
 	void Draw()override;
 
-	static void IncrementWin(){++winNum;}
-	static void IncrementLose(){++loseNum;}
+	static void SetResult(result which){winOrLose = which;}
 };
 

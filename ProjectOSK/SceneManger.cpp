@@ -7,7 +7,7 @@
 
 SceneManger::SceneManger(void)
 	:nextScene(NOCHANGE),
-	scene(new Scene_Game)
+	scene(new Scene_Menu)
 {
 	scene->SetManager(this);
 	scene->Initialize();

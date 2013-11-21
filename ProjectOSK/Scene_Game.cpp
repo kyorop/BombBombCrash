@@ -40,12 +40,14 @@ void Scene_Game::UpdateScene()
 	}
 	else if(MapState::GetInstance()->GetPlayerState()->flag == 0)
 	{
-		Scene_Score::IncrementLose();
+		//Scene_Score::IncrementLose();
+		Scene_Score::SetResult(Scene_Score::LOSE);
 		sceneMrg->ChangeScene(ISceneChanger::SCENE_SCORE);
 	}
 	else if(MapState::GetInstance()->GetEnemyNum() == 0)
 	{
-		Scene_Score::IncrementWin();
+		//Scene_Score::IncrementWin();
+		Scene_Score::SetResult(Scene_Score::WIN);
 		sceneMrg->ChangeScene(ISceneChanger::SCENE_SCORE);
 	}
 
@@ -133,6 +135,7 @@ void Scene_Game::Draw()
 			//DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",DangerState::GetInstance()->GetFireState(i, j));
 		}
 	}
+	gameEffect->DrawGameEffect();
 }
 
 void Scene_Game::PlaySE()

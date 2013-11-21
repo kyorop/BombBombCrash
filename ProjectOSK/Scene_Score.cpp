@@ -5,9 +5,11 @@
 
 int Scene_Score::winNum;
 int Scene_Score::loseNum;
+Scene_Score::result Scene_Score::winOrLose = NONE;
 
 Scene_Score::Scene_Score(void)
-	:timer(new Timer)
+	:timer(new Timer),
+	hasIncremented()
 {
 }
 
@@ -20,16 +22,32 @@ Scene_Score::~Scene_Score(void)
 
 void Scene_Score::UpdateScene()
 {
-	if(timer->CountDownRealTime(3*1000))
-	{
-		if(winNum == win_max || loseNum == lose_max)
+		if(hasIncremented)
 		{
-			Scene_Round::ResetRound();
-			sceneMrg->ChangeScene(ISceneChanger::SCENE_MENU);
+			if(timer->CountDownFrame(1*1000))
+			{
+				if(winNum == win_max || loseNum == lose_max)
+				{
+					Scene_Round::ResetRound();
+					sceneMrg->ChangeScene(ISceneChanger::SCENE_MENU);
+				}
+				else
+					sceneMrg->ChangeScene(ISceneChanger::SCENE_ROUND);
+			}
 		}
-		else
-			sceneMrg->ChangeScene(ISceneChanger::SCENE_ROUND);
-	}
+		if(hasIncremented == 0)
+		{
+			if(timer->CountDownRealTime(1*1000))
+			{
+				if(winOrLose == WIN)
+					++winNum;
+				else if(winOrLose == LOSE)
+					++loseNum;
+
+				hasIncremented = 1;
+				timer->TurnReset();
+			}
+		}
 }
 
 
@@ -40,6 +58,8 @@ void Scene_Score::Finalize()
 		winNum = 0;
 		loseNum = 0;
 	}
+	hasIncremented = 0;
+	winOrLose = NONE;
 }
 
 
