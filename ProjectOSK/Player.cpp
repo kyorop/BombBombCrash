@@ -5,6 +5,7 @@
 #include "MapState.h"
 #include "Collision.h"
 #include "Image.h"
+#include "SecretCommand.h"
 #include "DxLib.h"
 
 
@@ -32,6 +33,13 @@ Player::Player()
 	animpat = 0;
 	MapState::GetInstance()->RegisterWithCharacter(this);
 	Collision::GetInstance()->Register(this);
+	//‰B‚µƒRƒ}ƒ“ƒhs
+	if(SecretCommand::HittedSecretCommand())
+	{
+		bombNum = 10;
+		fireLevel = 10;
+		mv = 4;
+	}
 }
 
 

@@ -1,16 +1,19 @@
 #include "Scene_Menu.h"
 #include "ISceneChanger.h"
 #include "Scene_Game.h"
+#include "SecretCommand.h"
 #include "DxLib.h"
 
 Scene_Menu::Scene_Menu()
-	:pushEnter(LoadGraph("pushenterkeytostart.png"))
+	:pushEnter(LoadGraph("pushenterkeytostart.png")),
+	command(new SecretCommand())
 {
 }
 
 
 Scene_Menu::~Scene_Menu(void)
 {
+	delete command;
 }
 
 
@@ -26,6 +29,7 @@ void Scene_Menu::Update(void)
 {
 	//シーン更新
 	UpdateScene();
+	command->CheckHitSecretCommand();
 }
 
 
