@@ -55,7 +55,10 @@ bool Timer::CountDownFrame(int time)
 		reset = true;
 		return true;
 	}
-}void Timer::TurnReset(void)
+}
+
+
+void Timer::TurnReset(void)
 {
 	reset = true;
 }
@@ -82,9 +85,11 @@ void Timer::DrawGraphicalTime(int x, int y)
 		int second_tensplace = second/10;
 		int second_onesplace = second - 10*second_tensplace;
 
-		DrawGraph(x, y, Image::GetInstance()->number[minute_onesplace], true);
-		DrawGraph(x+15, y, Image::GetInstance()->colon, true);
-		DrawGraph(x+33, y, Image::GetInstance()->number[second_tensplace], true);
-		DrawGraph(x+33+35, y, Image::GetInstance()->number[second_onesplace], true);
+		int blue = GetColor(0,119,182);
+		DrawString(x-25, y,"Žc‚èŽžŠÔ", blue);
+		DrawGraph(x, y-10, Image::GetInstance()->number[minute_onesplace], true);
+		DrawGraph(x+43, y+30, Image::GetInstance()->colon, true);
+		DrawGraph(x+49, y-10, Image::GetInstance()->number[second_tensplace], true);
+		DrawGraph(x+83, y-10, Image::GetInstance()->number[second_onesplace], true);
 	}
 }

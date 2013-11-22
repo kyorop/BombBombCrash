@@ -145,7 +145,7 @@ void Scene_Game::Draw()
 	}
 
 	gameEffect->DrawGameEffect();
-	timer->DrawGraphicalTime(32*18, -20);
+	timer->DrawGraphicalTime(32*18+10, 10);
 }
 
 void Scene_Game::PlaySE()
@@ -159,8 +159,8 @@ void Scene_Game::PlaySE()
 
 GameEffect::GameEffect(void)
 	:white(GetColor(255,255,255)),
-	x(32*18),
-	y(32*2)
+	x(32*20),
+	y(32*4)
 {
 }
 
@@ -172,9 +172,11 @@ GameEffect::~GameEffect(void)
 
 void GameEffect::DrawGameEffect()
 {
-	DrawFormatString(x, y, white, "BOMB LEVEL		%d", MapState::GetInstance()->GetPlayerState()->bombLevel);
-	DrawFormatString(x,y+25, white, "FIRE LEVEL		%d", MapState::GetInstance()->GetPlayerState()->fireLevel);
-	DrawFormatString(x,y+25+25, white, "SPEED LEVEL		%d", MapState::GetInstance()->GetPlayerState()->speedLevel);
+	int blue = GetColor(0,119,182);
+	DrawString(x-82, y-30,"プレイヤーステータス",blue);
+	DrawFormatString(x-39, y, white, "BOMB  LEVEL		%d", MapState::GetInstance()->GetPlayerState()->bombLevel);
+	DrawFormatString(x-39, y+25, white, "FIRE  LEVEL		%d", MapState::GetInstance()->GetPlayerState()->fireLevel);
+	DrawFormatString(x-39, y+25+25, white, "SPEED LEVEL		%d", MapState::GetInstance()->GetPlayerState()->speedLevel);
 }
 
 
