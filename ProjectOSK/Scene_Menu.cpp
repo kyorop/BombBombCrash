@@ -5,8 +5,8 @@
 #include "DxLib.h"
 
 Scene_Menu::Scene_Menu()
-	:pushEnter(LoadGraph("pushenterkeytostart.png")),
-	command(new SecretCommand())
+	:command(new SecretCommand()),
+	titleFontHandle(CreateFontToHandle(NULL, 60, 2))
 {
 }
 
@@ -14,6 +14,7 @@ Scene_Menu::Scene_Menu()
 Scene_Menu::~Scene_Menu(void)
 {
 	delete command;
+	DeleteFontToHandle(titleFontHandle);
 }
 
 
@@ -35,8 +36,8 @@ void Scene_Menu::Update(void)
 
 void Scene_Menu::Draw(void)
 {
-
-	int deepskyblue = GetColor(0, 191, 255);
-	//DrawFormatString(10, 10, deepskyblue,"ゲームを始めるにはエンターキーを押してね！");
-	DrawGraph(60, 450, pushEnter, true);
+	int white = GetColor(255,255,255);
+	int red = GetColor(176, 48, 96);
+	DrawStringToHandle(170, 150, "BOMB BOMB CRASH", white, titleFontHandle);
+	DrawString(280,450,"PUSH ENTER KEY TO START", white);
 }
