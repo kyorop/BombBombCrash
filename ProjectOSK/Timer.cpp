@@ -1,4 +1,5 @@
 #include "Timer.h"
+#include "Image.h"
 #include "DxLib.h"
 
 int Timer::number[10];
@@ -44,7 +45,6 @@ bool Timer::CountDownFrame(int time)
 		count = 0;
 		reset = false;
 	}
-	
 	if(count < time / frameTime)
 	{
 		++count;
@@ -76,15 +76,15 @@ void Timer::DrawGraphicalTime(int x, int y)
 	{
 		int leftedTime = limitedTime - (GetNowCount() - startTime);
 		int minute = leftedTime / (60*1000);
-		//int second = ( limitedTime - 60*minute*1000 ) / 1000;
 		int second = ( leftedTime % (60*1000) ) / 1000;
 
 		int minute_onesplace = minute;
 		int second_tensplace = second/10;
 		int second_onesplace = second - 10*second_tensplace;
 
-		DrawGraph(x, y, number[minute_onesplace], true);
-		DrawGraph(x+20, y, number[second_tensplace], true);
-		DrawGraph(x+20+16, y, number[second_onesplace], true);
+		DrawGraph(x, y, Image::GetInstance()->number[minute_onesplace], true);
+		DrawGraph(x+15, y, Image::GetInstance()->colon, true);
+		DrawGraph(x+33, y, Image::GetInstance()->number[second_tensplace], true);
+		DrawGraph(x+33+35, y, Image::GetInstance()->number[second_onesplace], true);
 	}
 }

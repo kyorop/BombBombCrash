@@ -1,4 +1,5 @@
 #pragma once
+
 class Image
 {
 public:
@@ -41,6 +42,9 @@ private:
 	int purpleEnemy[characterDivideNum];
 	int bomb[bombDivideNum];
 	int fire;
+public:
+	 int number[10];
+	 int colon;
 private:
 	Image(void);
 	Image(const Image &);

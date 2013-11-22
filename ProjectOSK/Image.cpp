@@ -1,6 +1,7 @@
 #include "Image.h"
 #include "DxLib.h"
 
+
 Image::Image(void)
 	:floor(),
 	hardBlock(),
@@ -12,7 +13,9 @@ Image::Image(void)
 	greenEnemy(),
 	purpleEnemy(),
 	bomb(),
-	fire()
+	fire(),
+	number(),
+	colon()
 {
 }
 
@@ -35,11 +38,25 @@ void Image::Initialize()
 	LoadDivGraph("purplebombman.png", 20, 4, 5, 32, 32, purpleEnemy);
 	LoadDivGraph("bomb.png", 60, 6, 10, 32, 32, bomb);
 	fire = LoadGraph("fire.bmp");
+	
+	//以下数字画像の読み取り簡略化コード
+	char fileName[6] = "x.png";		//xには数字が来る
+	for (int i = 0; i < 10; i++)
+	{
+		fileName[0] = i + '0';		//0のASCIIコードに数値を足せば、各数値のASCIIコードが得られる
+		number[i] = LoadGraph(fileName);
+	}
+	colon = LoadGraph("colon.png");
 }
 
 
 void Image::Finalize()
 {
+	DeleteGraph(colon);
+	for (int i = 0; i < 10; i++)
+	{
+		DeleteGraph(number[i]);
+	}
 	DeleteGraph(floor);
 	DeleteGraph(hardBlock);
 	DeleteGraph(softBlock);
