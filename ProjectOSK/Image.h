@@ -38,7 +38,7 @@ private:
 	int player[characterDivideNum];
 	int redEnemy[characterDivideNum];
 	int blackEnemy[characterDivideNum];
-	int greenEnemy[characterDivideNum];
+	int blueEnemy[characterDivideNum];
 	int purpleEnemy[characterDivideNum];
 	int bomb[bombDivideNum];
 	int fire;

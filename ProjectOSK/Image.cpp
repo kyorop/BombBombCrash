@@ -10,7 +10,7 @@ Image::Image(void)
 	player(),
 	redEnemy(),
 	blackEnemy(),
-	greenEnemy(),
+	blueEnemy(),
 	purpleEnemy(),
 	bomb(),
 	fire(),
@@ -34,7 +34,7 @@ void Image::Initialize()
 	LoadDivGraph("bombman.png", 20, 4, 5, 32, 32, player);
 	LoadDivGraph("redbombman.png", 20, 4, 5, 32, 32, redEnemy);
 	LoadDivGraph("blackbombman.png", 20, 4, 5, 32, 32, blackEnemy);
-	LoadDivGraph("greenbombman.png", 20, 4, 5, 32, 32, greenEnemy);
+	LoadDivGraph("bluebombman.png", 20, 4, 5, 32, 32, blueEnemy);
 	LoadDivGraph("purplebombman.png", 20, 4, 5, 32, 32, purpleEnemy);
 	LoadDivGraph("bomb.png", 60, 6, 10, 32, 32, bomb);
 	fire = LoadGraph("fire.bmp");
@@ -69,7 +69,7 @@ void Image::Finalize()
 		DeleteGraph(player[i]);
 		DeleteGraph(redEnemy[i]);
 		DeleteGraph(blackEnemy[i]);
-		DeleteGraph(greenEnemy[i]);
+		DeleteGraph(blueEnemy[i]);
 		DeleteGraph(purpleEnemy[i]);
 	}
 	for (int i = 0; i < bombDivideNum; i++)
@@ -127,7 +127,7 @@ int* Image::GetCharacterImage(int id, int direction)
 		enemyColor = redEnemy;
 		break;
 	case 3:
-		enemyColor = greenEnemy;
+		enemyColor = blueEnemy;
 		break;
 	case 4:
 		enemyColor = purpleEnemy;
