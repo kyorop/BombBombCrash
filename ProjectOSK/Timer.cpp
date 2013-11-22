@@ -64,7 +64,7 @@ void Timer::TurnReset(void)
 }
 
 
-int Timer::GetLeftedTime()const
+int Timer::GetLeftedRealTime()const
 {
 	if(reset == false)
 		return limitedTime - (GetNowCount() - startTime);

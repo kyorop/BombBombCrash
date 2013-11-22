@@ -31,6 +31,9 @@ public:
 };
 
 
+//**------------------------------------------------------------
+
+class BombSetManager;
 class GameEffect
 {
 private:
@@ -39,10 +42,13 @@ private:
 	const int white;
 	const int x;
 	const int y;
+	BombSetManager* bomb;
 public:
 	GameEffect(void);
 	~GameEffect(void);
 
+	void SetBomb();
+	void Update();
 	void DrawGameEffect();
 	void DrawMenuEffect();
 };

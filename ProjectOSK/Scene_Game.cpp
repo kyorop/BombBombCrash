@@ -15,6 +15,7 @@
 #include "SceneManger.h"
 #include "Timer.h"
 #include "EnemyAI.h"
+#include "BombSetManager.h"
 #include "DxLib.h"
 
 Scene_Game::Scene_Game()
@@ -160,13 +161,26 @@ void Scene_Game::PlaySE()
 GameEffect::GameEffect(void)
 	:white(GetColor(255,255,255)),
 	x(32*20),
-	y(32*4)
+	y(32*4),
+	bomb(new BombSetManager())
 {
+	for (int i = 0; i < 10; i++)
+	{
+		bomb->UpNum();
+	}	
+	
 }
 
 
 GameEffect::~GameEffect(void)
 {
+	delete bomb;
+}
+
+
+void GameEffect::Update()
+{
+	
 }
 
 

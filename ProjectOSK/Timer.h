@@ -15,7 +15,7 @@ public:
 	Timer(void);
 	~Timer(void);
 	void TurnReset(void);
-	int GetLeftedTime()const;
+	int GetLeftedRealTime()const;
 	void DrawGraphicalTime(int x, int y);
 };
 
