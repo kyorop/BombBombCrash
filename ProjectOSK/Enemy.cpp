@@ -6,6 +6,7 @@
 #include "Collision.h"
 #include "Image.h"
 #include "GameConstant.h"
+#include "Timer.h"
 
 
 Enemy::Enemy(int x, int y)
@@ -13,11 +14,15 @@ Enemy::Enemy(int x, int y)
 	image_right(Image::GetInstance()->GetCharacterImage(id, Image::RIGHT)),
 	image_up(Image::GetInstance()->GetCharacterImage(id, Image::UP)),
 	image_down(Image::GetInstance()->GetCharacterImage(id, Image::DOWN)),
+	image_death(Image::GetInstance()->GetCharacterImage(id, Image::DEATH)),
 	AI(new EnemyAI(*this)),
 	muki(GameConst::EnemyAction::STOP),
 	stop(0),
 	bombSet(0),
-	hitNumSpeedUpItem(1)
+	hitNumSpeedUpItem(1),
+	hasFinished(0),
+	animationTime(new Timer),
+	animationFrame(0)
 {
 	flag = 1;
 	this->x = x;
@@ -28,6 +33,7 @@ Enemy::Enemy(int x, int y)
 
 Enemy::~Enemy(void)
 {
+	delete animationTime;
 	delete AI;
 }
 
@@ -101,6 +107,19 @@ void Enemy::Draw(void)
 			DrawGraph(x, y, image_up[animpat], TRUE);break;
 		case GameConst::EnemyAction::DOWN:
 			DrawGraph(x, y, image_down[animpat], TRUE);break;
+		}
+	}
+	else
+	{
+		if( !hasFinished )
+		{
+			if(animationTime->CountDownFrame(600))
+			{
+				++animationFrame;
+				if(animationFrame == 3)
+					hasFinished =1;
+			}
+			DrawGraph(x, y, image_death[animationFrame], true);
 		}
 	}
 }

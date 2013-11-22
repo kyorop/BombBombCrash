@@ -146,6 +146,8 @@ int* Image::GetCharacterImage(int id, int direction)
 		return &enemyColor[0];
 	case DOWN:
 		return &enemyColor[4];
+	case DEATH:
+		return &enemyColor[16];
 	default:
 		return &enemyColor[4];
 	}

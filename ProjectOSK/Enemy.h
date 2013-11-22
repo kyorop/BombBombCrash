@@ -8,6 +8,7 @@
 
 class Player;
 class EnemyAI;
+class Timer;
 class Enemy:
 	public Charactor
 {
@@ -16,6 +17,7 @@ private:
 	const int* image_right;
 	const int* image_up;
 	const int* image_down;
+	const int* image_death;
 	int muki;
 	int stop;
 	int animpat;
@@ -23,6 +25,9 @@ private:
 	int action[10];
 	int hitNumSpeedUpItem;
 	EnemyAI *const AI;
+	int hasFinished;
+	Timer* animationTime;
+	int animationFrame;
 public:
 	Enemy(int x, int y);
 	~Enemy();

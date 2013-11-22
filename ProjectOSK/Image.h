@@ -20,12 +20,13 @@ public:
 		BOMBUP, 
 		SPEEDUP,
 	};
-	enum
+	enum characterState
 	{
 		LEFT,
 		RIGHT,
 		UP,
 		DOWN,
+		DEATH,
 	};
 private:
 	static const int itemDivideNum = 3;

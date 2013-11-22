@@ -6,6 +6,7 @@
 #include "Collision.h"
 #include "Image.h"
 #include "SecretCommand.h"
+#include "Timer.h"
 #include "DxLib.h"
 
 
@@ -22,7 +23,11 @@ Player::Player()
 	:image_left(Image::GetInstance()->GetCharacterImage(id, Image::LEFT)),
 	image_right(Image::GetInstance()->GetCharacterImage(id, Image::RIGHT)),
 	image_up(Image::GetInstance()->GetCharacterImage(id, Image::UP)),
-	image_down(Image::GetInstance()->GetCharacterImage(id, Image::DOWN))
+	image_down(Image::GetInstance()->GetCharacterImage(id, Image::DOWN)),
+	image_death(Image::GetInstance()->GetCharacterImage(id, Image::DEATH)),
+	hasFinished(0),
+	animationTime(new Timer),
+	animationFrame(0)
 {
 	x = 32*2;
 	rx = x+32;
@@ -45,39 +50,9 @@ Player::Player()
 
 Player::~Player(void)
 {
+	delete animationTime;
 }
 
-
-void Player::Draw()
-{
-	if(this->flag == 1)
-	{
-		int image;
-		if(CheckHitKey(KEY_INPUT_LEFT) == 1) 
-			image = image_left[animpat];
-		else if(CheckHitKey(KEY_INPUT_RIGHT) == 1) 
-			image = image_right[animpat];
-		else if(CheckHitKey(KEY_INPUT_UP) == 1)
-			image = image_up[animpat];
-		else if(CheckHitKey(KEY_INPUT_DOWN) == 1) 
-			image = image_down[animpat];
-		else
-		{
-			//キーを押してないときはアニメーションしないことを意味する
-			animpat = 0;
-			if(muki == LEFT)
-				image = image_left[animpat];
-			else if(muki == RIGHT)
-				image = image_right[animpat];
-			else if(muki == UP)
-				image = image_up[animpat];
-			else if(muki == DOWN)
-				image = image_down[animpat];
-		}
-
-		DrawGraph(x, y, image, TRUE);
-	}
-}
 
 void Player::Move()
 {
@@ -179,6 +154,51 @@ void Player::Move()
 	if(this->y > 32*11)this->y = 32*11;
 
 	animpat = ( (GetNowCount() & INT_MAX) / (1000 / 12)) % 4;
+}
+
+
+void Player::Draw()
+{
+	if(this->flag == 1)
+	{
+		int image;
+		if(CheckHitKey(KEY_INPUT_LEFT) == 1) 
+			image = image_left[animpat];
+		else if(CheckHitKey(KEY_INPUT_RIGHT) == 1) 
+			image = image_right[animpat];
+		else if(CheckHitKey(KEY_INPUT_UP) == 1)
+			image = image_up[animpat];
+		else if(CheckHitKey(KEY_INPUT_DOWN) == 1) 
+			image = image_down[animpat];
+		else
+		{
+			//キーを押してないときはアニメーションしないことを意味する
+			animpat = 0;
+			if(muki == LEFT)
+				image = image_left[animpat];
+			else if(muki == RIGHT)
+				image = image_right[animpat];
+			else if(muki == UP)
+				image = image_up[animpat];
+			else if(muki == DOWN)
+				image = image_down[animpat];
+		}
+
+		DrawGraph(x, y, image, TRUE);
+	}
+	else
+	{
+		if( !hasFinished )
+		{
+			if(animationTime->CountDownFrame(1*1000))
+			{
+				++animationFrame;
+				if(animationFrame == 3)
+					hasFinished = 1;
+			}
+			DrawGraph(x, y, image_death[animationFrame], true);
+		}
+	}
 }
 
 

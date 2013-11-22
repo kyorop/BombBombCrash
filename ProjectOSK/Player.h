@@ -5,9 +5,8 @@
 #define MAPSIZE_X 17
 #define MAPSIZE_Y 13
 
-class Map;
-class Item;
-class ItemManager;
+
+class Timer;
 class Player:
 	public Charactor
 {
@@ -18,6 +17,10 @@ private:
 	const int* image_right;
 	const int* image_up;
 	const int* image_down;
+	const int* image_death;
+	int hasFinished;
+	Timer* animationTime;
+	int animationFrame;
 public:	
 	Player();
 	~Player();
