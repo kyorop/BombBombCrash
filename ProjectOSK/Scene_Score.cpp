@@ -9,7 +9,8 @@ Scene_Score::result Scene_Score::winOrLose = NONE;
 
 Scene_Score::Scene_Score(void)
 	:timer(new Timer),
-	hasIncremented()
+	hasIncremented(0),
+	hasFinished(0)
 {
 }
 
@@ -28,8 +29,13 @@ void Scene_Score::UpdateScene()
 		{
 			if(winNum == win_max || loseNum == lose_max)
 			{
-				Scene_Round::ResetRound();
-				sceneMrg->ChangeScene(ISceneChanger::SCENE_MENU);
+				if(hasFinished)
+				{
+					Scene_Round::ResetRound();
+					sceneMrg->ChangeScene(ISceneChanger::SCENE_MENU);
+				}
+				else
+					hasFinished = 1;
 			}
 			else
 				sceneMrg->ChangeScene(ISceneChanger::SCENE_ROUND);
@@ -70,6 +76,17 @@ void Scene_Score::Update()
 void Scene_Score::Draw()
 {
 	int white = GetColor(255,255,255);
-	DrawFormatString(400-50, 300-7, white, "WIN    %d", winNum);
-	DrawFormatString(400-50, 300-7+30, white, "LOSE   %d", loseNum);
+
+	if(hasFinished)
+	{
+		if(winNum == win_max)
+			DrawString(350, 293, "You Win", white);
+		else if(loseNum == lose_max)
+			DrawString(350, 293, "You Lose", white);
+	}
+	else
+	{
+		DrawFormatString(400-50, 300-7, white, "WIN    %d", winNum);
+		DrawFormatString(400-50, 300-7+30, white, "LOSE   %d", loseNum);
+	}
 }
