@@ -35,7 +35,7 @@ Scene_Game::~Scene_Game(void)
 
 void Scene_Game::UpdateScene()
 {
-	if(timer->CountDownRealTime(5*60*1000) == true || CheckHitKey(KEY_INPUT_DELETE) == 1)
+	if(timer->CountDownRealTime(5*60*1000) == true/* || CheckHitKey(KEY_INPUT_DELETE) == 1*/)
 	{
 		sceneMrg->ChangeScene(ISceneChanger::SCENE_MENU);
 	}
@@ -187,10 +187,15 @@ void GameEffect::Update()
 void GameEffect::DrawGameEffect()
 {
 	int blue = GetColor(0,119,182);
+	int white = GetColor(255,255,255);
+
 	DrawString(x-82, y-30,"プレイヤーステータス",blue);
 	DrawFormatString(x-39, y, white, "BOMB  LEVEL		%d", MapState::GetInstance()->GetPlayerState()->bombLevel);
 	DrawFormatString(x-39, y+25, white, "FIRE  LEVEL		%d", MapState::GetInstance()->GetPlayerState()->fireLevel);
 	DrawFormatString(x-39, y+25+25, white, "SPEED LEVEL		%d", MapState::GetInstance()->GetPlayerState()->speedLevel);
+
+	DrawFormatString(32*1, 32*14, white, "ｚキー　　　爆弾を置く");
+	DrawFormatString(32*1, 32*14+30, white, "矢印キー　　各方向へ移動");
 }
 
 

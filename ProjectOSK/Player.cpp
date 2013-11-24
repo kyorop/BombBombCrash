@@ -56,104 +56,50 @@ Player::~Player(void)
 
 void Player::Move()
 {
-	if(CheckHitKey(KEY_INPUT_LEFT) == 1 && CheckHitKey(KEY_INPUT_DOWN) == 0 && CheckHitKey(KEY_INPUT_UP) == 0 && CheckHitKey(KEY_INPUT_RIGHT) == 0)
+	if(flag)
 	{
-		this->x -=	mv;
-		this->muki = LEFT;
-		if(CheckHitKey(KEY_INPUT_UP) == 1)this->y -= mv;			
-		if(CheckHitKey(KEY_INPUT_DOWN) == 1)this->y += mv;
-	}	
-	else if(CheckHitKey(KEY_INPUT_RIGHT) == 1 && CheckHitKey(KEY_INPUT_DOWN) == 0 && CheckHitKey(KEY_INPUT_UP) == 0)	
-	{
-		this->x += mv;
-		this->muki = RIGHT;
-		if(CheckHitKey(KEY_INPUT_UP) == 1)this->y -= mv;			
-		if(CheckHitKey(KEY_INPUT_DOWN) == 1)this->y += mv;
+		if(CheckHitKey(KEY_INPUT_LEFT) == 1 && CheckHitKey(KEY_INPUT_DOWN) == 0 && CheckHitKey(KEY_INPUT_UP) == 0 && CheckHitKey(KEY_INPUT_RIGHT) == 0)
+		{
+			this->x -=	mv;
+			this->muki = LEFT;
+			if(CheckHitKey(KEY_INPUT_UP) == 1)this->y -= mv;			
+			if(CheckHitKey(KEY_INPUT_DOWN) == 1)this->y += mv;
+		}	
+		else if(CheckHitKey(KEY_INPUT_RIGHT) == 1 && CheckHitKey(KEY_INPUT_DOWN) == 0 && CheckHitKey(KEY_INPUT_UP) == 0)	
+		{
+			this->x += mv;
+			this->muki = RIGHT;
+			if(CheckHitKey(KEY_INPUT_UP) == 1)this->y -= mv;			
+			if(CheckHitKey(KEY_INPUT_DOWN) == 1)this->y += mv;
 		
-	}			
-	else if(CheckHitKey(KEY_INPUT_UP) == 1  && CheckHitKey(KEY_INPUT_DOWN) == 0)
-	{
-		this->y	-=	mv;
-		this->muki = UP; 
-		if(CheckHitKey(KEY_INPUT_LEFT) == 1) this->x -= mv;
-		if(CheckHitKey(KEY_INPUT_RIGHT) == 1) this->x += mv;
+		}			
+		else if(CheckHitKey(KEY_INPUT_UP) == 1  && CheckHitKey(KEY_INPUT_DOWN) == 0)
+		{
+			this->y	-=	mv;
+			this->muki = UP; 
+			if(CheckHitKey(KEY_INPUT_LEFT) == 1) this->x -= mv;
+			if(CheckHitKey(KEY_INPUT_RIGHT) == 1) this->x += mv;
 		
-	}				
-	else if(CheckHitKey(KEY_INPUT_DOWN) == 1)
-	{
-		this->y	+=	mv;
-		this->muki = DOWN; 
-		if(CheckHitKey(KEY_INPUT_LEFT) == 1) this->x -= mv;
-		if(CheckHitKey(KEY_INPUT_RIGHT) == 1) this->x += mv;
+		}				
+		else if(CheckHitKey(KEY_INPUT_DOWN) == 1)
+		{
+			this->y	+=	mv;
+			this->muki = DOWN; 
+			if(CheckHitKey(KEY_INPUT_LEFT) == 1) this->x -= mv;
+			if(CheckHitKey(KEY_INPUT_RIGHT) == 1) this->x += mv;
 		
-	}
-	
-	if(CheckHitKey(KEY_INPUT_BACKSLASH)==1)
-	{
-		this->x += mv;
-		this->y += mv;
-		this->muki = LEFT;
-	}
-	else if(CheckHitKey(KEY_INPUT_SLASH)==1)
-	{
-		this->x -= mv;
-		this->y += mv;
-		this->muki = RIGHT;
-	}
-	else if(CheckHitKey(KEY_INPUT_SEMICOLON)==1)
-	{
-		this->x -= mv;
-		this->y -= mv;
-		this->muki = LEFT;
-	}
-	else if(CheckHitKey(KEY_INPUT_COLON)==1)
-	{
-		this->x += mv;
-		this->y -= mv;
-		this->muki = RIGHT;
-	}
+		}
 
-	this->rx = this->x+32;
-	this->dy = this->y+32;
+		this->rx = this->x+32;
+		this->dy = this->y+32;
 
-	if(CheckHitKey(KEY_INPUT_Q) == 1)
-	{
-		this->x = 32*2;
-		this->y = 32*1;
-		this->muki = DOWN;
-		this->flag = 1;
-	}
-	if(CheckHitKey(KEY_INPUT_W) == 1)
-	{
-		this->x = 32*14;
-		this->y = 32*1;
-		this->muki = DOWN;
-	}
-	if(CheckHitKey(KEY_INPUT_E) == 1)
-	{
-		this->x = 32*2;
-		this->y = 32*11;
-		this->muki = DOWN;
-	}
-	if(CheckHitKey(KEY_INPUT_R) == 1)
-	{
-		this->x = 32*14;
-		this->y = 32*11;
-		this->muki = DOWN;
-	}
-	if(CheckHitKey(KEY_INPUT_X) == 1)
-	{
-		this->x = 32*10;
-		this->y = 32*10;
-		this->muki = DOWN;
-	}
+		if(this->x < 64)this->x = 64;
+		if(this->x > 32*14)this->x = 32*14;
+		if(this->y < 32)this->y = 32;
+		if(this->y > 32*11)this->y = 32*11;
 
-	if(this->x < 64)this->x = 64;
-	if(this->x > 32*14)this->x = 32*14;
-	if(this->y < 32)this->y = 32;
-	if(this->y > 32*11)this->y = 32*11;
-
-	animpat = ( (GetNowCount() & INT_MAX) / (1000 / 12)) % 4;
+		animpat = ( (GetNowCount() & INT_MAX) / (1000 / 12)) % 4;
+	}
 }
 
 
