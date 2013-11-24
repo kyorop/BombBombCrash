@@ -38,7 +38,7 @@ Player::Player()
 	animpat = 0;
 	MapState::GetInstance()->RegisterWithCharacter(this);
 	Collision::GetInstance()->Register(this);
-	//隠しコマンドs
+	//隠しコマンド
 	if(SecretCommand::HittedSecretCommand())
 	{
 		bombNum = 10;
@@ -87,7 +87,63 @@ void Player::Move()
 			this->muki = DOWN; 
 			if(CheckHitKey(KEY_INPUT_LEFT) == 1) this->x -= mv;
 			if(CheckHitKey(KEY_INPUT_RIGHT) == 1) this->x += mv;
-		
+		}
+
+		if(CheckHitKey(KEY_INPUT_BACKSLASH)==1)
+		{
+			this->x += mv;
+			this->y += mv;
+			this->muki = LEFT;
+		}
+		else if(CheckHitKey(KEY_INPUT_SLASH)==1)
+		{
+			this->x -= mv;
+			this->y += mv;
+			this->muki = RIGHT;
+		}
+		else if(CheckHitKey(KEY_INPUT_SEMICOLON)==1)
+		{
+			this->x -= mv;
+			this->y -= mv;
+			this->muki = LEFT;
+		}
+		else if(CheckHitKey(KEY_INPUT_COLON)==1)
+		{
+			this->x += mv;
+			this->y -= mv;
+			this->muki = RIGHT;
+		}
+
+		if(CheckHitKey(KEY_INPUT_Q) == 1)
+		{
+			this->x = 32*2;
+			this->y = 32*1;
+			this->muki = DOWN;
+			this->flag = 1;
+		}
+		if(CheckHitKey(KEY_INPUT_W) == 1)
+		{
+			this->x = 32*14;
+			this->y = 32*1;
+			this->muki = DOWN;
+		}
+		if(CheckHitKey(KEY_INPUT_E) == 1)
+		{
+			this->x = 32*2;
+			this->y = 32*11;
+			this->muki = DOWN;
+		}
+		if(CheckHitKey(KEY_INPUT_R) == 1)
+		{
+			this->x = 32*14;
+			this->y = 32*11;
+			this->muki = DOWN;
+		}
+		if(CheckHitKey(KEY_INPUT_X) == 1)
+		{
+			this->x = 32*10;
+			this->y = 32*10;
+			this->muki = DOWN;
 		}
 
 		this->rx = this->x+32;
