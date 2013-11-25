@@ -161,7 +161,7 @@ void Player::Move()
 		//	this->y -= mv;
 		//	this->muki = RIGHT;
 		//}
-
+		//
 		//if(CheckHitKey(KEY_INPUT_Q) == 1)
 		//{
 		//	this->x = 32*2;
@@ -212,31 +212,64 @@ void Player::Draw()
 	if(this->flag == 1)
 	{
 		int image;
-		if(CheckHitKey(KEY_INPUT_LEFT) == 1) 
-			image = image_left[animpat];
-		else if(CheckHitKey(KEY_INPUT_RIGHT) == 1) 
-			image = image_right[animpat];
-		else if(CheckHitKey(KEY_INPUT_UP) == 1)
-			image = image_up[animpat];
-		else if(CheckHitKey(KEY_INPUT_DOWN) == 1) 
-			image = image_down[animpat];
-		else
+		if(isJoypad == KEYBORAD)
 		{
-			//キーを押してないときはアニメーションしないことを意味する
-			animpat = 0;
-			if(muki == LEFT)
+			if(CheckHitKey(KEY_INPUT_LEFT) == 1) 
 				image = image_left[animpat];
-			else if(muki == RIGHT)
+			else if(CheckHitKey(KEY_INPUT_RIGHT) == 1) 
 				image = image_right[animpat];
-			else if(muki == UP)
+			else if(CheckHitKey(KEY_INPUT_UP) == 1)
 				image = image_up[animpat];
-			else if(muki == DOWN)
+			else if(CheckHitKey(KEY_INPUT_DOWN) == 1) 
 				image = image_down[animpat];
+			else
+			{
+				//キーを押してないときはアニメーションしないことを意味する
+				animpat = 0;
+				if(muki == LEFT)
+					image = image_left[animpat];
+				else if(muki == RIGHT)
+					image = image_right[animpat];
+				else if(muki == UP)
+					image = image_up[animpat];
+				else if(muki == DOWN)
+					image = image_down[animpat];
+			}
+		}
+		else if(isJoypad == JOYPAD)
+		{
+			int inputState = GetJoypadInputState(DX_INPUT_PAD1);
+			int up = inputState & PAD_INPUT_UP;
+			int down = inputState & PAD_INPUT_DOWN;
+			int left = inputState & PAD_INPUT_LEFT;
+			int right = inputState & PAD_INPUT_RIGHT;
+
+			if(left) 
+				image = image_left[animpat];
+			else if(right) 
+				image = image_right[animpat];
+			else if(up)
+				image = image_up[animpat];
+			else if(down) 
+				image = image_down[animpat];
+			else
+			{
+				//キーを押してないときはアニメーションしないことを意味する
+				animpat = 0;
+				if(muki == LEFT)
+					image = image_left[animpat];
+				else if(muki == RIGHT)
+					image = image_right[animpat];
+				else if(muki == UP)
+					image = image_up[animpat];
+				else if(muki == DOWN)
+					image = image_down[animpat];
+			}
 		}
 
 		DrawGraph(x, y, image, TRUE);
 	}
-	else
+	else		//死亡時のアニメーション
 	{
 		if( !hasFinished )
 		{
