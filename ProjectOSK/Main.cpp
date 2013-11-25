@@ -1,25 +1,6 @@
-#include "BombManager.h"
-#include "ItemManager.h"
-#include "MapObstacle.h"
-#include "ExplosionManager.h"
-#include "Map.h"
-#include "Player.h"
-#include "Explosion.h"
-#include "Bomb.h"
-#include "BlastManager.h"
-#include "MapState.h"
-#include "EnemyBombManager.h"
-#include "CharacterSet.h"
-#include "Collision.h"
-#include "GameField.h"
-#include "Enemy.h"
-#include "DangerState.h"
 #include "SceneManger.h"
 #include "DxLib.h"
-#include <iostream>
-#include <vector>
 #include <stdio.h>
-#define REGISTERNUM 7
 
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
@@ -33,7 +14,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 	ChangeWindowMode(true);
 	//SetGraphMode(1024,768,16);
 	SetGraphMode(800, 600, 16);
-	//SetBackgroundColor(255,255,255);
 	
 
 	if(DxLib_Init() == -1)
