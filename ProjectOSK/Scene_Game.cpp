@@ -21,6 +21,7 @@
 Scene_Game::Scene_Game()
 	:gameScreen(NULL),
 	player(NULL),
+	player2(),
 	enemy(NULL),
 	gameEffect(NULL)
 {
@@ -35,26 +36,26 @@ Scene_Game::~Scene_Game(void)
 
 void Scene_Game::UpdateScene()
 {
-	if(timer->CountDownRealTime(5*60*1000) == true/* || CheckHitKey(KEY_INPUT_DELETE) == 1*/)
+	if(/*timer->CountDownRealTime(5*60*1000) == true ||*/ CheckHitKey(KEY_INPUT_DELETE) == 1)
 	{
 		sceneMrg->ChangeScene(ISceneChanger::SCENE_MENU);
 	}
-	else if(MapState::GetInstance()->GetPlayerState()->flag == 0)
-	{
-		if(loseTimer->CountDownFrame(3*1000))
-		{
-			Scene_Score::SetResult(Scene_Score::LOSE);
-			sceneMrg->ChangeScene(ISceneChanger::SCENE_SCORE);
-		}
-	}
-	else if(MapState::GetInstance()->GetEnemyNum() == 0)
-	{
-		if(winTimer->CountDownFrame(3*1000))
-		{
-			Scene_Score::SetResult(Scene_Score::WIN);
-			sceneMrg->ChangeScene(ISceneChanger::SCENE_SCORE);
-		}
-	}
+	//else if(MapState::GetInstance()->GetPlayerState()->flag == 0)
+	//{
+	//	if(loseTimer->CountDownFrame(3*1000))
+	//	{
+	//		Scene_Score::SetResult(Scene_Score::LOSE);
+	//		sceneMrg->ChangeScene(ISceneChanger::SCENE_SCORE);
+	//	}
+	//}
+	//else if(MapState::GetInstance()->GetEnemyNum() == 0)
+	//{
+	//	if(winTimer->CountDownFrame(3*1000))
+	//	{
+	//		Scene_Score::SetResult(Scene_Score::WIN);
+	//		sceneMrg->ChangeScene(ISceneChanger::SCENE_SCORE);
+	//	}
+	//}
 
 }
 
@@ -65,10 +66,11 @@ void Scene_Game::Initialize()
 	Sound::GetInstance()->InitializeForGame();
 	MapState::GetInstance()->Initialize();
 	gameScreen = new GameField();
-	player = new CharacterSet(new Player);
+	player = new CharacterSet(new Player(Player::KEYBORAD));
+	player2 = new CharacterSet(new Player(Player::JOYPAD));
 	enemy.push_back(new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT,GameConst::FIRST_Y_UP)));
 	enemy.push_back(new CharacterSet(new Enemy(GameConst::FIRST_X_LEFT, GameConst::FIRST_Y_DOWN)));
-	enemy.push_back(new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT, GameConst::FIRST_Y_DOWN)));
+	//enemy.push_back(new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT, GameConst::FIRST_Y_DOWN)));
 	enemy.push_back(new CharacterSet(new Enemy(32*8, 32*5)));
 	timer = new Timer();
 	loseTimer = new Timer();
@@ -87,6 +89,7 @@ void Scene_Game::Finalize()
 	{
 		delete enemy[i];
 	}
+	delete player2;
 	delete player;
 	delete gameScreen;
 	Sound::GetInstance()->FinalizeForGame();
@@ -104,6 +107,7 @@ void Scene_Game::Update()
 	DangerState::GetInstance()->Update();
 	gameScreen->Update();
 	player->Update();
+	player2->Update();
 	for (int i=0,size=enemy.size(); i<size; ++i)
 	{
 		enemy[i]->Update();
@@ -119,6 +123,7 @@ void Scene_Game::Draw()
 {
 	gameScreen->Draw();
 	player->Draw();
+	player2->Draw();
 	for (int i=0,size=enemy.size(); i<size; ++i)
 	{
 		enemy[i]->Draw();

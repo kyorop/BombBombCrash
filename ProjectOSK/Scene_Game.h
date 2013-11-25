@@ -13,6 +13,7 @@ class Scene_Game
 private:
 	GameField *gameScreen;
 	CharacterSet *player;
+	CharacterSet* player2;
 	std::vector<CharacterSet*> enemy;
 	Timer* timer;
 	Timer* winTimer;
@@ -23,6 +24,7 @@ private:
 public:
 	Scene_Game();
 	~Scene_Game();
+
 	void Initialize() override;
 	void Finalize() override;
 	void Update() override;

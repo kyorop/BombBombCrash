@@ -10,6 +10,12 @@ class Timer;
 class Player:
 	public Charactor
 {
+public:
+	enum KeyState
+	{
+		KEYBORAD,
+		JOYPAD,
+	};
 private:
 	int muki;
 	int animpat;
@@ -21,8 +27,9 @@ private:
 	int hasFinished;
 	Timer* animationTime;
 	int animationFrame;
+	const int isJoypad;
 public:	
-	Player();
+	Player(KeyState device);
 	~Player();
 
 	 void Move()override;
