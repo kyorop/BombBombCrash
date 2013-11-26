@@ -27,26 +27,26 @@ Image::~Image(void)
 
 void Image::Initialize()
 {
-	floor = LoadGraph("yuka.bmp");
-	hardBlock = LoadGraph("rimblock.bmp");
-	softBlock = LoadGraph("breakblock.bmp");
-	LoadDivGraph("itemup.bmp", 3, 3, 1, 32, 32, item);
-	LoadDivGraph("bombman.png", 20, 4, 5, 32, 32, player);
-	LoadDivGraph("redbombman.png", 20, 4, 5, 32, 32, redEnemy);
-	LoadDivGraph("blackbombman.png", 20, 4, 5, 32, 32, blackEnemy);
-	LoadDivGraph("bluebombman.png", 20, 4, 5, 32, 32, blueEnemy);
-	LoadDivGraph("purplebombman.png", 20, 4, 5, 32, 32, purpleEnemy);
-	LoadDivGraph("bomb.png", 60, 6, 10, 32, 32, bomb);
-	fire = LoadGraph("fire.bmp");
+	floor = LoadGraph("Images\\yuka.bmp");
+	hardBlock = LoadGraph("Images\\rimblock.bmp");
+	softBlock = LoadGraph("Images\\breakblock.bmp");
+	LoadDivGraph("Images\\itemup.bmp", 3, 3, 1, 32, 32, item);
+	LoadDivGraph("Images\\bombman.png", 20, 4, 5, 32, 32, player);
+	LoadDivGraph("Images\\redbombman.png", 20, 4, 5, 32, 32, redEnemy);
+	LoadDivGraph("Images\\blackbombman.png", 20, 4, 5, 32, 32, blackEnemy);
+	LoadDivGraph("Images\\bluebombman.png", 20, 4, 5, 32, 32, blueEnemy);
+	LoadDivGraph("Images\\purplebombman.png", 20, 4, 5, 32, 32, purpleEnemy);
+	LoadDivGraph("Images\\bomb.png", 60, 6, 10, 32, 32, bomb);
+	fire = LoadGraph("Images\\fire.bmp");
 	
 	//以下数字画像の読み取り簡略化コード
-	char fileName[6] = "x.png";		//xには数字が来る
+	char fileName[13] = "Images\\x.png";		//xには数字が来る
 	for (int i = 0; i < 10; i++)
 	{
-		fileName[0] = i + '0';		//0のASCIIコードに数値を足せば、各数値のASCIIコードが得られる
+		fileName[7] = i + '0';		//0のASCIIコードに数値を足せば、各数値のASCIIコードが得られる
 		number[i] = LoadGraph(fileName);
 	}
-	colon = LoadGraph("colon.png");
+	colon = LoadGraph("Images\\colon.png");
 }
 
 
