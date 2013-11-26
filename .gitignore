@@ -181,3 +181,4 @@ ipch
 *.sdf
 ProjectOSK/Debug
 ProjectOSK/Log.txt
+ProjectOSK/DxLib_VC/
