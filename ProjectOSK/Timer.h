@@ -7,7 +7,6 @@ private:
 	int startTime;
 	int limitedTime;
 	static const int frameTime = 16;
-	static int number[10];
 public:
 	//ŒÄ‚Ño‚³‚ê‚Ä‚©‚çˆø”w’èƒ~ƒŠ•b‚ª‚½‚Á‚½‚çTRUE‚ğ•Ô‚·
 	bool CountDownFrame(int millisecond);

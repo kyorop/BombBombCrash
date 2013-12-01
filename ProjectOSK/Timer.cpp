@@ -2,7 +2,6 @@
 #include "Image.h"
 #include "DxLib.h"
 
-int Timer::number[10];
 
 Timer::Timer(void)
 	:count(0),
@@ -10,7 +9,6 @@ Timer::Timer(void)
 	startTime(0),
 	limitedTime(0)
 {
-	LoadDivGraph("zerotonine.png", 10, 10, 1, 16,32, number);
 }
 
 
