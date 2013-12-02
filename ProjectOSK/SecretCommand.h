@@ -1,16 +1,15 @@
 #pragma once
+#include <queue>
 
 class Key;
 class SecretCommand
 {
 private:
 	static int hasHittedSecretCommand;
-	Key* key;
-	int up, up2;
-	int down, down2;
-	int right, right2;
-	int left, left2;
-	int stack;
+	std::queue<char> inputtedCommand;
+	std::queue<char> commandForComparison;
+private:
+	void PushBack(char command);
 public:
 	SecretCommand();
 	~SecretCommand();
