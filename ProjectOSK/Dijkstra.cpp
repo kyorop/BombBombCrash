@@ -3,7 +3,6 @@
 #include "DangerState.h"
 #include "Graph.h"
 #include "GameConstant.h"
-#include "DxLib.h"
 #include <climits>
 //enum
 //{

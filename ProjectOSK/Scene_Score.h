@@ -21,7 +21,7 @@ private:
 	static const int win_max = 3;
 	static const int lose_max = 3;
 	int hasFinished;
-private:
+
 	void UpdateScene()override;
 public:
 	Scene_Score(void);

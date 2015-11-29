@@ -1,5 +1,4 @@
 #include "SceneManger.h"
-#include "DxLib.h"
 #include <stdio.h>
 
 #define _CRTDBG_MAP_ALLOC

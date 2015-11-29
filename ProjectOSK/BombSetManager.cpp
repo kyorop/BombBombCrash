@@ -1,36 +1,32 @@
 #include "BombSetManager.h"
-#include "BombSet.h"
+#include "Bomb.h"
 
 BombSetManager::BombSetManager(void)
-	:bombSet(0),
-	num_upFireLevel(0)
+	:num_upFireLevel(0)
 {
-	bombSet.push_back(new BombSet);
+	bombs.push_back(std::make_unique<Bomb>());
 }
 
 
 BombSetManager::~BombSetManager(void)
 {
-	std::vector<BombSet*>::iterator itr = bombSet.begin();
-	for (itr; itr != bombSet.end(); ++itr)
-	{
-		delete (*itr);
-	}
 }
 
 
 void BombSetManager::Set(int x, int y)
 {
-	for(int i = 0, size = bombSet.size(); i < size; ++i)
+	for(int i = 0, size = bombs.size(); i < size; ++i)
 	{
 		for (int j = 0; j < size; j++)
 		{
-			bombSet[i]->Set(x, y);
+			bombs[i]->Set(x, y);
 			if(i != j)
 			{
-				if(bombSet[j]->GetFlag() == 1 && bombSet[j]->GetBombX() == bombSet[i]->GetBombX() && bombSet[j]->GetBombY() == bombSet[i]->GetBombY())//ƒ{ƒ€‚ªd•¡‚µ‚Ä‚¢‚½‚çÁ‚·
+				if (bombs[j]->GetFlag() 
+					&& bombs[j]->GetX() == bombs[i]->GetX() 
+					&& bombs[j]->GetY() == bombs[i]->GetY())
 				{
-					bombSet[j]->SetFlag(0);
+					bombs[j]->SetFlag(false);
 				}
 			}
 		}
@@ -40,37 +36,39 @@ void BombSetManager::Set(int x, int y)
 
 void BombSetManager::Update(void)
 {
-	for(int i = 0, size = bombSet.size(); i < size; ++i)
+	for (auto& bomb : bombs)
 	{
-		bombSet[i]->Update();
+		bomb->Update();
 	}
 }
 
 
 void BombSetManager::Draw(void)
 {
-	for(int i = 0, size = bombSet.size(); i < size; ++i)
+	for (auto& bomb:bombs)
 	{
-		bombSet[i]->Draw();
+		bomb->Draw();
 	}
 }
 
 
 void BombSetManager::UpNum(void)
 {
-	BombSet *pBombSet = new BombSet;
+	auto newBomb = std::make_unique<Bomb>();
+
 	//‘¼‚Ì‰Î—Í‚Æ“¯‚¶‚É‚·‚é
 	for (int i = 0; i < num_upFireLevel; ++i)
-		pBombSet->UpFireLevel();		
-	bombSet.push_back(pBombSet);
+		newBomb->UpFireLevel();
+
+	bombs.push_back(move(newBomb));
 }
 
 
 void BombSetManager::UpFireLevel(void)
 {
-	for(int i = 0, size = bombSet.size(); i < size; ++i)
+	for (auto& bomb:bombs)
 	{
-		bombSet[i]->UpFireLevel();
+		bomb->UpFireLevel();
 	}
 	++num_upFireLevel;
 }

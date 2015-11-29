@@ -1,5 +1,4 @@
 #include "Image.h"
-#include "DxLib.h"
 
 
 Image::Image(void)

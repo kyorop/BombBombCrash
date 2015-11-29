@@ -8,7 +8,6 @@
 #include "Enemy.h"
 #include "MapObject.h"
 #include "Map.h"
-#include "DxLib.h"
 #include "Explosion.h"
 #include "ExplosionManager.h"
 #include "Item.h"

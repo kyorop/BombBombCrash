@@ -13,7 +13,6 @@
 #include "AttackOtherCharacter.h"
 #include "BreakBlock.h"
 #include "GetItem.h"
-#include "DxLib.h"
 #include <typeinfo.h>
 
 

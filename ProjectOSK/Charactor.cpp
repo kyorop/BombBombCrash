@@ -1,7 +1,6 @@
 #include "Charactor.h"
 #include "Map.h"
 #include "MapState.h"
-#include "DxLib.h"
 
 int Charactor::idGenerator;
 

@@ -2,7 +2,6 @@
 #include "ISceneChanger.h"
 #include "Scene_Game.h"
 #include "SecretCommand.h"
-#include "DxLib.h"
 
 Scene_Menu::Scene_Menu()
 	:command(new SecretCommand()),

@@ -75,9 +75,6 @@
     <ClCompile Include="BombSetManager.cpp">
       <Filter>Source\Bomb</Filter>
     </ClCompile>
-    <ClCompile Include="BombSet.cpp">
-      <Filter>Source\Bomb</Filter>
-    </ClCompile>
     <ClCompile Include="DangerState.cpp">
       <Filter>Source\GameState</Filter>
     </ClCompile>
@@ -174,10 +171,10 @@
     <ClCompile Include="SecretCommand.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="KeyboardInput.cpp">
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="KeyboardPlayerInput.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameConstant.h">
@@ -208,9 +205,6 @@
       <Filter>Source\Map</Filter>
     </ClInclude>
     <ClInclude Include="Bomb.h">
-      <Filter>Source\Bomb</Filter>
-    </ClInclude>
-    <ClInclude Include="BombSet.h">
       <Filter>Source\Bomb</Filter>
     </ClInclude>
     <ClInclude Include="BombSetManager.h">
@@ -333,10 +327,10 @@
     <ClInclude Include="IPlayerInput.h">
       <Filter>Header\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="KeyboardInput.h">
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="KeyboardPlayerInput.h">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

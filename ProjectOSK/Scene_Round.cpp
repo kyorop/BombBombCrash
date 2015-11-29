@@ -1,6 +1,5 @@
 #include "Scene_Round.h"
 #include "Timer.h"
-#include "DxLib.h"
 
 int Scene_Round::roundNum = 1;
 

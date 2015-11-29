@@ -1,12 +1,14 @@
 #pragma once
 #include <vector>
+#include <memory>
 
-class BombSet;
+class Bomb;
 class BombSetManager
 {
 private:
-	std::vector<BombSet*> bombSet;
+	std::vector<std::unique_ptr<Bomb>> bombs;
 	int num_upFireLevel;
+
 public:
 	BombSetManager(void);
 	~BombSetManager(void);

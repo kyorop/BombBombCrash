@@ -1,6 +1,5 @@
 #include "Sound.h"
 #include "ISoundPlayer.h"
-#include "DxLib.h"
 
 
 Sound::Sound(void)

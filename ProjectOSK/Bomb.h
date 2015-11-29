@@ -1,16 +1,17 @@
 #pragma once
 #include "MapObject.h"
-#include "IColleague.h"
 #include "ISoundPlayer.h"
-#include "IGettable.h"
-#include "Key.h"
 #include "Timer.h"
+#include <memory>
 
+class ExplosionManager;
 class Player;
 class Map;
 class Charactor;
 class Bomb: public MapObject, public ISoundPlayer
 {
+private:
+	std::unique_ptr<ExplosionManager> explosion;
 protected:
 	int count;
 	Timer time;
@@ -29,5 +30,7 @@ public:
 	void SetFireLevel(int level);
 	int GetFireLevel()const{return fireLevel;}
 	int EnableToPlaySound()const override;
+	void UpFireLevel() const;
+	void Update();
 };
 

@@ -1,6 +1,5 @@
 #include "Map.h"
 #include "Player.h"
-#include "DxLib.h"
 #include "Charactor.h"
 #include "MapState.h"
 #include "Collision.h"

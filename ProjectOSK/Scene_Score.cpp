@@ -1,7 +1,6 @@
 #include "Scene_Score.h"
 #include "Scene_Round.h"
 #include "Timer.h"
-#include "DxLib.h"
 
 int Scene_Score::winNum;
 int Scene_Score::loseNum;

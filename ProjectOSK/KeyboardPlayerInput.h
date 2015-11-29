@@ -1,7 +1,7 @@
 #pragma once
 #include "IPlayerInput.h"
 
-class KeyboardInput:public IPlayerInput
+class KeyboardPlayerInput:public IPlayerInput
 {
 public:
 	bool GetInputMoveUp() override;
@@ -9,7 +9,7 @@ public:
 	bool GetInputMoveDown() override;
 	bool GetInputMoveLeft() override;
 	bool GetInputPutBomb() override;
-	KeyboardInput();
-	~KeyboardInput();
+	KeyboardPlayerInput();
+	~KeyboardPlayerInput();
 };
 

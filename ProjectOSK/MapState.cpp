@@ -149,19 +149,32 @@ void MapState::Update()
 
 
 	InitOneObject(BOMB);
-	std::list<const Bomb*>::iterator itr = bomb.begin();
-	for(itr; itr != bomb.end(); ++itr)
+//	std::list<const Bomb*>::iterator itr = bomb.begin();
+	for (auto& b : bomb)
 	{
-		if( (*itr)->GetFlag() == 1 )
+		if (b->GetFlag())
 		{
-			int x_center = ( (*itr)->GetX() + (*itr)->GetX()+32 ) / 2;
-			int y_center = ( (*itr)->GetY() + (*itr)->GetY()+32 ) / 2;
+			int x_center = (b->GetX() + b->GetX() + 32) / 2;
+			int y_center = (b->GetY() + b->GetY() + 32) / 2;
 			int i_center = x_center / 32;
 			int j_center = y_center / 32;
 			SetState(x_center, y_center, BOMB, 1);
-			SetState(x_center, y_center, BOMB, (*itr)->GetFireLevel(), 1);
+			SetState(x_center, y_center, BOMB, b->GetFireLevel(), 1);
 		}
 	}
+
+//	for(itr; itr != bomb.end(); ++itr)
+//	{
+//		if( (*itr)->GetFlag() == 1 )
+//		{
+//			int x_center = ( (*itr)->GetX() + (*itr)->GetX()+32 ) / 2;
+//			int y_center = ( (*itr)->GetY() + (*itr)->GetY()+32 ) / 2;
+//			int i_center = x_center / 32;
+//			int j_center = y_center / 32;
+//			SetState(x_center, y_center, BOMB, 1);
+//			SetState(x_center, y_center, BOMB, (*itr)->GetFireLevel(), 1);
+//		}
+//	}
 
 	if(!enemy.empty())
 	{

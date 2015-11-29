@@ -1,7 +1,6 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "MapState.h"
-#include "DxLib.h"
 #include "EnemyAI.h"
 #include "Collision.h"
 #include "Image.h"

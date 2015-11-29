@@ -1,6 +1,5 @@
 #include "Timer.h"
 #include "Image.h"
-#include "DxLib.h"
 
 
 Timer::Timer(void)

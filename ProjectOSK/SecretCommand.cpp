@@ -1,5 +1,4 @@
 #include "SecretCommand.h"
-#include "DxLib.h"
 
 int SecretCommand::hasHittedSecretCommand;
 

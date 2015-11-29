@@ -6,7 +6,6 @@
 #include "MapState.h"
 #include "Collision.h"
 #include "Map.h"
-#include "DxLib.h"
 #include <list>
 
 

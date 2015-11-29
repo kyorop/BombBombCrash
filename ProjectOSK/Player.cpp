@@ -5,8 +5,7 @@
 #include "SecretCommand.h"
 #include "Timer.h"
 #include "GameConstant.h"
-#include "DxLib.h"
-#include "KeyboardInput.h"
+#include "KeyboardPlayerInput.h"
 
 
 enum
@@ -28,7 +27,7 @@ Player::Player(KeyState device)
 	animationTime(new Timer),
 	animationFrame(0),
 	isJoypad(device),
-	input(new KeyboardInput())
+	input(new KeyboardPlayerInput())
 {
 	x = 32*2;
 	rx = x+32;
@@ -300,21 +299,8 @@ void Player::AddMV(void)
 
 int Player::EnableBomb()const
 {
-	if(isJoypad == KEYBORAD)
-	{
-		if(CheckHitKey(KEY_INPUT_Z) == 1)
-			return 1;
-		else
-			return 0;
-	}
-	else
-	{
-		int inputState = GetJoypadInputState(DX_INPUT_PAD1);
-		int input2 = inputState & PAD_INPUT_2;
-
-		if(input2)
-			return 1;
-		else
-			return 0;
-	}
+	if (input->GetInputPutBomb())
+		return 1;
+	
+	return 0;
 }

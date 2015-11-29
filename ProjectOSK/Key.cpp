@@ -1,5 +1,4 @@
 #include "Key.h"
-#include "DxLib.h"
 
 Key::Key(void)
 {

@@ -6,7 +6,6 @@
 #include "Charactor.h"
 #include "BombManager.h"
 #include "Item.h"
-#include "DxLib.h"
 #define DHIT 6
 
 //コンストラクタ

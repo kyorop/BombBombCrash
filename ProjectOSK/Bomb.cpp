@@ -1,23 +1,20 @@
-#include "Player.h"
-#include "Map.h"
 #include "Bomb.h"
-#include "Charactor.h"
 #include "MapState.h"
 #include "Collision.h"
 #include "Image.h"
 #include "Sound.h"
-#include "DxLib.h"
-#include <iostream>
+#include "ExplosionManager.h"
 #define BOMBEXISTTIME 2500
 #define DHIT 5
 #define KBHABA 16
 
 
 Bomb::Bomb()
-	:fireLevel(1),
+	:image_bomb(Image::GetInstance()->GetBombImage()),
+	fireLevel(1),
 	animpat(0),
-	image_bomb(Image::GetInstance()->GetBombImage()),
-	soundOn(0)
+	soundOn(0),
+	explosion(std::make_unique<ExplosionManager>())
 {
 	flag = 0;
 	x = 0;
@@ -93,6 +90,8 @@ void Bomb::Draw()
 		SetTransColor(255,255,255);
 		DrawGraph(x, y, image_bomb[animpat], TRUE);
 	}
+
+	explosion->Draw();
 }
 
 
@@ -111,4 +110,17 @@ int Bomb::EnableToPlaySound()const
 	}
 	else
 		return 0;
+}
+
+void Bomb::UpFireLevel() const
+{
+	explosion->FireUp();
+}
+
+void Bomb::Update()
+{
+	Maintain();
+	SetFireLevel(explosion->GetFireLevel());
+	explosion->Update(*this);
+	explosion->Register();
 }

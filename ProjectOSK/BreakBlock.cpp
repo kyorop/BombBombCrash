@@ -1,7 +1,6 @@
 #include "BreakBlock.h"
 #include "MapState.h"
 #include "DangerState.h"
-#include "DxLib.h"
 #include <vector>
 
 BreakBlock::BreakBlock(IStateChanger *stateMrg, const Enemy& myself)

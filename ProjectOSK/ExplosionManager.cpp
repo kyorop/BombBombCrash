@@ -10,7 +10,6 @@
 #include "MapState.h"
 #include "Collision.h"
 #include "Image.h"
-#include "DxLib.h"
 
 ExplosionManager::ExplosionManager():
 	fuse(0),

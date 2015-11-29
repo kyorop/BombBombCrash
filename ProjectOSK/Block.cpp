@@ -4,7 +4,6 @@
 #include "MapState.h"
 #include "Collision.h"
 #include "Image.h"
-#include "DxLib.h"
 #include <cstring>
 #include <algorithm>
 #define HABA 0
