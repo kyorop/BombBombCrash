@@ -1,4 +1,3 @@
-#include <DxLib.h>
 #include "KeyboardInput.h"
 
 bool KeyboardInput::GetInputMoveUp()
@@ -35,3 +34,8 @@ KeyboardInput::KeyboardInput()
 KeyboardInput::~KeyboardInput()
 {
 }
+
+interface ITestInter
+{
+
+};

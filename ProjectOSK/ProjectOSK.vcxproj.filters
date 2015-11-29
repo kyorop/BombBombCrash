@@ -177,6 +177,7 @@
     <ClCompile Include="KeyboardInput.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameConstant.h">
@@ -335,6 +336,7 @@
     <ClInclude Include="KeyboardInput.h">
       <Filter>Header</Filter>
     </ClInclude>
+    <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
