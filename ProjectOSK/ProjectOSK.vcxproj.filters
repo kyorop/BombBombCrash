@@ -1,330 +1,339 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="ソース ファイル">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="ヘッダー ファイル">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="リソース ファイル">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="ソース ファイル\AI">
-      <UniqueIdentifier>{767b9529-c177-45e6-b647-d1a4a1da868d}</UniqueIdentifier>
+    <Filter Include="Header">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="ソース ファイル\Utility">
-      <UniqueIdentifier>{ef042950-328b-4a6e-b458-cf8c700e6089}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\GameState">
-      <UniqueIdentifier>{33908562-84a2-4dd5-9ebc-529ec501c71c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Bomb">
-      <UniqueIdentifier>{c56bb18a-019e-4616-ba3d-17064fbbd24a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Interface">
+    <Filter Include="Header\Interface">
       <UniqueIdentifier>{ce653aa3-d2b8-41a7-a60e-2f196b14a5a5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Map">
-      <UniqueIdentifier>{811da8c8-b229-4314-bf9c-2536e847e583}</UniqueIdentifier>
+    <Filter Include="Source">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="ソース ファイル\Character">
-      <UniqueIdentifier>{d5b548ba-ff68-4dab-a74b-1984a00e9685}</UniqueIdentifier>
+    <Filter Include="Source\Utility">
+      <UniqueIdentifier>{ef042950-328b-4a6e-b458-cf8c700e6089}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Algo">
-      <UniqueIdentifier>{7b59add8-db4a-4610-8eb2-31e4e09f0c5c}</UniqueIdentifier>
+    <Filter Include="Source\AI">
+      <UniqueIdentifier>{767b9529-c177-45e6-b647-d1a4a1da868d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\GameScene">
-      <UniqueIdentifier>{27dff125-c8be-4686-91a4-a1bbd06fc9ac}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\AI\State">
+    <Filter Include="Source\AI\State">
       <UniqueIdentifier>{ce5d6ff7-37a0-4b52-8049-dd31fad6af7e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Resource">
+    <Filter Include="Source\Algo">
+      <UniqueIdentifier>{7b59add8-db4a-4610-8eb2-31e4e09f0c5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Bomb">
+      <UniqueIdentifier>{c56bb18a-019e-4616-ba3d-17064fbbd24a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Character">
+      <UniqueIdentifier>{d5b548ba-ff68-4dab-a74b-1984a00e9685}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GameScene">
+      <UniqueIdentifier>{27dff125-c8be-4686-91a4-a1bbd06fc9ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GameState">
+      <UniqueIdentifier>{33908562-84a2-4dd5-9ebc-529ec501c71c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Map">
+      <UniqueIdentifier>{811da8c8-b229-4314-bf9c-2536e847e583}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Resource">
       <UniqueIdentifier>{93593741-6d8c-4f41-8b8b-b657625fcb68}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="IDrawable.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="EnemyAI.cpp">
-      <Filter>ソース ファイル\AI</Filter>
+      <Filter>Source\AI</Filter>
     </ClCompile>
     <ClCompile Include="Key.cpp">
-      <Filter>ソース ファイル\Utility</Filter>
+      <Filter>Source\Utility</Filter>
     </ClCompile>
     <ClCompile Include="Timer.cpp">
-      <Filter>ソース ファイル\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="MapObject.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>Source\Utility</Filter>
     </ClCompile>
     <ClCompile Include="Map.cpp">
-      <Filter>ソース ファイル\Map</Filter>
+      <Filter>Source\Map</Filter>
     </ClCompile>
     <ClCompile Include="GameField.cpp">
-      <Filter>ソース ファイル\Map</Filter>
+      <Filter>Source\Map</Filter>
     </ClCompile>
     <ClCompile Include="Block.cpp">
-      <Filter>ソース ファイル\Map</Filter>
+      <Filter>Source\Map</Filter>
     </ClCompile>
     <ClCompile Include="MapObstacle.cpp">
-      <Filter>ソース ファイル\Map</Filter>
+      <Filter>Source\Map</Filter>
     </ClCompile>
     <ClCompile Include="Bomb.cpp">
-      <Filter>ソース ファイル\Bomb</Filter>
+      <Filter>Source\Bomb</Filter>
     </ClCompile>
     <ClCompile Include="BombSetManager.cpp">
-      <Filter>ソース ファイル\Bomb</Filter>
+      <Filter>Source\Bomb</Filter>
     </ClCompile>
     <ClCompile Include="BombSet.cpp">
-      <Filter>ソース ファイル\Bomb</Filter>
+      <Filter>Source\Bomb</Filter>
     </ClCompile>
     <ClCompile Include="DangerState.cpp">
-      <Filter>ソース ファイル\GameState</Filter>
+      <Filter>Source\GameState</Filter>
     </ClCompile>
     <ClCompile Include="IRegister.cpp">
-      <Filter>ソース ファイル\GameState</Filter>
+      <Filter>Source\GameState</Filter>
     </ClCompile>
     <ClCompile Include="MapState.cpp">
-      <Filter>ソース ファイル\GameState</Filter>
+      <Filter>Source\GameState</Filter>
     </ClCompile>
     <ClCompile Include="Item.cpp">
-      <Filter>ソース ファイル\Map</Filter>
+      <Filter>Source\Map</Filter>
     </ClCompile>
     <ClCompile Include="ItemManager.cpp">
-      <Filter>ソース ファイル\Map</Filter>
+      <Filter>Source\Map</Filter>
     </ClCompile>
     <ClCompile Include="CharacterSet.cpp">
-      <Filter>ソース ファイル\Character</Filter>
+      <Filter>Source\Character</Filter>
     </ClCompile>
     <ClCompile Include="Charactor.cpp">
-      <Filter>ソース ファイル\Character</Filter>
+      <Filter>Source\Character</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
-      <Filter>ソース ファイル\Character</Filter>
+      <Filter>Source\Character</Filter>
     </ClCompile>
     <ClCompile Include="Graph.cpp">
-      <Filter>ソース ファイル\Algo</Filter>
+      <Filter>Source\Algo</Filter>
     </ClCompile>
     <ClCompile Include="Search.cpp">
-      <Filter>ソース ファイル\Algo</Filter>
+      <Filter>Source\Algo</Filter>
     </ClCompile>
     <ClCompile Include="Dijkstra.cpp">
-      <Filter>ソース ファイル\Algo</Filter>
+      <Filter>Source\Algo</Filter>
     </ClCompile>
     <ClCompile Include="SceneManger.cpp">
-      <Filter>ソース ファイル\GameScene</Filter>
+      <Filter>Source\GameScene</Filter>
     </ClCompile>
     <ClCompile Include="Scene_Game.cpp">
-      <Filter>ソース ファイル\GameScene</Filter>
+      <Filter>Source\GameScene</Filter>
     </ClCompile>
     <ClCompile Include="Scene_Menu.cpp">
-      <Filter>ソース ファイル\GameScene</Filter>
+      <Filter>Source\GameScene</Filter>
     </ClCompile>
     <ClCompile Include="Scene_Base.cpp">
-      <Filter>ソース ファイル\GameScene</Filter>
+      <Filter>Source\GameScene</Filter>
     </ClCompile>
     <ClCompile Include="Collision.cpp">
-      <Filter>ソース ファイル\GameState</Filter>
+      <Filter>Source\GameState</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>ソース ファイル\Character</Filter>
+      <Filter>Source\Character</Filter>
     </ClCompile>
     <ClCompile Include="Explosion.cpp">
-      <Filter>ソース ファイル\Bomb</Filter>
+      <Filter>Source\Bomb</Filter>
     </ClCompile>
     <ClCompile Include="ExplosionManager.cpp">
-      <Filter>ソース ファイル\Bomb</Filter>
+      <Filter>Source\Bomb</Filter>
     </ClCompile>
     <ClCompile Include="Avoid.cpp">
-      <Filter>ソース ファイル\AI\State</Filter>
+      <Filter>Source\AI\State</Filter>
     </ClCompile>
     <ClCompile Include="State.cpp">
-      <Filter>ソース ファイル\AI\State</Filter>
+      <Filter>Source\AI\State</Filter>
     </ClCompile>
     <ClCompile Include="AttackOtherCharacter.cpp">
-      <Filter>ソース ファイル\AI\State</Filter>
+      <Filter>Source\AI\State</Filter>
     </ClCompile>
     <ClCompile Include="BreakBlock.cpp">
-      <Filter>ソース ファイル\AI\State</Filter>
+      <Filter>Source\AI\State</Filter>
     </ClCompile>
     <ClCompile Include="Sound.cpp">
-      <Filter>ソース ファイル\Resource</Filter>
+      <Filter>Source\Resource</Filter>
     </ClCompile>
     <ClCompile Include="Image.cpp">
-      <Filter>ソース ファイル\Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="SecretCommand.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>Source\Resource</Filter>
     </ClCompile>
     <ClCompile Include="Scene_Round.cpp">
-      <Filter>ソース ファイル\GameScene</Filter>
+      <Filter>Source\GameScene</Filter>
     </ClCompile>
     <ClCompile Include="Scene_Score.cpp">
-      <Filter>ソース ファイル\GameScene</Filter>
+      <Filter>Source\GameScene</Filter>
     </ClCompile>
     <ClCompile Include="GetItem.cpp">
-      <Filter>ソース ファイル\AI\State</Filter>
+      <Filter>Source\AI\State</Filter>
+    </ClCompile>
+    <ClCompile Include="IDrawable.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="MapObject.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SecretCommand.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyboardInput.cpp">
+      <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameConstant.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="EnemyAI.h">
-      <Filter>ソース ファイル\AI</Filter>
+      <Filter>Source\AI</Filter>
     </ClInclude>
     <ClInclude Include="MapObject.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="Key.h">
-      <Filter>ソース ファイル\Utility</Filter>
+      <Filter>Source\Utility</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h">
-      <Filter>ソース ファイル\Utility</Filter>
+      <Filter>Source\Utility</Filter>
     </ClInclude>
     <ClInclude Include="Map.h">
-      <Filter>ソース ファイル\Map</Filter>
+      <Filter>Source\Map</Filter>
     </ClInclude>
     <ClInclude Include="GameField.h">
-      <Filter>ソース ファイル\Map</Filter>
+      <Filter>Source\Map</Filter>
     </ClInclude>
     <ClInclude Include="Block.h">
-      <Filter>ソース ファイル\Map</Filter>
+      <Filter>Source\Map</Filter>
     </ClInclude>
     <ClInclude Include="MapObstacle.h">
-      <Filter>ソース ファイル\Map</Filter>
+      <Filter>Source\Map</Filter>
     </ClInclude>
     <ClInclude Include="Bomb.h">
-      <Filter>ソース ファイル\Bomb</Filter>
+      <Filter>Source\Bomb</Filter>
     </ClInclude>
     <ClInclude Include="BombSet.h">
-      <Filter>ソース ファイル\Bomb</Filter>
+      <Filter>Source\Bomb</Filter>
     </ClInclude>
     <ClInclude Include="BombSetManager.h">
-      <Filter>ソース ファイル\Bomb</Filter>
+      <Filter>Source\Bomb</Filter>
     </ClInclude>
     <ClInclude Include="DangerState.h">
-      <Filter>ソース ファイル\GameState</Filter>
+      <Filter>Source\GameState</Filter>
     </ClInclude>
     <ClInclude Include="IRegister.h">
-      <Filter>ソース ファイル\GameState</Filter>
+      <Filter>Source\GameState</Filter>
     </ClInclude>
     <ClInclude Include="ICollisionable.h">
-      <Filter>ヘッダー ファイル\Interface</Filter>
+      <Filter>Header\Interface</Filter>
     </ClInclude>
     <ClInclude Include="IDrawable.h">
-      <Filter>ヘッダー ファイル\Interface</Filter>
+      <Filter>Header\Interface</Filter>
     </ClInclude>
     <ClInclude Include="IMediator.h">
-      <Filter>ヘッダー ファイル\Interface</Filter>
+      <Filter>Header\Interface</Filter>
     </ClInclude>
     <ClInclude Include="IColleague.h">
-      <Filter>ヘッダー ファイル\Interface</Filter>
+      <Filter>Header\Interface</Filter>
     </ClInclude>
     <ClInclude Include="ItemManager.h">
-      <Filter>ソース ファイル\Map</Filter>
+      <Filter>Source\Map</Filter>
     </ClInclude>
     <ClInclude Include="Item.h">
-      <Filter>ソース ファイル\Map</Filter>
+      <Filter>Source\Map</Filter>
     </ClInclude>
     <ClInclude Include="CharacterSet.h">
-      <Filter>ソース ファイル\Character</Filter>
+      <Filter>Source\Character</Filter>
     </ClInclude>
     <ClInclude Include="Charactor.h">
-      <Filter>ソース ファイル\Character</Filter>
+      <Filter>Source\Character</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>ソース ファイル\Character</Filter>
+      <Filter>Source\Character</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>ソース ファイル\Character</Filter>
+      <Filter>Source\Character</Filter>
     </ClInclude>
     <ClInclude Include="Search.h">
-      <Filter>ソース ファイル\Algo</Filter>
+      <Filter>Source\Algo</Filter>
     </ClInclude>
     <ClInclude Include="Graph.h">
-      <Filter>ソース ファイル\Algo</Filter>
+      <Filter>Source\Algo</Filter>
     </ClInclude>
     <ClInclude Include="Dijkstra.h">
-      <Filter>ソース ファイル\Algo</Filter>
+      <Filter>Source\Algo</Filter>
     </ClInclude>
     <ClInclude Include="ISceneChanger.h">
-      <Filter>ソース ファイル\GameScene</Filter>
+      <Filter>Source\GameScene</Filter>
     </ClInclude>
     <ClInclude Include="Scene_Game.h">
-      <Filter>ソース ファイル\GameScene</Filter>
+      <Filter>Source\GameScene</Filter>
     </ClInclude>
     <ClInclude Include="Scene_Menu.h">
-      <Filter>ソース ファイル\GameScene</Filter>
+      <Filter>Source\GameScene</Filter>
     </ClInclude>
     <ClInclude Include="Scene_Base.h">
-      <Filter>ソース ファイル\GameScene</Filter>
+      <Filter>Source\GameScene</Filter>
     </ClInclude>
     <ClInclude Include="SceneManger.h">
-      <Filter>ソース ファイル\GameScene</Filter>
+      <Filter>Source\GameScene</Filter>
     </ClInclude>
     <ClInclude Include="MapState.h">
-      <Filter>ソース ファイル\GameState</Filter>
+      <Filter>Source\GameState</Filter>
     </ClInclude>
     <ClInclude Include="Collision.h">
-      <Filter>ソース ファイル\GameState</Filter>
+      <Filter>Source\GameState</Filter>
     </ClInclude>
     <ClInclude Include="ExplosionManager.h">
-      <Filter>ソース ファイル\Bomb</Filter>
+      <Filter>Source\Bomb</Filter>
     </ClInclude>
     <ClInclude Include="Explosion.h">
-      <Filter>ソース ファイル\Bomb</Filter>
+      <Filter>Source\Bomb</Filter>
     </ClInclude>
     <ClInclude Include="IStateChanger.h">
-      <Filter>ヘッダー ファイル\Interface</Filter>
+      <Filter>Header\Interface</Filter>
     </ClInclude>
     <ClInclude Include="Avoid.h">
-      <Filter>ソース ファイル\AI\State</Filter>
+      <Filter>Source\AI\State</Filter>
     </ClInclude>
     <ClInclude Include="Route.h">
-      <Filter>ソース ファイル\AI\State</Filter>
+      <Filter>Source\AI\State</Filter>
     </ClInclude>
     <ClInclude Include="State.h">
-      <Filter>ソース ファイル\AI\State</Filter>
+      <Filter>Source\AI\State</Filter>
     </ClInclude>
     <ClInclude Include="AttackOtherCharacter.h">
-      <Filter>ソース ファイル\AI\State</Filter>
+      <Filter>Source\AI\State</Filter>
     </ClInclude>
     <ClInclude Include="BreakBlock.h">
-      <Filter>ソース ファイル\AI\State</Filter>
+      <Filter>Source\AI\State</Filter>
     </ClInclude>
     <ClInclude Include="IGettable.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="ISoundPlayer.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="Sound.h">
-      <Filter>ソース ファイル\Resource</Filter>
+      <Filter>Source\Resource</Filter>
     </ClInclude>
     <ClInclude Include="Image.h">
-      <Filter>ソース ファイル\Resource</Filter>
+      <Filter>Source\Resource</Filter>
     </ClInclude>
     <ClInclude Include="SecretCommand.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="Scene_Round.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="Scene_Score.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="GetItem.h">
-      <Filter>ソース ファイル\AI\State</Filter>
+      <Filter>Source\AI\State</Filter>
+    </ClInclude>
+    <ClInclude Include="IPlayerInput.h">
+      <Filter>Header\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardInput.h">
+      <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

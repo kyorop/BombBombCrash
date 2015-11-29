@@ -9,9 +9,7 @@
 class Player;
 class Map;
 class Charactor;
-class Bomb
-	:public MapObject,
-	public ISoundPlayer
+class Bomb: public MapObject, public ISoundPlayer
 {
 protected:
 	int count;

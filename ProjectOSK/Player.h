@@ -1,14 +1,14 @@
 #pragma once
 #include "Charactor.h"
-#include "IDrawable.h"
-#include "IRegister.h"
+#include <memory>
+
 #define MAPSIZE_X 17
 #define MAPSIZE_Y 13
 
 
+class IPlayerInput;
 class Timer;
-class Player:
-	public Charactor
+class Player: public Charactor
 {
 public:
 	enum KeyState
@@ -16,6 +16,7 @@ public:
 		KEYBORAD,
 		JOYPAD,
 	};
+
 private:
 	int muki;
 	int animpat;
@@ -28,8 +29,10 @@ private:
 	Timer* animationTime;
 	int animationFrame;
 	const int isJoypad;
-public:	
-	Player(KeyState device);
+	std::unique_ptr<IPlayerInput> input;
+
+public:
+	explicit Player(KeyState device);
 	~Player();
 
 	 void Move()override;

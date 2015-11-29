@@ -1,7 +1,4 @@
 #include "Player.h"
-#include "Map.h"
-#include "Item.h"
-#include "ItemManager.h"
 #include "MapState.h"
 #include "Collision.h"
 #include "Image.h"
@@ -9,6 +6,7 @@
 #include "Timer.h"
 #include "GameConstant.h"
 #include "DxLib.h"
+#include "KeyboardInput.h"
 
 
 enum
@@ -29,7 +27,8 @@ Player::Player(KeyState device)
 	hasFinished(0),
 	animationTime(new Timer),
 	animationFrame(0),
-	isJoypad(device)
+	isJoypad(device),
+	input(new KeyboardInput())
 {
 	x = 32*2;
 	rx = x+32;
@@ -66,76 +65,81 @@ void Player::Move()
 {
 	if(flag)
 	{
-		if( !isJoypad )
+		if(input->GetInputMoveLeft() && ! input->GetInputMoveDown() && input->GetInputMoveUp() == 0 && input->GetInputMoveRight() == 0)
 		{
-			if(CheckHitKey(KEY_INPUT_LEFT) == 1 && CheckHitKey(KEY_INPUT_DOWN) == 0 && CheckHitKey(KEY_INPUT_UP) == 0 && CheckHitKey(KEY_INPUT_RIGHT) == 0)
-			{
-				this->x -=	mv;
-				this->muki = LEFT;
-				if(CheckHitKey(KEY_INPUT_UP) == 1)this->y -= mv;			
-				if(CheckHitKey(KEY_INPUT_DOWN) == 1)this->y += mv;
-			}	
-			else if(CheckHitKey(KEY_INPUT_RIGHT) == 1 && CheckHitKey(KEY_INPUT_DOWN) == 0 && CheckHitKey(KEY_INPUT_UP) == 0)	
-			{
-				this->x += mv;
-				this->muki = RIGHT;
-				if(CheckHitKey(KEY_INPUT_UP) == 1)this->y -= mv;			
-				if(CheckHitKey(KEY_INPUT_DOWN) == 1)this->y += mv;
-		
-			}			
-			else if(CheckHitKey(KEY_INPUT_UP) == 1  && CheckHitKey(KEY_INPUT_DOWN) == 0)
-			{
-				this->y	-=	mv;
-				this->muki = UP; 
-				if(CheckHitKey(KEY_INPUT_LEFT) == 1) this->x -= mv;
-				if(CheckHitKey(KEY_INPUT_RIGHT) == 1) this->x += mv;
-		
-			}				
-			else if(CheckHitKey(KEY_INPUT_DOWN) == 1)
-			{
-				this->y	+=	mv;
-				this->muki = DOWN; 
-				if(CheckHitKey(KEY_INPUT_LEFT) == 1) this->x -= mv;
-				if(CheckHitKey(KEY_INPUT_RIGHT) == 1) this->x += mv;
-			}
-		}
-		else
+			this->x -=	mv;
+			this->muki = LEFT;
+			if(input->GetInputMoveUp() )
+				this->y -= mv;			
+			if(input->GetInputMoveDown())
+				this->y += mv;
+		}	
+		else if(input->GetInputMoveRight() && input->GetInputMoveDown() == 0 && input->GetInputMoveUp() == 0)	
 		{
-			int inputState = GetJoypadInputState(DX_INPUT_PAD1);
-			int up = inputState & PAD_INPUT_UP;
-			int down = inputState & PAD_INPUT_DOWN;
-			int left = inputState & PAD_INPUT_LEFT;
-			int right = inputState & PAD_INPUT_RIGHT;
-
-			if( left && (down == 0) && (up == 0) && (right== 0))
-			{
-				this->x -=	mv;
-				this->muki = LEFT;
-				if(up)this->y -= mv;
-				if(down)this->y += mv;
-			}	
-			else if( right && (down == 0) && (up == 0))	
-			{
+			this->x += mv;
+			this->muki = RIGHT;
+			if(input->GetInputMoveUp())
+				this->y -= mv;			
+			if(input->GetInputMoveDown())
+				this->y += mv;
+		
+		}			
+		else if(input->GetInputMoveUp()  && input->GetInputMoveDown() == 0)
+		{
+			this->y	-=	mv;
+			this->muki = UP; 
+			if(input->GetInputMoveLeft())
+				this->x -= mv;
+			if(input->GetInputMoveRight()) 
 				this->x += mv;
-				this->muki = RIGHT;
-				if(up)this->y -= mv;			
-				if(down)this->y += mv;
-			}			
-			else if(up  && (down == 0))
-			{
-				this->y	-=	mv;
-				this->muki = UP; 
-				if(left) this->x -= mv;
-				if(right) this->x += mv;
-			}				
-			else if(down)
-			{
-				this->y	+=	mv;
-				this->muki = DOWN; 
-				if(left) this->x -= mv;
-				if(right) this->x += mv;
-			}
+		
+		}				
+		else if(input->GetInputMoveDown())
+		{
+			this->y	+=	mv;
+			this->muki = DOWN; 
+			if(input->GetInputMoveLeft()) 
+				this->x -= mv;
+			if(input->GetInputMoveRight())
+				this->x += mv;
 		}
+		//		else
+//		{
+//			int inputState = GetJoypadInputState(DX_INPUT_PAD1);
+//			int up = inputState & PAD_INPUT_UP;
+//			int down = inputState & PAD_INPUT_DOWN;
+//			int left = inputState & PAD_INPUT_LEFT;
+//			int right = inputState & PAD_INPUT_RIGHT;
+//
+//			if( left && (down == 0) && (up == 0) && (right== 0))
+//			{
+//				this->x -=	mv;
+//				this->muki = LEFT;
+//				if(up)this->y -= mv;
+//				if(down)this->y += mv;
+//			}	
+//			else if( right && (down == 0) && (up == 0))	
+//			{
+//				this->x += mv;
+//				this->muki = RIGHT;
+//				if(up)this->y -= mv;			
+//				if(down)this->y += mv;
+//			}			
+//			else if(up  && (down == 0))
+//			{
+//				this->y	-=	mv;
+//				this->muki = UP; 
+//				if(left) this->x -= mv;
+//				if(right) this->x += mv;
+//			}				
+//			else if(down)
+//			{
+//				this->y	+=	mv;
+//				this->muki = DOWN; 
+//				if(left) this->x -= mv;
+//				if(right) this->x += mv;
+//			}
+//		}
 
 		//if(CheckHitKey(KEY_INPUT_BACKSLASH)==1)
 		//{
@@ -209,18 +213,17 @@ void Player::Move()
 
 void Player::Draw()
 {
-	if(this->flag == 1)
+	if(flag)
 	{
 		int image;
-		if(isJoypad == KEYBORAD)
 		{
-			if(CheckHitKey(KEY_INPUT_LEFT) == 1) 
+			if(input->GetInputMoveLeft() == 1) 
 				image = image_left[animpat];
-			else if(CheckHitKey(KEY_INPUT_RIGHT) == 1) 
+			else if(input->GetInputMoveRight() == 1) 
 				image = image_right[animpat];
-			else if(CheckHitKey(KEY_INPUT_UP) == 1)
+			else if(input->GetInputMoveUp() == 1)
 				image = image_up[animpat];
-			else if(CheckHitKey(KEY_INPUT_DOWN) == 1) 
+			else if(input->GetInputMoveDown() == 1) 
 				image = image_down[animpat];
 			else
 			{
@@ -236,38 +239,38 @@ void Player::Draw()
 					image = image_down[animpat];
 			}
 		}
-		else if(isJoypad == JOYPAD)
-		{
-			int inputState = GetJoypadInputState(DX_INPUT_PAD1);
-			int up = inputState & PAD_INPUT_UP;
-			int down = inputState & PAD_INPUT_DOWN;
-			int left = inputState & PAD_INPUT_LEFT;
-			int right = inputState & PAD_INPUT_RIGHT;
+//		else if(isJoypad == JOYPAD)
+//		{
+//			int inputState = GetJoypadInputState(DX_INPUT_PAD1);
+//			int up = inputState & PAD_INPUT_UP;
+//			int down = inputState & PAD_INPUT_DOWN;
+//			int left = inputState & PAD_INPUT_LEFT;
+//			int right = inputState & PAD_INPUT_RIGHT;
+//
+//			if(left) 
+//				image = image_left[animpat];
+//			else if(right) 
+//				image = image_right[animpat];
+//			else if(up)
+//				image = image_up[animpat];
+//			else if(down) 
+//				image = image_down[animpat];
+//			else
+//			{
+//				//キーを押してないときはアニメーションしないことを意味する
+//				animpat = 0;
+//				if(muki == LEFT)
+//					image = image_left[animpat];
+//				else if(muki == RIGHT)
+//					image = image_right[animpat];
+//				else if(muki == UP)
+//					image = image_up[animpat];
+//				else if(muki == DOWN)
+//					image = image_down[animpat];
+//			}
+//		}
 
-			if(left) 
-				image = image_left[animpat];
-			else if(right) 
-				image = image_right[animpat];
-			else if(up)
-				image = image_up[animpat];
-			else if(down) 
-				image = image_down[animpat];
-			else
-			{
-				//キーを押してないときはアニメーションしないことを意味する
-				animpat = 0;
-				if(muki == LEFT)
-					image = image_left[animpat];
-				else if(muki == RIGHT)
-					image = image_right[animpat];
-				else if(muki == UP)
-					image = image_up[animpat];
-				else if(muki == DOWN)
-					image = image_down[animpat];
-			}
-		}
-
-		DrawGraph(x, y, image, TRUE);
+		DxLib:: DrawGraph(x, y, image, TRUE);
 	}
 	else		//死亡時のアニメーション
 	{
@@ -279,7 +282,7 @@ void Player::Draw()
 				if(animationFrame == 3)
 					hasFinished = 1;
 			}
-			DrawGraph(x, y, image_death[animationFrame], true);
+			DxLib::DrawGraph(x, y, image_death[animationFrame], true);
 		}
 	}
 }
