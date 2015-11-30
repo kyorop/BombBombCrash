@@ -19,6 +19,8 @@ private:
 	Timer beforeExplosion;
 	static const int displayingTime = 200; 
 	const int image_fire;
+	std::vector<Explosion*> vex;
+
 public:
 	int GetX(int i)const;
 	int GetRX(int i)const;
@@ -27,20 +29,17 @@ public:
 	int GetFlag(int i)const;
 	void SetFlag(int i, int flag);
 	int GetSize()const;
-	//void SetExplosion(const BombManager &bombManager);
 	void FireUp();	
-	void Ready(int x, int y);
 	void Update(const Bomb &bomb);
 	void Maintain();
 	void Draw();
 	ExplosionManager();
 	~ExplosionManager(void);
 
-std::vector<Explosion*> vex;
 
-void SetFuse(int flag);
-void Register(void);
-int GetExplosion(void);
-int GetFireLevel(void);
+	void SetFuse(int flag);
+	void Register(void);
+	int GetExplosion(void);
+	int GetFireLevel(void);
 };
 

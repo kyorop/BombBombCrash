@@ -12,6 +12,10 @@ class Timer;
 class Enemy:
 	public Charactor
 {
+protected:
+	bool PutBomb() override;
+public:
+	void Update() override;
 private:
 	const int* image_left;
 	const int* image_right;
@@ -34,7 +38,6 @@ public:
 
 	void Move()override;
 	void Draw()override;
-	int EnableBomb(void)const override;
-	void AddMV()override;
+	void SetMv()override;
 };
 

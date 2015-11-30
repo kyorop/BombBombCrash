@@ -1,11 +1,5 @@
 #include "Explosion.h"
-#include "Timer.h"
-#include "Bomb.h"
-#include "Player.h"
-#include "Map.h"
-#include "Charactor.h"
-#include "BombManager.h"
-#include "Item.h"
+
 #define DHIT 6
 
 //コンストラクタ

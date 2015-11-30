@@ -284,7 +284,7 @@ void Collision::CheckCollisionItemAndCharactor()
 							chara->AddFireLevel();
 							break;
 						case Item::SPEED:
-							chara->AddMV();
+							chara->SetMv();
 							break;
 						default:
 							break;

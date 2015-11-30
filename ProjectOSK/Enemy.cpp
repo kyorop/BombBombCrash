@@ -8,6 +8,23 @@
 #include "Timer.h"
 
 
+bool Enemy::PutBomb()
+{
+	if (bombSet == 1)
+	{
+		bombSet = 0;
+		return 1;
+	}
+	else
+		return 0;
+}
+
+void Enemy::Update()
+{
+	Move();
+	PutBomb();
+}
+
 Enemy::Enemy(int x, int y)
 	:image_left(Image::GetInstance()->GetCharacterImage(id, Image::LEFT)),
 	image_right(Image::GetInstance()->GetCharacterImage(id, Image::RIGHT)),
@@ -123,18 +140,7 @@ void Enemy::Draw(void)
 	}
 }
 
-int Enemy::EnableBomb(void)const
-{
-	if(bombSet == 1)
-	{
-		bombSet = 0;
-		return 1;
-	}
-	else 
-		return 0;
-}
-
-void Enemy::AddMV()
+void Enemy::SetMv()
 {
 	if(mv < 4)
 	{

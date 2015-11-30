@@ -4,7 +4,6 @@
 #include "Image.h"
 #include "Sound.h"
 #include "ExplosionManager.h"
-#define BOMBEXISTTIME 2500
 #define DHIT 5
 #define KBHABA 16
 
@@ -62,7 +61,7 @@ void Bomb::Maintain()
 		time.TurnReset();
 	else
 	{
-		if(time.CountDownFrame(BOMBEXISTTIME) == true)//ŽO•b‚½‚Á‚½‚ç
+		if(time.CountDownFrame(bombExistTime))//ŽO•b‚½‚Á‚½‚ç
 		{
 			flag = 0;
 			soundOn = 1;

@@ -6,6 +6,7 @@
 #include "Timer.h"
 #include "GameConstant.h"
 #include "KeyboardPlayerInput.h"
+#include "BombSetManager.h"
 
 
 enum
@@ -27,7 +28,8 @@ Player::Player(KeyState device)
 	animationTime(new Timer),
 	animationFrame(0),
 	isJoypad(device),
-	input(new KeyboardPlayerInput())
+	input(new KeyboardPlayerInput()),
+	bomb(std::make_unique<BombSetManager>())
 {
 	x = 32*2;
 	rx = x+32;
@@ -102,43 +104,6 @@ void Player::Move()
 			if(input->GetInputMoveRight())
 				this->x += mv;
 		}
-		//		else
-//		{
-//			int inputState = GetJoypadInputState(DX_INPUT_PAD1);
-//			int up = inputState & PAD_INPUT_UP;
-//			int down = inputState & PAD_INPUT_DOWN;
-//			int left = inputState & PAD_INPUT_LEFT;
-//			int right = inputState & PAD_INPUT_RIGHT;
-//
-//			if( left && (down == 0) && (up == 0) && (right== 0))
-//			{
-//				this->x -=	mv;
-//				this->muki = LEFT;
-//				if(up)this->y -= mv;
-//				if(down)this->y += mv;
-//			}	
-//			else if( right && (down == 0) && (up == 0))	
-//			{
-//				this->x += mv;
-//				this->muki = RIGHT;
-//				if(up)this->y -= mv;			
-//				if(down)this->y += mv;
-//			}			
-//			else if(up  && (down == 0))
-//			{
-//				this->y	-=	mv;
-//				this->muki = UP; 
-//				if(left) this->x -= mv;
-//				if(right) this->x += mv;
-//			}				
-//			else if(down)
-//			{
-//				this->y	+=	mv;
-//				this->muki = DOWN; 
-//				if(left) this->x -= mv;
-//				if(right) this->x += mv;
-//			}
-//		}
 
 		//if(CheckHitKey(KEY_INPUT_BACKSLASH)==1)
 		//{
@@ -284,10 +249,18 @@ void Player::Draw()
 			DxLib::DrawGraph(x, y, image_death[animationFrame], true);
 		}
 	}
+
+	bomb->Draw();
 }
 
+void Player::Update()
+{
+	Move();
+	PutBomb();
+	bomb->Update();
+}
 
-void Player::AddMV(void)
+void Player::SetMv(void)
 {
 	//スピードの上限は４まで
 	if(mv < 4)
@@ -296,11 +269,11 @@ void Player::AddMV(void)
 	}
 }
 
-
-int Player::EnableBomb()const
+bool Player::PutBomb()
 {
 	if (input->GetInputPutBomb())
-		return 1;
-	
-	return 0;
+	{
+		bomb->Set(GetX(), GetY());
+	}
+	return true;
 }

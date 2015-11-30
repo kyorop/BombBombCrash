@@ -2,7 +2,6 @@
 #include "Charactor.h"
 #include "Player.h"
 #include "BombManager.h"
-#include "BlastManager.h"
 #include "BombSetManager.h"
 
 CharacterSet::CharacterSet(Charactor *pCharacter):
@@ -36,10 +35,10 @@ void CharacterSet::UpdateNumber()
 
 void CharacterSet::Set()
 {
-	if(character->EnableBomb() == 1)//z‚ª‰Ÿ‚³‚ê‚½
-	{
-		bomb->Set(character->GetX(), character->GetY());
-	}
+//	if(character->PutBomb() == 1)//z‚ª‰Ÿ‚³‚ê‚½
+//	{
+//		bomb->Set(character->GetX(), character->GetY());
+//	}
 }
 
 void CharacterSet::Draw()
@@ -56,5 +55,4 @@ void CharacterSet::Update()
 	character->Register();
 	bomb->Update();
 	Set();
-	
 }

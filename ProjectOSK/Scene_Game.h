@@ -3,6 +3,7 @@
 #include <vector>
 
 
+class Charactor;
 class GameField;
 class CharacterSet;
 class Timer;
@@ -12,8 +13,8 @@ class Scene_Game
 {
 private:
 	GameField *gameScreen;
-	CharacterSet *player;
-	CharacterSet* player2;
+	Charactor *player;
+	Charactor* player2;
 	std::vector<CharacterSet*> enemy;
 	Timer* timer;
 	Timer* winTimer;

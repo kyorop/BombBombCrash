@@ -1,23 +1,17 @@
 #include "ExplosionManager.h"
 #include "Explosion.h"
 #include "Bomb.h"
-#include "Player.h"
-#include "Charactor.h"
-#include "MapObstacle.h"
-#include "ItemManager.h"
-#include "BombManager.h"
-#include "Item.h"
 #include "MapState.h"
 #include "Collision.h"
 #include "Image.h"
 
-ExplosionManager::ExplosionManager():
+ExplosionManager::ExplosionManager()
+	:nowFireLevel(1),
 	fuse(0),
 	explosion(0),
-	nowFireLevel(1),
-	vex(),
+	beforeExplosion(),
 	image_fire(Image::GetInstance()->GetImage(Image::FIRE)),
-	beforeExplosion()
+	vex()
 {
 	Collision::GetInstance()->RegisterWithFire(this);
 	Explosion *center = new Explosion(0,0,0,0);
@@ -58,21 +52,9 @@ void ExplosionManager::FireUp()
 	vex.push_back(right);
 }
 
-void ExplosionManager::Ready(int x, int y)
-{
-	if(explosion == 0 && fuse == 0)//爆弾が置かれたら、
-	{
-		fuse = TRUE;//導火線に火がつく
-		for(int i=0,size=vex.size(); i<size; ++i )//すべての火タイルに座標を与える
-		{
-			vex[i]->Set(x, y);
-		}
-	}
-}
-
 void ExplosionManager::Update(const Bomb &bomb)
 {
-	if(bomb.GetFlag() == TRUE && explosion == 0 && fuse == 0)//爆弾が置かれたら、
+	if(bomb.GetFlag() && explosion == 0 && fuse == 0)//爆弾が置かれたら、
 	{
 		fuse = TRUE;//導火線に火がつく
 		for(int i=0,size=vex.size(); i<size; ++i )

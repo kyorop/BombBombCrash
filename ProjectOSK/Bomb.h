@@ -12,6 +12,7 @@ class Bomb: public MapObject, public ISoundPlayer
 {
 private:
 	std::unique_ptr<ExplosionManager> explosion;
+	static const int bombExistTime = 2500;
 protected:
 	int count;
 	Timer time;
