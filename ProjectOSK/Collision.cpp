@@ -5,7 +5,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "MapObject.h"
-#include "ExplosionManager.h"
+#include "Explosion.h"
 #include "Item.h"
 #include "Charactor.h"
 

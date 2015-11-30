@@ -6,7 +6,7 @@
 #include "Timer.h"
 #include "GameConstant.h"
 #include "KeyboardPlayerInput.h"
-#include "BombSetManager.h"
+#include "Bomb.h"
 
 
 enum

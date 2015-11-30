@@ -1,6 +1,5 @@
 #include "Charactor.h"
 #include "MapState.h"
-#include "BombSetManager.h"
 
 int Character::idGenerator;
 

@@ -89,7 +89,6 @@
     <ClCompile Include="AttackOtherCharacter.cpp" />
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="Bomb.cpp" />
-    <ClCompile Include="BombSetManager.cpp" />
     <ClCompile Include="BreakBlock.cpp" />
     <ClCompile Include="Charactor.cpp" />
     <ClCompile Include="Collision.cpp" />
@@ -106,7 +105,6 @@
     <ClCompile Include="IRegister.cpp" />
     <ClCompile Include="Key.cpp" />
     <ClCompile Include="Explosion.cpp" />
-    <ClCompile Include="ExplosionManager.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="KeyboardPlayerInput.cpp" />
@@ -136,7 +134,6 @@
     <ClInclude Include="AttackOtherCharacter.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="Bomb.h" />
-    <ClInclude Include="BombSetManager.h" />
     <ClInclude Include="BreakBlock.h" />
     <ClInclude Include="Charactor.h" />
     <ClInclude Include="Collision.h" />
@@ -162,7 +159,6 @@
     <ClInclude Include="IStateChanger.h" />
     <ClInclude Include="Key.h" />
     <ClInclude Include="Explosion.h" />
-    <ClInclude Include="ExplosionManager.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemManager.h" />
     <ClInclude Include="KeyboardPlayerInput.h" />

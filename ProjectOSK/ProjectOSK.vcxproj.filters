@@ -72,9 +72,6 @@
     <ClCompile Include="Bomb.cpp">
       <Filter>Source\Bomb</Filter>
     </ClCompile>
-    <ClCompile Include="BombSetManager.cpp">
-      <Filter>Source\Bomb</Filter>
-    </ClCompile>
     <ClCompile Include="DangerState.cpp">
       <Filter>Source\GameState</Filter>
     </ClCompile>
@@ -124,9 +121,6 @@
       <Filter>Source\Character</Filter>
     </ClCompile>
     <ClCompile Include="Explosion.cpp">
-      <Filter>Source\Bomb</Filter>
-    </ClCompile>
-    <ClCompile Include="ExplosionManager.cpp">
       <Filter>Source\Bomb</Filter>
     </ClCompile>
     <ClCompile Include="Avoid.cpp">
@@ -204,9 +198,6 @@
     <ClInclude Include="Bomb.h">
       <Filter>Source\Bomb</Filter>
     </ClInclude>
-    <ClInclude Include="BombSetManager.h">
-      <Filter>Source\Bomb</Filter>
-    </ClInclude>
     <ClInclude Include="DangerState.h">
       <Filter>Source\GameState</Filter>
     </ClInclude>
@@ -269,9 +260,6 @@
     </ClInclude>
     <ClInclude Include="Collision.h">
       <Filter>Source\GameState</Filter>
-    </ClInclude>
-    <ClInclude Include="ExplosionManager.h">
-      <Filter>Source\Bomb</Filter>
     </ClInclude>
     <ClInclude Include="Explosion.h">
       <Filter>Source\Bomb</Filter>

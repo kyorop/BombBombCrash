@@ -2,7 +2,6 @@
 #include "MapObject.h"
 #include "ISoundPlayer.h"
 #include "Timer.h"
-#include <memory>
 
 class ExplosionManager;
 class Player;
@@ -33,5 +32,24 @@ public:
 	int EnableToPlaySound()const override;
 	void UpFireLevel() const;
 	void Update();
+};
+
+class BombController
+{
+private:
+	std::vector<std::unique_ptr<Bomb>> bombs;
+	int num_upFireLevel;
+
+public:
+	BombController(void);
+	~BombController(void);
+
+	void Set(int x, int y);
+	void Update(void);
+	void Draw(void);
+	void Increment(void);
+	void IncrementFirepower(void);
+	int BombSize() const;
+	int Firepower();
 };
 
