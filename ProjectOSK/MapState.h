@@ -10,7 +10,7 @@ enum dangerState
 };
 
 class Player;
-class Charactor;
+class Character;
 class Bomb;
 class IGettable;
 class MapState
@@ -41,9 +41,9 @@ private:
 	static const int objects = 6;
 	static const int topic = 2;
 	 int mapState[row][line][objects][topic];
-	 const Charactor* player;
+	 Character* player;
 	 PlayerState* playerInfo;
-	 std::list<const Charactor*> enemy;
+	 std::list<const Character*> enemy;
 	 std::list<const Bomb*> bomb;
 private:
 	MapState(void);
@@ -73,7 +73,7 @@ public:
 	int GetState(int i, int j, int object, int option=0);
 	dangerState GetDangerState(int i , int j);
 
-	void RegisterWithCharacter(const Charactor* pCharacter);
+	void RegisterWithCharacter(Character* pCharacter);
 	void Register(IGettable* anythingGettable);
 	const PlayerState* GetPlayerState(){return playerInfo;}
 	int GetEnemyNum()const{return enemy.size();}

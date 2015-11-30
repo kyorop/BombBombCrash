@@ -6,7 +6,7 @@
 #define MAPSIZE_X 17
 #define MAPSIZE_Y 13
 
-class Charactor;
+class Character;
 class Block
 	:public IDrawable,
 	public IRegister

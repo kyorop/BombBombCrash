@@ -38,7 +38,8 @@ Enemy::Enemy(int x, int y)
 	hitNumSpeedUpItem(1),
 	hasFinished(0),
 	animationTime(new Timer),
-	animationFrame(0)
+	animationFrame(0),
+	speed(1)
 {
 	flag = 1;
 	this->x = x;
@@ -67,19 +68,19 @@ void Enemy::Move()
 			break;
 		case GameConst::EnemyAction::UP:
 			this->muki = GameConst::EnemyAction::UP;
-			this->y -= this->mv;
+			this->y -= this->speed;
 			break;
 		case GameConst::EnemyAction::DOWN:
 			this->muki = GameConst::EnemyAction::DOWN;
-			this->y += this->mv;
+			this->y += this->speed;
 			break;
 		case GameConst::EnemyAction::LEFT:
 			this->muki = GameConst::EnemyAction::LEFT;
-			this->x -= this->mv;
+			this->x -= this->speed;
 			break;
 		case GameConst::EnemyAction::RIGHT:
 			this->muki = GameConst::EnemyAction::RIGHT;
-			this->x += this->mv;
+			this->x += this->speed;
 			break;
 		case GameConst::EnemyAction::BOMBSET:
 			this->bombSet = 1;
@@ -140,14 +141,14 @@ void Enemy::Draw(void)
 	}
 }
 
-void Enemy::SetMv()
+void Enemy::IncrementSpeed()
 {
-	if(mv < 4)
+	if(speed < 4)
 	{
 		++hitNumSpeedUpItem;
-		if(32%(mv+1) == 0)
-			++mv;
+		if(32%(speed+1) == 0)
+			++speed;
 		else if(32%hitNumSpeedUpItem == 0)
-			mv = hitNumSpeedUpItem;
+			speed = hitNumSpeedUpItem;
 	}
 }

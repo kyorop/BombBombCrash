@@ -7,7 +7,7 @@
 class ExplosionManager;
 class Player;
 class Map;
-class Charactor;
+class Character;
 class Bomb: public MapObject, public ISoundPlayer
 {
 private:

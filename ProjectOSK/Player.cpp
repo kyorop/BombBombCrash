@@ -29,7 +29,8 @@ Player::Player(KeyState device)
 	animationFrame(0),
 	isJoypad(device),
 	input(new KeyboardPlayerInput()),
-	bomb(std::make_unique<BombSetManager>())
+	bomb(std::make_unique<BombController>()),
+	speed(1)
 {
 	x = 32*2;
 	rx = x+32;
@@ -43,9 +44,7 @@ Player::Player(KeyState device)
 	//隠しコマンド
 	if(SecretCommand::HittedSecretCommand())
 	{
-		bombNum = 10;
-		fireLevel = 10;
-		mv = 4;
+		speed = 4;
 	}
 
 	if(isJoypad == JOYPAD)
@@ -68,41 +67,41 @@ void Player::Move()
 	{
 		if(input->GetInputMoveLeft() && ! input->GetInputMoveDown() && input->GetInputMoveUp() == 0 && input->GetInputMoveRight() == 0)
 		{
-			this->x -=	mv;
+			this->x -=	speed;
 			this->muki = LEFT;
 			if(input->GetInputMoveUp() )
-				this->y -= mv;			
+				this->y -= speed;			
 			if(input->GetInputMoveDown())
-				this->y += mv;
+				this->y += speed;
 		}	
 		else if(input->GetInputMoveRight() && input->GetInputMoveDown() == 0 && input->GetInputMoveUp() == 0)	
 		{
-			this->x += mv;
+			this->x += speed;
 			this->muki = RIGHT;
 			if(input->GetInputMoveUp())
-				this->y -= mv;			
+				this->y -= speed;			
 			if(input->GetInputMoveDown())
-				this->y += mv;
+				this->y += speed;
 		
 		}			
 		else if(input->GetInputMoveUp()  && input->GetInputMoveDown() == 0)
 		{
-			this->y	-=	mv;
+			this->y	-=	speed;
 			this->muki = UP; 
 			if(input->GetInputMoveLeft())
-				this->x -= mv;
+				this->x -= speed;
 			if(input->GetInputMoveRight()) 
-				this->x += mv;
+				this->x += speed;
 		
 		}				
 		else if(input->GetInputMoveDown())
 		{
-			this->y	+=	mv;
+			this->y	+=	speed;
 			this->muki = DOWN; 
 			if(input->GetInputMoveLeft()) 
-				this->x -= mv;
+				this->x -= speed;
 			if(input->GetInputMoveRight())
-				this->x += mv;
+				this->x += speed;
 		}
 
 		//if(CheckHitKey(KEY_INPUT_BACKSLASH)==1)
@@ -177,6 +176,7 @@ void Player::Move()
 
 void Player::Draw()
 {
+	bomb->Draw();
 	if(flag)
 	{
 		int image;
@@ -249,8 +249,6 @@ void Player::Draw()
 			DxLib::DrawGraph(x, y, image_death[animationFrame], true);
 		}
 	}
-
-	bomb->Draw();
 }
 
 void Player::Update()
@@ -260,13 +258,38 @@ void Player::Update()
 	bomb->Update();
 }
 
-void Player::SetMv(void)
+void Player::IncrementSpeed(void)
 {
 	//スピードの上限は４まで
-	if(mv < 4)
+	if(speed < 4)
 	{
-		++mv;
+		++speed;
 	}
+}
+
+int Player::Speed()
+{
+	return speed;
+}
+
+int Player::BombSize()
+{
+	return bomb->BombSize();
+}
+
+int Player::Firepower()
+{
+	return bomb->Firepower();
+}
+
+void Player::IncrementBomb()
+{
+	bomb->Increment();
+}
+
+void Player::IncrementFirepower()
+{
+	bomb->IncrementFirepower();
 }
 
 bool Player::PutBomb()

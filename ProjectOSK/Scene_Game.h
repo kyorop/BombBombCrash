@@ -3,9 +3,8 @@
 #include <vector>
 
 
-class Charactor;
+class Character;
 class GameField;
-class CharacterSet;
 class Timer;
 class GameEffect;
 class Scene_Game
@@ -13,9 +12,8 @@ class Scene_Game
 {
 private:
 	GameField *gameScreen;
-	Charactor *player;
-	Charactor* player2;
-	std::vector<CharacterSet*> enemy;
+	Character *player;
+	std::vector<Character*> enemy;
 	Timer* timer;
 	Timer* winTimer;
 	Timer* loseTimer;
@@ -36,7 +34,7 @@ public:
 
 //**------------------------------------------------------------
 
-class BombSetManager;
+class BombController;
 class GameEffect
 {
 private:
@@ -45,7 +43,7 @@ private:
 	const int white;
 	const int x;
 	const int y;
-	BombSetManager* bomb;
+	BombController* bomb;
 public:
 	GameEffect(void);
 	~GameEffect(void);

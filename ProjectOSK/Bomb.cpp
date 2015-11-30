@@ -119,7 +119,7 @@ void Bomb::UpFireLevel() const
 void Bomb::Update()
 {
 	Maintain();
-	SetFireLevel(explosion->GetFireLevel());
+	SetFireLevel(explosion->Firepower());
 	explosion->Update(*this);
 	explosion->Register();
 }

@@ -1,19 +1,13 @@
-#include "Collision.h"
+ï»¿#include "Collision.h"
 #include "ICollisionable.h"
-#include "PlayerBomb.h"
-#include "EnemyBomb.h"
 #include "Bomb.h"
 #include "MapObstacle.h"
 #include "Player.h"
 #include "Enemy.h"
 #include "MapObject.h"
-#include "Map.h"
-#include "Explosion.h"
 #include "ExplosionManager.h"
 #include "Item.h"
 #include "Charactor.h"
-#include <typeinfo.h>
-
 
 
 Collision::Collision(void)
@@ -107,47 +101,47 @@ void Collision::CheckEnableToPass()
 	{
 		for (int ib = 0,size=disableGoingThrough.size(); ib < size; ib++)
 		{
-			// ©
-			if( (disableGoingThrough[ib]->GetRX()-degreeOfHit <= character[ic]->GetX() && character[ic]->GetX() <= disableGoingThrough[ib]->GetRX()) && (disableGoingThrough[ib]->GetY()+degreeOfHit <= character[ic]->GetY() && character[ic]->GetY() < disableGoingThrough[ib]->GetDY()-degreeOfHit) && disableGoingThrough[ib]->GetFlag() == TRUE)character[ic]->SetX(disableGoingThrough[ib]->GetX() + 32);//“r’†
-			if( (disableGoingThrough[ib]->GetRX()-degreeOfHit <= character[ic]->GetX() && character[ic]->GetX() <= disableGoingThrough[ib]->GetRX()) && (disableGoingThrough[ib]->GetY()+degreeOfHit <= character[ic]->GetDY() && character[ic]->GetDY() < disableGoingThrough[ib]->GetDY()-degreeOfHit) && disableGoingThrough[ib]->GetFlag() == TRUE)character[ic]->SetX(disableGoingThrough[ib]->GetX() + 32);//ã‚¢‚Á‚½
+			//ï¿½ï¿½ï¿½ï¿½
+			if( (disableGoingThrough[ib]->GetRX()-degreeOfHit <= character[ic]->GetX() && character[ic]->GetX() <= disableGoingThrough[ib]->GetRX()) && (disableGoingThrough[ib]->GetY()+degreeOfHit <= character[ic]->GetY() && character[ic]->GetY() < disableGoingThrough[ib]->GetDY()-degreeOfHit) && disableGoingThrough[ib]->GetFlag() == TRUE)character[ic]->SetX(disableGoingThrough[ib]->GetX() + 32);//ï¿½rï¿½ï¿½
+			if( (disableGoingThrough[ib]->GetRX()-degreeOfHit <= character[ic]->GetX() && character[ic]->GetX() <= disableGoingThrough[ib]->GetRX()) && (disableGoingThrough[ib]->GetY()+degreeOfHit <= character[ic]->GetDY() && character[ic]->GetDY() < disableGoingThrough[ib]->GetDY()-degreeOfHit) && disableGoingThrough[ib]->GetFlag() == TRUE)character[ic]->SetX(disableGoingThrough[ib]->GetX() + 32);//ï¿½ã‚¢ï¿½ï¿½ï¿½ï¿½
 	
-			//¨ 
-			if((disableGoingThrough[ib]->GetX() <= character[ic]->GetRX() && character[ic]->GetRX() <= disableGoingThrough[ib]->GetX()+degreeOfHit) && (disableGoingThrough[ib]->GetY()+degreeOfHit <= character[ic]->GetY() && character[ic]->GetY() <= disableGoingThrough[ib]->GetDY()-degreeOfHit) && disableGoingThrough[ib]->GetFlag() == 1)character[ic]->SetX(disableGoingThrough[ib]->GetX()- 32);//“r’†
-			if((disableGoingThrough[ib]->GetX() <= character[ic]->GetRX() && character[ic]->GetRX() <= disableGoingThrough[ib]->GetX()+degreeOfHit) && (disableGoingThrough[ib]->GetY()+degreeOfHit <=character[ic]->GetDY() && character[ic]->GetDY() <= disableGoingThrough[ib]->GetDY()-degreeOfHit) && disableGoingThrough[ib]->GetFlag() == 1)character[ic]->SetX(disableGoingThrough[ib]->GetX() - 32);//ã‚¢‚Á‚½
+			//ï¿½ï¿½ï¿½ï¿½
+			if((disableGoingThrough[ib]->GetX() <= character[ic]->GetRX() && character[ic]->GetRX() <= disableGoingThrough[ib]->GetX()+degreeOfHit) && (disableGoingThrough[ib]->GetY()+degreeOfHit <= character[ic]->GetY() && character[ic]->GetY() <= disableGoingThrough[ib]->GetDY()-degreeOfHit) && disableGoingThrough[ib]->GetFlag() == 1)character[ic]->SetX(disableGoingThrough[ib]->GetX()- 32);//ï¿½rï¿½ï¿½
+			if((disableGoingThrough[ib]->GetX() <= character[ic]->GetRX() && character[ic]->GetRX() <= disableGoingThrough[ib]->GetX()+degreeOfHit) && (disableGoingThrough[ib]->GetY()+degreeOfHit <=character[ic]->GetDY() && character[ic]->GetDY() <= disableGoingThrough[ib]->GetDY()-degreeOfHit) && disableGoingThrough[ib]->GetFlag() == 1)character[ic]->SetX(disableGoingThrough[ib]->GetX() - 32);//ï¿½ã‚¢ï¿½ï¿½ï¿½ï¿½
 
-			// 
-			//ª
-			if( (disableGoingThrough[ib]->GetDY()-degreeOfHit < character[ic]->GetY() && character[ic]->GetY() <= disableGoingThrough[ib]->GetDY()) && (disableGoingThrough[ib]->GetX()+degreeOfHit <= character[ic]->GetX() && character[ic]->GetX() < disableGoingThrough[ib]->GetRX()-degreeOfHit) && disableGoingThrough[ib]->GetFlag() == TRUE)character[ic]->SetY(disableGoingThrough[ib]->GetDY());//¶s‚­
-			if( (disableGoingThrough[ib]->GetDY()-degreeOfHit < character[ic]->GetY() && character[ic]->GetY() <= disableGoingThrough[ib]->GetDY()) && (disableGoingThrough[ib]->GetX()+degreeOfHit <= character[ic]->GetRX() && character[ic]->GetRX() < disableGoingThrough[ib]->GetRX()-degreeOfHit) && disableGoingThrough[ib]->GetFlag() == TRUE)character[ic]->SetY(disableGoingThrough[ib]->GetDY());//‰Es‚­
+			//ï¿½ï¿½
+			//ï¿½ï¿½
+			if( (disableGoingThrough[ib]->GetDY()-degreeOfHit < character[ic]->GetY() && character[ic]->GetY() <= disableGoingThrough[ib]->GetDY()) && (disableGoingThrough[ib]->GetX()+degreeOfHit <= character[ic]->GetX() && character[ic]->GetX() < disableGoingThrough[ib]->GetRX()-degreeOfHit) && disableGoingThrough[ib]->GetFlag() == TRUE)character[ic]->SetY(disableGoingThrough[ib]->GetDY());//ï¿½ï¿½ï¿½sï¿½ï¿½
+			if( (disableGoingThrough[ib]->GetDY()-degreeOfHit < character[ic]->GetY() && character[ic]->GetY() <= disableGoingThrough[ib]->GetDY()) && (disableGoingThrough[ib]->GetX()+degreeOfHit <= character[ic]->GetRX() && character[ic]->GetRX() < disableGoingThrough[ib]->GetRX()-degreeOfHit) && disableGoingThrough[ib]->GetFlag() == TRUE)character[ic]->SetY(disableGoingThrough[ib]->GetDY());//ï¿½Eï¿½sï¿½ï¿½
 
-			//«
-			// 
-			if( (disableGoingThrough[ib]->GetY()< character[ic]->GetDY() && character[ic]->GetDY() <= disableGoingThrough[ib]->GetY()+degreeOfHit) && (disableGoingThrough[ib]->GetX()+degreeOfHit <= character[ic]->GetX() && character[ic]->GetX() < disableGoingThrough[ib]->GetRX()-degreeOfHit) && disableGoingThrough[ib]->GetFlag() == TRUE)character[ic]->SetY(disableGoingThrough[ib]->GetY()-32);//¶s‚­
-			if( (disableGoingThrough[ib]->GetY() < character[ic]->GetDY() && character[ic]->GetDY() <= disableGoingThrough[ib]->GetY()+degreeOfHit) && (disableGoingThrough[ib]->GetX()+degreeOfHit <= character[ic]->GetRX() && character[ic]->GetRX() < disableGoingThrough[ib]->GetRX()-degreeOfHit) && disableGoingThrough[ib]->GetFlag()== TRUE)character[ic]->SetY(disableGoingThrough[ib]->GetY()-32);//‰Es‚­
+			//ï¿½ï¿½
+			//ï¿½ï¿½
+			if( (disableGoingThrough[ib]->GetY()< character[ic]->GetDY() && character[ic]->GetDY() <= disableGoingThrough[ib]->GetY()+degreeOfHit) && (disableGoingThrough[ib]->GetX()+degreeOfHit <= character[ic]->GetX() && character[ic]->GetX() < disableGoingThrough[ib]->GetRX()-degreeOfHit) && disableGoingThrough[ib]->GetFlag() == TRUE)character[ic]->SetY(disableGoingThrough[ib]->GetY()-32);//ï¿½ï¿½ï¿½sï¿½ï¿½
+			if( (disableGoingThrough[ib]->GetY() < character[ic]->GetDY() && character[ic]->GetDY() <= disableGoingThrough[ib]->GetY()+degreeOfHit) && (disableGoingThrough[ib]->GetX()+degreeOfHit <= character[ic]->GetRX() && character[ic]->GetRX() < disableGoingThrough[ib]->GetRX()-degreeOfHit) && disableGoingThrough[ib]->GetFlag()== TRUE)character[ic]->SetY(disableGoingThrough[ib]->GetY()-32);//ï¿½Eï¿½sï¿½ï¿½
 
-			//^¶
+			//ï¿½^ï¿½ï¿½
 			if( (disableGoingThrough[ib]->GetY() <= character[ic]->GetY() && character[ic]->GetY() < disableGoingThrough[ib]->GetY()+degreeOfHit) && (disableGoingThrough[ib]->GetRX()-degreeOfHit < character[ic]->GetX() && character[ic]->GetX() <= disableGoingThrough[ib]->GetRX()) && disableGoingThrough[ib]->GetFlag() == TRUE)character[ic]->SetX(disableGoingThrough[ib]->GetX() + 32);
 			if( (disableGoingThrough[ib]->GetDY()-degreeOfHit <= character[ic]->GetDY() && character[ic]->GetDY() <= disableGoingThrough[ib]->GetDY()) && (disableGoingThrough[ib]->GetRX()-degreeOfHit < character[ic]->GetX() && character[ic]->GetX() <= disableGoingThrough[ib]->GetRX()) && disableGoingThrough[ib]->GetFlag() == TRUE )character[ic]->SetX(disableGoingThrough[ib]->GetX() + 32);
 
-			//^‰E
+			//ï¿½^ï¿½E
 			if( (disableGoingThrough[ib]->GetY() <= character[ic]->GetY() && character[ic]->GetY() < disableGoingThrough[ib]->GetY()+degreeOfHit) && (disableGoingThrough[ib]->GetX() <= character[ic]->GetRX() && character[ic]->GetRX() < disableGoingThrough[ib]->GetX()+degreeOfHit) && disableGoingThrough[ib]->GetFlag() == TRUE)character[ic]->SetX(disableGoingThrough[ib]->GetX()- 32);
 			if( (disableGoingThrough[ib]->GetDY()-degreeOfHit <= character[ic]->GetDY() && character[ic]->GetDY() <= disableGoingThrough[ib]->GetDY()) && (disableGoingThrough[ib]->GetX() <= character[ic]->GetRX() && character[ic]->GetRX() < disableGoingThrough[ib]->GetX()+degreeOfHit) && disableGoingThrough[ib]->GetFlag() == TRUE)character[ic]->SetX(disableGoingThrough[ib]->GetX() - 32);
 
-			//^ã
+			//ï¿½^ï¿½ï¿½
 			if( (disableGoingThrough[ib]->GetX() <= character[ic]->GetX() && character[ic]->GetX() < disableGoingThrough[ib]->GetX()+degreeOfHit) && (disableGoingThrough[ib]->GetDY()-degreeOfHit < character[ic]->GetY() && character[ic]->GetY() <= disableGoingThrough[ib]->GetDY()) && disableGoingThrough[ib]->GetFlag() == TRUE)character[ic]->SetY(disableGoingThrough[ib]->GetDY());
 			if( (disableGoingThrough[ib]->GetRX()-degreeOfHit <= character[ic]->GetRX() && character[ic]->GetRX() <= disableGoingThrough[ib]->GetRX()) && (disableGoingThrough[ib]->GetDY()-degreeOfHit < character[ic]->GetY() && character[ic]->GetY() <= disableGoingThrough[ib]->GetDY()) && disableGoingThrough[ib]->GetFlag() == TRUE)character[ic]->SetY(disableGoingThrough[ib]->GetDY());
 
-			//^‰º
+			//ï¿½^ï¿½ï¿½
 			if( (disableGoingThrough[ib]->GetX() <= character[ic]->GetX() && character[ic]->GetX() < disableGoingThrough[ib]->GetX()+degreeOfHit) && (disableGoingThrough[ib]->GetY() < character[ic]->GetDY() && character[ic]->GetDY() <= disableGoingThrough[ib]->GetY()+degreeOfHit) && disableGoingThrough[ib]->GetFlag() == TRUE)character[ic]->SetY(disableGoingThrough[ib]->GetY() - 32);
 			if( (disableGoingThrough[ib]->GetRX()-degreeOfHit <= character[ic]->GetRX() && character[ic]->GetRX() <= disableGoingThrough[ib]->GetRX()) && (disableGoingThrough[ib]->GetY() < character[ic]->GetDY() && character[ic]->GetDY() <= disableGoingThrough[ib]->GetY()+degreeOfHit) && disableGoingThrough[ib]->GetFlag() == TRUE)character[ic]->SetY(disableGoingThrough[ib]->GetY() - 32);
 
-			//•Ç‚Ì¶ãŠp
+			//ï¿½Ç‚Ìï¿½ï¿½ï¿½p
 			if( (disableGoingThrough[ib]->GetX()+degreeOfHit < character[ic]->GetRX() && character[ic]->GetRX() < disableGoingThrough[ib]->GetX()+haba) && (disableGoingThrough[ib]->GetY()+degreeOfHit < character[ic]->GetDY() && character[ic]->GetDY() < disableGoingThrough[ib]->GetY()+haba) && disableGoingThrough[ib]->GetFlag() == 1)character[ic]->SetX(disableGoingThrough[ib]->GetX()-32/*+degreeOfHit-character[ic]->GetMV()*/);
-			//•Ç‚Ì‰EãŠp
+			//ï¿½Ç‚Ì‰Eï¿½ï¿½p
 			if( (disableGoingThrough[ib]->GetRX()-haba < character[ic]->GetX() && character[ic]->GetX() < disableGoingThrough[ib]->GetRX()-degreeOfHit) && (disableGoingThrough[ib]->GetY()+degreeOfHit < character[ic]->GetDY() && character[ic]->GetDY() < disableGoingThrough[ib]->GetY()+haba) && disableGoingThrough[ib]->GetFlag() == 1)character[ic]->SetX(disableGoingThrough[ib]->GetRX()/*-degreeOfHit+character[ic]->GetMV()*/);
-			//•Ç‚Ì¶‰ºŠp
+			//ï¿½Ç‚Ìï¿½ï¿½ï¿½ï¿½p
 			if( (disableGoingThrough[ib]->GetX()+degreeOfHit < character[ic]->GetRX() && character[ic]->GetRX() < disableGoingThrough[ib]->GetX()+haba) && (disableGoingThrough[ib]->GetDY()-haba < character[ic]->GetY() && character[ic]->GetY() < disableGoingThrough[ib]->GetDY()-degreeOfHit) && disableGoingThrough[ib]->GetFlag() == 1)character[ic]->SetX(disableGoingThrough[ib]->GetX()-32/*+degreeOfHit-character[ic]->GetMV()*/);
-			//•Ç‚Ì‰E‰ºŠp
+			//ï¿½Ç‚Ì‰Eï¿½ï¿½ï¿½p
 			if( (disableGoingThrough[ib]->GetRX()-haba < character[ic]->GetX() && character[ic]->GetX() < disableGoingThrough[ib]->GetRX()-degreeOfHit) && (disableGoingThrough[ib]->GetDY()-haba < character[ic]->GetY() && character[ic]->GetY() < disableGoingThrough[ib]->GetDY()-degreeOfHit) && disableGoingThrough[ib]->GetFlag() == 1)character[ic]->SetX(disableGoingThrough[ib]->GetRX()/*-degreeOfHit+character[ic]->GetMV()*/);
 	
 		}
@@ -169,12 +163,12 @@ void Collision::CheckCollisionWithFire()
 	std::list<ExplosionManager*>::iterator itrFire;
 	std::list<ICollisionable*>::iterator itrHardBlock;
 	
-	//‚ ‚é”š”­‚ğˆê‚Â’Šo‚·‚é
+	//ï¿½ï¿½ï¿½é”šï¿½ï¿½ï¿½ï¿½ï¿½Â’ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½
 	for (itrFire=fire.begin(); itrFire != fire.end() ; ++itrFire)
 	{
-		for(int k=1; k<=4; ++k)//k‚Í‰ŠúˆÊ’u(’†S‚Ì‰Î‚Ì‚·‚®—×‚Ì‰Î); k‚Í4–{‚Ì”š•—‚ğ‰ñ‚é
+		for(int k=1; k<=4; ++k)//kï¿½Íï¿½ï¿½ï¿½ï¿½Ê’u(ï¿½ï¿½ï¿½Sï¿½Ì‰Î‚Ì‚ï¿½ï¿½ï¿½ï¿½×‚Ì‰ï¿½); kï¿½ï¿½4ï¿½{ï¿½Ì”ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
-			//‰º‚Ìƒ‹[ƒv‚Å,‚ ‚é—ñ‚Ì‰Î‚·‚×‚Ä‚ğƒ‹[ƒv‚·‚é
+			//ï¿½ï¿½ï¿½Ìƒï¿½ï¿½[ï¿½vï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ì‰Î‚ï¿½ï¿½×‚Ä‚ï¿½ï¿½ï¿½[ï¿½vï¿½ï¿½ï¿½ï¿½
 			for (int i = 0, fireSize=((*itrFire)->GetSize()-1)/4; i < fireSize; ++i)
 			{
 				if((*itrFire)->GetFlag(k+4*i) == 1)
@@ -182,26 +176,26 @@ void Collision::CheckCollisionWithFire()
 					int x_fire = (*itrFire)->GetX(k+4*i);
 					int y_fire = (*itrFire)->GetY(k+4*i);
 					
-					//‚ ‚éˆêƒ}ƒX‚Ì‰Î‚É‘Î‚µ‚ÄA‘S‚Ä‚Ìƒn[ƒhƒuƒƒbƒN‚ğ‰ñ‚·
+					//ï¿½ï¿½ï¿½ï¿½ï¿½}ï¿½Xï¿½Ì‰Î‚É‘Î‚ï¿½ï¿½ÄAï¿½Sï¿½Ä‚Ìƒnï¿½[ï¿½hï¿½uï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½
 					for (itrHardBlock = hardBlock.begin(); itrHardBlock != hardBlock.end(); ++itrHardBlock)
 					{
 						int x_hblock = (*itrHardBlock)->GetX();
 						int y_hblock = (*itrHardBlock)->GetY();
 						
-						//ƒn[ƒhƒuƒƒbƒN‚Æ“–‚Á‚½‚ç
+						//ï¿½nï¿½[ï¿½hï¿½uï¿½ï¿½ï¿½bï¿½Nï¿½Æ“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						if(CheckOneUponAnother(x_hblock,y_hblock,x_fire,y_fire, collisionLevelWithFire) == 1)
 						{
 							(*itrFire)->SetFlag(k+4*i, 0);
 							
-							if(i+1 <= fireSize)//ˆê‚Â‚Å‚à“–‚½‚Á‚½‚Ì‚ÅAŸ‚Ìƒ}ƒX‚É‚Ü‚¾‰Î‚ª‚ ‚Á‚½‚ç
+							if(i+1 <= fireSize)//ï¿½ï¿½Â‚Å‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚ÅAï¿½ï¿½ï¿½Ìƒ}ï¿½Xï¿½É‚Ü‚ï¿½ï¿½Î‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							{
-								for (i++; i< fireSize; ++i)//‚»‚êˆÈ~‚·‚×‚ÄÁ‚·
+								for (i++; i< fireSize; ++i)//ï¿½ï¿½ï¿½ï¿½È~ï¿½ï¿½ï¿½×‚Äï¿½ï¿½ï¿½
 								{
 									(*itrFire)->SetFlag(k+4*i, 0);
 								}
 							}
-							break;//‚±‚±‚Åbreak‚·‚ê‚ÎAã‚Å i ‚ğƒ}ƒbƒNƒX‚Ü‚Åƒ‹[ƒv‚µ‚Ä‚µ‚Ü‚Á‚½‚Ì‚Å
-						}			   //Å‰‚Ì i ‚Ìƒ‹[ƒv‚àŸè‚É”²‚¯‚ç‚ê‚é
+							break;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½breakï¿½ï¿½ï¿½ï¿½ÎAï¿½ï¿½ï¿½ i ï¿½ï¿½}ï¿½bï¿½Nï¿½Xï¿½Ü‚Åƒï¿½ï¿½[ï¿½vï¿½ï¿½ï¿½Ä‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½ï¿½Ì‚ï¿½
+						}			   //ï¿½Åï¿½ï¿½ï¿½ i ï¿½Ìƒï¿½ï¿½[ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½É”ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 					}
 				}
 			}
@@ -215,12 +209,12 @@ void Collision::CheckCollisionFireAndFragile()
 	std::list<ExplosionManager*>::iterator itrFire;
 	std::list<ICollisionable*>::iterator itrFragile;
 	
-	//‚ ‚é”š”­‚ğˆê‚Â’Šo‚·‚é
+	//ï¿½ï¿½ï¿½é”šï¿½ï¿½ï¿½ï¿½ï¿½Â’ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½
 	for (itrFire=fire.begin(); itrFire != fire.end() ; ++itrFire)
 	{
-		for(int k=0; k<=4; ++k)//k‚Í‰ŠúˆÊ’u(’†S‚Ì‰Î‚Ì‚·‚®—×‚Ì‰Î); k‚Í4–{‚Ì”š•—‚ğ‰ñ‚é
+		for(int k=0; k<=4; ++k)//kï¿½Íï¿½ï¿½ï¿½ï¿½Ê’u(ï¿½ï¿½ï¿½Sï¿½Ì‰Î‚Ì‚ï¿½ï¿½ï¿½ï¿½×‚Ì‰ï¿½); kï¿½ï¿½4ï¿½{ï¿½Ì”ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
-			//‰º‚Ìƒ‹[ƒv‚Å,‚ ‚é—ñ‚Ì‰Î‚·‚×‚Ä‚ğƒ‹[ƒv‚·‚é
+			//ï¿½ï¿½ï¿½Ìƒï¿½ï¿½[ï¿½vï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ì‰Î‚ï¿½ï¿½×‚Ä‚ï¿½ï¿½ï¿½[ï¿½vï¿½ï¿½ï¿½ï¿½
 			for (int i = 0, fireSize=((*itrFire)->GetSize()-1)/4; i < fireSize; ++i)
 			{
 				if((*itrFire)->GetFlag(k+4*i) == 1)
@@ -228,7 +222,7 @@ void Collision::CheckCollisionFireAndFragile()
 					int x_fire = (*itrFire)->GetX(k+4*i);
 					int y_fire = (*itrFire)->GetY(k+4*i);
 					
-					//‚ ‚éˆêƒ}ƒX‚Ì‰Î‚É‘Î‚µ‚ÄA‘S‚Ä‚Ì‰ó‚ê‚é•¨‚ğ‰ñ‚·
+					//ï¿½ï¿½ï¿½ï¿½ï¿½}ï¿½Xï¿½Ì‰Î‚É‘Î‚ï¿½ï¿½ÄAï¿½Sï¿½Ä‚Ì‰ï¿½ï¿½é•¨ï¿½ï¿½ï¿½
 					for (itrFragile = fragile.begin(); itrFragile != fragile.end(); ++itrFragile)
 					{
 						if((*itrFragile)->GetFlag())
@@ -236,21 +230,21 @@ void Collision::CheckCollisionFireAndFragile()
 							int x_fragile = (*itrFragile)->GetX();
 							int y_fragile = (*itrFragile)->GetY();
 						
-							//‰ó‚ê‚é•¨‚Æ“–‚Á‚½‚ç
+							//ï¿½ï¿½ï¿½é•¨ï¿½Æ“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 							if(CheckOneUponAnother(x_fragile,y_fragile,x_fire,y_fire, collisionLevelWithFire))
 							{
 								(*itrFire)->SetFlag(k+4*i, 0);
 								(*itrFragile)->SetFlag(0);
 							
-								if(i+1 <= fireSize)//ˆê‚Â‚Å‚à“–‚½‚Á‚½‚Ì‚ÅAŸ‚Ìƒ}ƒX‚É‚Ü‚¾‰Î‚ª‚ ‚Á‚½‚ç
+								if(i+1 <= fireSize)//ï¿½ï¿½Â‚Å‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚ÅAï¿½ï¿½ï¿½Ìƒ}ï¿½Xï¿½É‚Ü‚ï¿½ï¿½Î‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 								{
-									for (i++; i< fireSize; ++i)//‚»‚êˆÈ~‚·‚×‚ÄÁ‚·
+									for (i++; i< fireSize; ++i)//ï¿½ï¿½ï¿½ï¿½È~ï¿½ï¿½ï¿½×‚Äï¿½ï¿½ï¿½
 									{
 										(*itrFire)->SetFlag(k+4*i, 0);
 									}
 								}
-								break;//‚±‚±‚Åbreak‚·‚ê‚ÎAã‚Å i ‚ğƒ}ƒbƒNƒX‚Ü‚Åƒ‹[ƒv‚µ‚Ä‚µ‚Ü‚Á‚½‚Ì‚Å
-							}			   //Å‰‚Ì i ‚Ìƒ‹[ƒv‚àŸè‚É”²‚¯‚ç‚ê‚é
+								break;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½breakï¿½ï¿½ï¿½ï¿½ÎAï¿½ï¿½ï¿½ i ï¿½ï¿½}ï¿½bï¿½Nï¿½Xï¿½Ü‚Åƒï¿½ï¿½[ï¿½vï¿½ï¿½ï¿½Ä‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½ï¿½Ì‚ï¿½
+							}			   //ï¿½Åï¿½ï¿½ï¿½ i ï¿½Ìƒï¿½ï¿½[ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½É”ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						}
 					}
 				}
@@ -265,7 +259,7 @@ void Collision::CheckCollisionItemAndCharactor()
 	std::vector<ICollisionable*>::iterator itrCharacter = character.begin();
 	for(itrCharacter; itrCharacter != character.end(); ++itrCharacter)
 	{
-		Charactor *chara = dynamic_cast<Charactor*>(*itrCharacter);
+		Character *chara = dynamic_cast<Character*>(*itrCharacter);
 		if(chara->GetFlag() == 1)
 		{
 			std::list<Item*>::iterator itrItem = item.begin();
@@ -278,13 +272,13 @@ void Collision::CheckCollisionItemAndCharactor()
 						switch ((*itrItem)->GetKind())
 						{
 						case Item::BOMB:
-							chara->AddBombNum();
+							chara->IncrementBomb();
 							break;
 						case Item::FIRE:
-							chara->AddFireLevel();
+							chara->IncrementFirepower();
 							break;
 						case Item::SPEED:
-							chara->SetMv();
+							chara->IncrementSpeed();
 							break;
 						default:
 							break;

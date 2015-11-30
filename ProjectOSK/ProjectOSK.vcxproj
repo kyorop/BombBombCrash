@@ -91,7 +91,6 @@
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="BombSetManager.cpp" />
     <ClCompile Include="BreakBlock.cpp" />
-    <ClCompile Include="CharacterSet.cpp" />
     <ClCompile Include="Charactor.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="DangerState.cpp" />
@@ -139,7 +138,6 @@
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="BombSetManager.h" />
     <ClInclude Include="BreakBlock.h" />
-    <ClInclude Include="CharacterSet.h" />
     <ClInclude Include="Charactor.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="DangerState.h" />

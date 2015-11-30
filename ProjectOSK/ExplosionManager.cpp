@@ -1,4 +1,4 @@
-#include "ExplosionManager.h"
+ï»¿#include "ExplosionManager.h"
 #include "Explosion.h"
 #include "Bomb.h"
 #include "MapState.h"
@@ -20,8 +20,8 @@ ExplosionManager::ExplosionManager()
 	Explosion *left = new Explosion(0,1,0,0);
 	Explosion *right = new Explosion(1,0,0,0);
 
-	//‰Šú‰Î—ÍƒŒƒxƒ‹A’†S‚Æ‚»‚Ìü‚èˆêƒ}ƒX
-	vex.push_back(center);//’†S
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Î—Íƒï¿½ï¿½xï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½Sï¿½Æ‚ï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½}ï¿½X
+	vex.push_back(center);//ï¿½ï¿½ï¿½S
 	vex.push_back(up);
 	vex.push_back(down);
 	vex.push_back(left);
@@ -39,9 +39,9 @@ ExplosionManager::~ExplosionManager(void)
 
 void ExplosionManager::FireUp()
 {
-	++nowFireLevel;//Ÿ‘‚â‚·‚Æ‚«‚ÍAˆêŒÂ—×‚É‘‚â‚·
+	++nowFireLevel;//ï¿½ï¿½ï¿½ï¿½ï¿½â‚·ï¿½Æ‚ï¿½ï¿½ÍAï¿½ï¿½Â—×‚É‘ï¿½ï¿½â‚·
 
-	//ˆê“x‚É4–‡‘‚â‚·(l•û‚ÉL‚ª‚é‚©‚ç)
+	//ï¿½ï¿½xï¿½ï¿½4ï¿½ï¿½ï¿½ï¿½ï¿½â‚·(ï¿½lï¿½ï¿½ï¿½ÉLï¿½ï¿½ï¿½é‚©ï¿½ï¿½)
 	Explosion *up =		new Explosion(0,0,0,nowFireLevel);
 	Explosion *down =	new Explosion(0,0,nowFireLevel,0);
 	Explosion *left =		new Explosion(0,nowFireLevel,0,0);
@@ -54,19 +54,19 @@ void ExplosionManager::FireUp()
 
 void ExplosionManager::Update(const Bomb &bomb)
 {
-	if(bomb.GetFlag() && explosion == 0 && fuse == 0)//”š’e‚ª’u‚©‚ê‚½‚çA
+	if(bomb.GetFlag() && explosion == 0 && fuse == 0)//ï¿½ï¿½ï¿½eï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ê‚½ï¿½ï¿½A
 	{
-		fuse = TRUE;//“±‰Îü‚É‰Î‚ª‚Â‚­
+		fuse = TRUE;//ï¿½ï¿½ï¿½Îï¿½ï¿½É‰Î‚ï¿½ï¿½Â‚ï¿½
 		for(int i=0,size=vex.size(); i<size; ++i )
 		{
 			vex[i]->Set(bomb.GetX(), bomb.GetY());
 		}
 	}
 
-	if(fuse == TRUE && bomb.GetFlag() == FALSE)//“±‰Îü‚É‰Î‚ª‚Â‚¢‚½ƒ{ƒ€‚ªÁ‚¦‚½‚ç
+	if(fuse == TRUE && bomb.GetFlag() == FALSE)//ï¿½ï¿½ï¿½Îï¿½ï¿½É‰Î‚ï¿½ï¿½Â‚ï¿½ï¿½ï¿½ï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		 fuse = FALSE;
-		 explosion = TRUE;//”š”­
+		 explosion = TRUE;//ï¿½ï¿½ï¿½ï¿½
 		 for(int i=0,size=vex.size(); i<size; ++i )
 		{
 			vex[i]->SetExplosion(TRUE);
@@ -154,7 +154,7 @@ int ExplosionManager::GetExplosion(void)
 	return explosion;
 }
 
-int ExplosionManager::GetFireLevel(void)
+int ExplosionManager::Firepower(void)
 {
 	return nowFireLevel;
 }

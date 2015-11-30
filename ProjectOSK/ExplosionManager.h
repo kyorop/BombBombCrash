@@ -7,7 +7,7 @@ class MapObstacle;
 class Player;
 class ItemManager;
 class BombManager;
-class Charactor;
+class Character;
 class Item;
 class ExplosionManager
 {
@@ -40,6 +40,6 @@ public:
 	void SetFuse(int flag);
 	void Register(void);
 	int GetExplosion(void);
-	int GetFireLevel(void);
+	int Firepower(void);
 };
 

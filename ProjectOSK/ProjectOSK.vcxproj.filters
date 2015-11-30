@@ -90,9 +90,6 @@
     <ClCompile Include="ItemManager.cpp">
       <Filter>Source\Map</Filter>
     </ClCompile>
-    <ClCompile Include="CharacterSet.cpp">
-      <Filter>Source\Character</Filter>
-    </ClCompile>
     <ClCompile Include="Charactor.cpp">
       <Filter>Source\Character</Filter>
     </ClCompile>
@@ -233,9 +230,6 @@
     </ClInclude>
     <ClInclude Include="Item.h">
       <Filter>Source\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="CharacterSet.h">
-      <Filter>Source\Character</Filter>
     </ClInclude>
     <ClInclude Include="Charactor.h">
       <Filter>Source\Character</Filter>

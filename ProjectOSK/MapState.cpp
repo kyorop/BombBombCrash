@@ -118,7 +118,7 @@ int MapState::GetState(int i, int j, int object, int option)
 }
 
 
-void MapState::RegisterWithCharacter(const Charactor* pCharactor)
+void MapState::RegisterWithCharacter(Character* pCharactor)
 {
 	const type_info& charaType = typeid(*pCharactor);
 
@@ -143,9 +143,9 @@ void MapState::Update()
 	playerInfo->x = player->GetX();
 	playerInfo->y = player->GetY();
 	playerInfo->flag = player->GetFlag();
-	playerInfo->bombLevel = player->GetBombNum();
-	playerInfo->fireLevel = player->GetFireLevel();
-	playerInfo->speedLevel = player->GetMV();
+	playerInfo->bombLevel = player->BombSize();
+	playerInfo->fireLevel = player->Firepower();
+	playerInfo->speedLevel = player->Speed();
 
 
 	InitOneObject(BOMB);
@@ -178,7 +178,7 @@ void MapState::Update()
 
 	if(!enemy.empty())
 	{
-		std::list<const Charactor*>::iterator itrEnemy = enemy.begin();
+		std::list<const Character*>::iterator itrEnemy = enemy.begin();
 		while (itrEnemy != enemy.end())	
 		{
 			if((*itrEnemy)->GetFlag() == 0)

@@ -1,57 +1,23 @@
 #include "Charactor.h"
-#include "Map.h"
 #include "MapState.h"
+#include "BombSetManager.h"
 
-int Charactor::idGenerator;
+int Character::idGenerator;
 
-Charactor::Charactor(void)
+Character::Character(void)
 	:preX(),
 	preY(),
-	mv(1),
-	bombNum(1),
-	fireLevel(1),
 	id(idGenerator)
 {
 	++idGenerator;
 }
 
-Charactor::~Charactor(void)
+Character::~Character(void)
 {
 	--idGenerator;
 }
 
-
-int Charactor::GetMV(void)const
-{
-	return mv;
-}
-
-
-int Charactor::GetBombNum(void)const
-{
-	return bombNum;
-}
-
-
-int Charactor::GetFireLevel(void)const
-{
-	return fireLevel;
-}
-
-
-void Charactor::AddBombNum(void)
-{
-	++bombNum;
-}
-
-
-void Charactor::AddFireLevel(void)
-{
-	++fireLevel;
-}
-
-
-void Charactor::Register()
+void Character::Register()
 {
 	MapState::GetInstance()->SetCharactorState(this->preX, this->preY, 0);
 	if(this->flag == 1)

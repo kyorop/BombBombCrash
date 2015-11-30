@@ -1,19 +1,19 @@
 #include "BombSetManager.h"
 #include "Bomb.h"
 
-BombSetManager::BombSetManager(void)
+BombController::BombController(void)
 	:num_upFireLevel(0)
 {
 	bombs.push_back(std::make_unique<Bomb>());
 }
 
 
-BombSetManager::~BombSetManager(void)
+BombController::~BombController(void)
 {
 }
 
 
-void BombSetManager::Set(int x, int y)
+void BombController::Set(int x, int y)
 {
 	for(int i = 0, size = bombs.size(); i < size; ++i)
 	{
@@ -34,7 +34,7 @@ void BombSetManager::Set(int x, int y)
 }
 
 
-void BombSetManager::Update(void)
+void BombController::Update(void)
 {
 	for (auto& bomb : bombs)
 	{
@@ -43,7 +43,7 @@ void BombSetManager::Update(void)
 }
 
 
-void BombSetManager::Draw(void)
+void BombController::Draw(void)
 {
 	for (auto& bomb:bombs)
 	{
@@ -52,7 +52,7 @@ void BombSetManager::Draw(void)
 }
 
 
-void BombSetManager::UpNum(void)
+void BombController::Increment(void)
 {
 	auto newBomb = std::make_unique<Bomb>();
 
@@ -64,7 +64,7 @@ void BombSetManager::UpNum(void)
 }
 
 
-void BombSetManager::UpFireLevel(void)
+void BombController::IncrementFirepower(void)
 {
 	for (auto& bomb:bombs)
 	{
@@ -73,7 +73,15 @@ void BombSetManager::UpFireLevel(void)
 	++num_upFireLevel;
 }
 
-
-void BombSetManager::CheckBombOverlap(void)
+int BombController::BombSize() const
 {
+	return bombs.size();
+}
+
+int BombController::Firepower()
+{
+	if (bombs.empty())
+		return 0;
+
+	return bombs[0]->GetFireLevel();
 }

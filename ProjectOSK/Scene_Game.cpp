@@ -1,8 +1,6 @@
 #include "Scene_Game.h"
 #include "GameField.h"
-#include "CharacterSet.h"
 #include "Player.h"
-#include "Enemy.h"
 #include "GameConstant.h"
 #include "MapState.h"
 #include "DangerState.h"
@@ -10,17 +8,11 @@
 #include "Image.h"
 #include "Sound.h"
 #include "ISceneChanger.h"
-#include "Scene_Menu.h"
-#include "Scene_Score.h"
-#include "SceneManger.h"
 #include "Timer.h"
-#include "EnemyAI.h"
-#include "BombSetManager.h"
 
 Scene_Game::Scene_Game()
 	:gameScreen(NULL),
 	player(NULL),
-	player2(),
 	enemy(NULL),
 	gameEffect(NULL)
 {
@@ -66,7 +58,6 @@ void Scene_Game::Initialize()
 	MapState::GetInstance()->Initialize();
 	gameScreen = new GameField();
 	player = new Player(Player::KEYBORAD);
-	player2 = new Player(Player::JOYPAD);
 //	enemy.push_back(new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT,GameConst::FIRST_Y_UP)));
 //	enemy.push_back(new CharacterSet(new Enemy(GameConst::FIRST_X_LEFT, GameConst::FIRST_Y_DOWN)));
 ////	enemy.push_back(new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT, GameConst::FIRST_Y_DOWN)));
@@ -88,7 +79,6 @@ void Scene_Game::Finalize()
 	{
 		delete enemy[i];
 	}
-	delete player2;
 	delete player;
 	delete gameScreen;
 	Sound::GetInstance()->FinalizeForGame();
@@ -106,7 +96,6 @@ void Scene_Game::Update()
 	DangerState::GetInstance()->Update();
 	gameScreen->Update();
 	player->Update();
-	player2->Update();
 	for (int i=0,size=enemy.size(); i<size; ++i)
 	{
 		enemy[i]->Update();
@@ -122,7 +111,6 @@ void Scene_Game::Draw()
 {
 	gameScreen->Draw();
 	player->Draw();
-	player2->Draw();
 	for (int i=0,size=enemy.size(); i<size; ++i)
 	{
 		enemy[i]->Draw();
@@ -166,11 +154,11 @@ GameEffect::GameEffect(void)
 	:white(GetColor(255,255,255)),
 	x(32*20),
 	y(32*4)
-//	bomb(new BombSetManager())
+//	bomb(new BombController())
 {
 	for (int i = 0; i < 10; i++)
 	{
-//		bomb->UpNum();
+//		bomb->Add();
 	}	
 	
 }

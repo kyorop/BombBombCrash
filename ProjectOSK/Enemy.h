@@ -10,7 +10,7 @@ class Player;
 class EnemyAI;
 class Timer;
 class Enemy:
-	public Charactor
+	public Character
 {
 protected:
 	bool PutBomb() override;
@@ -32,12 +32,13 @@ private:
 	int hasFinished;
 	Timer* animationTime;
 	int animationFrame;
+	int speed;
 public:
 	Enemy(int x, int y);
 	~Enemy();
 
 	void Move()override;
 	void Draw()override;
-	void SetMv()override;
+	void IncrementSpeed()override;
 };
 

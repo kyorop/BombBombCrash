@@ -6,7 +6,7 @@
 class Item;
 class Block;
 class Player;
-class Charactor;
+class Character;
 class Map;
 class ItemManager:
 	virtual public IDrawable, virtual public IRegister

@@ -6,12 +6,13 @@
 #define MAPSIZE_Y 13
 
 
-class BombSetManager;
+class BombController;
 class IPlayerInput;
 class Timer;
-class Player: public Charactor
+class Player: public Character
 {
 public:
+
 	enum KeyState
 	{
 		KEYBORAD,
@@ -31,8 +32,8 @@ private:
 	int animationFrame;
 	const int isJoypad;
 	std::unique_ptr<IPlayerInput> input;
-	std::unique_ptr<BombSetManager> bomb;
-
+	std::unique_ptr<BombController> bomb;
+	int speed;
 public:
 	explicit Player(KeyState device);
 	~Player();
@@ -40,7 +41,14 @@ public:
 	 void Draw()override;
 	 void Update() override;
 	 void Move()override;
-	 void SetMv()override;
+	 void IncrementSpeed()override;
 	 bool PutBomb() override;
+
+	 int Speed() override;
+	 int BombSize() override;
+	 int Firepower() override;
+	 void IncrementBomb() override;
+	 void IncrementFirepower() override;
+
 };
 

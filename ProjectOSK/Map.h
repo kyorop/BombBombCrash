@@ -4,7 +4,7 @@
 #include "IRegister.h"
 #include "GameConstant.h"
 
-class Charactor;
+class Character;
 class Map
 	:public IDrawable,
 	public IRegister
