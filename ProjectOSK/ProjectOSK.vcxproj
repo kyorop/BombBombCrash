@@ -100,7 +100,6 @@
     <ClCompile Include="GameField.cpp" />
     <ClCompile Include="GetItem.cpp" />
     <ClCompile Include="Graph.cpp" />
-    <ClCompile Include="IDrawable.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="IRegister.cpp" />
     <ClCompile Include="Key.cpp" />

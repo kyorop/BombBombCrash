@@ -150,9 +150,6 @@
     <ClCompile Include="GetItem.cpp">
       <Filter>Source\AI\State</Filter>
     </ClCompile>
-    <ClCompile Include="IDrawable.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -173,9 +170,6 @@
     </ClInclude>
     <ClInclude Include="EnemyAI.h">
       <Filter>Source\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="MapObject.h">
-      <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="Key.h">
       <Filter>Source\Utility</Filter>
@@ -282,12 +276,6 @@
     <ClInclude Include="BreakBlock.h">
       <Filter>Source\AI\State</Filter>
     </ClInclude>
-    <ClInclude Include="IGettable.h">
-      <Filter>Header</Filter>
-    </ClInclude>
-    <ClInclude Include="ISoundPlayer.h">
-      <Filter>Header</Filter>
-    </ClInclude>
     <ClInclude Include="Sound.h">
       <Filter>Source\Resource</Filter>
     </ClInclude>
@@ -312,6 +300,15 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="KeyboardPlayerInput.h">
       <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="MapObject.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="IGettable.h">
+      <Filter>Header\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="ISoundPlayer.h">
+      <Filter>Header\Interface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

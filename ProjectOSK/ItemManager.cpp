@@ -1,11 +1,6 @@
 #include "ItemManager.h"
 #include "Item.h"
 #include "Block.h"
-#include "Player.h"
-#include "Charactor.h"
-#include "MapState.h"
-#include "Collision.h"
-#include "Map.h"
 #include <list>
 
 
@@ -68,17 +63,5 @@ void ItemManager::Draw()
 	for(int i=0; i<ITEMNUM; ++i)
 	{
 			item[i]->Draw();
-	}
-}
-
-
-void ItemManager::Register(void)
-{
-	for(int i=0; i<ITEMNUM; ++i)
-	{
-		if(this->item[i]->GetFlag() == 1)
-			MapState::GetInstance()->SetItemState(this->item[i]->GetX(), this->item[i]->GetY(),1);
-		else if(this->item[i]->GetFlag() == 0)
-			MapState::GetInstance()->SetItemState(this->item[i]->GetX(), this->item[i]->GetY(),0);
 	}
 }

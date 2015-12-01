@@ -1,6 +1,5 @@
 #pragma once
 #include "IDrawable.h"
-#include "IRegister.h"
 #define ITEMNUM 20
 
 class Item;
@@ -9,7 +8,7 @@ class Player;
 class Character;
 class Map;
 class ItemManager:
-	virtual public IDrawable, virtual public IRegister
+	virtual public IDrawable
 {
 private:
 	Item *item[ITEMNUM];
@@ -28,6 +27,5 @@ public:
 	int GetCharactorHitSpeedNum()const;
 	ItemManager(void);
 	~ItemManager(void);
-	void Register(void);
 };
 

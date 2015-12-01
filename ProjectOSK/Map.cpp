@@ -1,10 +1,7 @@
 #include "Map.h"
-#include "Player.h"
-#include "Charactor.h"
 #include "MapState.h"
 #include "Collision.h"
 #include "Image.h"
-#include <cstring>
 #define MAPSIZE_X 17
 #define MAPSIZE_Y 13
 #define DHIT 5
@@ -90,7 +87,7 @@ void Map::Register()
 		{
 			if(map[i][j].GetId() == MapObstacle::HARDBLOCK)
 			{
-				if(map[i][j].GetFlag() == 1)
+				if(map[i][j].GetFlag())
 					MapState::GetInstance()->SetMapState(map[i][j].GetX(), map[i][j].GetY(), 1);
 				else
 					MapState::GetInstance()->SetMapState(map[i][j].GetX(), map[i][j].GetY(), 0);

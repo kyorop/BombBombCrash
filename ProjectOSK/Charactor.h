@@ -1,11 +1,10 @@
 #pragma once
-#include "IRegister.h"
 #include "IDrawable.h"
 #include "MapObject.h"
 
 class BombController;
 class Map;
-class Character:public IRegister,public IDrawable,public MapObject
+class Character:public IDrawable,public MapObject
 {
 private:
 
@@ -32,7 +31,5 @@ public:
 	virtual void Update() = 0;
 	virtual void Draw() override = 0;
 	virtual void Move() = 0;
-	
-	void Register();
 };
 

@@ -84,7 +84,7 @@ void Bomb::SetFlag(int flag)
 void Bomb::Draw()
 {
 	animpat = ( (GetNowCount() & INT_MAX) / (1000 / 12)) % 3;
-	if(flag == 1)
+	if(flag)
 	{
 		SetTransColor(255,255,255);
 		DrawGraph(x, y, image_bomb[animpat], TRUE);
