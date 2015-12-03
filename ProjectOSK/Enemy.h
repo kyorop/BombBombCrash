@@ -1,7 +1,6 @@
 #pragma once
 #include "Charactor.h"
 #include "IDrawable.h"
-#include "IRegister.h"
 
 #define MAPSIZE_X 17
 #define MAPSIZE_Y 13
@@ -9,8 +8,7 @@
 class Player;
 class EnemyAI;
 class Timer;
-class Enemy:
-	public Character
+class Enemy:public Character, public IDrawable
 {
 protected:
 	bool PutBomb() override;

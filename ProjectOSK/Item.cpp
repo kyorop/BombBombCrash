@@ -1,11 +1,6 @@
-
 #include "Item.h"
-#include "Block.h"
-#include "Player.h"
-#include "Charactor.h"
 #include "Collision.h"
 #include "Image.h"
-#include"DxLib.h"
 
 
 Item::Item():
@@ -22,10 +17,8 @@ Item::~Item()
 
 void Item::Draw()
 {
-	if(this->flag == 1)
-	{
+	if(this->exists)
 		DrawGraph(this->x, this->y, image_item,FALSE);
-	}
 }
 
 

@@ -1,20 +1,17 @@
 #pragma once
-#include "IDrawable.h"
 #include "MapObject.h"
 
 class BombController;
 class Map;
-class Character:public IDrawable,public MapObject
+class Character:public MapObject
 {
-private:
-
 protected:
 	int preX;
 	int preY;
 	const int id;
 	static int idGenerator;
-	virtual bool PutBomb() = 0;
 
+	virtual bool PutBomb() = 0;
 
 public:
 	Character(void);
@@ -29,7 +26,6 @@ public:
 	virtual void IncrementFirepower()=0;
 
 	virtual void Update() = 0;
-	virtual void Draw() override = 0;
 	virtual void Move() = 0;
 };
 

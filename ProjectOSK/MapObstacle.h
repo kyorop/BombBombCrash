@@ -1,22 +1,26 @@
 #pragma once
 #include "MapObject.h"
-#include "ICollisionable.h"
 #define MAPSIZE_X 17
 #define MAPSIZE_Y 13
 
-class MapObstacle
-	:public MapObject
+namespace BombBombCrash 
 {
-public:
-	enum{FLOOR, HARDBLOCK, SOFTBLOCK};
-protected:
-	int id;
+	class MapObstacle:public MapObject
+	{
+		int id;
 
-public:
-	MapObstacle(void);
-	virtual ~MapObstacle(void);
+	public:
+		enum
+		{
+			FLOOR, 
+			HARDBLOCK, 
+			SOFTBLOCK
+		};
 
-	int GetId()const;
-	void SetId(int id);
-};
+		explicit MapObstacle(int id);
+		virtual ~MapObstacle();
+
+		int Type()const;
+	};
+}
 

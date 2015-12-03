@@ -2,6 +2,7 @@
 #include "MapState.h"
 #include "Collision.h"
 #include "Image.h"
+#include "IDrawable.h"
 #define MAPSIZE_X 17
 #define MAPSIZE_Y 13
 #define DHIT 5
@@ -46,7 +47,7 @@ Map::Map(void)
 		{
 			map[i][j].SetX(j * 32);
 			map[i][j].SetY(i * 32);
-			if(map[i][j].GetId() == MapObstacle::FLOOR || map[i][j].GetId() == MapObstacle::HARDBLOCK)
+			if(map[i][j].Type() == MapObstacle::FLOOR || map[i][j].Type() == MapObstacle::HARDBLOCK)
 				map[i][j].SetFlag(1);
 		}
 	}
@@ -55,7 +56,7 @@ Map::Map(void)
 	{
 		for(int j=0; j<MAPSIZE_X; ++j)
 		{
-			if(map[i][j].GetId() == 1)
+			if(map[i][j].Type() == 1)
 				Collision::GetInstance()->Register(&map[i][j]);
 		}
 	}
@@ -71,7 +72,7 @@ void Map::Draw()
 	{
 		for(int j=0; j<MAPSIZE_X; j++)
 		{
-			if(map[i][j].GetId() == MapObstacle::FLOOR)
+			if(map[i][j].Type() == MapObstacle::FLOOR)
 				DrawGraph(map[i][j].GetX(), map[i][j].GetY(), image_floor, FALSE);
 			else
 				DrawGraph(map[i][j].GetX(), map[i][j].GetY(), image_hardBlock, FALSE);
@@ -85,9 +86,9 @@ void Map::Register()
 	{
 		for(int j=0; j<MAPSIZE_X; j++)
 		{
-			if(map[i][j].GetId() == MapObstacle::HARDBLOCK)
+			if(map[i][j].Type() == MapObstacle::HARDBLOCK)
 			{
-				if(map[i][j].GetFlag())
+				if(map[i][j].Exists())
 					MapState::GetInstance()->SetMapState(map[i][j].GetX(), map[i][j].GetY(), 1);
 				else
 					MapState::GetInstance()->SetMapState(map[i][j].GetX(), map[i][j].GetY(), 0);
@@ -99,6 +100,3 @@ void Map::Register()
 		}
 	}
 }
-
-
-

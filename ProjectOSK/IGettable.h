@@ -10,6 +10,6 @@ public:
 	virtual int GetRX()const = 0;
 	virtual int GetY()const = 0;
 	virtual int GetDY()const = 0;
-	virtual int GetFlag()const = 0;
+	virtual int Exists()const = 0;
 };
 

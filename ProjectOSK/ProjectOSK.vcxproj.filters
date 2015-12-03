@@ -9,9 +9,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Header\Interface">
-      <UniqueIdentifier>{ce653aa3-d2b8-41a7-a60e-2f196b14a5a5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
@@ -45,6 +42,9 @@
     </Filter>
     <Filter Include="Source\Resource">
       <UniqueIdentifier>{93593741-6d8c-4f41-8b8b-b657625fcb68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interface">
+      <UniqueIdentifier>{ce653aa3-d2b8-41a7-a60e-2f196b14a5a5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -153,15 +153,21 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="MapObject.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="SecretCommand.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="KeyboardPlayerInput.cpp">
       <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawing.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="MapObject.cpp">
+      <Filter>Source\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="MapFactory.cpp">
+      <Filter>Source\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -199,16 +205,16 @@
       <Filter>Source\GameState</Filter>
     </ClInclude>
     <ClInclude Include="ICollisionable.h">
-      <Filter>Header\Interface</Filter>
+      <Filter>Interface</Filter>
     </ClInclude>
     <ClInclude Include="IDrawable.h">
-      <Filter>Header\Interface</Filter>
+      <Filter>Interface</Filter>
     </ClInclude>
     <ClInclude Include="IMediator.h">
-      <Filter>Header\Interface</Filter>
+      <Filter>Interface</Filter>
     </ClInclude>
     <ClInclude Include="IColleague.h">
-      <Filter>Header\Interface</Filter>
+      <Filter>Interface</Filter>
     </ClInclude>
     <ClInclude Include="ItemManager.h">
       <Filter>Source\Map</Filter>
@@ -259,7 +265,7 @@
       <Filter>Source\Bomb</Filter>
     </ClInclude>
     <ClInclude Include="IStateChanger.h">
-      <Filter>Header\Interface</Filter>
+      <Filter>Interface</Filter>
     </ClInclude>
     <ClInclude Include="Avoid.h">
       <Filter>Source\AI\State</Filter>
@@ -295,20 +301,26 @@
       <Filter>Source\AI\State</Filter>
     </ClInclude>
     <ClInclude Include="IPlayerInput.h">
-      <Filter>Header\Interface</Filter>
+      <Filter>Interface</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="KeyboardPlayerInput.h">
-      <Filter>Header</Filter>
-    </ClInclude>
-    <ClInclude Include="MapObject.h">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="IGettable.h">
-      <Filter>Header\Interface</Filter>
+      <Filter>Interface</Filter>
     </ClInclude>
     <ClInclude Include="ISoundPlayer.h">
-      <Filter>Header\Interface</Filter>
+      <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawing.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="MapObject.h">
+      <Filter>Source\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyboardPlayerInput.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="MapFactory.h">
+      <Filter>Source\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

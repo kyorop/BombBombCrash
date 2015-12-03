@@ -28,7 +28,7 @@ Player::Player(KeyState device)
 	animationTime(new Timer),
 	animationFrame(0),
 	isJoypad(device),
-	input(new KeyboardPlayerInput()),
+	input(new BombBombCrash::KeyboardPlayerInput()),
 	bomb(std::make_unique<BombController>()),
 	speed(1)
 {
@@ -37,7 +37,7 @@ Player::Player(KeyState device)
 	y = 32*1;
 	dy = y+32;
 	muki = DOWN;
-	flag =1;
+	exists =1;
 	animpat = 0;
 	MapState::GetInstance()->RegisterWithCharacter(this);
 	Collision::GetInstance()->Register(this);
@@ -63,7 +63,7 @@ Player::~Player(void)
 
 void Player::Move()
 {
-	if(flag)
+	if(exists)
 	{
 		if(input->GetInputMoveLeft() && ! input->GetInputMoveDown() && input->GetInputMoveUp() == 0 && input->GetInputMoveRight() == 0)
 		{
@@ -93,7 +93,7 @@ void Player::Move()
 			if(input->GetInputMoveRight()) 
 				this->x += speed;
 		
-		}				
+		}			
 		else if(input->GetInputMoveDown())
 		{
 			this->y	+=	speed;
@@ -177,7 +177,7 @@ void Player::Move()
 void Player::Draw()
 {
 	bomb->Draw();
-	if(flag)
+	if(exists)
 	{
 		int image;
 		{
@@ -300,3 +300,4 @@ bool Player::PutBomb()
 	}
 	return true;
 }
+

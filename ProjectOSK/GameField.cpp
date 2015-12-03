@@ -9,7 +9,7 @@ GameField::GameField(void)
 	block(new Block )
 {
 	//アイテムの配置
-	item->SetItem(*block);
+	item->Initialize(*block);
 }
 
 GameField::~GameField(void)
@@ -21,6 +21,7 @@ GameField::~GameField(void)
 
 void GameField::Initialize()
 {
+
 }
 
 void GameField::Update()
@@ -32,6 +33,5 @@ void GameField::Update()
 void GameField::Draw()
 {
 	map->Draw();
-	item->Draw();
 	block->Draw();
 }

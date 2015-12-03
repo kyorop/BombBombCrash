@@ -41,7 +41,7 @@ Enemy::Enemy(int x, int y)
 	animationFrame(0),
 	speed(1)
 {
-	flag = 1;
+	exists = 1;
 	this->x = x;
 	this->y = y;
 	Collision::GetInstance()->Register(this);
@@ -56,7 +56,7 @@ Enemy::~Enemy(void)
 
 void Enemy::Move()
 {
-	if(flag == 1)
+	if(exists == 1)
 	{
 		AI->Analyse(*this);
 
@@ -104,7 +104,7 @@ void Enemy::Move()
 
 void Enemy::Draw(void)
 {
-	if(this->flag == 1)
+	if(this->exists == 1)
 	{
 		if(stop == 1)
 		{

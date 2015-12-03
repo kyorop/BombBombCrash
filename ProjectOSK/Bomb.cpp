@@ -4,9 +4,18 @@
 #include "Image.h"
 #include "Sound.h"
 #include "Explosion.h"
+#include "Drawing.h"
+#include "IDrawable.h"
 #define DHIT 5
 #define KBHABA 16
 
+std::shared_ptr<Bomb> Bomb::Create()
+{
+	auto bomb = std::shared_ptr<Bomb>(new Bomb);
+	Drawing::Add(bomb);
+	Drawing::Remove(bomb);
+	return bomb;
+}
 
 Bomb::Bomb()
 	:image_bomb(Image::GetInstance()->GetBombImage()),
@@ -15,7 +24,7 @@ Bomb::Bomb()
 	soundOn(0),
 	explosion(std::make_unique<ExplosionManager>())
 {
-	flag = 0;
+	exists = 0;
 	x = 0;
 	y = 0;
 	rx = x+32;
@@ -27,11 +36,12 @@ Bomb::Bomb()
 
 Bomb::~Bomb()
 {
+
 }
 
 void Bomb::Set(int x, int y)
 {
-	if(flag == 0 )
+	if(exists == 0 )
 	{
 		//プレイヤーの重心のいるマス
 		int xMasuNum = (x + x + 32) / 2 / 32;//左から何マス目か
@@ -41,29 +51,29 @@ void Bomb::Set(int x, int y)
 		this->y = 32 * yMasuNum;
 		this->rx = this->x+32;
 		this->dy = this->y+32;
-		flag = 1;
+		exists = 1;
 	}
 }
 
 
 void Bomb::CheckBombOverlap(const Bomb &bomb)
 {
-	if(bomb.GetFlag() == TRUE && this->x == bomb.GetX() && this->y == bomb.GetY())
+	if(bomb.Exists() == TRUE && this->x == bomb.GetX() && this->y == bomb.GetY())
 	{
-		this->flag = 0;
+		this->exists = 0;
 	}
 }
 
 
 void Bomb::Maintain()
 {	
-	if(flag == 0)
+	if(exists == 0)
 		time.TurnReset();
 	else
 	{
 		if(time.CountDownFrame(bombExistTime))//三秒たったら
 		{
-			flag = 0;
+			exists = 0;
 			soundOn = 1;
 		}
 	}
@@ -72,7 +82,7 @@ void Bomb::Maintain()
 
 void Bomb::SetFlag(int flag)
 {
-	this->flag = flag;
+	this->exists = flag;
 	if(flag == FALSE)
 	{
 		this->time.TurnReset();
@@ -84,7 +94,7 @@ void Bomb::SetFlag(int flag)
 void Bomb::Draw()
 {
 	animpat = ( (GetNowCount() & INT_MAX) / (1000 / 12)) % 3;
-	if(flag)
+	if(exists)
 	{
 		SetTransColor(255,255,255);
 		DrawGraph(x, y, image_bomb[animpat], TRUE);
@@ -127,7 +137,7 @@ void Bomb::Update()
 BombController::BombController(void)
 	:num_upFireLevel(0)
 {
-	bombs.push_back(std::make_unique<Bomb>());
+	bombs.push_back(Bomb::Create());
 }
 
 
@@ -145,7 +155,7 @@ void BombController::Set(int x, int y)
 			bombs[i]->Set(x, y);
 			if (i != j)
 			{
-				if (bombs[j]->GetFlag()
+				if (bombs[j]->Exists()
 					&& bombs[j]->GetX() == bombs[i]->GetX()
 					&& bombs[j]->GetY() == bombs[i]->GetY())
 				{
@@ -177,7 +187,7 @@ void BombController::Draw(void)
 
 void BombController::Increment(void)
 {
-	auto newBomb = std::make_unique<Bomb>();
+	auto newBomb = Bomb::Create();
 
 	//他の火力と同じにする
 	for (int i = 0; i < num_upFireLevel; ++i)

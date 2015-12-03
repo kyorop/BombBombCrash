@@ -6,7 +6,7 @@ MapObject::MapObject(void):
 	rx(),
 	y(),
 	dy(),
-	flag()
+	exists()
 {
 }
 
@@ -47,12 +47,12 @@ int MapObject::GetDY()const
 	return dy;
 }
 
-int MapObject::GetFlag()const
+int MapObject::Exists()const
 {
-	return flag;
+	return exists;
 }
 
 void MapObject::SetFlag(int flag)
 {
-	this->flag = flag;
+	this->exists = flag;
 }

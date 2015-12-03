@@ -11,7 +11,7 @@ protected:
 	int rx;
 	int y;
 	int dy;
-	int flag;
+	int exists;
 
 public:
 	MapObject(void);
@@ -23,7 +23,7 @@ public:
 	virtual int GetY()const;
 	virtual void SetY(int y);
 	virtual int GetDY()const;
-	virtual int GetFlag()const;
+	virtual int Exists()const;
 	virtual void SetFlag(int flag);
 
 };

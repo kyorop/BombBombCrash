@@ -2,25 +2,40 @@
 #include "MapObstacle.h"
 #include "IDrawable.h"
 #include "IRegister.h"
-#include "GameConstant.h"
 #define MAPSIZE_X 17
 #define MAPSIZE_Y 13
 
-class Character;
-class Block
-	:public IDrawable,
-	public IRegister
+namespace BombBombCrash
 {
-private:
-	const int image_softBlock;
-	MapObstacle block[GameConst::MAP_ROW][GameConst::MAP_LINE];
-public:
-	Block(void);
-	~Block(void);
+	class Character;
+	class SoftBlock:public MapObstacle, public IDrawable, public IRegister
+	{
+		static int imageHandle;
 
-	void Register();
-	void Draw();
-	//(i,j)がソフトブロックなら１を返す
-	int IsSoftBlock(int i, int j)const;
-};
+	public:
+		SoftBlock(int id, int imageHandle);
+		~SoftBlock();
+
+		void Register() override;
+		void Draw() override;
+	};
+
+	class HardBlock:public MapObstacle, public IDrawable
+	{
+		static int imageHandle;
+	
+	public:
+		HardBlock(int id, int imageHandle);
+
+		void Draw() override;
+	};
+
+	class Floor: public MapObstacle, public IDrawable
+	{
+		static int imageHandle;
+	public:
+		Floor(int id, int imageHandle);
+		void Draw() override;
+	};
+}
 

@@ -89,7 +89,7 @@ void ExplosionManager::FireUp()
 
 void ExplosionManager::Update(const Bomb &bomb)
 {
-	if (bomb.GetFlag() && explosion == 0 && fuse == 0)//���e���u���ꂽ��A
+	if (bomb.Exists() && explosion == 0 && fuse == 0)//���e���u���ꂽ��A
 	{
 		fuse = TRUE;//���ΐ��ɉ΂���
 		for (int i = 0, size = vex.size(); i<size; ++i)
@@ -98,7 +98,7 @@ void ExplosionManager::Update(const Bomb &bomb)
 		}
 	}
 
-	if (fuse == TRUE && bomb.GetFlag() == FALSE)//���ΐ��ɉ΂������{������������
+	if (fuse == TRUE && bomb.Exists() == FALSE)//���ΐ��ɉ΂������{������������
 	{
 		fuse = FALSE;
 		explosion = TRUE;//����

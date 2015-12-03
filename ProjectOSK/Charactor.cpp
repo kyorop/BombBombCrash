@@ -1,6 +1,4 @@
 #include "Charactor.h"
-#include "MapState.h"
-#include "Player.h"
 
 int Character::idGenerator;
 

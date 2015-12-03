@@ -1,21 +1,19 @@
 #include "MapObstacle.h"
 #include "Collision.h"
 
-MapObstacle::MapObstacle(void)
-	:id()
+namespace BombBombCrash
 {
-}
+	MapObstacle::MapObstacle(int id)
+		:id(id)
+	{
+	}
 
-MapObstacle::~MapObstacle(void)
-{
-}
+	MapObstacle::~MapObstacle(void)
+	{
+	}
 
-void MapObstacle::SetId(int id)
-{
-	this->id = id;
-}
-
-int MapObstacle::GetId()const
-{
-	return id;
+	int MapObstacle::Type()const
+	{
+		return id;
+	}
 }

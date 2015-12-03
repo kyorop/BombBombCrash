@@ -2,23 +2,27 @@
 #include "Item.h"
 #include "Block.h"
 #include <list>
+#include "Drawing.h"
 
 
 ItemManager::ItemManager(void)
-	:item()
+	:items()
 {
-	for(int i=0; i<ITEMNUM; i++)
-		item[i] = new Item;
-
+	for (int i = 0; i < itemNum; i++)
+	{
+		auto item = std::make_shared<Item>();
+		items.push_back(item);
+		Drawing::Add(item);
+	}
 }
 
 ItemManager::~ItemManager(void)
 {
-	for(int i=0; i<ITEMNUM; i++)
-		delete item[i];
+	for (auto& item : items)
+		Drawing::Remove(item);
 }
 
-void ItemManager::SetItem(const Block &block)
+void ItemManager::Initialize(const Block &block)
 {
 	std::vector<int> i_block;
 	std::vector<int> j_block;
@@ -36,7 +40,7 @@ void ItemManager::SetItem(const Block &block)
 		}
 	}
 
-	for (int k = 0; k < ITEMNUM; k++)
+	for (int k = 0; k < itemNum; k++)
 	{
 		int m = -1;
 		while(m == -1)
@@ -51,17 +55,10 @@ void ItemManager::SetItem(const Block &block)
 				}
 			}
 		}
-		history.push_back(m);
-		item[k]->SetX(32 * j_block[m]);
-		item[k]->SetY(32 * i_block[m]);
-		item[k]->SetFlag(1);
-	}
-}
 
-void ItemManager::Draw()
-{
-	for(int i=0; i<ITEMNUM; ++i)
-	{
-			item[i]->Draw();
+		history.push_back(m);
+		items[k]->SetX(32 * j_block[m]);
+		items[k]->SetY(32 * i_block[m]);
+		items[k]->SetFlag(1);
 	}
 }

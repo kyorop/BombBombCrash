@@ -110,10 +110,9 @@ void Scene_Game::Update()
 void Scene_Game::Draw()
 {
 	gameScreen->Draw();
-	player->Draw();
 	for (int i=0,size=enemy.size(); i<size; ++i)
 	{
-		enemy[i]->Draw();
+//		enemy[i]->Draw();
 	}
 
 	int black = GetColor(255,255,255);

@@ -1,23 +1,23 @@
 #pragma once
-#include "IDrawable.h"
-#define ITEMNUM 20
+#include "Item.h"
 
 class Item;
 class Block;
 class Player;
 class Character;
 class Map;
-class ItemManager:
-	virtual public IDrawable
+class ItemManager
 {
+public:
+	static const int itemNum = 20;
+
 private:
-	Item *item[ITEMNUM];
+	std::vector<std::shared_ptr<Item>> items;
 
 public:
 
 	Item* GetItemInstance(int index)const;
-	void SetItem(const Block &block);
-	void Draw();
+	void Initialize(const Block &block);
     //void CheckHitCharactor(Charactor *charctor)const;
 	int GetBombState()const;//FALSEのボムアイテム数を返す
 	int GetFireState()const;//FALSEの火力アイテム数を返す

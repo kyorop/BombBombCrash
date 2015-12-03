@@ -75,10 +75,6 @@ void MapState::Finalize()
 	}
 }
 
-
-
-
-
 void MapState::SetMapState(int x, int y, int state, int option)
 {
 	SetState(x, y, MAP, state);
@@ -142,7 +138,7 @@ void MapState::Update()
 {
 	playerInfo->x = player->GetX();
 	playerInfo->y = player->GetY();
-	playerInfo->flag = player->GetFlag();
+	playerInfo->flag = player->Exists();
 	playerInfo->bombLevel = player->BombSize();
 	playerInfo->fireLevel = player->Firepower();
 	playerInfo->speedLevel = player->Speed();
@@ -152,7 +148,7 @@ void MapState::Update()
 //	std::list<const Bomb*>::iterator itr = bomb.begin();
 	for (auto& b : bomb)
 	{
-		if (b->GetFlag())
+		if (b->Exists())
 		{
 			int x_center = (b->GetX() + b->GetX() + 32) / 2;
 			int y_center = (b->GetY() + b->GetY() + 32) / 2;
@@ -181,7 +177,7 @@ void MapState::Update()
 		std::list<const Character*>::iterator itrEnemy = enemy.begin();
 		while (itrEnemy != enemy.end())	
 		{
-			if((*itrEnemy)->GetFlag() == 0)
+			if((*itrEnemy)->Exists() == 0)
 			{
 				itrEnemy = enemy.erase(itrEnemy);
 				if(enemy.empty())

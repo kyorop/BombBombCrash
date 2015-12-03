@@ -8,7 +8,7 @@ public:
 	virtual int GetDY()const = 0;
 	virtual void SetX(int x) = 0;
 	virtual void SetY(int y) = 0;
-	virtual int GetFlag()const = 0;
+	virtual int Exists()const = 0;
 	virtual void SetFlag(int flag) = 0;
 
 	virtual ~ICollisionable(void){};

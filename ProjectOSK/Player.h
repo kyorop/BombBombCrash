@@ -1,6 +1,6 @@
 #pragma once
 #include "Charactor.h"
-#include <memory>
+#include "IDrawable.h"
 
 #define MAPSIZE_X 17
 #define MAPSIZE_Y 13
@@ -9,7 +9,7 @@
 class BombController;
 class IPlayerInput;
 class Timer;
-class Player: public Character
+class Player: public Character, public IDrawable
 {
 public:
 
@@ -34,6 +34,7 @@ private:
 	std::unique_ptr<IPlayerInput> input;
 	std::unique_ptr<BombController> bomb;
 	int speed;
+
 public:
 	explicit Player(KeyState device);
 	~Player();
