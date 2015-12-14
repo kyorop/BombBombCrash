@@ -1,5 +1,6 @@
 #include "Scene_Base.h"
 
+using namespace BombBombCrash;
 
 Scene_Base::Scene_Base()
 	:sceneMrg()

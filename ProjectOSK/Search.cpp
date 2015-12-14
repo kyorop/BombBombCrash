@@ -5,6 +5,8 @@
 #include <stack>
 #include <cstring>
 
+using namespace BombBombCrash;
+
 #define BLOCK(i, p, j, q) MapState::GetInstance()->GetState(i+p, j+q, MapState::BLOCK)
 #define MAP(i, p, j, q) MapState::GetInstance()->GetState(i+p, j+q, MapState::MAP)
 

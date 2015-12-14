@@ -10,13 +10,6 @@ namespace BombBombCrash
 		int id;
 
 	public:
-		enum
-		{
-			FLOOR, 
-			HARDBLOCK, 
-			SOFTBLOCK
-		};
-
 		explicit MapObstacle(int id);
 		virtual ~MapObstacle();
 

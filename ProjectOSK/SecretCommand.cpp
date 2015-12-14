@@ -1,5 +1,7 @@
 #include "SecretCommand.h"
 
+using namespace BombBombCrash;
+
 int SecretCommand::hasHittedSecretCommand;
 
 SecretCommand::SecretCommand(void)

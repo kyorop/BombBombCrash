@@ -8,6 +8,7 @@
 #include "KeyboardPlayerInput.h"
 #include "Bomb.h"
 
+using namespace BombBombCrash;
 
 enum
 {
@@ -28,7 +29,7 @@ Player::Player(KeyState device)
 	animationTime(new Timer),
 	animationFrame(0),
 	isJoypad(device),
-	input(new BombBombCrash::KeyboardPlayerInput()),
+	input(new KeyboardPlayerInput()),
 	bomb(std::make_unique<BombController>()),
 	speed(1)
 {
@@ -40,7 +41,7 @@ Player::Player(KeyState device)
 	exists =1;
 	animpat = 0;
 	MapState::GetInstance()->RegisterWithCharacter(this);
-	Collision::GetInstance()->Register(this);
+	Collision::Instance()->Register(this);
 	//‰B‚µƒRƒ}ƒ“ƒh
 	if(SecretCommand::HittedSecretCommand())
 	{

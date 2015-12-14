@@ -9,11 +9,12 @@
 #define DHIT 5
 #define KBHABA 16
 
+using namespace BombBombCrash;
+
 std::shared_ptr<Bomb> Bomb::Create()
 {
 	auto bomb = std::shared_ptr<Bomb>(new Bomb);
 	Drawing::Add(bomb);
-	Drawing::Remove(bomb);
 	return bomb;
 }
 
@@ -29,7 +30,7 @@ Bomb::Bomb()
 	y = 0;
 	rx = x+32;
 	dy =y+32;
-	Collision::GetInstance()->Register(this);
+	BombBombCrash::Collision::Instance()->Register(this);
 	Sound::GetInstance()->Register(this);
 	MapState::GetInstance()->Register(this);
 }

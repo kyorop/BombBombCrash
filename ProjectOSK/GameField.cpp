@@ -1,37 +1,30 @@
 #include "GameField.h"
-#include "ItemManager.h"
-#include "Map.h"
-#include "Block.h"
+
+
+using namespace BombBombCrash;
 
 GameField::GameField(void)
-	:item(new ItemManager),
-	map(new Map),
-	block(new Block )
 {
 	//アイテムの配置
-	item->Initialize(*block);
+//	item->Initialize(*block);
 }
 
 GameField::~GameField(void)
 {
-	delete block;
-	delete map;
-	delete item;
 }
 
 void GameField::Initialize()
 {
-
 }
 
 void GameField::Update()
 {
-	map->Register();
-	block->Register();
+//	map->Register();
+//	block->Register();
 }
 
 void GameField::Draw()
 {
-	map->Draw();
-	block->Draw();
+//	map->Draw();
+//	block->Draw();
 }

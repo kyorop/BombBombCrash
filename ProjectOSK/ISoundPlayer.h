@@ -1,8 +1,13 @@
 #pragma once
-class ISoundPlayer
+namespace BombBombCrash
 {
-public:
-	virtual ~ISoundPlayer(void){}
+	class ISoundPlayer
+	{
+	public:
+		virtual ~ISoundPlayer(void){}
 
-	virtual int EnableToPlaySound()const = 0;
-};
+		virtual int EnableToPlaySound()const = 0;
+	};
+}
+
+

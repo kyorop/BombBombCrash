@@ -6,6 +6,8 @@
 
 #define DHIT 6
 
+using namespace BombBombCrash;
+
 //コンストラクタ
 Explosion::Explosion(int right,int left,int down,int up)
 	:upx(right), 
@@ -48,7 +50,7 @@ ExplosionManager::ExplosionManager()
 	image_fire(Image::GetInstance()->GetImage(Image::FIRE)),
 	vex()
 {
-	Collision::GetInstance()->RegisterWithFire(this);
+	Collision::Instance()->RegisterWithFire(this);
 	Explosion *center = new Explosion(0, 0, 0, 0);
 	Explosion *up = new Explosion(0, 0, 0, 1);
 	Explosion *down = new Explosion(0, 0, 1, 0);

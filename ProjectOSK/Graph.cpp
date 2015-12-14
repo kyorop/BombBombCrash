@@ -1,6 +1,8 @@
 #include "Graph.h"
 #include <climits>
 
+using namespace BombBombCrash;
+
 Graph::Graph(void):
 	nodeMatrix()
 {

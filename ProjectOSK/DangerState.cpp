@@ -2,6 +2,8 @@
 #include "MapState.h"
 #include <iostream>
 
+using namespace BombBombCrash;
+
 DangerState::DangerNode::DangerNode():
 	danger(0),
 	i_brastCenter(-1),

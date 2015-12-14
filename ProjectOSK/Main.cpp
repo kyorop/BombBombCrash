@@ -1,8 +1,6 @@
 #include "SceneManger.h"
-#include <stdio.h>
 
 #define _CRTDBG_MAP_ALLOC
-#include <stdlib.h>
 #include <crtdbg.h>
 #define new ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
 
@@ -19,8 +17,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,LPSTR lpCmdLine,
 		return -1;
 
 	SetDrawScreen(DX_SCREEN_BACK);
-	
-	SceneManger sceneMrg;
+
+	BombBombCrash::SceneManger sceneMrg;
 	
 	int g_lasttime = 0;
 	float g_frametime = 0;

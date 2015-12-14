@@ -5,6 +5,8 @@
 #include "Scene_Round.h"
 #include "Scene_Score.h"
 
+using namespace BombBombCrash;
+
 SceneManger::SceneManger(void)
 	:nextScene(NOCHANGE),
 	scene(new Scene_Menu)
@@ -30,7 +32,7 @@ void SceneManger::Update(void)
 
 		switch(nextScene)
 		{
-		case ISceneChanger::SCENE_MENU:
+		case SCENE_MENU:
 			scene  = new Scene_Menu;
 			break;
 		case ISceneChanger::SCENE_GAME:

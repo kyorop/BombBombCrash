@@ -1,6 +1,7 @@
 #include "Sound.h"
 #include "ISoundPlayer.h"
 
+using namespace BombBombCrash;
 
 Sound::Sound(void)
 	:explosion()

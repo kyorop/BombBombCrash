@@ -1,5 +1,7 @@
 #include "Key.h"
 
+using namespace BombBombCrash;
+
 Key::Key(void)
 {
 	for(int i=0; i<256; ++i)

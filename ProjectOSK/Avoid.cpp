@@ -5,6 +5,7 @@
 #include "MapState.h"
 #include "DangerState.h"
 
+using namespace BombBombCrash;
 
 Avoid::Avoid(IStateChanger *stateMrg, const Enemy& myself)
 	:State(stateMrg, myself)

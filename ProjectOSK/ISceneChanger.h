@@ -1,19 +1,24 @@
 #pragma once
-
-class Scene_Base;
-class ISceneChanger
+namespace BombBombCrash
 {
-public:
-	enum
+	class Scene_Base;
+	class ISceneChanger
 	{
-		NOCHANGE,
-		SCENE_MENU,
-		SCENE_GAME,
-		SCENE_ROUND,
-		SCENE_SCORE,
+	public:
+		enum
+		{
+			NOCHANGE,
+			SCENE_MENU,
+			SCENE_GAME,
+			SCENE_ROUND,
+			SCENE_SCORE,
+		};
+	public:
+		virtual ~ISceneChanger(void){};
+		virtual void ChangeScene(int nextScene) = 0;
 	};
-public:
-	virtual ~ISceneChanger(void){};
-	virtual void ChangeScene(int nextScene) = 0;
-};
+
+	
+}
+
 

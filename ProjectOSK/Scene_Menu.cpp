@@ -3,6 +3,8 @@
 #include "Scene_Game.h"
 #include "SecretCommand.h"
 
+using namespace BombBombCrash;
+
 Scene_Menu::Scene_Menu()
 	:command(new SecretCommand()),
 	titleFontHandle(CreateFontToHandle(NULL, 60, 2))

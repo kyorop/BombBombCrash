@@ -1,12 +1,14 @@
 #include "MapObject.h"
 
+using namespace BombBombCrash;
 
 MapObject::MapObject(void):
 	x(),
 	rx(),
 	y(),
 	dy(),
-	exists()
+	exists(true),
+	visible(true)
 {
 }
 
@@ -47,12 +49,21 @@ int MapObject::GetDY()const
 	return dy;
 }
 
-int MapObject::Exists()const
+bool MapObject::Exists() const
 {
 	return exists;
+}
+
+bool MapObject::Visible() const
+{
+	return visible;
 }
 
 void MapObject::SetFlag(int flag)
 {
 	this->exists = flag;
 }
+
+
+
+

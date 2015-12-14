@@ -1,5 +1,6 @@
 #include "Image.h"
 
+using namespace BombBombCrash;
 
 Image::Image(void)
 	:floor(),

@@ -6,6 +6,8 @@
 #include "MapState.h"
 #include "DangerState.h"
 
+using namespace BombBombCrash;
+
 State::State(IStateChanger *stateMrg, const Enemy &myself)
 	:stateMrg(stateMrg),
 	routeList(),

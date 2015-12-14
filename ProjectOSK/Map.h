@@ -1,25 +1,17 @@
 #pragma once
 #include "MapObstacle.h"
-#include "IDrawable.h"
-#include "IRegister.h"
-#include "GameConstant.h"
 
-class Character;
-class Map
-	:public IDrawable,
-	public IRegister
+namespace BombBombCrash
 {
-private:
-	const int image_floor;
-	const int image_hardBlock;
-	MapObstacle map[GameConst::MAP_ROW][GameConst::MAP_LINE];
-public:
-	Map(void);
-	~Map(void);
+	enum MapType;
+	class Character;
+	class Map
+	{
+		std::vector<std::vector<std::shared_ptr<MapObstacle>>> map;
+	public:
+		explicit Map(const std::vector<std::vector<std::shared_ptr<MapObstacle>>>& sharedPtrses);
 
-	//int IsSoftBlock(int i, int j)const;
-	void Register();
-	void Draw();
-
-};
+		MapType Type();
+	};
+}
 

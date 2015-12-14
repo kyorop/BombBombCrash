@@ -1,6 +1,7 @@
 #include "Timer.h"
 #include "Image.h"
 
+using namespace BombBombCrash;
 
 Timer::Timer(void)
 	:count(0),

@@ -15,6 +15,8 @@
 //	BOMBSETOFF,
 //};
 
+using namespace BombBombCrash;
+
 const int Dijkstra::ud[4] = {-1,1,0,0};
 const int Dijkstra::lr[4] = {0,0,-1,1};
 

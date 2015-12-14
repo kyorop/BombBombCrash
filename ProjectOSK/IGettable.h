@@ -1,15 +1,21 @@
 #pragma once
 
 
-class IGettable
+namespace BombBombCrash
 {
-public:
-	virtual ~IGettable(void){};
+	class IGettable
+	{
+	public:
+		virtual ~IGettable(void){};
 
-	virtual int GetX()const = 0;
-	virtual int GetRX()const = 0;
-	virtual int GetY()const = 0;
-	virtual int GetDY()const = 0;
-	virtual int Exists()const = 0;
-};
+		virtual int GetX()const = 0;
+		virtual int GetRX()const = 0;
+		virtual int GetY()const = 0;
+		virtual int GetDY()const = 0;
+		virtual bool Exists() const = 0;
+	};
+}
+
+
+
 

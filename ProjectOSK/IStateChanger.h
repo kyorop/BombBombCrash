@@ -1,19 +1,24 @@
 #pragma once
 
-class IStateChanger
+namespace BombBombCrash
 {
-public:
-	enum
+	class IStateChanger
 	{
-		NOCHAGE,
-		ATTACK,
-		ITEM,
-		AVOID,
-		BREAKBLOCK,
-		GETITEM,
-	};
-public:
-	virtual ~IStateChanger(){};
+	public:
+		enum
+		{
+			NOCHAGE,
+			ATTACK,
+			ITEM,
+			AVOID,
+			BREAKBLOCK,
+			GETITEM,
+		};
+	public:
+		virtual ~IStateChanger(){};
 
-	virtual void ChangeState(int nextState) = 0;
-};
+		virtual void ChangeState(int nextState) = 0;
+	};
+}
+
+

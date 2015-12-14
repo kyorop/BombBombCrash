@@ -46,6 +46,9 @@
     <Filter Include="Interface">
       <UniqueIdentifier>{ce653aa3-d2b8-41a7-a60e-2f196b14a5a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Map\Base">
+      <UniqueIdentifier>{2d90c7a7-e349-4a0f-b5cb-a8257f4bd895}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EnemyAI.cpp">
@@ -66,16 +69,10 @@
     <ClCompile Include="Block.cpp">
       <Filter>Source\Map</Filter>
     </ClCompile>
-    <ClCompile Include="MapObstacle.cpp">
-      <Filter>Source\Map</Filter>
-    </ClCompile>
     <ClCompile Include="Bomb.cpp">
       <Filter>Source\Bomb</Filter>
     </ClCompile>
     <ClCompile Include="DangerState.cpp">
-      <Filter>Source\GameState</Filter>
-    </ClCompile>
-    <ClCompile Include="IRegister.cpp">
       <Filter>Source\GameState</Filter>
     </ClCompile>
     <ClCompile Include="MapState.cpp">
@@ -163,11 +160,14 @@
     <ClCompile Include="Drawing.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="MapObject.cpp">
-      <Filter>Source\Map</Filter>
-    </ClCompile>
     <ClCompile Include="MapFactory.cpp">
       <Filter>Source\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="MapObstacle.cpp">
+      <Filter>Source\Map\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="MapObject.cpp">
+      <Filter>Source\Map\Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -192,25 +192,16 @@
     <ClInclude Include="Block.h">
       <Filter>Source\Map</Filter>
     </ClInclude>
-    <ClInclude Include="MapObstacle.h">
-      <Filter>Source\Map</Filter>
-    </ClInclude>
     <ClInclude Include="Bomb.h">
       <Filter>Source\Bomb</Filter>
     </ClInclude>
     <ClInclude Include="DangerState.h">
       <Filter>Source\GameState</Filter>
     </ClInclude>
-    <ClInclude Include="IRegister.h">
-      <Filter>Source\GameState</Filter>
-    </ClInclude>
     <ClInclude Include="ICollisionable.h">
       <Filter>Interface</Filter>
     </ClInclude>
     <ClInclude Include="IDrawable.h">
-      <Filter>Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="IMediator.h">
       <Filter>Interface</Filter>
     </ClInclude>
     <ClInclude Include="IColleague.h">
@@ -291,12 +282,6 @@
     <ClInclude Include="SecretCommand.h">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="Scene_Round.h">
-      <Filter>Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene_Score.h">
-      <Filter>Header</Filter>
-    </ClInclude>
     <ClInclude Include="GetItem.h">
       <Filter>Source\AI\State</Filter>
     </ClInclude>
@@ -313,19 +298,26 @@
     <ClInclude Include="Drawing.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="MapObject.h">
-      <Filter>Source\Map</Filter>
-    </ClInclude>
     <ClInclude Include="KeyboardPlayerInput.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="MapFactory.h">
       <Filter>Source\Map</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
-    <None Include="ClassDiagram1.cd" />
-    <None Include="ClassDiagram2.cd" />
+    <ClInclude Include="MapObject.h">
+      <Filter>Source\Map\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="MapObstacle.h">
+      <Filter>Source\Map\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="IRegister.h">
+      <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene_Score.h">
+      <Filter>Source\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene_Round.h">
+      <Filter>Source\GameScene</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,17 +3,17 @@
 class Map;
 class Block;
 class ItemManager;
-class GameField
+
+namespace BombBombCrash
 {
-private:
-	ItemManager *const item;
-	Map *const map;
-	Block *const block;
-public:
-	GameField(void);
-	~GameField(void);
-	void Initialize();
-	void Update();
-	void Draw();
-};
+	class GameField
+	{
+	public:
+		GameField(void);
+		~GameField(void);
+		void Initialize();
+		void Update();
+		void Draw();
+	};
+}
 

@@ -1,9 +1,9 @@
 #include "ItemManager.h"
 #include "Item.h"
-#include "Block.h"
-#include <list>
 #include "Drawing.h"
+#include "GameConstant.h"
 
+using namespace BombBombCrash;
 
 ItemManager::ItemManager(void)
 	:items()
@@ -18,8 +18,6 @@ ItemManager::ItemManager(void)
 
 ItemManager::~ItemManager(void)
 {
-	for (auto& item : items)
-		Drawing::Remove(item);
 }
 
 void ItemManager::Initialize(const Block &block)
@@ -32,7 +30,7 @@ void ItemManager::Initialize(const Block &block)
 	{
 		for (int j = 0; j < GameConst::MAP_LINE; j++)
 		{
-			if(block.IsSoftBlock(i, j))
+//			if(block.IsSoftBlock(i, j))
 			{
 				i_block.push_back(i);
 				j_block.push_back(j);

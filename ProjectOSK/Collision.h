@@ -4,51 +4,56 @@
 
 
 //シングルトン
-class ICollisionable;
-class ExplosionManager;
-class Item;
-class Collision
+
+
+namespace BombBombCrash
 {
-private:
-	std::vector<ICollisionable*> disableGoingThrough;
-	std::vector<ICollisionable*> bomb;
-	std::vector<ICollisionable*> character;
-	std::list<ICollisionable*> softBlock;
-	std::list<ICollisionable*> hardBlock;
-	std::list<ICollisionable*> map;
-	std::list<ExplosionManager*> fire;
-	std::list<ICollisionable*> fragile;
-	std::list<Item*> item;
+	class ICollisionable;
+	class ExplosionManager;
+	class Item;
 
-	static const int degreeOfHit = 5;
-	static const int collisionLevelWithFire = 5;
-	static const int haba = 16;
-private:
-	Collision(void);
-	Collision(const Collision &collision);
+	class Collision
+	{
+		std::vector<ICollisionable*> disableGoingThrough;
+		std::vector<ICollisionable*> bomb;
+		std::vector<ICollisionable*> character;
+		std::list<ICollisionable*> softBlock;
+		std::list<ICollisionable*> hardBlock;
+		std::list<ICollisionable*> map;
+		std::list<ExplosionManager*> fire;
+		std::list<ICollisionable*> fragile;
+		std::list<Item*> item;
 
-	//通れない系
-	void CheckEnableToPass();
+		static const int degreeOfHit = 5;
+		static const int collisionLevelWithFire = 5;
+		static const int haba = 16;
+	
+		Collision(void);
+		Collision(const Collision &collision);
 
-	//通常のあたり判定
-	int CheckOneUponAnother(int x1, int y1,int x2, int y2, int collisionLevel);
+		//通れない系
+		void CheckEnableToPass();
 
-	//火との接触判定
-	void CheckCollisionWithFire();
+		//通常のあたり判定
+		int CheckOneUponAnother(int x1, int y1,int x2, int y2, int collisionLevel);
 
-	//火が当たると壊れる物のあたり判定
-	void CheckCollisionFireAndFragile();
+		//火との接触判定
+		void CheckCollisionWithFire();
 
-	//キャラクターとアイテムのあたり判定
-	void CheckCollisionItemAndCharactor();
+		//火が当たると壊れる物のあたり判定
+		void CheckCollisionFireAndFragile();
 
-public:
-	~Collision(void);
-	static Collision* GetInstance();
-	void Finalize();
-	void Register(ICollisionable *anythingCollisionable);
-	void RegisterWithFire(ExplosionManager *fire);
-	void RegisterWithItem(Item *item);
-	void CheckAllCollision();
-};
+		//キャラクターとアイテムのあたり判定
+		void CheckCollisionItemAndCharactor();
+
+	public:
+		~Collision(void);
+		static Collision* Instance();
+		void Finalize();
+		void Register(ICollisionable *anythingCollisionable);
+		void RegisterWithFire(ExplosionManager *fire);
+		void RegisterWithItem(Item *item);
+		void CheckAllCollision();
+	};
+}
 

@@ -1,15 +1,21 @@
 #pragma once
-struct IDrawable;
 
-class Drawing
+namespace BombBombCrash
 {
-	static std::vector<std::shared_ptr<IDrawable>> drawables;
-public:
-	Drawing();
-	~Drawing();
+	interface IDrawable;
 
-	static void Add(const std::shared_ptr<IDrawable> & drawable);
-	static void Remove(const std::shared_ptr<IDrawable>& drawable);
-	void Update();
-};
+	class Drawing
+	{
+		static std::vector<std::weak_ptr<IDrawable>> drawables;
+	public:
+		Drawing();
+		~Drawing();
+
+		static void Add(const std::shared_ptr<IDrawable> & drawable);
+		void Update() const;
+	};
+}
+
+
+
 

@@ -2,32 +2,38 @@
 #include <list>
 
 
-class ISoundPlayer;
-class Sound
+namespace BombBombCrash
 {
-private:
-	int explosion;
-private:
-	Sound();
-	Sound(const Sound&);
-	Sound& operator=(const Sound&);
-
-	void PlayExplosion();
-	std::list<ISoundPlayer*> soundList;
-public:
-	~Sound(void);
-	static Sound* GetInstance()
+	class ISoundPlayer;
+	class Sound
 	{
-		static Sound soundInstance;
-		return &soundInstance;
-	}
+	private:
+		int explosion;
+	private:
+		Sound();
+		Sound(const Sound&);
+		Sound& operator=(const Sound&);
 
-	void Register(ISoundPlayer* anythingToPlaySound);
-	void InitializeForGame();
-	void InitializeForMenu();
-	void FinalizeForGame();
-	void FinalizeForMenu();
-	void PlayTitleMusic();
-	void PlaySE();
-};
+		void PlayExplosion();
+		std::list<ISoundPlayer*> soundList;
+	public:
+		~Sound(void);
+		static Sound* GetInstance()
+		{
+			static Sound soundInstance;
+			return &soundInstance;
+		}
+
+		void Register(ISoundPlayer* anythingToPlaySound);
+		void InitializeForGame();
+		void InitializeForMenu();
+		void FinalizeForGame();
+		void FinalizeForMenu();
+		void PlayTitleMusic();
+		void PlaySE();
+	};
+	
+}
+
+
 

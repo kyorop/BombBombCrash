@@ -1,19 +1,13 @@
 #include "EnemyAI.h"
-#include "MapState.h"
 #include "Enemy.h"
-#include "Dijkstra.h"
 #include "Search.h"
-#include "Route.h"
-#include "Target.h"
 #include "Avoid.h"
-#include "StopRoute.h"
-#include "GameConstant.h"
-#include "DangerState.h"
 #include "State.h"
 #include "AttackOtherCharacter.h"
 #include "BreakBlock.h"
 #include "GetItem.h"
-#include <typeinfo.h>
+
+using namespace BombBombCrash;
 
 
 EnemyAI::EnemyAI(const Enemy& myself)

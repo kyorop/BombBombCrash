@@ -1,6 +1,8 @@
 #include "Scene_Round.h"
 #include "Timer.h"
 
+using namespace BombBombCrash;
+
 int Scene_Round::roundNum = 1;
 
 Scene_Round::Scene_Round(void)

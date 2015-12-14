@@ -7,6 +7,7 @@
 #include "GameConstant.h"
 #include "Timer.h"
 
+using namespace BombBombCrash;
 
 bool Enemy::PutBomb()
 {
@@ -44,7 +45,7 @@ Enemy::Enemy(int x, int y)
 	exists = 1;
 	this->x = x;
 	this->y = y;
-	Collision::GetInstance()->Register(this);
+	Collision::Instance()->Register(this);
 	MapState::GetInstance()->RegisterWithCharacter(this);
 }
 

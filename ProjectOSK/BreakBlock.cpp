@@ -3,6 +3,8 @@
 #include "DangerState.h"
 #include <vector>
 
+using namespace BombBombCrash;
+
 BreakBlock::BreakBlock(IStateChanger *stateMrg, const Enemy& myself)
 	:State(stateMrg, myself)
 {

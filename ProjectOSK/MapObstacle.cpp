@@ -1,5 +1,4 @@
 #include "MapObstacle.h"
-#include "Collision.h"
 
 namespace BombBombCrash
 {

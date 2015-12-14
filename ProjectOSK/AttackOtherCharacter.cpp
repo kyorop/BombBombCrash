@@ -3,6 +3,8 @@
 #include "DangerState.h"
 #include "GameConstant.h"
 
+using namespace BombBombCrash;
+
 AttackOtherCharacter::AttackOtherCharacter(IStateChanger *stateMrg, const Enemy& myself)
 	:State(stateMrg, myself)
 {

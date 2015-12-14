@@ -2,6 +2,8 @@
 #include "Scene_Round.h"
 #include "Timer.h"
 
+using namespace BombBombCrash;
+
 int Scene_Score::winNum;
 int Scene_Score::loseNum;
 Scene_Score::result Scene_Score::winOrLose = NONE;

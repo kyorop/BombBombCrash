@@ -2,16 +2,17 @@
 #include "ICollisionable.h"
 #include "IGettable.h"
 
-class MapObject
-	:public ICollisionable,
-	public IGettable
+namespace BombBombCrash
+{
+class MapObject:public ICollisionable,public IGettable
 {
 protected:
 	int x;
 	int rx;
 	int y;
 	int dy;
-	int exists;
+	bool exists;
+	bool visible;
 
 public:
 	MapObject(void);
@@ -23,8 +24,12 @@ public:
 	virtual int GetY()const;
 	virtual void SetY(int y);
 	virtual int GetDY()const;
-	virtual int Exists()const;
+	virtual bool Exists() const;
+	virtual bool Visible() const;
 	virtual void SetFlag(int flag);
-
 };
+}
+
+
+
 

@@ -1,9 +1,15 @@
 #pragma once
 
-class IRegister
+namespace BombBombCrash
 {
-public:
-	virtual ~IRegister(void);
-	virtual void Register() = 0;
-};
+	class IRegister
+	{
+	public:
+		virtual ~IRegister(void){};
+		virtual void Register() = 0;
+	};
+}
+
+
+
 

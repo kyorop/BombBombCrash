@@ -2,6 +2,7 @@
 #include "MapState.h"
 #include "DangerState.h"
 
+using namespace BombBombCrash;
 
 GetItem::GetItem(IStateChanger *stateMrg, const Enemy& myself)
 	:State(stateMrg, myself)
