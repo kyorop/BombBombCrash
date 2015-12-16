@@ -31,9 +31,6 @@
     <Filter Include="Source\Character">
       <UniqueIdentifier>{d5b548ba-ff68-4dab-a74b-1984a00e9685}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\GameScene">
-      <UniqueIdentifier>{27dff125-c8be-4686-91a4-a1bbd06fc9ac}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\GameState">
       <UniqueIdentifier>{33908562-84a2-4dd5-9ebc-529ec501c71c}</UniqueIdentifier>
     </Filter>
@@ -54,6 +51,12 @@
     </Filter>
     <Filter Include="Source\Map\Block">
       <UniqueIdentifier>{df4d9eeb-1d5b-448e-a41c-731a52612ecb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene">
+      <UniqueIdentifier>{27dff125-c8be-4686-91a4-a1bbd06fc9ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scene\Manager">
+      <UniqueIdentifier>{0e62dfa8-7fe6-49c7-b0c5-ec8b6dd2b5a2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -96,18 +99,6 @@
     <ClCompile Include="Dijkstra.cpp">
       <Filter>Source\Algo</Filter>
     </ClCompile>
-    <ClCompile Include="SceneManger.cpp">
-      <Filter>Source\GameScene</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene_Game.cpp">
-      <Filter>Source\GameScene</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene_Menu.cpp">
-      <Filter>Source\GameScene</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene_Base.cpp">
-      <Filter>Source\GameScene</Filter>
-    </ClCompile>
     <ClCompile Include="Collision.cpp">
       <Filter>Source\GameState</Filter>
     </ClCompile>
@@ -134,12 +125,6 @@
     </ClCompile>
     <ClCompile Include="Image.cpp">
       <Filter>Source\Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene_Round.cpp">
-      <Filter>Source\GameScene</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene_Score.cpp">
-      <Filter>Source\GameScene</Filter>
     </ClCompile>
     <ClCompile Include="GetItem.cpp">
       <Filter>Source\AI\State</Filter>
@@ -174,6 +159,24 @@
     </ClCompile>
     <ClCompile Include="MapFactory.cpp">
       <Filter>Source\Map\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_Base.cpp">
+      <Filter>Source\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_Game.cpp">
+      <Filter>Source\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_Menu.cpp">
+      <Filter>Source\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_Round.cpp">
+      <Filter>Source\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_Score.cpp">
+      <Filter>Source\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManger.cpp">
+      <Filter>Source\Scene\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -227,21 +230,6 @@
     </ClInclude>
     <ClInclude Include="Dijkstra.h">
       <Filter>Source\Algo</Filter>
-    </ClInclude>
-    <ClInclude Include="ISceneChanger.h">
-      <Filter>Source\GameScene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene_Game.h">
-      <Filter>Source\GameScene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene_Menu.h">
-      <Filter>Source\GameScene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene_Base.h">
-      <Filter>Source\GameScene</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManger.h">
-      <Filter>Source\GameScene</Filter>
     </ClInclude>
     <ClInclude Include="MapState.h">
       <Filter>Source\GameState</Filter>
@@ -307,12 +295,6 @@
     <ClInclude Include="IRegister.h">
       <Filter>Interface</Filter>
     </ClInclude>
-    <ClInclude Include="Scene_Score.h">
-      <Filter>Source\GameScene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene_Round.h">
-      <Filter>Source\GameScene</Filter>
-    </ClInclude>
     <ClInclude Include="Item.h">
       <Filter>Source\Map\Item</Filter>
     </ClInclude>
@@ -324,6 +306,27 @@
     </ClInclude>
     <ClInclude Include="MapFactory.h">
       <Filter>Source\Map\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene_Base.h">
+      <Filter>Source\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene_Game.h">
+      <Filter>Source\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene_Menu.h">
+      <Filter>Source\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene_Round.h">
+      <Filter>Source\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene_Score.h">
+      <Filter>Source\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ISceneChanger.h">
+      <Filter>Source\Scene\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManger.h">
+      <Filter>Source\Scene\Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

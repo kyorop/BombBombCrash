@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene_Base.h"
 #include <vector>
+#include "IDrawable.h"
 
 
 namespace BombBombCrash
@@ -15,14 +16,12 @@ namespace BombBombCrash
 
 	class Scene_Game:public Scene_Base
 	{
-	private:
-		GameField *gameScreen;
 		std::shared_ptr<Player> player;
 		std::vector<Character*> enemy;
-		Timer* timer;
-		Timer* winTimer;
-		Timer* loseTimer;
-		GameEffect* gameEffect;
+		std::shared_ptr<Timer> timer;
+		std::shared_ptr<Timer> winTimer;
+		std::shared_ptr<Timer> loseTimer;
+		std::shared_ptr<GameEffect> gameEffect;
 		std::shared_ptr<Drawing> graphics;
 		std::shared_ptr<Map> map;
 
@@ -40,13 +39,11 @@ namespace BombBombCrash
 }
 
 
-//**------------------------------------------------------------
-
 class BombController;
 
 namespace BombBombCrash
 {
-	class GameEffect
+	class GameEffect:public IDrawable
 	{
 	private:
 		int image_bombLevel;
@@ -55,13 +52,16 @@ namespace BombBombCrash
 		const int x;
 		const int y;
 		BombController* bomb;
+		std::shared_ptr<Timer> timer;
+
+
 	public:
-		GameEffect(void);
+		explicit GameEffect(const std::shared_ptr<Timer>& timer);
 		~GameEffect(void);
 
-		void SetBomb();
 		void Update();
 		void DrawGameEffect();
 		void DrawMenuEffect();
+		void Draw() override;
 	};
 }

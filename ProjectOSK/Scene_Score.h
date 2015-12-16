@@ -1,20 +1,19 @@
 #pragma once
 #include "Scene_Base.h"
+#include "IDrawable.h"
 
 namespace BombBombCrash
 {
 	class Timer;
-	class Scene_Score
-		:public Scene_Base
+	class Scene_Score:public Scene_Base
 	{
-	public:
 		enum result
 		{
 			WIN,
 			LOSE,
 			NONE,
 		};
-	private:
+
 		Timer* timer;
 		static int winNum;
 		static int loseNum;
@@ -31,7 +30,7 @@ namespace BombBombCrash
 
 		void Finalize()override;
 		void Update()override;
-		void Draw()override;
+		void Draw() override;
 
 		static void SetResult(result which){winOrLose = which;}
 	};

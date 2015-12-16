@@ -4,13 +4,16 @@
 #include "Scene_Game.h"
 #include "Scene_Round.h"
 #include "Scene_Score.h"
+#include "Drawing.h"
 
 using namespace BombBombCrash;
 
-SceneManger::SceneManger(void)
-	:nextScene(NOCHANGE),
-	scene(new Scene_Menu)
+SceneManger::SceneManger(void):
+nextScene(NOCHANGE),
+scene()
 {
+	scene = std::make_shared<Scene_Menu>();
+	Drawing::Add(scene);
 	scene->SetManager(this);
 	scene->Initialize();
 }
@@ -19,7 +22,6 @@ SceneManger::SceneManger(void)
 SceneManger::~SceneManger(void)
 {
 	scene->Finalize();
-	delete scene;
 }
 
 
@@ -28,24 +30,24 @@ void SceneManger::Update(void)
 	if(nextScene != NOCHANGE)
 	{	
 		scene->Finalize();		//次のシーンに変わる前に今のシーンの初期化
-		delete scene;
 
 		switch(nextScene)
 		{
 		case SCENE_MENU:
-			scene  = new Scene_Menu;
+			scene = std::make_shared<Scene_Menu>();
 			break;
-		case ISceneChanger::SCENE_GAME:
-			scene = new Scene_Game;
+		case SCENE_GAME:
+			scene = std::make_shared<Scene_Game>();
 			break;
-		case ISceneChanger::SCENE_ROUND:
-			scene = new Scene_Round;
+		case SCENE_ROUND:
+			scene = std::make_shared<Scene_Round>();
 			break;
-		case ISceneChanger::SCENE_SCORE:
-			scene = new Scene_Score;
+		case SCENE_SCORE:
+			scene = std::make_shared<Scene_Score>();
 			break;
 		}
-		nextScene = ISceneChanger::NOCHANGE;
+		Drawing::Add(scene);
+		nextScene = NOCHANGE;
 		scene->Initialize();
 		scene->SetManager(this);
 	}
@@ -56,7 +58,7 @@ void SceneManger::Update(void)
 
 void SceneManger::Draw(void)
 {
-	scene->Draw();
+	drawing->Update();
 }
 
 

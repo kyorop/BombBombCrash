@@ -3,14 +3,14 @@
 
 namespace BombBombCrash
 {
+	class Drawing;
 	class Scene_Base;
 	class SceneManger
 		:public ISceneChanger
 	{
-
-	private:
 		int nextScene;
-		Scene_Base *scene;
+		std::shared_ptr<Scene_Base> scene;
+		std::shared_ptr<Drawing> drawing;
 	public:
 		SceneManger(void);
 		~SceneManger(void);

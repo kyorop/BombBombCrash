@@ -1,9 +1,10 @@
 #pragma once
 #include "ISceneChanger.h"
+#include "IDrawable.h"
 
 namespace BombBombCrash
 {
-	class Scene_Base
+	class Scene_Base: public IDrawable
 	{
 	protected:
 		ISceneChanger *sceneMrg;
@@ -16,7 +17,6 @@ namespace BombBombCrash
 		void SetManager(ISceneChanger *sceneManager);
 		virtual void Initialize(){}
 		virtual void Update(void) = 0;
-		virtual void Draw(void) = 0;
 		virtual void Finalize(){}
 		virtual void PlaySE(){};
 	};
