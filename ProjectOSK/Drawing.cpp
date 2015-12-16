@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Drawing.h"
 #include "IDrawable.h"
-#include <algorithm>
+#include "Key.h"
 
 using namespace BombBombCrash;
 
@@ -23,18 +23,13 @@ void Drawing::Add(const std::shared_ptr<IDrawable> & drawable)
 
 void Drawing::Update() const
 {
-	for (auto& drawing : drawables)
+	for (int i = 0; i < drawables.size(); i++)
 	{
-		if (auto pdrawing = drawing.lock())
+		if (auto sharedDrawing = drawables[i].lock())
 		{
-			pdrawing->Draw();
+			sharedDrawing->Draw();
 		}
 		else
-		{
-			drawables.erase(remove_if(begin(drawables), end(drawables), [&](const std::weak_ptr<IDrawable>& weak_draw)
-			{
-				return weak_draw.lock() == pdrawing;
-			}), end(drawables));
-		}
+			drawables.erase(begin(drawables)+i);
 	}
 }

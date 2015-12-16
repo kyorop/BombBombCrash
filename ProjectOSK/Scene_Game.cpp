@@ -64,6 +64,7 @@ namespace BombBombCrash
 		gameScreen = new GameField();
 		player = std::make_shared<Player>(Player::KEYBORAD);
 		map = MapFactory::Craete();
+		graphics = std::make_shared<Drawing>();
 
 		//	enemy.push_back(new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT,GameConst::FIRST_Y_UP)));
 		//	enemy.push_back(new CharacterSet(new Enemy(GameConst::FIRST_X_LEFT, GameConst::FIRST_Y_DOWN)));

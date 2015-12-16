@@ -1,7 +1,9 @@
 #pragma once
+#include "Key.h"
 
 namespace BombBombCrash
 {
+	class Key;
 	interface IDrawable;
 
 	class Drawing

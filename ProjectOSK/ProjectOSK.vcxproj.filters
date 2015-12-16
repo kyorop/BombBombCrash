@@ -49,6 +49,12 @@
     <Filter Include="Source\Map\Base">
       <UniqueIdentifier>{2d90c7a7-e349-4a0f-b5cb-a8257f4bd895}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Map\Item">
+      <UniqueIdentifier>{445cb6ae-db31-4dab-b3c6-c3280455e8cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Map\Block">
+      <UniqueIdentifier>{df4d9eeb-1d5b-448e-a41c-731a52612ecb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EnemyAI.cpp">
@@ -66,9 +72,6 @@
     <ClCompile Include="GameField.cpp">
       <Filter>Source\Map</Filter>
     </ClCompile>
-    <ClCompile Include="Block.cpp">
-      <Filter>Source\Map</Filter>
-    </ClCompile>
     <ClCompile Include="Bomb.cpp">
       <Filter>Source\Bomb</Filter>
     </ClCompile>
@@ -77,12 +80,6 @@
     </ClCompile>
     <ClCompile Include="MapState.cpp">
       <Filter>Source\GameState</Filter>
-    </ClCompile>
-    <ClCompile Include="Item.cpp">
-      <Filter>Source\Map</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemManager.cpp">
-      <Filter>Source\Map</Filter>
     </ClCompile>
     <ClCompile Include="Charactor.cpp">
       <Filter>Source\Character</Filter>
@@ -160,14 +157,23 @@
     <ClCompile Include="Drawing.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="MapFactory.cpp">
-      <Filter>Source\Map</Filter>
-    </ClCompile>
     <ClCompile Include="MapObstacle.cpp">
       <Filter>Source\Map\Base</Filter>
     </ClCompile>
     <ClCompile Include="MapObject.cpp">
       <Filter>Source\Map\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Source\Map\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemManager.cpp">
+      <Filter>Source\Map\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <Filter>Source\Map\Block</Filter>
+    </ClCompile>
+    <ClCompile Include="MapFactory.cpp">
+      <Filter>Source\Map\Block</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -189,9 +195,6 @@
     <ClInclude Include="GameField.h">
       <Filter>Source\Map</Filter>
     </ClInclude>
-    <ClInclude Include="Block.h">
-      <Filter>Source\Map</Filter>
-    </ClInclude>
     <ClInclude Include="Bomb.h">
       <Filter>Source\Bomb</Filter>
     </ClInclude>
@@ -206,12 +209,6 @@
     </ClInclude>
     <ClInclude Include="IColleague.h">
       <Filter>Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemManager.h">
-      <Filter>Source\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="Item.h">
-      <Filter>Source\Map</Filter>
     </ClInclude>
     <ClInclude Include="Charactor.h">
       <Filter>Source\Character</Filter>
@@ -301,9 +298,6 @@
     <ClInclude Include="KeyboardPlayerInput.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="MapFactory.h">
-      <Filter>Source\Map</Filter>
-    </ClInclude>
     <ClInclude Include="MapObject.h">
       <Filter>Source\Map\Base</Filter>
     </ClInclude>
@@ -318,6 +312,18 @@
     </ClInclude>
     <ClInclude Include="Scene_Round.h">
       <Filter>Source\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Source\Map\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemManager.h">
+      <Filter>Source\Map\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Block.h">
+      <Filter>Source\Map\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="MapFactory.h">
+      <Filter>Source\Map\Block</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
