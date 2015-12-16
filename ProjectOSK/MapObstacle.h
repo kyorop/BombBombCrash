@@ -7,13 +7,11 @@ namespace BombBombCrash
 {
 	class MapObstacle:public MapObject
 	{
-		int id;
-
 	public:
-		explicit MapObstacle(int id);
+		explicit MapObstacle();
 		virtual ~MapObstacle();
 
-		int Type()const;
+		virtual int Type()const = 0;
 	};
 }
 

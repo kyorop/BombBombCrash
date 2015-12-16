@@ -4,68 +4,63 @@
 #define DHIT 5
 #define KBHABA 16
 
-namespace BombBombCrash
+using namespace BombBombCrash;
+
+int SoftBlock::imageHandle;
+
+SoftBlock::SoftBlock(int imageHandle)
 {
-	int SoftBlock::imageHandle;
+	this->imageHandle = imageHandle;
+}
 
-	SoftBlock::SoftBlock(int id, int imageHandle)
-		:MapObstacle(id)
+SoftBlock::~SoftBlock(void)
+{
+}
+
+void SoftBlock::Draw()
+{
+	if (Exists())
 	{
-		this->imageHandle = imageHandle;
+		DrawGraph(GetX(), GetY(), imageHandle, false);
 	}
+}
 
-	SoftBlock::~SoftBlock(void)
+
+
+int HardBlock::imageHandle;
+
+HardBlock::HardBlock(int imageHandle)
+{
+	this->imageHandle = imageHandle;
+}
+
+void HardBlock::Draw()
+{
+	if (Exists())
+		DrawGraph(GetX(), GetY(), imageHandle, false);
+}
+
+
+
+int Floor::imageHandle;
+
+Floor::Floor(int imageHandle)
+{
+	this->imageHandle = imageHandle;
+}
+
+void Floor::Draw()
+{
+	if (Exists())
 	{
+		DrawGraph(GetX(), GetY(), imageHandle, false);
 	}
+}
 
-	void SoftBlock::Draw()
-	{
-		if (Exists())
-		{
-			DrawGraph(GetX(), GetY(), imageHandle, false);
-		}
-	}
-
-
-
-	int HardBlock::imageHandle;
-
-	HardBlock::HardBlock(int id, int imageHandle)
-		:MapObstacle(id)
-	{
-		this->imageHandle = imageHandle;
-	}
-
-	void HardBlock::Draw()
-	{
-		if (Exists())
-			DrawGraph(GetX(), GetY(), imageHandle, false);
-	}
-
-
-
-	int Floor::imageHandle;
-
-	Floor::Floor(int id, int imageHandle):
-		MapObstacle(id)
-	{
-		this->imageHandle = imageHandle;
-	}
-
-	void Floor::Draw()
-	{
-		if (Exists())
-		{
-			DrawGraph(GetX(), GetY(), imageHandle, false);
-		}
-	}
-
-	void SoftBlock::Register()
-	{
-		if (Exists())
-			MapState::GetInstance()->SetBlockState(GetX(), GetY(), 1);
-		else
-			MapState::GetInstance()->SetBlockState(GetX(), GetY(), 0);
-	}
-	
+void SoftBlock::Register()
+{
+	if (Exists())
+		MapState::GetInstance()->SetBlockState(GetX(), GetY(), 1);
+	else
+		MapState::GetInstance()->SetBlockState(GetX(), GetY(), 0);
 }

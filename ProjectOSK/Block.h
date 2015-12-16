@@ -7,35 +7,47 @@
 
 namespace BombBombCrash
 {
+	enum MapType
+	{
+		FLOOR,
+		HARDBLOCK,
+		SOFTBLOCK,
+	};
+
 	class Character;
 	class SoftBlock:public MapObstacle, public IDrawable, public IRegister
 	{
+	private:
 		static int imageHandle;
-
 	public:
-		SoftBlock(int id, int imageHandle);
+		explicit SoftBlock(int imageHandle);
 		~SoftBlock();
 
 		void Register() override;
 		void Draw() override;
+		int Type() const override{return SOFTBLOCK;}
 	};
 
 	class HardBlock:public MapObstacle, public IDrawable
 	{
+	private:
 		static int imageHandle;
 	
 	public:
-		HardBlock(int id, int imageHandle);
+		HardBlock(int imageHandle);
 
 		void Draw() override;
+		int Type() const override{return HARDBLOCK;}
 	};
 
 	class Floor: public MapObstacle, public IDrawable
 	{
+	private:
 		static int imageHandle;
 	public:
-		Floor(int id, int imageHandle);
+		Floor(int imageHandle);
 		void Draw() override;
+		int Type() const override{ return FLOOR; }
 	};
 }
 

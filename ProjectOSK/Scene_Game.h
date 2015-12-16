@@ -3,26 +3,29 @@
 #include <vector>
 
 
-
-
 namespace BombBombCrash
 {
+	class Map;
+	class Player;
 	class Timer;
 	class Character;
 	class GameField;
 	class GameEffect;
+	class Drawing;
 
 	class Scene_Game:public Scene_Base
 	{
 	private:
 		GameField *gameScreen;
-		Character *player;
+		std::shared_ptr<Player> player;
 		std::vector<Character*> enemy;
 		Timer* timer;
 		Timer* winTimer;
 		Timer* loseTimer;
 		GameEffect* gameEffect;
-	private:
+		std::shared_ptr<Drawing> graphics;
+		std::shared_ptr<Map> map;
+
 		void UpdateScene() override;
 	public:
 		Scene_Game();

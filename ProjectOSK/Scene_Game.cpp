@@ -9,6 +9,9 @@
 #include "Sound.h"
 #include "ISceneChanger.h"
 #include "Timer.h"
+#include "Drawing.h"
+#include "MapFactory.h"
+#include "Map.h"
 
 namespace BombBombCrash
 {
@@ -59,15 +62,20 @@ namespace BombBombCrash
 		Sound::GetInstance()->InitializeForGame();
 		MapState::GetInstance()->Initialize();
 		gameScreen = new GameField();
-		player = new Player(Player::KEYBORAD);
+		player = std::make_shared<Player>(Player::KEYBORAD);
+		map = MapFactory::Craete();
+
 		//	enemy.push_back(new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT,GameConst::FIRST_Y_UP)));
 		//	enemy.push_back(new CharacterSet(new Enemy(GameConst::FIRST_X_LEFT, GameConst::FIRST_Y_DOWN)));
 		////	enemy.push_back(new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT, GameConst::FIRST_Y_DOWN)));
 		//	enemy.push_back(new CharacterSet(new Enemy(32*8, 32*5)));
+
 		timer = new Timer();
 		loseTimer = new Timer();
 		winTimer = new Timer();
 		gameEffect = new GameEffect();
+
+		Drawing::Add(player);
 	}
 
 
@@ -81,7 +89,6 @@ namespace BombBombCrash
 		{
 			delete enemy[i];
 		}
-		delete player;
 		delete gameScreen;
 		Sound::GetInstance()->FinalizeForGame();
 		Image::GetInstance()->Finalize();
@@ -103,7 +110,8 @@ namespace BombBombCrash
 			enemy[i]->Update();
 		}
 		Collision::Instance()->CheckAllCollision();
-	
+		graphics->Update();
+
 		//ƒV[ƒ“Ø‚è‘Ö‚¦
 		UpdateScene();
 	}

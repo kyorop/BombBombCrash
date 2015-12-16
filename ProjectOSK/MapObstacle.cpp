@@ -2,17 +2,11 @@
 
 namespace BombBombCrash
 {
-	MapObstacle::MapObstacle(int id)
-		:id(id)
+	MapObstacle::MapObstacle()
 	{
 	}
 
 	MapObstacle::~MapObstacle(void)
 	{
-	}
-
-	int MapObstacle::Type()const
-	{
-		return id;
 	}
 }

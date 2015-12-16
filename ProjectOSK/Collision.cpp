@@ -9,6 +9,7 @@
 #include "Item.h"
 #include "Charactor.h"
 #include "MapFactory.h"
+#include "Block.h"
 
 
 namespace BombBombCrash

@@ -2,13 +2,7 @@
 
 namespace BombBombCrash
 {
-	enum MapType
-	{
-		FLOOR,
-		HARDBLOCK,
-		SOFTBLOCK,
-	};
-
+	class MapObject;
 	class Map;
 	class MapFactory
 	{
@@ -16,7 +10,10 @@ namespace BombBombCrash
 		MapFactory();
 		~MapFactory();
 
-		std::unique_ptr<Map> Craete() const;
+		static std::unique_ptr<Map> Craete();
+
+	private:
+		static void InitBlock(const std::shared_ptr<MapObject>& block ,int i, int j);
 	};
 }
 
