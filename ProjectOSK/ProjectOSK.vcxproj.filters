@@ -16,15 +16,6 @@
     <Filter Include="Source\Utility">
       <UniqueIdentifier>{ef042950-328b-4a6e-b458-cf8c700e6089}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\AI">
-      <UniqueIdentifier>{767b9529-c177-45e6-b647-d1a4a1da868d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\AI\State">
-      <UniqueIdentifier>{ce5d6ff7-37a0-4b52-8049-dd31fad6af7e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Algo">
-      <UniqueIdentifier>{7b59add8-db4a-4610-8eb2-31e4e09f0c5c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Bomb">
       <UniqueIdentifier>{c56bb18a-019e-4616-ba3d-17064fbbd24a}</UniqueIdentifier>
     </Filter>
@@ -58,10 +49,22 @@
     <Filter Include="Source\Scene\Manager">
       <UniqueIdentifier>{0e62dfa8-7fe6-49c7-b0c5-ec8b6dd2b5a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Algorithm">
+      <UniqueIdentifier>{7b59add8-db4a-4610-8eb2-31e4e09f0c5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Ai">
+      <UniqueIdentifier>{767b9529-c177-45e6-b647-d1a4a1da868d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Ai\State">
+      <UniqueIdentifier>{ce5d6ff7-37a0-4b52-8049-dd31fad6af7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Collision">
+      <UniqueIdentifier>{8ca21e62-3ee3-4c6c-9e41-f0734f1bf879}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EnemyAI.cpp">
-      <Filter>Source\AI</Filter>
+      <Filter>Source\Ai</Filter>
     </ClCompile>
     <ClCompile Include="Key.cpp">
       <Filter>Source\Utility</Filter>
@@ -91,16 +94,13 @@
       <Filter>Source\Character</Filter>
     </ClCompile>
     <ClCompile Include="Graph.cpp">
-      <Filter>Source\Algo</Filter>
+      <Filter>Source\Algorithm</Filter>
     </ClCompile>
     <ClCompile Include="Search.cpp">
-      <Filter>Source\Algo</Filter>
+      <Filter>Source\Algorithm</Filter>
     </ClCompile>
     <ClCompile Include="Dijkstra.cpp">
-      <Filter>Source\Algo</Filter>
-    </ClCompile>
-    <ClCompile Include="Collision.cpp">
-      <Filter>Source\GameState</Filter>
+      <Filter>Source\Algorithm</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Source\Character</Filter>
@@ -109,16 +109,16 @@
       <Filter>Source\Bomb</Filter>
     </ClCompile>
     <ClCompile Include="Avoid.cpp">
-      <Filter>Source\AI\State</Filter>
+      <Filter>Source\Ai\State</Filter>
     </ClCompile>
     <ClCompile Include="State.cpp">
-      <Filter>Source\AI\State</Filter>
+      <Filter>Source\Ai\State</Filter>
     </ClCompile>
     <ClCompile Include="AttackOtherCharacter.cpp">
-      <Filter>Source\AI\State</Filter>
+      <Filter>Source\Ai\State</Filter>
     </ClCompile>
     <ClCompile Include="BreakBlock.cpp">
-      <Filter>Source\AI\State</Filter>
+      <Filter>Source\Ai\State</Filter>
     </ClCompile>
     <ClCompile Include="Sound.cpp">
       <Filter>Source\Resource</Filter>
@@ -127,7 +127,7 @@
       <Filter>Source\Resource</Filter>
     </ClCompile>
     <ClCompile Include="GetItem.cpp">
-      <Filter>Source\AI\State</Filter>
+      <Filter>Source\Ai\State</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Source</Filter>
@@ -178,13 +178,28 @@
     <ClCompile Include="SceneManger.cpp">
       <Filter>Source\Scene\Manager</Filter>
     </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Source\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="ControlPassingCollision.cpp">
+      <Filter>Source\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="FireCollision.cpp">
+      <Filter>Source\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScene.cpp">
+      <Filter>Source\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameConstant.h">
       <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="EnemyAI.h">
-      <Filter>Source\AI</Filter>
+      <Filter>Source\Ai</Filter>
     </ClInclude>
     <ClInclude Include="Key.h">
       <Filter>Source\Utility</Filter>
@@ -223,18 +238,15 @@
       <Filter>Source\Character</Filter>
     </ClInclude>
     <ClInclude Include="Search.h">
-      <Filter>Source\Algo</Filter>
+      <Filter>Source\Algorithm</Filter>
     </ClInclude>
     <ClInclude Include="Graph.h">
-      <Filter>Source\Algo</Filter>
+      <Filter>Source\Algorithm</Filter>
     </ClInclude>
     <ClInclude Include="Dijkstra.h">
-      <Filter>Source\Algo</Filter>
+      <Filter>Source\Algorithm</Filter>
     </ClInclude>
     <ClInclude Include="MapState.h">
-      <Filter>Source\GameState</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision.h">
       <Filter>Source\GameState</Filter>
     </ClInclude>
     <ClInclude Include="Explosion.h">
@@ -244,19 +256,19 @@
       <Filter>Interface</Filter>
     </ClInclude>
     <ClInclude Include="Avoid.h">
-      <Filter>Source\AI\State</Filter>
+      <Filter>Source\Ai\State</Filter>
     </ClInclude>
     <ClInclude Include="Route.h">
-      <Filter>Source\AI\State</Filter>
+      <Filter>Source\Ai\State</Filter>
     </ClInclude>
     <ClInclude Include="State.h">
-      <Filter>Source\AI\State</Filter>
+      <Filter>Source\Ai\State</Filter>
     </ClInclude>
     <ClInclude Include="AttackOtherCharacter.h">
-      <Filter>Source\AI\State</Filter>
+      <Filter>Source\Ai\State</Filter>
     </ClInclude>
     <ClInclude Include="BreakBlock.h">
-      <Filter>Source\AI\State</Filter>
+      <Filter>Source\Ai\State</Filter>
     </ClInclude>
     <ClInclude Include="Sound.h">
       <Filter>Source\Resource</Filter>
@@ -268,7 +280,7 @@
       <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="GetItem.h">
-      <Filter>Source\AI\State</Filter>
+      <Filter>Source\Ai\State</Filter>
     </ClInclude>
     <ClInclude Include="IPlayerInput.h">
       <Filter>Interface</Filter>
@@ -327,6 +339,33 @@
     </ClInclude>
     <ClInclude Include="SceneManger.h">
       <Filter>Source\Scene\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Source\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlPassingCollision.h">
+      <Filter>Source\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="FireCollision.h">
+      <Filter>Source\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="IFireIterator.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="IFreAggregate.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScene.h">
+      <Filter>Source\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ISceneProgress.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="IGameProgress.h">
+      <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,68 +1,64 @@
 #pragma once
 #include "MapObject.h"
 #include "ISoundPlayer.h"
-#include "Timer.h"
-#include "IDrawable.h"
+#include "IGameProgress.h"
 
 namespace BombBombCrash
 {
-	class ExplosionManager;
+	class Timer;
+	class Fire;
 	class Player;
 	class Map;
 	class Character;
 
-	class Bomb: public MapObject, public ISoundPlayer, public IDrawable
+	class Bomb: public MapObject, public ISoundPlayer, public IGameProgress
 	{
-		std::unique_ptr<ExplosionManager> explosion;
 		static const int bombExistTime = 2500;
-	
-		Bomb();
-	protected:
+
+		std::unique_ptr<Fire> explosion;
+		std::unique_ptr<Timer> timer;
 		int count;
-		Timer time;
 		int* image_bomb;
-		int fireLevel;
 		int animpat;
 		mutable int soundOn;
-	public:
-		virtual ~Bomb();
-		void Set(int x, int y);
-		void Maintain();
-		void CheckBombOverlap(const Bomb & bomb);
-		void SetFlag(int flag) override;
-		void Draw() override;
-		void SetFireLevel(int level);
-		int GetFireLevel()const{return fireLevel;}
-		int EnableToPlaySound()const override;
-		void UpFireLevel() const;
-		void Update();
 
-		static std::shared_ptr<Bomb> Create();
+		explicit Bomb(const ln::Vector2& position, int fireLevel);
+		
+		ln::Vector2 AdjustPosition(const ln::Vector2& position) const;
+	
+	public:
+		void IncrementFire() const;
+		
+		int EnableToPlaySound()const override;
+
+		static std::shared_ptr<Bomb> Create(const ln::Vector2& position, int fireLevel);
+
+		void Initialize(const GameManager& game) override;
+
+		void Update(GameManager& game) override;
+		
+		void Draw(const GameManager& game) override;
+		
+		void Destroy(const GameManager& game) override;
+		
+		bool CanRemove() override;
 	};
 }
-
-
-
 
 
 namespace BombBombCrash
 {
 	class BombController
 	{
-		std::vector<std::shared_ptr<Bomb>> bombs;
-		int num_upFireLevel;
+		std::list<std::shared_ptr<Bomb>> bombs;
+		int maxSize;
 
 	public:
 		BombController(void);
-		~BombController(void);
 
-		void Set(int x, int y);
-		void Update(void);
-		void Draw(void);
-		void Increment(void);
-		void IncrementFirepower(void);
-		int BombSize() const;
-		int Firepower();
+		std::shared_ptr<Bomb> Request(const ln::Vector2& position, int fireLevel);
+		void IncrementBomb();
+		int MaxSize() const;
 	};
 }
 

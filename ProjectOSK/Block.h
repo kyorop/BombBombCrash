@@ -17,7 +17,6 @@ namespace BombBombCrash
 	class Character;
 	class SoftBlock:public MapObstacle, public IDrawable, public IRegister
 	{
-	private:
 		static int imageHandle;
 	public:
 		explicit SoftBlock(int imageHandle);
@@ -30,7 +29,6 @@ namespace BombBombCrash
 
 	class HardBlock:public MapObstacle, public IDrawable
 	{
-	private:
 		static int imageHandle;
 	
 	public:
@@ -42,7 +40,6 @@ namespace BombBombCrash
 
 	class Floor: public MapObstacle, public IDrawable
 	{
-	private:
 		static int imageHandle;
 	public:
 		Floor(int imageHandle);

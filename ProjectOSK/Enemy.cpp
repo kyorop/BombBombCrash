@@ -1,5 +1,4 @@
 #include "Enemy.h"
-#include "Player.h"
 #include "MapState.h"
 #include "EnemyAI.h"
 #include "Collision.h"

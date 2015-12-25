@@ -7,6 +7,7 @@
 #include "GameConstant.h"
 #include "KeyboardPlayerInput.h"
 #include "Bomb.h"
+#include "GameManager.h"
 
 using namespace BombBombCrash;
 
@@ -19,8 +20,9 @@ enum
 	NOHIT,
 };
 
-Player::Player(KeyState device)
-	:image_left(Image::GetInstance()->GetCharacterImage(id, Image::LEFT)),
+Player::Player(const ln::Vector2& position, KeyState device)
+	:
+	image_left(Image::GetInstance()->GetCharacterImage(id, Image::LEFT)),
 	image_right(Image::GetInstance()->GetCharacterImage(id, Image::RIGHT)),
 	image_up(Image::GetInstance()->GetCharacterImage(id, Image::UP)),
 	image_down(Image::GetInstance()->GetCharacterImage(id, Image::DOWN)),
@@ -31,14 +33,11 @@ Player::Player(KeyState device)
 	isJoypad(device),
 	input(new KeyboardPlayerInput()),
 	bomb(std::make_unique<BombController>()),
-	speed(1)
+	speed(1),
+	fireLevel(1)
 {
-	x = 32*2;
-	rx = x+32;
-	y = 32*1;
-	dy = y+32;
+	SetPosition(position);
 	muki = DOWN;
-	exists =1;
 	animpat = 0;
 	MapState::GetInstance()->RegisterWithCharacter(this);
 	Collision::Instance()->Register(this);
@@ -64,103 +63,45 @@ Player::~Player(void)
 
 void Player::Move()
 {
-	if(exists)
+	if(Exists())
 	{
-		if(input->GetInputMoveLeft() && ! input->GetInputMoveDown() && input->GetInputMoveUp() == 0 && input->GetInputMoveRight() == 0)
+		if(input->GetInputMoveLeft() && !input->GetInputMoveDown() && !input->GetInputMoveUp() && !input->GetInputMoveRight())
 		{
-			this->x -=	speed;
+			Translate(ln::Vector2(-speed, 0));
 			this->muki = LEFT;
-			if(input->GetInputMoveUp() )
-				this->y -= speed;			
+			if(input->GetInputMoveUp())
+				Translate(ln::Vector2(0, -speed));
 			if(input->GetInputMoveDown())
-				this->y += speed;
+				Translate(ln::Vector2(0, speed));
 		}	
 		else if(input->GetInputMoveRight() && input->GetInputMoveDown() == 0 && input->GetInputMoveUp() == 0)	
 		{
-			this->x += speed;
+			Translate(ln::Vector2(speed, 0));
 			this->muki = RIGHT;
 			if(input->GetInputMoveUp())
-				this->y -= speed;			
+				Translate(ln::Vector2(0, -speed));
 			if(input->GetInputMoveDown())
-				this->y += speed;
+				Translate(ln::Vector2(0, speed));
 		
 		}			
 		else if(input->GetInputMoveUp()  && input->GetInputMoveDown() == 0)
 		{
-			this->y	-=	speed;
+			Translate(ln::Vector2(0, -speed));
 			this->muki = UP; 
 			if(input->GetInputMoveLeft())
-				this->x -= speed;
+				Translate(ln::Vector2(-speed, 0));
 			if(input->GetInputMoveRight()) 
-				this->x += speed;
-		
+				Translate(ln::Vector2(speed, 0));
 		}			
 		else if(input->GetInputMoveDown())
 		{
-			this->y	+=	speed;
+			Translate(ln::Vector2(0, speed));
 			this->muki = DOWN; 
 			if(input->GetInputMoveLeft()) 
-				this->x -= speed;
+				Translate(ln::Vector2(-speed, 0));
 			if(input->GetInputMoveRight())
-				this->x += speed;
+				Translate(ln::Vector2(speed, 0));
 		}
-
-		//if(CheckHitKey(KEY_INPUT_BACKSLASH)==1)
-		//{
-		//	this->x += mv;
-		//	this->y += mv;
-		//	this->muki = LEFT;
-		//}
-		//else if(CheckHitKey(KEY_INPUT_SLASH)==1)
-		//{
-		//	this->x -= mv;
-		//	this->y += mv;
-		//	this->muki = RIGHT;
-		//}
-		//else if(CheckHitKey(KEY_INPUT_SEMICOLON)==1)
-		//{
-		//	this->x -= mv;
-		//	this->y -= mv;
-		//	this->muki = LEFT;
-		//}
-		//else if(CheckHitKey(KEY_INPUT_COLON)==1)
-		//{
-		//	this->x += mv;
-		//	this->y -= mv;
-		//	this->muki = RIGHT;
-		//}
-		//
-		//if(CheckHitKey(KEY_INPUT_Q) == 1)
-		//{
-		//	this->x = 32*2;
-		//	this->y = 32*1;
-		//	this->muki = DOWN;
-		//	this->flag = 1;
-		//}
-		//if(CheckHitKey(KEY_INPUT_W) == 1)
-		//{
-		//	this->x = 32*14;
-		//	this->y = 32*1;
-		//	this->muki = DOWN;
-		//}
-		//if(CheckHitKey(KEY_INPUT_E) == 1)
-		//{
-		//	this->x = 32*2;
-		//	this->y = 32*11;
-		//	this->muki = DOWN;
-		//}
-		//if(CheckHitKey(KEY_INPUT_R) == 1)
-		//{
-		//	this->x = 32*14;
-		//	this->y = 32*11;
-		//	this->muki = DOWN;
-		//}
-		//if(CheckHitKey(KEY_INPUT_X) == 1)
-		//{
-		//	this->x = 32*10;
-		//	this->y = 32*10;
-		//	this->muki = DOWN;
-		//}
 
 		this->rx = this->x+32;
 		this->dy = this->y+32;
@@ -175,88 +116,10 @@ void Player::Move()
 }
 
 
-void Player::Draw()
-{
-	bomb->Draw();
-	if(exists)
-	{
-		int image;
-		{
-			if(input->GetInputMoveLeft() == 1) 
-				image = image_left[animpat];
-			else if(input->GetInputMoveRight() == 1) 
-				image = image_right[animpat];
-			else if(input->GetInputMoveUp() == 1)
-				image = image_up[animpat];
-			else if(input->GetInputMoveDown() == 1) 
-				image = image_down[animpat];
-			else
-			{
-				//キーを押してないときはアニメーションしないことを意味する
-				animpat = 0;
-				if(muki == LEFT)
-					image = image_left[animpat];
-				else if(muki == RIGHT)
-					image = image_right[animpat];
-				else if(muki == UP)
-					image = image_up[animpat];
-				else if(muki == DOWN)
-					image = image_down[animpat];
-			}
-		}
-//		else if(isJoypad == JOYPAD)
-//		{
-//			int inputState = GetJoypadInputState(DX_INPUT_PAD1);
-//			int up = inputState & PAD_INPUT_UP;
-//			int down = inputState & PAD_INPUT_DOWN;
-//			int left = inputState & PAD_INPUT_LEFT;
-//			int right = inputState & PAD_INPUT_RIGHT;
-//
-//			if(left) 
-//				image = image_left[animpat];
-//			else if(right) 
-//				image = image_right[animpat];
-//			else if(up)
-//				image = image_up[animpat];
-//			else if(down) 
-//				image = image_down[animpat];
-//			else
-//			{
-//				//キーを押してないときはアニメーションしないことを意味する
-//				animpat = 0;
-//				if(muki == LEFT)
-//					image = image_left[animpat];
-//				else if(muki == RIGHT)
-//					image = image_right[animpat];
-//				else if(muki == UP)
-//					image = image_up[animpat];
-//				else if(muki == DOWN)
-//					image = image_down[animpat];
-//			}
-//		}
-
-		DxLib:: DrawGraph(x, y, image, TRUE);
-	}
-	else		//死亡時のアニメーション
-	{
-		if( !hasFinished )
-		{
-			if(animationTime->CountDownFrame(1*1000))
-			{
-				++animationFrame;
-				if(animationFrame == 3)
-					hasFinished = 1;
-			}
-			DxLib::DrawGraph(x, y, image_death[animationFrame], true);
-		}
-	}
-}
 
 void Player::Update()
 {
-	Move();
-	PutBomb();
-	bomb->Update();
+
 }
 
 void Player::IncrementSpeed(void)
@@ -275,30 +138,121 @@ int Player::Speed()
 
 int Player::BombSize()
 {
-	return bomb->BombSize();
+	return bomb->MaxSize();
 }
 
-int Player::Firepower()
+int Player::FireLevel()
 {
-	return bomb->Firepower();
+	return fireLevel;
 }
 
 void Player::IncrementBomb()
 {
-	bomb->Increment();
+	bomb->IncrementBomb();
 }
 
-void Player::IncrementFirepower()
-{
-	bomb->IncrementFirepower();
+void Player::IncrementFireLevel()
+{ 
+	++fireLevel;
 }
 
-bool Player::PutBomb()
+void Player::Initialize(const GameManager& game)
 {
+}
+
+void Player::Update(GameManager& game)
+{
+	Move();
+
 	if (input->GetInputPutBomb())
 	{
-		bomb->Set(GetX(), GetY());
+		game.AddElement(bomb->Request(Position(), fireLevel));
 	}
-	return true;
 }
 
+void Player::Draw(const GameManager& game)
+{
+	if (exists)
+	{
+		int image;
+		{
+			if (input->GetInputMoveLeft() == 1)
+				image = image_left[animpat];
+			else if (input->GetInputMoveRight() == 1)
+				image = image_right[animpat];
+			else if (input->GetInputMoveUp() == 1)
+				image = image_up[animpat];
+			else if (input->GetInputMoveDown() == 1)
+				image = image_down[animpat];
+			else
+			{
+				//キーを押してないときはアニメーションしないことを意味する
+				animpat = 0;
+				if (muki == LEFT)
+					image = image_left[animpat];
+				else if (muki == RIGHT)
+					image = image_right[animpat];
+				else if (muki == UP)
+					image = image_up[animpat];
+				else if (muki == DOWN)
+					image = image_down[animpat];
+			}
+		}
+		//		else if(isJoypad == JOYPAD)
+		//		{
+		//			int inputState = GetJoypadInputState(DX_INPUT_PAD1);
+		//			int up = inputState & PAD_INPUT_UP;
+		//			int down = inputState & PAD_INPUT_DOWN;
+		//			int left = inputState & PAD_INPUT_LEFT;
+		//			int right = inputState & PAD_INPUT_RIGHT;
+		//
+		//			if(left) 
+		//				image = image_left[animpat];
+		//			else if(right) 
+		//				image = image_right[animpat];
+		//			else if(up)
+		//				image = image_up[animpat];
+		//			else if(down) 
+		//				image = image_down[animpat];
+		//			else
+		//			{
+		//				//キーを押してないときはアニメーションしないことを意味する
+		//				animpat = 0;
+		//				if(muki == LEFT)
+		//					image = image_left[animpat];
+		//				else if(muki == RIGHT)
+		//					image = image_right[animpat];
+		//				else if(muki == UP)
+		//					image = image_up[animpat];
+		//				else if(muki == DOWN)
+		//					image = image_down[animpat];
+		//			}
+		//		}
+
+		auto pos = Position();
+		DrawGraph(pos.X, pos.Y, image, TRUE);
+	}
+	else		//死亡時のアニメーション
+	{
+		if (!hasFinished)
+		{
+			if (animationTime->CountDownFrame(1 * 1000))
+			{
+				++animationFrame;
+				if (animationFrame == 3)
+					hasFinished = 1;
+			}
+			auto pos = Position();
+			DrawGraph(pos.X, pos.Y, image_death[animationFrame], true);
+		}
+	}
+}
+
+void Player::Destroy(const GameManager& game)
+{
+}
+
+bool Player::CanRemove()
+{
+	return !Exists();
+}

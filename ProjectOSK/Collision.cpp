@@ -8,7 +8,6 @@
 #include "Explosion.h"
 #include "Item.h"
 #include "Charactor.h"
-#include "MapFactory.h"
 #include "Block.h"
 
 
@@ -86,7 +85,7 @@ namespace BombBombCrash
 	}
 
 
-	void Collision::RegisterWithFire(ExplosionManager *pFire)
+	void Collision::RegisterWithFire(Fire *pFire)
 	{
 		fire.push_back(pFire);
 	}
@@ -164,15 +163,13 @@ namespace BombBombCrash
 
 	void Collision::CheckCollisionWithFire()
 	{
-		std::list<ExplosionManager*>::iterator itrFire;
+		std::list<Fire*>::iterator itrFire;
 		std::list<ICollisionable*>::iterator itrHardBlock;
 	
-		//���锚�������o����
 		for (itrFire=fire.begin(); itrFire != fire.end() ; ++itrFire)
 		{
-			for(int k=1; k<=4; ++k)//k�͏����ʒu(���S�̉΂̂����ׂ̉�); k��4�{�̔�������
+			for(int k=1; k<=4; ++k)
 			{
-				//���̃��[�v��,�����̉΂��ׂĂ���[�v����
 				for (int i = 0, fireSize=((*itrFire)->GetSize()-1)/4; i < fireSize; ++i)
 				{
 					if((*itrFire)->GetFlag(k+4*i) == 1)
@@ -180,26 +177,24 @@ namespace BombBombCrash
 						int x_fire = (*itrFire)->GetX(k+4*i);
 						int y_fire = (*itrFire)->GetY(k+4*i);
 					
-						//�����}�X�̉΂ɑ΂��āA�S�Ẵn�[�h�u���b�N���
 						for (itrHardBlock = hardBlock.begin(); itrHardBlock != hardBlock.end(); ++itrHardBlock)
 						{
 							int x_hblock = (*itrHardBlock)->GetX();
 							int y_hblock = (*itrHardBlock)->GetY();
 						
-							//�n�[�h�u���b�N�Ɠ�������
 							if(CheckOneUponAnother(x_hblock,y_hblock,x_fire,y_fire, collisionLevelWithFire) == 1)
 							{
 								(*itrFire)->SetFlag(k+4*i, 0);
 							
-								if(i+1 <= fireSize)//��ł���������̂ŁA���̃}�X�ɂ܂��΂���������
+								if(i+1 <= fireSize)
 								{
-									for (i++; i< fireSize; ++i)//����ȍ~���ׂď���
+									for (i++; i< fireSize; ++i)
 									{
 										(*itrFire)->SetFlag(k+4*i, 0);
 									}
 								}
-								break;//������break����΁A��� i ��}�b�N�X�܂Ń��[�v���Ă��܂����̂�
-							}			   //�ŏ��� i �̃��[�v�����ɔ�������
+								break;
+							}
 						}
 					}
 				}
@@ -210,15 +205,13 @@ namespace BombBombCrash
 
 	void Collision::CheckCollisionFireAndFragile()
 	{
-		std::list<ExplosionManager*>::iterator itrFire;
+		std::list<Fire*>::iterator itrFire;
 		std::list<ICollisionable*>::iterator itrFragile;
 	
-		//���锚�������o����
 		for (itrFire=fire.begin(); itrFire != fire.end() ; ++itrFire)
 		{
-			for(int k=0; k<=4; ++k)//k�͏����ʒu(���S�̉΂̂����ׂ̉�); k��4�{�̔�������
+			for(int k=0; k<=4; ++k)
 			{
-				//���̃��[�v��,�����̉΂��ׂĂ���[�v����
 				for (int i = 0, fireSize=((*itrFire)->GetSize()-1)/4; i < fireSize; ++i)
 				{
 					if((*itrFire)->GetFlag(k+4*i) == 1)
@@ -226,7 +219,6 @@ namespace BombBombCrash
 						int x_fire = (*itrFire)->GetX(k+4*i);
 						int y_fire = (*itrFire)->GetY(k+4*i);
 					
-						//�����}�X�̉΂ɑ΂��āA�S�Ẳ��镨���
 						for (itrFragile = fragile.begin(); itrFragile != fragile.end(); ++itrFragile)
 						{
 							if((*itrFragile)->Exists())
@@ -234,21 +226,20 @@ namespace BombBombCrash
 								int x_fragile = (*itrFragile)->GetX();
 								int y_fragile = (*itrFragile)->GetY();
 						
-								//���镨�Ɠ�������
-								if(CheckOneUponAnother(x_fragile,y_fragile,x_fire,y_fire, collisionLevelWithFire))
+								if (CheckOneUponAnother(x_fragile, y_fragile, x_fire, y_fire, collisionLevelWithFire))
 								{
-									(*itrFire)->SetFlag(k+4*i, 0);
-									(*itrFragile)->SetFlag(0);
-							
-									if(i+1 <= fireSize)//��ł���������̂ŁA���̃}�X�ɂ܂��΂���������
+									(*itrFire)->SetFlag(k + 4 * i, 0);
+									(*itrFragile)->SetExists(0);
+
+									if (i + 1 <= fireSize)
 									{
-										for (i++; i< fireSize; ++i)//����ȍ~���ׂď���
+										for (i++; i < fireSize; ++i)
 										{
-											(*itrFire)->SetFlag(k+4*i, 0);
+											(*itrFire)->SetFlag(k + 4 * i, 0);
 										}
 									}
-									break;//������break����΁A��� i ��}�b�N�X�܂Ń��[�v���Ă��܂����̂�
-								}			   //�ŏ��� i �̃��[�v�����ɔ�������
+									break;
+								}
 							}
 						}
 					}
@@ -279,7 +270,7 @@ namespace BombBombCrash
 								chara->IncrementBomb();
 								break;
 							case Item::FIRE:
-								chara->IncrementFirepower();
+								chara->IncrementFireLevel();
 								break;
 							case Item::SPEED:
 								chara->IncrementSpeed();
@@ -287,7 +278,7 @@ namespace BombBombCrash
 							default:
 								break;
 							}
-							(*itrItem)->SetFlag(0);
+							(*itrItem)->SetExists(0);
 						}
 					}
 				}

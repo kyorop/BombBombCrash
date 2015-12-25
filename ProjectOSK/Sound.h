@@ -7,9 +7,7 @@ namespace BombBombCrash
 	class ISoundPlayer;
 	class Sound
 	{
-	private:
 		int explosion;
-	private:
 		Sound();
 		Sound(const Sound&);
 		Sound& operator=(const Sound&);

@@ -57,6 +57,6 @@ void ItemManager::Initialize(const Block &block)
 		history.push_back(m);
 		items[k]->SetX(32 * j_block[m]);
 		items[k]->SetY(32 * i_block[m]);
-		items[k]->SetFlag(1);
+		items[k]->SetExists(1);
 	}
 }

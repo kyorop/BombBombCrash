@@ -7,103 +7,156 @@
 #define DHIT 6
 
 using namespace BombBombCrash;
+using namespace std;
 
-//コンストラクタ
-Explosion::Explosion(int right,int left,int down,int up)
-	:upx(right), 
-	downx(left),
-	upy(down),
-	downy(up),
-	fuse(0),
-	explosion(0)
+
+//FireBlock
+
+FireBlock::~FireBlock(void)
 {
 }
 
-Explosion::~Explosion(void)
+void FireBlock::Set(int x, int y)
 {
 }
 
-//ボムが置かれて、それが爆発すると、火を存在させる
-void Explosion::Set(int x, int y)//爆弾のあとExplosionManagerの中で一番初めに描く
-{
-	this->x = x + 32*upx - 32*downx;//中心からの広がり
-	this->y = y + 32*upy - 32*downy;
-}
-
-void Explosion::SetExplosion(int flag)
+void FireBlock::SetExplosion(int flag)
 {
 	explosion = flag;
 }
 
-int Explosion::GetExplosion()
+int FireBlock::GetExplosion()
 {
 	return explosion;
 }
 
 
+//FirePillar
 
-ExplosionManager::ExplosionManager()
-	:nowFireLevel(1),
-	fuse(0),
-	explosion(0),
-	beforeExplosion(),
-	image_fire(Image::GetInstance()->GetImage(Image::FIRE)),
-	vex()
+shared_ptr<IFireIterator> FirePillar::Iterator()
 {
+	return make_shared<FirePillarIterator>(*this);
+}
+
+FirePillar::FirePillar(const shared_ptr<FireBlock>& center):
+center(center)
+{
+}
+
+void FirePillar::Add()
+{
+	auto last = FireBlockAt(Size() - 1);
+	auto newBlock = make_shared<FireBlock>(last.Position()+Direction(), last.Width(), last.Height());
+	pillar.push_back(newBlock);
+}
+
+int FirePillar::Size() const
+{
+	return pillar.size();
+}
+
+FireBlock FirePillar::FireBlockAt(int i)
+{
+	return *pillar[i];
+}
+
+
+//UpFirePillar
+
+ln::Vector2 UpFirePillar::Direction()
+{
+	return ln::Vector2(0,-32);
+}
+
+
+//RightFirePillar
+
+ln::Vector2 RightFirePillar::Direction()
+{
+	return ln::Vector2(32, 0);
+}
+
+
+//DownFire
+
+ln::Vector2 DownFirePillar::Direction()
+{
+	return ln::Vector2(0, 32);
+}
+
+
+//LeftFirePillar
+
+ln::Vector2 LeftFirePillar::Direction()
+{
+	return ln::Vector2(-32, 0);
+}
+
+
+/*
+FirePillarIterator
+*/
+
+FirePillarIterator::FirePillarIterator(const FirePillar& firePillar): 
+//fire(make_shared<FirePillar>(firePillar)),
+index(0)
+{
+
+}
+
+bool FirePillarIterator::HasNext()
+{
+	return fire->Size() > index;
+}
+
+MapObject FirePillarIterator::Next()
+{
+	return fire->FireBlockAt(index++);
+}
+
+
+//Fire
+
+Fire::Fire():
+nowFireLevel(1),
+fuse(0),
+explosion(0),
+beforeExplosion(),
+image_fire(Image::GetInstance()->GetImage(Image::FIRE)),
+firePillars(4)
+{
+	firePillars[Up] = make_shared<UpFirePillar>(center);
+	firePillars[Right] = make_shared<RightFirePillar>(center);
+	firePillars[Left] = make_shared<LeftFirePillar>(center);
+	firePillars[Down] = make_shared<DownFirePillar>(center);
+
 	Collision::Instance()->RegisterWithFire(this);
-	Explosion *center = new Explosion(0, 0, 0, 0);
-	Explosion *up = new Explosion(0, 0, 0, 1);
-	Explosion *down = new Explosion(0, 0, 1, 0);
-	Explosion *left = new Explosion(0, 1, 0, 0);
-	Explosion *right = new Explosion(1, 0, 0, 0);
-
-	//�����Ἠ��x���A���S�Ƃ��̎����}�X
-	vex.push_back(center);//���S
-	vex.push_back(up);
-	vex.push_back(down);
-	vex.push_back(left);
-	vex.push_back(right);
 }
 
-ExplosionManager::~ExplosionManager(void)
+Fire::~Fire(void)
 {
-	std::vector<Explosion*>::iterator it = vex.begin();
-	for (it; it != vex.end(); ++it)
+}
+
+void Fire::FireUp()
+{
+	++nowFireLevel;
+}
+
+void Fire::Update(const Bomb &bomb)
+{
+	if (bomb.Exists() && explosion == 0 && fuse == 0)
 	{
-		delete *it;
-	}
-}
-
-void ExplosionManager::FireUp()
-{
-	++nowFireLevel;//�����₷�Ƃ��́A��ׂɑ��₷
-
-	//��x��4�����₷(�l���ɍL���邩��)
-	Explosion *up = new Explosion(0, 0, 0, nowFireLevel);
-	Explosion *down = new Explosion(0, 0, nowFireLevel, 0);
-	Explosion *left = new Explosion(0, nowFireLevel, 0, 0);
-	Explosion *right = new Explosion(nowFireLevel, 0, 0, 0);
-	vex.push_back(up);
-	vex.push_back(down);
-	vex.push_back(left);
-	vex.push_back(right);
-}
-
-void ExplosionManager::Update(const Bomb &bomb)
-{
-	if (bomb.Exists() && explosion == 0 && fuse == 0)//���e���u���ꂽ��A
-	{
-		fuse = TRUE;//���ΐ��ɉ΂���
+		fuse = TRUE;
 		for (int i = 0, size = vex.size(); i<size; ++i)
 		{
 			vex[i]->Set(bomb.GetX(), bomb.GetY());
 		}
 	}
 
-	if (fuse == TRUE && bomb.Exists() == FALSE)//���ΐ��ɉ΂������{������������
+	if (fuse == TRUE && bomb.Exists() == FALSE)
 	{
 		fuse = FALSE;
-		explosion = TRUE;//����
+		explosion = TRUE;
 		for (int i = 0, size = vex.size(); i<size; ++i)
 		{
 			vex[i]->SetExplosion(TRUE);
@@ -113,7 +166,7 @@ void ExplosionManager::Update(const Bomb &bomb)
 	Maintain();
 }
 
-void ExplosionManager::Maintain()
+void Fire::Maintain()
 {
 	if (explosion == TRUE)
 	{
@@ -128,19 +181,19 @@ void ExplosionManager::Maintain()
 	}
 }
 
-void ExplosionManager::Draw()
+void Fire::Draw()
 {
 	if (this->explosion == TRUE)
 	{
 		for (int i = 0, size = vex.size(); i<size; ++i)
 		{
-			if (vex[i]->GetExplosion() == 1)
+			if (vex[i]->GetExplosion())
 				DrawGraph(vex[i]->GetX(), vex[i]->GetY(), image_fire, FALSE);
 		}
 	}
 }
 
-void ExplosionManager::Register(void)
+void Fire::Register(void)
 {
 	for (int i = 0, size = vex.size(); i<size; ++i)
 	{
@@ -151,47 +204,32 @@ void ExplosionManager::Register(void)
 	}
 }
 
-int ExplosionManager::GetX(int i)const
+int Fire::GetX(int i)const
 {
 	return vex[i]->GetX();
 }
 
-int ExplosionManager::GetRX(int i)const
-{
-	return vex[i]->GetRX();
-}
-
-int ExplosionManager::GetY(int i)const
+int Fire::GetY(int i)const
 {
 	return vex[i]->GetY();
 }
 
-int ExplosionManager::GetDY(int i)const
-{
-	return vex[i]->GetDY();
-}
-
-int ExplosionManager::GetFlag(int i)const
+int Fire::GetFlag(int i)const
 {
 	return vex[i]->GetExplosion();
 }
 
-int ExplosionManager::GetSize()const
+int Fire::GetSize()const
 {
 	return vex.size();
 }
 
-void ExplosionManager::SetFlag(int i, int flag)
+void Fire::SetFlag(int i, int flag)
 {
 	vex[i]->SetExplosion(flag);
 }
 
-int ExplosionManager::GetExplosion(void)
-{
-	return explosion;
-}
-
-int ExplosionManager::Firepower(void)
+int Fire::Firepower(void)
 {
 	return nowFireLevel;
 }

@@ -5,6 +5,7 @@
 #include "Scene_Round.h"
 #include "Scene_Score.h"
 #include "Drawing.h"
+#include "TestScene.h"
 
 using namespace BombBombCrash;
 
@@ -12,7 +13,7 @@ SceneManger::SceneManger(void):
 nextScene(NOCHANGE),
 scene()
 {
-	scene = std::make_shared<Scene_Menu>();
+	scene = std::make_shared<TestScene>();
 	Drawing::Add(scene);
 	scene->SetManager(this);
 	scene->Initialize();
@@ -66,6 +67,7 @@ void SceneManger::ChangeScene(int next)
 {
 	nextScene = next;
 }
+
 
 void SceneManger::PlaySE(void)
 {

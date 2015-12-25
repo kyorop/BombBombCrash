@@ -4,6 +4,7 @@
 #include "Block.h"
 #include "Image.h"
 #include "Drawing.h"
+#include "ControlPassingCollision.h"
 
 
 namespace BombBombCrash
@@ -106,6 +107,7 @@ namespace BombBombCrash
 					InitBlock(hard, i, j);
 					mapRow.push_back(hard);
 					Drawing::Add(hard);
+					ControlPassingCollision::Add(hard);
 				}
 					break;
 				case SOFTBLOCK:
@@ -114,7 +116,7 @@ namespace BombBombCrash
 					mapRow.push_back(softBlock);
 					InitBlock(softBlock, i, j);
 					Drawing::Add(softBlock);
-
+					ControlPassingCollision::Add(softBlock);
 //					auto floor = std::make_shared<Floor>(floorHandle);
 //					mapRow.push_back(floor);
 //					InitBlock(floor, i, j);

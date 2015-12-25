@@ -5,8 +5,7 @@ namespace BombBombCrash
 {
 	class Drawing;
 	class Scene_Base;
-	class SceneManger
-		:public ISceneChanger
+	class SceneManger:public ISceneChanger
 	{
 		int nextScene;
 		std::shared_ptr<Scene_Base> scene;

@@ -13,9 +13,13 @@ protected:
 	int dy;
 	bool exists;
 	bool visible;
+	ln::Vector2 upperLeftPos;
+	ln::Vector2 lowerRightPos;
 
 public:
 	MapObject(void);
+	MapObject(const ln::Vector2& position, int width, int height);
+
 	virtual ~MapObject(void);
 
 	virtual int GetX()const;
@@ -26,7 +30,15 @@ public:
 	virtual int GetDY()const;
 	virtual bool Exists() const;
 	virtual bool Visible() const;
-	virtual void SetFlag(int flag);
+	virtual void SetVisible(bool isVisible);
+	virtual void SetExists(int isExists);
+
+	ln::Vector2 Position() const;
+	ln::Vector2 LowerRightPosition() const;
+	void SetPosition(const ln::Vector2& position);
+	void Translate(const ln::Vector2& translation);
+	int Width() const;
+	int Height() const;
 };
 }
 

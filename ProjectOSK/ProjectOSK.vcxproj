@@ -92,13 +92,16 @@
     <ClCompile Include="BreakBlock.cpp" />
     <ClCompile Include="Charactor.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="ControlPassingCollision.cpp" />
     <ClCompile Include="DangerState.cpp" />
     <ClCompile Include="Dijkstra.cpp" />
     <ClCompile Include="Drawing.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyAI.cpp" />
     <ClCompile Include="Avoid.cpp" />
+    <ClCompile Include="FireCollision.cpp" />
     <ClCompile Include="GameField.cpp" />
+    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GetItem.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="Image.cpp" />
@@ -128,6 +131,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -137,24 +141,31 @@
     <ClInclude Include="BreakBlock.h" />
     <ClInclude Include="Charactor.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="ControlPassingCollision.h" />
     <ClInclude Include="DangerState.h" />
     <ClInclude Include="Dijkstra.h" />
     <ClInclude Include="Drawing.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyAI.h" />
     <ClInclude Include="Avoid.h" />
+    <ClInclude Include="FireCollision.h" />
     <ClInclude Include="GameConstant.h" />
     <ClInclude Include="GameField.h" />
+    <ClInclude Include="GameManager.h" />
     <ClInclude Include="GetItem.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="IColleague.h" />
     <ClInclude Include="ICollisionable.h" />
     <ClInclude Include="IDrawable.h" />
+    <ClInclude Include="IFireIterator.h" />
+    <ClInclude Include="IFreAggregate.h" />
+    <ClInclude Include="IGameProgress.h" />
     <ClInclude Include="IGettable.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="IPlayerInput.h" />
     <ClInclude Include="IRegister.h" />
     <ClInclude Include="ISceneChanger.h" />
+    <ClInclude Include="ISceneProgress.h" />
     <ClInclude Include="ISoundPlayer.h" />
     <ClInclude Include="IStateChanger.h" />
     <ClInclude Include="Key.h" />
@@ -180,6 +191,7 @@
     <ClInclude Include="Sound.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="TestScene.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

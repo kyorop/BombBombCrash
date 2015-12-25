@@ -142,7 +142,7 @@ namespace BombBombCrash
 		playerInfo->y = player->GetY();
 		playerInfo->flag = player->Exists();
 		playerInfo->bombLevel = player->BombSize();
-		playerInfo->fireLevel = player->Firepower();
+		playerInfo->fireLevel = player->FireLevel();
 		playerInfo->speedLevel = player->Speed();
 
 
@@ -157,7 +157,7 @@ namespace BombBombCrash
 				int i_center = x_center / 32;
 				int j_center = y_center / 32;
 				SetState(x_center, y_center, BOMB, 1);
-				SetState(x_center, y_center, BOMB, b->GetFireLevel(), 1);
+//				SetState(x_center, y_center, BOMB, b->FireLevel(), 1);
 			}
 		}
 

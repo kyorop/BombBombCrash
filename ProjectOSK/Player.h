@@ -1,6 +1,7 @@
 #pragma once
 #include "Charactor.h"
 #include "IDrawable.h"
+#include "IGameProgress.h"
 
 namespace BombBombCrash
 {
@@ -11,8 +12,14 @@ namespace BombBombCrash
 	class BombController;
 	class IPlayerInput;
 	class Timer;
-	class Player: public Character, public IDrawable
+	class Player: public Character,public IGameProgress
 	{
+	protected:
+		bool PutBomb() override
+		{
+			return false;
+		}
+
 	public:
 
 		enum KeyState
@@ -36,22 +43,29 @@ namespace BombBombCrash
 		std::unique_ptr<IPlayerInput> input;
 		std::unique_ptr<BombController> bomb;
 		int speed;
+		int fireLevel;
 
 	public:
-		explicit Player(KeyState device);
+		Player(const ln::Vector2& position, KeyState device);
 		~Player();
 
-		void Draw()override;
 		void Update() override;
 		void Move()override;
 		void IncrementSpeed()override;
-		bool PutBomb() override;
+
+
+		void Initialize(const GameManager& game) override;
+		void Update(GameManager& game) override;
+		void Draw(const GameManager& game) override;
+		void Destroy(const GameManager& game) override;
+		bool CanRemove() override;
 
 		int Speed() override;
 		int BombSize() override;
-		int Firepower() override;
+		int FireLevel() override;
 		void IncrementBomb() override;
-		void IncrementFirepower() override;
+		void IncrementFireLevel() override;
+
 
 	};
 }

@@ -2,13 +2,27 @@
 
 using namespace BombBombCrash;
 
-MapObject::MapObject(void):
-	x(),
-	rx(),
-	y(),
-	dy(),
-	exists(true),
-	visible(true)
+MapObject::MapObject(void) :
+x(),
+rx(),
+y(),
+dy(),
+exists(true),
+visible(true),
+upperLeftPos(),
+lowerRightPos()
+{
+}
+
+MapObject::MapObject(const ln::Vector2& position, int width, int height):
+x(),
+rx(),
+y(),
+dy(),
+exists(true),
+visible(true),
+upperLeftPos(position),
+lowerRightPos(position + ln::Vector2(width,height))
 {
 }
 
@@ -59,11 +73,47 @@ bool MapObject::Visible() const
 	return visible;
 }
 
-void MapObject::SetFlag(int flag)
+void MapObject::SetVisible(bool isVisible)
+{
+	this->visible = isVisible;
+}
+
+void MapObject::SetExists(int flag)
 {
 	this->exists = flag;
 }
 
+ln::Vector2 MapObject::Position() const
+{
+	return upperLeftPos;
+}
 
+ln::Vector2 MapObject::LowerRightPosition() const
+{
+	return lowerRightPos;
+}
 
+void MapObject::SetPosition(const ln::Vector2& position)
+{
+	int currentW = Width();
+	int currentH = Height();
+	upperLeftPos = position;
+	lowerRightPos.X = upperLeftPos.X + currentW;
+	lowerRightPos.Y = upperLeftPos.Y + currentH;
+}
 
+int MapObject::Width() const
+{
+	return lowerRightPos.X - upperLeftPos.X;
+}
+
+int MapObject::Height() const
+{
+	return lowerRightPos.Y - upperLeftPos.Y;
+}
+
+void MapObject::Translate(const ln::Vector2& translation)
+{
+	upperLeftPos += translation;
+	lowerRightPos += translation;
+}

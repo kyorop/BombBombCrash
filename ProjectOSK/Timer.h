@@ -3,7 +3,6 @@ namespace BombBombCrash
 {
 	class Timer
 	{
-	private:
 		int count;
 		bool reset;
 		int startTime;

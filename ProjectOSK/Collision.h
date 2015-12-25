@@ -1,15 +1,15 @@
-#pragma once
+ï»¿#pragma once
 #include <vector>
 #include <list>
 
 
-//ƒVƒ“ƒOƒ‹ƒgƒ“
+//ï¿½Vï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½gï¿½ï¿½
 
 
 namespace BombBombCrash
 {
 	class ICollisionable;
-	class ExplosionManager;
+	class Fire;
 	class Item;
 
 	class Collision
@@ -20,7 +20,7 @@ namespace BombBombCrash
 		std::list<ICollisionable*> softBlock;
 		std::list<ICollisionable*> hardBlock;
 		std::list<ICollisionable*> map;
-		std::list<ExplosionManager*> fire;
+		std::list<Fire*> fire;
 		std::list<ICollisionable*> fragile;
 		std::list<Item*> item;
 
@@ -31,19 +31,19 @@ namespace BombBombCrash
 		Collision(void);
 		Collision(const Collision &collision);
 
-		//’Ê‚ê‚È‚¢Œn
+		//ï¿½Ê‚ï¿½È‚ï¿½ï¿½n
 		void CheckEnableToPass();
 
-		//’Êí‚Ì‚ ‚½‚è”»’è
+		//ï¿½Êï¿½Ì‚ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½
 		int CheckOneUponAnother(int x1, int y1,int x2, int y2, int collisionLevel);
 
-		//‰Î‚Æ‚ÌÚG”»’è
+		//ï¿½Î‚Æ‚ÌÚGï¿½ï¿½ï¿½ï¿½
 		void CheckCollisionWithFire();
 
-		//‰Î‚ª“–‚½‚é‚Æ‰ó‚ê‚é•¨‚Ì‚ ‚½‚è”»’è
+		//ï¿½Î‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‰ï¿½ï¿½é•¨ï¿½Ì‚ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½
 		void CheckCollisionFireAndFragile();
 
-		//ƒLƒƒƒ‰ƒNƒ^[‚ÆƒAƒCƒeƒ€‚Ì‚ ‚½‚è”»’è
+		//ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½^ï¿½[ï¿½ÆƒAï¿½Cï¿½eï¿½ï¿½ï¿½Ì‚ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½
 		void CheckCollisionItemAndCharactor();
 
 	public:
@@ -51,7 +51,7 @@ namespace BombBombCrash
 		static Collision* Instance();
 		void Finalize();
 		void Register(ICollisionable *anythingCollisionable);
-		void RegisterWithFire(ExplosionManager *fire);
+		void RegisterWithFire(Fire *fire);
 		void RegisterWithItem(Item *item);
 		void CheckAllCollision();
 	};

@@ -10,6 +10,7 @@
 #include "Timer.h"
 #include "Drawing.h"
 #include "MapFactory.h"
+#include "ControlPassingCollision.h"
 #include "Map.h"
 
 using namespace BombBombCrash;
@@ -47,7 +48,6 @@ void Scene_Game::UpdateScene()
 	//		sceneMrg->ChangeScene(ISceneChanger::SCENE_SCORE);
 	//	}
 	//}
-
 }
 
 
@@ -56,12 +56,13 @@ void Scene_Game::Initialize()
 	Image::GetInstance()->Initialize();
 	Sound::GetInstance()->InitializeForGame();
 	MapState::GetInstance()->Initialize();
-	player = std::make_shared<Player>(Player::KEYBORAD);
+	player = std::make_shared<Player>(ln::Vector2(32,32), Player::KEYBORAD);
 	map = MapFactory::Craete();
 	graphics = std::make_shared<Drawing>();
 	timer = std::make_shared<Timer>();
 	gameEffect = std::make_shared<GameEffect>(timer);
 	Drawing::Add(gameEffect);
+	passingCollision = std::make_shared<ControlPassingCollision>();
 
 	//	enemy.push_back(new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT,GameConst::FIRST_Y_UP)));
 	//	enemy.push_back(new CharacterSet(new Enemy(GameConst::FIRST_X_LEFT, GameConst::FIRST_Y_DOWN)));
@@ -71,7 +72,7 @@ void Scene_Game::Initialize()
 	loseTimer = std::make_shared<Timer>();
 	winTimer = std::make_shared<Timer>();
 
-	Drawing::Add(player);
+	passingCollision->Add(static_cast<std::shared_ptr<Character>>(player));
 }
 
 
@@ -102,6 +103,7 @@ void Scene_Game::Update()
 	Collision::Instance()->CheckAllCollision();
 
 	graphics->Update();
+	passingCollision->Update();
 
 	//ÉVÅ[ÉìêÿÇËë÷Ç¶
 	UpdateScene();

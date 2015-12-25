@@ -19,11 +19,11 @@ namespace BombBombCrash
 
 		virtual int Speed()=0;
 		virtual int BombSize()=0;
-		virtual int Firepower()=0;
+		virtual int FireLevel()=0;
 
 		virtual void IncrementSpeed() = 0;
 		virtual void IncrementBomb()=0;
-		virtual void IncrementFirepower()=0;
+		virtual void IncrementFireLevel()=0;
 
 		virtual void Update() = 0;
 		virtual void Move() = 0;
