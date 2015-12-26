@@ -179,7 +179,6 @@
     <ClInclude Include="MapObstacle.h" />
     <ClInclude Include="MapState.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="Route.h" />
     <ClInclude Include="Scene_Base.h" />
     <ClInclude Include="SceneManger.h" />
     <ClInclude Include="Scene_Game.h" />

@@ -258,9 +258,6 @@
     <ClInclude Include="Avoid.h">
       <Filter>Source\Ai\State</Filter>
     </ClInclude>
-    <ClInclude Include="Route.h">
-      <Filter>Source\Ai\State</Filter>
-    </ClInclude>
     <ClInclude Include="State.h">
       <Filter>Source\Ai\State</Filter>
     </ClInclude>
