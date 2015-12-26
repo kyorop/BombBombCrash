@@ -19,8 +19,8 @@ Item::~Item()
 
 void Item::Draw()
 {
-	if (this->exists)
-		DrawGraph(this->x, this->y, image_item,FALSE);
+	if (Exists())
+		DrawGraph(Position().X, Position().Y, image_item,FALSE);
 }
 
 

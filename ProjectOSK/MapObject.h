@@ -6,18 +6,13 @@ namespace BombBombCrash
 {
 class MapObject:public ICollisionable,public IGettable
 {
-protected:
-	int x;
-	int rx;
-	int y;
-	int dy;
-	bool exists;
 	bool visible;
+	bool exists;
 	ln::Vector2 upperLeftPos;
 	ln::Vector2 lowerRightPos;
 
 public:
-	MapObject(void);
+	MapObject();
 	MapObject(const ln::Vector2& position, int width, int height);
 
 	virtual ~MapObject(void);

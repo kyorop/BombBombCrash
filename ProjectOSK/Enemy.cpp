@@ -41,9 +41,7 @@ Enemy::Enemy(int x, int y)
 	animationFrame(0),
 	speed(1)
 {
-	exists = 1;
-	this->x = x;
-	this->y = y;
+	SetPosition(ln::Vector2(x, y));
 	Collision::Instance()->Register(this);
 	MapState::GetInstance()->RegisterWithCharacter(this);
 }
@@ -56,7 +54,7 @@ Enemy::~Enemy(void)
 
 void Enemy::Move()
 {
-	if(exists == 1)
+	if(Exists())
 	{
 		AI->Analyse(*this);
 
@@ -68,19 +66,19 @@ void Enemy::Move()
 			break;
 		case GameConst::EnemyAction::UP:
 			this->muki = GameConst::EnemyAction::UP;
-			this->y -= this->speed;
+			Translate(ln::Vector2(0, -speed));
 			break;
 		case GameConst::EnemyAction::DOWN:
 			this->muki = GameConst::EnemyAction::DOWN;
-			this->y += this->speed;
+			Translate(ln::Vector2(0, speed));
 			break;
 		case GameConst::EnemyAction::LEFT:
 			this->muki = GameConst::EnemyAction::LEFT;
-			this->x -= this->speed;
+			Translate(ln::Vector2(-speed, 0));
 			break;
 		case GameConst::EnemyAction::RIGHT:
 			this->muki = GameConst::EnemyAction::RIGHT;
-			this->x += this->speed;
+			Translate(ln::Vector2(speed, 0));
 			break;
 		case GameConst::EnemyAction::BOMBSET:
 			this->bombSet = 1;
@@ -90,13 +88,15 @@ void Enemy::Move()
 			break;
 		}
 
-		if(this->x < 64)this->x = 64;
-		if(this->x > 32*14)this->x = 32*14;
-		if(this->y < 32)this->y = 32;
-		if(this->y > 32*11)this->y = 32*11;
-
-		this->rx = this->x+32;
-		this->dy = this->y+32;
+		auto pos = Position();
+		if (pos.X < 64)
+			SetPosition(ln::Vector2(64, pos.Y));
+		if (pos.X > 32 * 14)
+			SetPosition(ln::Vector2(32 * 14, pos.Y));
+		if (pos.Y < 32)
+			SetPosition(ln::Vector2(pos.X, 32));
+		if (pos.Y > 32 * 11)
+			SetPosition(ln::Vector2(pos.X, 32 * 11));
 
 		animpat = ( (GetNowCount() & INT_MAX) / (1000 / 12)) % 4;
 	}
@@ -104,7 +104,7 @@ void Enemy::Move()
 
 void Enemy::Draw(void)
 {
-	if(this->exists == 1)
+	if(Exists())
 	{
 		if(stop == 1)
 		{
@@ -115,15 +115,15 @@ void Enemy::Draw(void)
 		switch(this->muki)
 		{
 		case GameConst::EnemyAction::STOP:
-			DrawGraph(x, y, *image_down, TRUE);break;
+			DrawGraph(Position().X, Position().Y, *image_down, TRUE);break;
 		case GameConst::EnemyAction::LEFT:
-			DrawGraph(x, y, image_left[animpat], TRUE);break;
+			DrawGraph(Position().X, Position().Y, image_left[animpat], TRUE);break;
 		case GameConst::EnemyAction::RIGHT:
-			DrawGraph(x, y, image_right[animpat], TRUE);break;
+			DrawGraph(Position().X, Position().Y, image_right[animpat], TRUE);break;
 		case GameConst::EnemyAction::UP:
-			DrawGraph(x, y, image_up[animpat], TRUE);break;
+			DrawGraph(Position().X, Position().Y, image_up[animpat], TRUE);break;
 		case GameConst::EnemyAction::DOWN:
-			DrawGraph(x, y, image_down[animpat], TRUE);break;
+			DrawGraph(Position().X, Position().Y, image_down[animpat], TRUE);break;
 		}
 	}
 	else
@@ -136,7 +136,7 @@ void Enemy::Draw(void)
 				if(animationFrame == 3)
 					hasFinished =1;
 			}
-			DrawGraph(x, y, image_death[animationFrame], true);
+			DrawGraph(Position().X, Position().Y, image_death[animationFrame], true);
 		}
 	}
 }

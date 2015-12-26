@@ -49,8 +49,7 @@ Player::Player(const ln::Vector2& position, KeyState device)
 
 	if(isJoypad == JOYPAD)
 	{
-		x = GameConst::FIRST_X_RIGHT;
-		y = GameConst::FIRST_Y_DOWN;
+		SetPosition(ln::Vector2(GameConst::FIRST_X_RIGHT, GameConst::FIRST_Y_DOWN));
 	}
 }
 
@@ -103,13 +102,15 @@ void Player::Move()
 				Translate(ln::Vector2(speed, 0));
 		}
 
-		this->rx = this->x+32;
-		this->dy = this->y+32;
-
-		if(this->x < 64)this->x = 64;
-		if(this->x > 32*14)this->x = 32*14;
-		if(this->y < 32)this->y = 32;
-		if(this->y > 32*11)this->y = 32*11;
+		auto pos = Position();
+		if (pos.X < 64)
+			SetPosition(ln::Vector2(64,pos.Y));
+		if (pos.X > 32 * 14)
+			SetPosition(ln::Vector2(32 * 14, pos.Y));
+		if (pos.Y < 32)
+			SetPosition(ln::Vector2(pos.X, 32));
+		if (pos.Y > 32 * 11)
+			SetPosition(ln::Vector2(pos.X, 32 * 11));
 
 		animpat = ( (GetNowCount() & INT_MAX) / (1000 / 12)) % 4;
 	}
@@ -172,17 +173,17 @@ void Player::Update(GameManager& game)
 
 void Player::Draw(const GameManager& game)
 {
-	if (exists)
+	if (Exists())
 	{
 		int image;
 		{
-			if (input->GetInputMoveLeft() == 1)
+			if (input->GetInputMoveLeft())
 				image = image_left[animpat];
-			else if (input->GetInputMoveRight() == 1)
+			else if (input->GetInputMoveRight())
 				image = image_right[animpat];
-			else if (input->GetInputMoveUp() == 1)
+			else if (input->GetInputMoveUp())
 				image = image_up[animpat];
-			else if (input->GetInputMoveDown() == 1)
+			else if (input->GetInputMoveDown())
 				image = image_down[animpat];
 			else
 			{
@@ -198,36 +199,6 @@ void Player::Draw(const GameManager& game)
 					image = image_down[animpat];
 			}
 		}
-		//		else if(isJoypad == JOYPAD)
-		//		{
-		//			int inputState = GetJoypadInputState(DX_INPUT_PAD1);
-		//			int up = inputState & PAD_INPUT_UP;
-		//			int down = inputState & PAD_INPUT_DOWN;
-		//			int left = inputState & PAD_INPUT_LEFT;
-		//			int right = inputState & PAD_INPUT_RIGHT;
-		//
-		//			if(left) 
-		//				image = image_left[animpat];
-		//			else if(right) 
-		//				image = image_right[animpat];
-		//			else if(up)
-		//				image = image_up[animpat];
-		//			else if(down) 
-		//				image = image_down[animpat];
-		//			else
-		//			{
-		//				//キーを押してないときはアニメーションしないことを意味する
-		//				animpat = 0;
-		//				if(muki == LEFT)
-		//					image = image_left[animpat];
-		//				else if(muki == RIGHT)
-		//					image = image_right[animpat];
-		//				else if(muki == UP)
-		//					image = image_up[animpat];
-		//				else if(muki == DOWN)
-		//					image = image_down[animpat];
-		//			}
-		//		}
 
 		auto pos = Position();
 		DrawGraph(pos.X, pos.Y, image, TRUE);

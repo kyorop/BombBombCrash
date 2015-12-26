@@ -2,25 +2,17 @@
 
 using namespace BombBombCrash;
 
-MapObject::MapObject(void) :
-x(),
-rx(),
-y(),
-dy(),
-exists(true),
+MapObject::MapObject(void):
 visible(true),
+exists(true),
 upperLeftPos(),
 lowerRightPos()
 {
 }
 
 MapObject::MapObject(const ln::Vector2& position, int width, int height):
-x(),
-rx(),
-y(),
-dy(),
-exists(true),
 visible(true),
+exists(true),
 upperLeftPos(position),
 lowerRightPos(position + ln::Vector2(width,height))
 {
@@ -32,35 +24,33 @@ MapObject::~MapObject(void)
 
 int MapObject::GetX()const
 {
-	return x;
+	return upperLeftPos.X;
 }
 
 void MapObject::SetX(int x)
 {
-	this->x = x;
-	this->rx = x+32;
+	SetPosition(ln::Vector2(x, upperLeftPos.Y));
 
 }
 
 int MapObject::GetRX()const
 {
-	return rx;
+	return lowerRightPos.X;
 }
 
 int MapObject::GetY()const
 {
-	return y;
+	return upperLeftPos.Y;
 }
 
 void MapObject::SetY(int y)
 {
-	this->y = y;
-	this->dy = y+32;
+	SetPosition(ln::Vector2(upperLeftPos.X, y));
 }
 
 int MapObject::GetDY()const
 {
-	return dy;
+	return lowerRightPos.Y;
 }
 
 bool MapObject::Exists() const
