@@ -8,7 +8,15 @@ namespace BombBombCrash
 	class GameManager:public ISceneProgress
 	{
 		std::list<std::shared_ptr<IGameProgress>> gameElements;
+		std::list<std::shared_ptr<IGameProgress>> addedElements;
 	public:
+
+		GameManager()
+			: gameElements(),
+			  addedElements()
+		{
+		}
+
 		void Initialize() override;
 
 		void Update() override;

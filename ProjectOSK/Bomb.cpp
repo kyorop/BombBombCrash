@@ -4,6 +4,8 @@
 #include "Image.h"
 #include "Sound.h"
 #include "Explosion.h"
+#include "Timer.h"
+#include "GameManager.h"
 #define DHIT 5
 #define KBHABA 16
 
@@ -12,7 +14,7 @@ using namespace BombBombCrash;
 
 Bomb::Bomb(const ln::Vector2& position, int fireLevel) :
 MapObject(AdjustPosition(position), 32, 32),
-explosion(std::make_unique<Fire>()), 
+explosion(std::make_unique<Fire>(position)), 
 timer(std::make_unique<Timer>()),
 count(0),
 image_bomb(Image::GetInstance()->GetBombImage()),
@@ -78,10 +80,9 @@ std::shared_ptr<Bomb> Bomb::Create(const ln::Vector2& position, int fireLevel)
 
 void Bomb::IncrementFire() const
 {
-	explosion->FireUp();
 }
 
-void Bomb::Initialize(const GameManager& game)
+void Bomb::Initialize(GameManager& game)
 {
 	timer->TurnReset();
 }
@@ -92,11 +93,11 @@ void Bomb::Update(GameManager& game)
 	{
 		if (timer->CountDownFrame(bombExistTime))
 		{
+			game.AddElement(std::make_shared<Fire>(Position()));
 			SetExists(false);
 		}
 	}
 
-	explosion->Update(*this);
 	explosion->Register();
 }
 
@@ -109,8 +110,6 @@ void Bomb::Draw(const GameManager& game)
 		auto pos = Position();
 		DrawGraph(pos.X, pos.Y, image_bomb[animpat], TRUE);
 	}
-
-	explosion->Draw();
 }
 
 void Bomb::Destroy(const GameManager& game)

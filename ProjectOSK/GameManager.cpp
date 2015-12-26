@@ -5,17 +5,28 @@ void BombBombCrash::GameManager::AddElement(const std::shared_ptr<IGameProgress>
 {
 	if (element == nullptr)
 		return;
-	gameElements.push_back(element);
+	addedElements.push_back(element);
 }
 
 void BombBombCrash::GameManager::Initialize()
 {
-	for (auto& element : gameElements)
+	for (auto& element : addedElements)
 		element->Initialize(*this);
+
+	gameElements = addedElements;
+	addedElements.clear();
 }
 
 void BombBombCrash::GameManager::Update()
 {
+	if (!addedElements.empty())
+	{
+		for (auto& newElement : addedElements)
+			newElement->Initialize(*this);
+		gameElements.insert(end(gameElements), begin(addedElements), end(addedElements));
+		addedElements.clear();
+	}
+
 	auto killedItr = remove_if(begin(gameElements), end(gameElements), [](const std::shared_ptr<IGameProgress>& object)
 	{
 		return object->CanRemove();

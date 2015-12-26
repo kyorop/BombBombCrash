@@ -1,208 +1,221 @@
 ﻿#include "Explosion.h"
-#include "MapState.h"
 #include "Image.h"
 #include "Collision.h"
-#include "Bomb.h"
+#include "GameManager.h"
+#include "Timer.h"
 
 #define DHIT 6
 
 using namespace BombBombCrash;
 using namespace std;
 
+/*
+FireBlock
+*/
 
-//FireBlock
-
-FireBlock::~FireBlock(void)
+FireBlock::FireBlock(const ln::Vector2& position, int fireImage):
+MapObject(position, 32,32),
+fireImageHandle(fireImage)
 {
 }
 
-void FireBlock::Set(int x, int y)
+void FireBlock::Draw() const
 {
+	if (Exists())
+		DrawGraph(Position().X, Position().Y, fireImageHandle, false);
 }
 
-void FireBlock::SetExplosion(int flag)
+/*
+FirePillar
+*/
+
+FirePillar::FirePillar(FirePillarDirection direction, int fireLevel, const std::shared_ptr<FireBlock>& center) :
+pillar(0),
+center(center),
+direction(direction),
+fireLevel(fireLevel)
 {
-	explosion = flag;
 }
-
-int FireBlock::GetExplosion()
-{
-	return explosion;
-}
-
-
-//FirePillar
 
 shared_ptr<IFireIterator> FirePillar::Iterator()
 {
 	return make_shared<FirePillarIterator>(*this);
 }
 
-FirePillar::FirePillar(const shared_ptr<FireBlock>& center):
-center(center)
+ln::Vector2 FirePillar::Direction() const
 {
+	switch (direction)
+	{
+	case FirePillarDirection::Up:
+		return ln::Vector2(-center->Height(),0);
+	case FirePillarDirection::Right:
+		return ln::Vector2(0, center->Width());
+	case FirePillarDirection::Down:
+		return ln::Vector2(center->Height(), 0);
+	case FirePillarDirection::Left:
+		return ln::Vector2(0, -center->Width());
+	default:
+		return ln::Vector2(0,0);
+	}
 }
 
-void FirePillar::Add()
+void FirePillar::Initialize()
 {
-	auto last = FireBlockAt(Size() - 1);
-	auto newBlock = make_shared<FireBlock>(last.Position()+Direction(), last.Width(), last.Height());
-	pillar.push_back(newBlock);
+	for (size_t i = 0; i < fireLevel; i++)
+	{
+		pillar.push_back(make_shared<FireBlock>(center->Position()+Direction()*(i + 1), Image::GetInstance()->GetImage(Image::FIRE)));
+	}
+}
+
+void FirePillar::Increment()
+{
+	if (pillar.empty())
+	{
+		auto newBlock = make_shared<FireBlock>(center->Position() + Direction(), Image::GetInstance()->GetImage(Image::FIRE));
+	}
+	else
+	{
+		auto last = FireBlockAt(Size() - 1);
+		auto newBlock = make_shared<FireBlock>(last->Position() + Direction(), Image::GetInstance()->GetImage(Image::FIRE));
+		pillar.push_back(newBlock);
+	}
 }
 
 int FirePillar::Size() const
 {
+	if (pillar.empty())
+		return 0;
+
 	return pillar.size();
 }
 
-FireBlock FirePillar::FireBlockAt(int i)
+std::shared_ptr<FireBlock> FirePillar::FireBlockAt(int i)
 {
-	return *pillar[i];
+	return pillar[i];
 }
-
-
-//UpFirePillar
-
-ln::Vector2 UpFirePillar::Direction()
-{
-	return ln::Vector2(0,-32);
-}
-
-
-//RightFirePillar
-
-ln::Vector2 RightFirePillar::Direction()
-{
-	return ln::Vector2(32, 0);
-}
-
-
-//DownFire
-
-ln::Vector2 DownFirePillar::Direction()
-{
-	return ln::Vector2(0, 32);
-}
-
-
-//LeftFirePillar
-
-ln::Vector2 LeftFirePillar::Direction()
-{
-	return ln::Vector2(-32, 0);
-}
-
 
 /*
 FirePillarIterator
 */
 
-FirePillarIterator::FirePillarIterator(const FirePillar& firePillar): 
-//fire(make_shared<FirePillar>(firePillar)),
+FirePillarIterator::FirePillarIterator(FirePillar& pillar) :
+fire(pillar),
 index(0)
 {
+}
 
+std::shared_ptr<FireBlock> FirePillarIterator::Next()
+{
+	return fire.FireBlockAt(index++);
 }
 
 bool FirePillarIterator::HasNext()
 {
-	return fire->Size() > index;
-}
-
-MapObject FirePillarIterator::Next()
-{
-	return fire->FireBlockAt(index++);
+	return fire.Size() > index;
 }
 
 
-//Fire
+/*
+Fire
+*/
 
-Fire::Fire():
-nowFireLevel(1),
-fuse(0),
-explosion(0),
-beforeExplosion(),
-image_fire(Image::GetInstance()->GetImage(Image::FIRE)),
-firePillars(4)
+Fire::Fire(const ln::Vector2& centerPos):
+timer(make_shared<Timer>()),
+center(make_shared<FireBlock>(centerPos, Image::GetInstance()->GetImage(Image::FIRE))),
+firePillars()
 {
-	firePillars[Up] = make_shared<UpFirePillar>(center);
-	firePillars[Right] = make_shared<RightFirePillar>(center);
-	firePillars[Left] = make_shared<LeftFirePillar>(center);
-	firePillars[Down] = make_shared<DownFirePillar>(center);
+}
 
+void Fire::Initialize(GameManager& game)
+{
+	timer->TurnReset();
+	firePillars.clear();
+	firePillars.push_back(make_shared<FirePillar>(FirePillarDirection::Up, 1, center));
+	firePillars.push_back(make_shared<FirePillar>(FirePillarDirection::Right, 1, center));
+	firePillars.push_back(make_shared<FirePillar>(FirePillarDirection::Down, 1, center));
+	firePillars.push_back(make_shared<FirePillar>(FirePillarDirection::Left, 1, center));
+	for (auto& pillar : firePillars)
+		pillar->Initialize();
+	
 	Collision::Instance()->RegisterWithFire(this);
 }
 
-Fire::~Fire(void)
+void Fire::Update(GameManager& game)
 {
-}
-
-void Fire::FireUp()
-{
-	++nowFireLevel;
-}
-
-void Fire::Update(const Bomb &bomb)
-{
-	if (bomb.Exists() && explosion == 0 && fuse == 0)
+	if (timer->CountDownFrame(fireTime))
 	{
-		fuse = TRUE;
-		for (int i = 0, size = vex.size(); i<size; ++i)
+		for (auto& pillar: firePillars)
 		{
-			vex[i]->Set(bomb.GetX(), bomb.GetY());
-		}
-	}
-
-	if (fuse == TRUE && bomb.Exists() == FALSE)
-	{
-		fuse = FALSE;
-		explosion = TRUE;
-		for (int i = 0, size = vex.size(); i<size; ++i)
-		{
-			vex[i]->SetExplosion(TRUE);
-		}
-	}
-
-	Maintain();
-}
-
-void Fire::Maintain()
-{
-	if (explosion == TRUE)
-	{
-		if (retainFire.CountDownFrame(displayingTime) == true)
-		{
-			explosion = FALSE;
-			for (int i = 0, size = vex.size(); i<size; i++)
+			auto itr = pillar->Iterator();
+			if (itr->HasNext())
 			{
-				vex[i]->SetExplosion(FALSE);
+				itr->Next()->SetExists(false);
 			}
 		}
 	}
 }
 
-void Fire::Draw()
+void Fire::Draw(const GameManager& game)
 {
-	if (this->explosion == TRUE)
+	center->Draw();
+	for (auto& fire:firePillars)
 	{
-		for (int i = 0, size = vex.size(); i<size; ++i)
+		auto itr = fire->Iterator();
+		if (itr->HasNext())
 		{
-			if (vex[i]->GetExplosion())
-				DrawGraph(vex[i]->GetX(), vex[i]->GetY(), image_fire, FALSE);
+			itr->Next()->Draw();
 		}
 	}
 }
 
+void Fire::Destroy(const GameManager& game)
+{
+}
+
+bool Fire::CanRemove()
+{
+	for (auto& pillar : firePillars)
+	{
+		auto itr = pillar->Iterator();
+		while (itr->HasNext())
+		{
+			if (itr->Next()->Exists())
+				return false;
+		}
+	}
+
+	return true;
+}
+
+
+void Fire::Maintain()
+{
+//	if (explosion == TRUE)
+//	{
+//		if (retainFire.CountDownFrame(displayingTime) == true)
+//		{
+//			explosion = FALSE;
+//			for (int i = 0, size = vex.size(); i<size; i++)
+//			{
+//				vex[i]->SetExplosion(FALSE);
+//			}
+//		}
+//	}
+}
+
+
 void Fire::Register(void)
 {
-	for (int i = 0, size = vex.size(); i<size; ++i)
-	{
-		if (vex[i]->GetExplosion() == 0)
-			MapState::GetInstance()->SetFireState(vex[i]->GetX(), vex[i]->GetY(), 0);
-		else if (vex[i]->GetExplosion() == 1)
-			MapState::GetInstance()->SetFireState(vex[i]->GetX(), vex[i]->GetY(), 1);
-	}
+//	for (int i = 0, size = vex.size(); i<size; ++i)
+//	{
+//		if (vex[i]->GetExplosion() == 0)
+//			MapState::GetInstance()->SetFireState(vex[i]->GetX(), vex[i]->GetY(), 0);
+//		else if (vex[i]->GetExplosion() == 1)
+//			MapState::GetInstance()->SetFireState(vex[i]->GetX(), vex[i]->GetY(), 1);
+//	}
 }
+
+
 
 int Fire::GetX(int i)const
 {
@@ -216,7 +229,7 @@ int Fire::GetY(int i)const
 
 int Fire::GetFlag(int i)const
 {
-	return vex[i]->GetExplosion();
+	return vex[i]->Exists();
 }
 
 int Fire::GetSize()const
@@ -226,10 +239,5 @@ int Fire::GetSize()const
 
 void Fire::SetFlag(int i, int flag)
 {
-	vex[i]->SetExplosion(flag);
-}
-
-int Fire::Firepower(void)
-{
-	return nowFireLevel;
+	vex[i]->SetExists(flag);
 }

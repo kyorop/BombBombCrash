@@ -54,7 +54,7 @@ namespace BombBombCrash
 		void IncrementSpeed()override;
 
 
-		void Initialize(const GameManager& game) override;
+		void Initialize(GameManager& game) override;
 		void Update(GameManager& game) override;
 		void Draw(const GameManager& game) override;
 		void Destroy(const GameManager& game) override;

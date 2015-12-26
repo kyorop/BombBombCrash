@@ -156,7 +156,7 @@ void Player::IncrementFireLevel()
 	++fireLevel;
 }
 
-void Player::Initialize(const GameManager& game)
+void Player::Initialize(GameManager& game)
 {
 }
 

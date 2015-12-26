@@ -5,7 +5,7 @@ namespace BombBombCrash
 	class GameManager;
 	interface IGameProgress
 	{
-		virtual void Initialize(const GameManager& game)=0;
+		virtual void Initialize(GameManager& game)=0;
 		virtual void Update(GameManager& game) = 0;
 		virtual void Draw(const GameManager& game) = 0;
 		virtual void Destroy(const GameManager& game) = 0;

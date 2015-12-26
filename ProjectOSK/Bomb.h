@@ -33,7 +33,7 @@ namespace BombBombCrash
 
 		static std::shared_ptr<Bomb> Create(const ln::Vector2& position, int fireLevel);
 
-		void Initialize(const GameManager& game) override;
+		void Initialize(GameManager& game) override;
 
 		void Update(GameManager& game) override;
 		
