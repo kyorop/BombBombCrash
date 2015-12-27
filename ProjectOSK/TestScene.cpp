@@ -30,6 +30,7 @@ void TestScene::Initialize()
 		{
 			auto block = std::make_shared<Block>(ln::Vector2(32 * j, 32 * i), Image::GetInstance()->GetImage(Image::HARDBLOCK));
 			ControlPassingCollision::Add(block);
+			gameManager->AddElement(block);
 		}
 	}
 

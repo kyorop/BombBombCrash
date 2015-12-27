@@ -68,8 +68,8 @@ void Block::Update(GameManager& game)
 
 void Block::Draw(const GameManager& game)
 {
-//	if (Exists())
-//		DrawGraph(X(), Y(), imageHandle, false);
+	if (Exists())
+		DrawGraph(X(), Y(), imageHandle, false);
 }
 
 void Block::Destroy(const GameManager& game)

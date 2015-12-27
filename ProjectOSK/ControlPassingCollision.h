@@ -10,8 +10,8 @@ namespace BombBombCrash
 		static const int padding = 5;
 		static const int haba = 16;
 
-		static std::vector<std::shared_ptr<Character>> movers;
-		static std::vector<std::shared_ptr<MapObject>> notPassables;
+		static std::list<std::shared_ptr<Character>> movers;
+		static std::list<std::shared_ptr<MapObject>> notPassables;
 	public:
 		ControlPassingCollision();
 
