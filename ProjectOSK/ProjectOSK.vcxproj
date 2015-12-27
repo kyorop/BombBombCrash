@@ -92,6 +92,7 @@
     <ClCompile Include="BreakBlock.cpp" />
     <ClCompile Include="Charactor.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="CollisionUtil.cpp" />
     <ClCompile Include="ControlPassingCollision.cpp" />
     <ClCompile Include="DangerState.cpp" />
     <ClCompile Include="Dijkstra.cpp" />
@@ -117,6 +118,7 @@
     <ClCompile Include="MapObstacle.cpp" />
     <ClCompile Include="MapState.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Rect.cpp" />
     <ClCompile Include="Scene_Base.cpp" />
     <ClCompile Include="SceneManger.cpp" />
     <ClCompile Include="Scene_Game.cpp" />
@@ -141,6 +143,7 @@
     <ClInclude Include="BreakBlock.h" />
     <ClInclude Include="Charactor.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="CollisionUtil.h" />
     <ClInclude Include="ControlPassingCollision.h" />
     <ClInclude Include="DangerState.h" />
     <ClInclude Include="Dijkstra.h" />
@@ -179,6 +182,7 @@
     <ClInclude Include="MapObstacle.h" />
     <ClInclude Include="MapState.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Rect.h" />
     <ClInclude Include="Scene_Base.h" />
     <ClInclude Include="SceneManger.h" />
     <ClInclude Include="Scene_Game.h" />

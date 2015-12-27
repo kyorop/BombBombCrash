@@ -33,9 +33,9 @@ namespace BombBombCrash
 
 	void MapState::InitOneObject(object kind)
 	{
-		for (int i = 0; i < GameConst::MAP_ROW; ++i)
+		for (int i = 0; i < BombBombCrash::MAP_ROW; ++i)
 		{
-			for (int j = 0; j < GameConst::MAP_LINE; ++j)
+			for (int j = 0; j < BombBombCrash::MAP_LINE; ++j)
 			{
 				mapState[i][j][kind][0] = 0;
 				mapState[i][j][kind][1] = 0;
@@ -138,8 +138,8 @@ namespace BombBombCrash
 
 	void MapState::Update()
 	{
-		playerInfo->x = player->GetX();
-		playerInfo->y = player->GetY();
+		playerInfo->x = player->X();
+		playerInfo->y = player->Y();
 		playerInfo->flag = player->Exists();
 		playerInfo->bombLevel = player->BombSize();
 		playerInfo->fireLevel = player->FireLevel();
@@ -152,8 +152,8 @@ namespace BombBombCrash
 		{
 			if (b->Exists())
 			{
-				int x_center = (b->GetX() + b->GetX() + 32) / 2;
-				int y_center = (b->GetY() + b->GetY() + 32) / 2;
+				int x_center = (b->X() + b->X() + 32) / 2;
+				int y_center = (b->Y() + b->Y() + 32) / 2;
 				int i_center = x_center / 32;
 				int j_center = y_center / 32;
 				SetState(x_center, y_center, BOMB, 1);

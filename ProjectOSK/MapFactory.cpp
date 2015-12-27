@@ -22,7 +22,7 @@ namespace BombBombCrash
 	{
 		std::vector<std::vector<std::shared_ptr<MapObstacle>>> mapSource;
 		
-		int temp[GameConst::MAP_ROW][GameConst::MAP_LINE] =
+		int temp[BombBombCrash::MAP_ROW][BombBombCrash::MAP_LINE] =
 		{
 //			1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
 //			1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
@@ -82,11 +82,11 @@ namespace BombBombCrash
 		const int softHandle = Image::GetInstance()->GetImage(Image::SOFTBLOCK);
 		const int hardHandle = Image::GetInstance()->GetImage(Image::HARDBLOCK);
 
-		for (size_t i = 0; i < GameConst::MAP_ROW; ++i)
+		for (size_t i = 0; i < BombBombCrash::MAP_ROW; ++i)
 		{
 			mapSource.push_back(std::vector<std::shared_ptr<MapObstacle>>());
 
-			for (size_t j = 0; j < GameConst::MAP_LINE; ++j)
+			for (size_t j = 0; j < BombBombCrash::MAP_LINE; ++j)
 			{
 				auto& mapRow = mapSource[i];
 

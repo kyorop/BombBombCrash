@@ -1,5 +1,6 @@
 #include "Block.h"
 #include "MapState.h"
+#include "GameConstant.h"
 #define HABA 0
 #define DHIT 5
 #define KBHABA 16
@@ -21,7 +22,7 @@ void SoftBlock::Draw()
 {
 	if (Exists())
 	{
-		DrawGraph(GetX(), GetY(), imageHandle, false);
+		DrawGraph(X(), Y(), imageHandle, false);
 	}
 }
 
@@ -37,7 +38,7 @@ HardBlock::HardBlock(int imageHandle)
 void HardBlock::Draw()
 {
 	if (Exists())
-		DrawGraph(GetX(), GetY(), imageHandle, false);
+		DrawGraph(X(), Y(), imageHandle, false);
 }
 
 
@@ -53,14 +54,43 @@ void Floor::Draw()
 {
 	if (Exists())
 	{
-		DrawGraph(GetX(), GetY(), imageHandle, false);
+		DrawGraph(X(), Y(), imageHandle, false);
 	}
+}
+
+void Block::Initialize(GameManager& game)
+{
+}
+
+void Block::Update(GameManager& game)
+{
+}
+
+void Block::Draw(const GameManager& game)
+{
+//	if (Exists())
+//		DrawGraph(X(), Y(), imageHandle, false);
+}
+
+void Block::Destroy(const GameManager& game)
+{
+}
+
+bool Block::CanRemove()
+{
+	return !Exists();
+}
+
+Block::Block(const ln::Vector2& position, int imageHandle):
+MapObject(position, GameConstant::BlockWidth,GameConstant::BlockHeight),
+imageHandle(imageHandle)
+{
 }
 
 void SoftBlock::Register()
 {
 	if (Exists())
-		MapState::GetInstance()->SetBlockState(GetX(), GetY(), 1);
+		MapState::GetInstance()->SetBlockState(X(), Y(), 1);
 	else
-		MapState::GetInstance()->SetBlockState(GetX(), GetY(), 0);
+		MapState::GetInstance()->SetBlockState(X(), Y(), 0);
 }

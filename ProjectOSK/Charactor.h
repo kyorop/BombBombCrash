@@ -14,6 +14,9 @@ namespace BombBombCrash
 		virtual bool PutBomb() = 0;
 
 	public:
+
+		Character(const ln::Vector2& position, int width, int height);
+
 		Character(void);
 		virtual ~Character(void);
 

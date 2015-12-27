@@ -1,4 +1,4 @@
-#include "AttackOtherCharacter.h"
+ï»¿#include "AttackOtherCharacter.h"
 #include "MapState.h"
 #include "DangerState.h"
 #include "GameConstant.h"
@@ -25,9 +25,9 @@ int AttackOtherCharacter::CheckCharacterAroundMyself(int i_now, int j_now, int* 
 		{
 			if(i != i_now && j != j_now)
 			{
-				if(MapState::GetInstance()->GetState(i, j, MapState::CHARACTOR) == 1)//‘¼‚ÌƒLƒƒƒ‰ƒNƒ^[‚ğŒ©‚Â‚¯‚½‚ç
+				if(MapState::GetInstance()->GetState(i, j, MapState::CHARACTOR) == 1)//ï¿½ï¿½ï¿½ÌƒLï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½^ï¿½[ï¿½ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½ï¿½ï¿½
 				{
-					if(search->CheckAbleToGoTo(i_now, j_now, i, j) == 1)//‚»‚±‚És‚¯‚é‚©’²‚×‚Ä
+					if(search->CheckAbleToGoTo(i_now, j_now, i, j) == 1)//ï¿½ï¿½ï¿½ï¿½ï¿½Ésï¿½ï¿½ï¿½é‚©ï¿½ï¿½ï¿½×‚ï¿½
 					{
 						*i_to = i;
 						*j_to = j;
@@ -44,12 +44,12 @@ int AttackOtherCharacter::CheckCharacterAroundMyself(int i_now, int j_now, int* 
 
 int AttackOtherCharacter::CheckCharacterInSameRowOrLine(int i_now, int j_now)
 {
-	for(int j=0; j<GameConst::MAP_LINE; ++j)
+	for(int j=0; j<BombBombCrash::MAP_LINE; ++j)
 	{
 		if(MapState::GetInstance()->GetState(i_now, j, MapState::CHARACTOR))
 			return 1;
 	}
-	for(int i=0; i<GameConst::MAP_ROW; ++i)
+	for(int i=0; i<BombBombCrash::MAP_ROW; ++i)
 	{
 		if(MapState::GetInstance()->GetState(i, j_now, MapState::CHARACTOR))
 			return 1;
@@ -62,23 +62,23 @@ int AttackOtherCharacter::CheckCharacterInSameRowOrLine(int i_now, int j_now)
 void AttackOtherCharacter::ChangeState()
 {
 	int i_next, j_next;
-	int i_current = y_next / 32;		//Œ»İ‚ÌˆÚ“®‚ªŠ®—¹‚µ‚½‚É‚¢‚éêŠ
+	int i_current = y_next / 32;		//ï¿½ï¿½ï¿½İ‚ÌˆÚ“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½êŠ
 	int j_current = x_next / 32;
 	switch(routeList.empty() ? -1 : routeList.front())
 	{
-		case GameConst::EnemyAction::UP:
+		case BombBombCrash::EnemyAction::UP:
 			i_next = i_current-1;
 			j_next = j_current;
 			break;
-		case GameConst::EnemyAction::DOWN:
+		case BombBombCrash::EnemyAction::DOWN:
 			i_next = i_current+1;
 			j_next = j_current;
 			break;
-		case GameConst::EnemyAction::LEFT:
+		case BombBombCrash::EnemyAction::LEFT:
 			i_next = i_current;
 			j_next = j_current-1;
 			break;
-		case GameConst::EnemyAction::RIGHT:
+		case BombBombCrash::EnemyAction::RIGHT:
 			i_next = i_current;
 			j_next = j_current+1;
 			break;
@@ -124,12 +124,12 @@ void AttackOtherCharacter::Analyse()
 		if(CheckCharacterAroundMyself(i_center, j_center, &i_to, &j_to))
 		{
 			dijkstra->SearchShortestPath(i_center, j_center, i_to, j_to, &routeList);
-			routeList.push_back(GameConst::EnemyAction::BOMBSET);
+			routeList.push_back(BombBombCrash::EnemyAction::BOMBSET);
 			resetRoute = 0;
 		}
 	}
 	else if(CheckCharacterInSameRowOrLine(i_center, j_center))
 	{
-		routeList.push_front(GameConst::EnemyAction::BOMBSET);
+		routeList.push_front(BombBombCrash::EnemyAction::BOMBSET);
 	}
 }

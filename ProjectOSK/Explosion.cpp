@@ -219,12 +219,12 @@ void Fire::Register(void)
 
 int Fire::GetX(int i)const
 {
-	return vex[i]->GetX();
+	return vex[i]->X();
 }
 
 int Fire::GetY(int i)const
 {
-	return vex[i]->GetY();
+	return vex[i]->Y();
 }
 
 int Fire::GetFlag(int i)const

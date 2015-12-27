@@ -1,4 +1,4 @@
-#include "BreakBlock.h"
+ï»¿#include "BreakBlock.h"
 #include "MapState.h"
 #include "DangerState.h"
 #include <vector>
@@ -19,23 +19,23 @@ BreakBlock::~BreakBlock(void)
 void BreakBlock::ChangeState()
 {
 	int i_next, j_next;
-	int i_current = y_next / 32;		//Œ»İ‚ÌˆÚ“®‚ªŠ®—¹‚µ‚½‚É‚¢‚éêŠ
+	int i_current = y_next / 32;		//ï¿½ï¿½ï¿½İ‚ÌˆÚ“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½êŠ
 	int j_current = x_next / 32;
 	switch(routeList.empty() ? -1 : routeList.front())
 	{
-		case GameConst::EnemyAction::UP:
+		case BombBombCrash::EnemyAction::UP:
 			i_next = i_current-1;
 			j_next = j_current;
 			break;
-		case GameConst::EnemyAction::DOWN:
+		case BombBombCrash::EnemyAction::DOWN:
 			i_next = i_current+1;
 			j_next = j_current;
 			break;
-		case GameConst::EnemyAction::LEFT:
+		case BombBombCrash::EnemyAction::LEFT:
 			i_next = i_current;
 			j_next = j_current-1;
 			break;
-		case GameConst::EnemyAction::RIGHT:
+		case BombBombCrash::EnemyAction::RIGHT:
 			i_next = i_current;
 			j_next = j_current+1;
 			break;
@@ -45,7 +45,7 @@ void BreakBlock::ChangeState()
 			break;
 	}
 
-	if(GameConst::EnemyAction::BOMBSET == (routeList.empty() ? -1 : routeList.front()))
+	if(BombBombCrash::EnemyAction::BOMBSET == (routeList.empty() ? -1 : routeList.front()))
 	{
 		std::list<int> temp;
 		if(search->SetEscapeRouteWhenInDanger(i_center, j_center, &temp) == 0)
@@ -61,7 +61,7 @@ void BreakBlock::ChangeState()
 	else if(MapState::GetInstance()->GetState(i_next, j_next, MapState::FIRE) == 1 || DangerState::GetInstance()->GetFireState(i_next, j_next) == 1 || DangerState::GetInstance()->GetDangerState(i_next, j_next) == 1)
 	{
 		routeList.clear();
-		routeList.push_back(GameConst::EnemyAction::STOP);
+		routeList.push_back(BombBombCrash::EnemyAction::STOP);
 		resetRoute = 0;
 	}
 	else if(CheckAroundMyself(i_center, j_center, MapState::CHARACTOR, scoutingRadius_character))
@@ -88,13 +88,13 @@ void BreakBlock::Analyse()
 	{
 		std::vector<int> i_to, j_to;
 		routeList.clear();
-		//ƒ‹[ƒgƒZƒbƒg
+		//ï¿½ï¿½ï¿½[ï¿½gï¿½Zï¿½bï¿½g
 		if(search->SetGoal(i_center, j_center, &i_to, &j_to))
 		{
 			int rand = GetRand(i_to.size()-1);
 			dijkstra->SearchShortestPath(i_center, j_center, i_to[rand], j_to[rand], &routeList);
-			routeList.push_back(GameConst::EnemyAction::BOMBREADY);
-			routeList.push_back(GameConst::EnemyAction::BOMBSET);
+			routeList.push_back(BombBombCrash::EnemyAction::BOMBREADY);
+			routeList.push_back(BombBombCrash::EnemyAction::BOMBSET);
 			resetRoute = 0;
 		}
 	}

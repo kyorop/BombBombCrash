@@ -1,4 +1,4 @@
-#include "GetItem.h"
+ï»¿#include "GetItem.h"
 #include "MapState.h"
 #include "DangerState.h"
 
@@ -18,23 +18,23 @@ GetItem::~GetItem(void)
 void GetItem::ChangeState()
 {
 	int i_next, j_next;
-	int i_current = y_next / 32;		//Œ»İ‚ÌˆÚ“®‚ªŠ®—¹‚µ‚½‚É‚¢‚éêŠ
+	int i_current = y_next / 32;		//ï¿½ï¿½ï¿½İ‚ÌˆÚ“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½êŠ
 	int j_current = x_next / 32;
 	switch(routeList.empty() ? -1 : routeList.front())
 	{
-		case GameConst::EnemyAction::UP:
+		case BombBombCrash::EnemyAction::UP:
 			i_next = i_current-1;
 			j_next = j_current;
 			break;
-		case GameConst::EnemyAction::DOWN:
+		case BombBombCrash::EnemyAction::DOWN:
 			i_next = i_current+1;
 			j_next = j_current;
 			break;
-		case GameConst::EnemyAction::LEFT:
+		case BombBombCrash::EnemyAction::LEFT:
 			i_next = i_current;
 			j_next = j_current-1;
 			break;
-		case GameConst::EnemyAction::RIGHT:
+		case BombBombCrash::EnemyAction::RIGHT:
 			i_next = i_current;
 			j_next = j_current+1;
 			break;
@@ -78,7 +78,7 @@ void GetItem::Analyse()
 	if(resetRoute == 1)
 	{
 		routeList.clear();
-		//ƒ‹[ƒgƒZƒbƒg
+		//ï¿½ï¿½ï¿½[ï¿½gï¿½Zï¿½bï¿½g
 		int i_to;
 		int j_to;
 		if(CheckObjectAroundAndAbleToGoThere(i_center, j_center, &i_to, &j_to,MapState::ITEM, 8))

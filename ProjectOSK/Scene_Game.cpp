@@ -160,9 +160,9 @@ void GameEffect::Draw()
 	int blue = GetColor(0, 0, 255);
 	int deepskyblue = GetColor(0, 191, 255);
 	int cannotWalkBlockColor;
-	for (int i = 0; i<GameConst::MAP_ROW; ++i)
+	for (int i = 0; i<BombBombCrash::MAP_ROW; ++i)
 	{
-		for (int j = 0; j<GameConst::MAP_LINE; ++j)
+		for (int j = 0; j<BombBombCrash::MAP_LINE; ++j)
 		{
 			if (i == 0 || i == 12 || j == 0 || j == 1 || j == 15 || j == 16 || MapState::GetInstance()->GetState(i, j, MapState::MAP) == 1)
 				cannotWalkBlockColor = deepskyblue;

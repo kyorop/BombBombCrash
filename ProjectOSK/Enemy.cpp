@@ -26,16 +26,17 @@ void Enemy::Update()
 }
 
 Enemy::Enemy(int x, int y)
-	:image_left(Image::GetInstance()->GetCharacterImage(id, Image::LEFT)),
+	:Character(ln::Vector2(x,y), GameConstant::BlockWidth, GameConstant::BlockHeight),
+	image_left(Image::GetInstance()->GetCharacterImage(id, Image::LEFT)),
 	image_right(Image::GetInstance()->GetCharacterImage(id, Image::RIGHT)),
 	image_up(Image::GetInstance()->GetCharacterImage(id, Image::UP)),
 	image_down(Image::GetInstance()->GetCharacterImage(id, Image::DOWN)),
 	image_death(Image::GetInstance()->GetCharacterImage(id, Image::DEATH)),
-	AI(new EnemyAI(*this)),
-	muki(GameConst::EnemyAction::STOP),
+	muki(EnemyAction::STOP),
 	stop(0),
 	bombSet(0),
 	hitNumSpeedUpItem(1),
+	AI(new EnemyAI(*this)),
 	hasFinished(0),
 	animationTime(new Timer),
 	animationFrame(0),
@@ -61,26 +62,26 @@ void Enemy::Move()
 		
 		switch(AI->GetAction(*this))
 		{
-		case GameConst::EnemyAction::STOP:
+		case BombBombCrash::EnemyAction::STOP:
 			stop = 1;
 			break;
-		case GameConst::EnemyAction::UP:
-			this->muki = GameConst::EnemyAction::UP;
+		case BombBombCrash::EnemyAction::UP:
+			this->muki = BombBombCrash::EnemyAction::UP;
 			Translate(ln::Vector2(0, -speed));
 			break;
-		case GameConst::EnemyAction::DOWN:
-			this->muki = GameConst::EnemyAction::DOWN;
+		case BombBombCrash::EnemyAction::DOWN:
+			this->muki = BombBombCrash::EnemyAction::DOWN;
 			Translate(ln::Vector2(0, speed));
 			break;
-		case GameConst::EnemyAction::LEFT:
-			this->muki = GameConst::EnemyAction::LEFT;
+		case BombBombCrash::EnemyAction::LEFT:
+			this->muki = BombBombCrash::EnemyAction::LEFT;
 			Translate(ln::Vector2(-speed, 0));
 			break;
-		case GameConst::EnemyAction::RIGHT:
-			this->muki = GameConst::EnemyAction::RIGHT;
+		case BombBombCrash::EnemyAction::RIGHT:
+			this->muki = BombBombCrash::EnemyAction::RIGHT;
 			Translate(ln::Vector2(speed, 0));
 			break;
-		case GameConst::EnemyAction::BOMBSET:
+		case BombBombCrash::EnemyAction::BOMBSET:
 			this->bombSet = 1;
 			break;
 		case -1:
@@ -114,15 +115,15 @@ void Enemy::Draw(void)
 		SetTransColor(255,255,255);
 		switch(this->muki)
 		{
-		case GameConst::EnemyAction::STOP:
+		case BombBombCrash::EnemyAction::STOP:
 			DrawGraph(Position().X, Position().Y, *image_down, TRUE);break;
-		case GameConst::EnemyAction::LEFT:
+		case BombBombCrash::EnemyAction::LEFT:
 			DrawGraph(Position().X, Position().Y, image_left[animpat], TRUE);break;
-		case GameConst::EnemyAction::RIGHT:
+		case BombBombCrash::EnemyAction::RIGHT:
 			DrawGraph(Position().X, Position().Y, image_right[animpat], TRUE);break;
-		case GameConst::EnemyAction::UP:
+		case BombBombCrash::EnemyAction::UP:
 			DrawGraph(Position().X, Position().Y, image_up[animpat], TRUE);break;
-		case GameConst::EnemyAction::DOWN:
+		case BombBombCrash::EnemyAction::DOWN:
 			DrawGraph(Position().X, Position().Y, image_down[animpat], TRUE);break;
 		}
 	}

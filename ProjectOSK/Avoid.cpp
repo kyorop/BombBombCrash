@@ -1,4 +1,4 @@
-#include "Avoid.h"
+ï»¿#include "Avoid.h"
 #include "Search.h"
 #include "Dijkstra.h"
 #include "Enemy.h"
@@ -21,23 +21,23 @@ Avoid::~Avoid(void)
 void Avoid::ChangeState()
 {
 	int i_next, j_next;
-	int i_current = y_next / 32;		//Œ»Ý‚ÌˆÚ“®‚ªŠ®—¹‚µ‚½Žž‚É‚¢‚éêŠ
+	int i_current = y_next / 32;		//ï¿½ï¿½ï¿½Ý‚ÌˆÚ“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½êŠ
 	int j_current = x_next / 32;
 	switch(routeList.empty() ? -1 : routeList.front())
 	{
-		case GameConst::EnemyAction::UP:
+		case BombBombCrash::EnemyAction::UP:
 			i_next = i_current-1;
 			j_next = j_current;
 			break;
-		case GameConst::EnemyAction::DOWN:
+		case BombBombCrash::EnemyAction::DOWN:
 			i_next = i_current+1;
 			j_next = j_current;
 			break;
-		case GameConst::EnemyAction::LEFT:
+		case BombBombCrash::EnemyAction::LEFT:
 			i_next = i_current;
 			j_next = j_current-1;
 			break;
-		case GameConst::EnemyAction::RIGHT:
+		case BombBombCrash::EnemyAction::RIGHT:
 			i_next = i_current;
 			j_next = j_current+1;
 			break;
@@ -49,7 +49,7 @@ void Avoid::ChangeState()
 
 	if(DangerState::GetInstance()->GetDangerState(i_center, j_center) == 1)
 	{
-		//‚Ü‚¾ŠëŒ¯’n‘Ñ‚É‚¢‚é‚©‚ç¡‚Ìó‘Ô‚ðŒp‘±
+		//ï¿½Ü‚ï¿½ï¿½ëŒ¯ï¿½nï¿½Ñ‚É‚ï¿½ï¿½é‚©ï¿½ç¡ï¿½Ìï¿½Ô‚ï¿½pï¿½ï¿½
 	}
 	else if(DangerState::GetInstance()->GetFireState(i_next, j_next) == 1 || DangerState::GetInstance()->GetDangerState(i_next, j_next) == 1)
 	{
@@ -57,9 +57,9 @@ void Avoid::ChangeState()
 	}
 	else if(search->CheckInClosedInterval(i_center, j_center) == 1)
 	{
-		//ã‚ÌðŒ‚ð”²‚¯‚Ä‚«‚½‚©‚çŠëŒ¯’n‚É‚Í‚¢‚È‚¢
+		//ï¿½ï¿½Ìï¿½ï¿½ï¿½ð”²‚ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ëŒ¯ï¿½nï¿½É‚Í‚ï¿½ï¿½È‚ï¿½
 		routeList.clear();
-		routeList.push_back(GameConst::EnemyAction::STOP);
+		routeList.push_back(BombBombCrash::EnemyAction::STOP);
 		resetRoute = 0;
 	}else if(search->CheckInClosedInterval(i_next, j_next) == 1)
 	{
@@ -87,10 +87,10 @@ void Avoid::Analyse()
 	if(resetRoute == 1)
 	{
 		routeList.clear();
-		//ƒ‹[ƒgƒZƒbƒg
-		if(search->SetEscapeRouteWhenInDanger(myself.GetY()/32, myself.GetX()/32, &routeList) == 1)
+		//ï¿½ï¿½ï¿½[ï¿½gï¿½Zï¿½bï¿½g
+		if(search->SetEscapeRouteWhenInDanger(myself.Y()/32, myself.X()/32, &routeList) == 1)
 		{
-			routeList.push_back(GameConst::EnemyAction::STOP);
+			routeList.push_back(BombBombCrash::EnemyAction::STOP);
 			resetRoute = 0;
 		}
 	}

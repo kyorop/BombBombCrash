@@ -4,7 +4,9 @@
 
 namespace BombBombCrash
 {
-class MapObject:public ICollisionable,public IGettable
+	class Rect;
+
+	class MapObject:public ICollisionable,public IGettable
 {
 	bool visible;
 	bool exists;
@@ -17,12 +19,12 @@ public:
 
 	virtual ~MapObject(void);
 
-	virtual int GetX()const;
+	virtual int X()const;
 	virtual void SetX(int x);
-	virtual int GetRX()const;
-	virtual int GetY()const;
+	virtual int RX()const;
+	virtual int Y()const;
 	virtual void SetY(int y);
-	virtual int GetDY()const;
+	virtual int DY()const;
 	virtual bool Exists() const;
 	virtual bool Visible() const;
 	virtual void SetVisible(bool isVisible);
@@ -34,6 +36,7 @@ public:
 	void Translate(const ln::Vector2& translation);
 	int Width() const;
 	int Height() const;
+	Rect Rect() const;
 };
 }
 

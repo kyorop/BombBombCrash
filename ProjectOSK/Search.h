@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "GameConstant.h"
 #include <list>
 #include <vector>
@@ -8,9 +8,9 @@ namespace BombBombCrash
 {
 	class Search
 	{
-		//Šeƒƒ\ƒbƒh‹¤—p
+		//ï¿½eï¿½ï¿½ï¿½\ï¿½bï¿½hï¿½ï¿½ï¿½p
 	private:
-		int hasVisited[GameConst::MAP_ROW][GameConst::MAP_LINE];
+		int hasVisited[BombBombCrash::MAP_ROW][BombBombCrash::MAP_LINE];
 		int count;
 		int failed;
 		//for CheckBomb method
@@ -27,23 +27,23 @@ namespace BombBombCrash
 		int CheckAbleToGoTo_base(const int i_start, const int j_start, const int i_goal, const int j_goal);
 		int CheckAbleToPass(int i, int j);
 	public:
-		//ˆø”‚Éw’è‚µ‚½êŠ‚ğ‚à‚Æ‚É–Ú“I’n(ƒuƒƒbƒN‚Ì^‰¡)‚ğŒˆ’è‚·‚é
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Éwï¿½è‚µï¿½ï¿½ï¿½êŠï¿½ï¿½ï¿½Æ‚É–Ú“Iï¿½n(ï¿½uï¿½ï¿½ï¿½bï¿½Nï¿½Ì^ï¿½ï¿½)ï¿½ï¿½ï¿½ï¿½è‚·ï¿½ï¿½
 		int SetGoal(const int i_from, const int j_from, std::vector<int> *i_goal, std::vector<int> *j_goal);
 	
-		//ˆø”‚Éw’è‚µ‚½êŠ‚ğ‚à‚Æ‚É“¦‚°‚éêŠ‚ğŒˆ’è‚·‚é
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Éwï¿½è‚µï¿½ï¿½ï¿½êŠï¿½ï¿½ï¿½Æ‚É“ï¿½ï¿½ï¿½ï¿½ï¿½êŠï¿½ï¿½ï¿½ï¿½è‚·ï¿½ï¿½
 		//void CheckAbleToAvoidFromBomb(const int i_from, const int j_from, int *i_safe, int *j_safe);
 	
-		//ˆø”‚Éw’è‚µ‚½êŠ‚©‚ç”š•—”ÍˆÍ‚ÉŠª‚«‚Ü‚ê‚È‚¢‚æ‚¤‚É‘¼‚ÌêŠ‚ÖˆÚ“®‚Å‚«‚é‚©ƒ`ƒFƒbƒN‚·‚é
-		//ˆÚ“®‚Å‚«‚é‚È‚ç‚P‚ğ•Ô‚·BˆÚ“®‚Å‚«‚È‚¢‚È‚ç‚O‚ğ•Ô‚·B
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Éwï¿½è‚µï¿½ï¿½ï¿½êŠï¿½ï¿½ï¿½ç”šï¿½ï¿½ï¿½ÍˆÍ‚ÉŠï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½È‚ï¿½ï¿½æ‚¤ï¿½É‘ï¿½ï¿½ÌêŠï¿½ÖˆÚ“ï¿½ï¿½Å‚ï¿½ï¿½é‚©ï¿½`ï¿½Fï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½
+		//ï¿½Ú“ï¿½ï¿½Å‚ï¿½ï¿½ï¿½È‚ï¿½Pï¿½ï¿½Ô‚ï¿½ï¿½Bï¿½Ú“ï¿½ï¿½Å‚ï¿½ï¿½È‚ï¿½ï¿½È‚ï¿½Oï¿½ï¿½Ô‚ï¿½ï¿½B
 		//int CheckAbleToMoveInitialized(const int i_start, const int j_start, int *const i_safe, int *const j_safe);
 	
-		//”š•—”ÍˆÍ‚É“ü‚Á‚Ä‚¢‚é‚É‚»‚±‚©‚ç‚ÌÅ’Z’Eoƒ‹[ƒg‚ğ’ñ‹Ÿ‚·‚é
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ÍˆÍ‚É“ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½éï¿½É‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÌÅ’Zï¿½Eï¿½oï¿½ï¿½ï¿½[ï¿½gï¿½ï¿½ñ‹Ÿ‚ï¿½ï¿½ï¿½
 		int SetEscapeRouteWhenInDanger(int i, int j, std::list<int> *escapeRoute);
 
 	
 		int CheckAbleToGoTo(int i_start, int j_start, int i_goal, int j_goal);
-		//ˆê•ûŒü•Â‹æŠÔ‚É‚¢‚é‚©’²‚×‚éB
-		//‚¢‚é‚È‚ç‚P‚ğ•Ô‚·B‚¢‚È‚¢‚È‚ç‚O‚ğ•Ô‚·B
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â‹ï¿½Ô‚É‚ï¿½ï¿½é‚©ï¿½ï¿½ï¿½×‚ï¿½B
+		//ï¿½ï¿½ï¿½ï¿½È‚ï¿½Pï¿½ï¿½Ô‚ï¿½ï¿½Bï¿½ï¿½ï¿½È‚ï¿½ï¿½È‚ï¿½Oï¿½ï¿½Ô‚ï¿½ï¿½B
 		int CheckInClosedInterval(int i_now, int j_now);
 
 		Search(void);

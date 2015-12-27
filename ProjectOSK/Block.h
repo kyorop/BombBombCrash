@@ -2,6 +2,7 @@
 #include "MapObstacle.h"
 #include "IDrawable.h"
 #include "IRegister.h"
+#include "IGameProgress.h"
 #define MAPSIZE_X 17
 #define MAPSIZE_Y 13
 
@@ -45,6 +46,19 @@ namespace BombBombCrash
 		Floor(int imageHandle);
 		void Draw() override;
 		int Type() const override{ return FLOOR; }
+	};
+
+	class Block:public MapObject, public IGameProgress
+	{
+		const int imageHandle;
+
+	public:
+		Block(const ln::Vector2& position, int imageHandle);
+		void Initialize(GameManager& game) override;
+		void Update(GameManager& game) override;
+		void Draw(const GameManager& game) override;
+		void Destroy(const GameManager& game) override;
+		bool CanRemove() override;
 	};
 }
 

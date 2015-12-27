@@ -1,4 +1,4 @@
-#include "DangerState.h"
+ï»¿#include "DangerState.h"
 #include "MapState.h"
 #include <iostream>
 
@@ -22,9 +22,9 @@ DangerState::DangerState(void)
 	:node(),
 	fireNode()
 {
-	for (int i = 0; i < GameConst::MAP_ROW; ++i)
+	for (int i = 0; i < BombBombCrash::MAP_ROW; ++i)
 	{
-		for (int j = 0; j < GameConst::MAP_LINE; ++j)
+		for (int j = 0; j < BombBombCrash::MAP_LINE; ++j)
 		{
 			fireNode[i][j]= 0;
 		}
@@ -39,9 +39,9 @@ DangerState::~DangerState(void)
 
 void DangerState::Finalize()
 {
-	for (int i = 0; i < GameConst::MAP_ROW; ++i)
+	for (int i = 0; i < BombBombCrash::MAP_ROW; ++i)
 	{
-		for (int j = 0; j < GameConst::MAP_LINE; ++j)
+		for (int j = 0; j < BombBombCrash::MAP_LINE; ++j)
 		{
 			node[i][j].Finalize();
 			fireNode[i][j] = 0;
@@ -52,11 +52,11 @@ void DangerState::Finalize()
 
 void DangerState::Update()
 {
-	for (int i = 0; i < GameConst::MAP_ROW; ++i)
+	for (int i = 0; i < BombBombCrash::MAP_ROW; ++i)
 	{
-		for (int j = 0; j < GameConst::MAP_LINE; ++j)
+		for (int j = 0; j < BombBombCrash::MAP_LINE; ++j)
 		{
-			//’†S‚ªÁ‚¦‚½‚ç‘¼‚à‘S•”Á‚·
+			//ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ç‘¼ï¿½ï¿½Sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			if(node[i][j].danger == 1 && MapState::GetInstance()->GetState(node[i][j].i_brastCenter, node[i][j].j_brastCenter, MapState::BOMB) == 0)
 			{
 				node[i][j].danger = 0; 
@@ -64,9 +64,9 @@ void DangerState::Update()
 		}
 	}
 
-	for (int i = 0; i < GameConst::MAP_ROW; ++i)
+	for (int i = 0; i < BombBombCrash::MAP_ROW; ++i)
 	{
-		for (int j = 0; j < GameConst::MAP_LINE; ++j)
+		for (int j = 0; j < BombBombCrash::MAP_LINE; ++j)
 		{
 			if(MapState::GetInstance()->GetState(i, j, MapState::FIRE) == 1)
 				fireNode[i][j] = 1;
@@ -75,25 +75,25 @@ void DangerState::Update()
 		}
 	}
 
-	for (int i_node= 0; i_node < GameConst::MAP_ROW; ++i_node)
+	for (int i_node= 0; i_node < BombBombCrash::MAP_ROW; ++i_node)
 	{
-		for (int j_node = 0; j_node < GameConst::MAP_LINE; ++j_node)
+		for (int j_node = 0; j_node < BombBombCrash::MAP_LINE; ++j_node)
 		{
-			//ƒ{ƒ€‚ª’u‚©‚ê‚Ä‚¢‚é‚È‚ç
+			//ï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½È‚ï¿½
 			if(MapState::GetInstance()->GetState(i_node, j_node, MapState::BOMB) == 1)
 			{
 				int fireLevel = MapState::GetInstance()->GetState(i_node, j_node, MapState::BOMB, 1);
-				//ƒ{ƒ€‚ª’u‚©‚ê‚½êŠ‚Íí‚É‚P‚É‚µ‚Ä‚¨‚­
+				//ï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½uï¿½ï¿½ï¿½ê‚½ï¿½êŠï¿½Íï¿½É‚Pï¿½É‚ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½
 				node[i_node][j_node].danger = 1;
 				node[i_node][j_node].i_brastCenter = i_node;
 				node[i_node][j_node].j_brastCenter = j_node;
 
-				//”šS’n‚ğ’†S‚É‰Î—Í•ª‚¾‚¯l•û‚ğŠëŒ¯’nˆæ‚Éİ’è
+				//ï¿½ï¿½ï¿½Sï¿½nï¿½ğ’†Sï¿½É‰Î—Í•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½lï¿½ï¿½ï¿½ï¿½ëŒ¯ï¿½nï¿½ï¿½Éİ’ï¿½
 
-				//’†S‚©‚ç‰E
+				//ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½ï¿½E
 				for (int i = i_node+1; i <= i_node+fireLevel; ++i)
 				{
-					if(0 <= i && i < GameConst::MAP_ROW)
+					if(0 <= i && i < BombBombCrash::MAP_ROW)
 					{
 						if(MapState::GetInstance()->GetState(i, j_node, MapState::MAP) == 1
 							|| MapState::GetInstance()->GetState(i, j_node, MapState::BLOCK) == 1
@@ -113,10 +113,10 @@ void DangerState::Update()
 					}
 				}
 
-				//’†S‚©‚ç¶
+				//ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½ç¶
 				for (int i=i_node-1; i >= i_node - fireLevel ; --i)
 				{
-					if(0 <= i && i < GameConst::MAP_ROW)
+					if(0 <= i && i < BombBombCrash::MAP_ROW)
 					{
 						if(MapState::GetInstance()->GetState(i, j_node, MapState::MAP) == 1
 							|| MapState::GetInstance()->GetState(i, j_node, MapState::BLOCK) == 1
@@ -136,10 +136,10 @@ void DangerState::Update()
 					}
 				}
 
-				//’†S‚©‚ç‰º
+				//ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½ç‰º
 				for (int j=j_node+1; j <= j_node+fireLevel; ++j)
 				{
-					if(0 <= j && j < GameConst::MAP_LINE)
+					if(0 <= j && j < BombBombCrash::MAP_LINE)
 					{
 						if(MapState::GetInstance()->GetState(i_node, j, MapState::MAP) == 1
 							|| MapState::GetInstance()->GetState(i_node, j, MapState::BLOCK) == 1
@@ -159,10 +159,10 @@ void DangerState::Update()
 					}
 				}
 
-				//’†S‚©‚çã
+				//ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½ï¿½ï¿½
 				for (int j=j_node-1; j >= j_node - fireLevel ; --j)
 				{
-					if(0 <= j && j < GameConst::MAP_LINE)
+					if(0 <= j && j < BombBombCrash::MAP_LINE)
 					{
 						if(MapState::GetInstance()->GetState(i_node, j, MapState::MAP) == 1
 							|| MapState::GetInstance()->GetState(i_node, j, MapState::BLOCK) == 1
@@ -188,7 +188,7 @@ void DangerState::Update()
 
 int DangerState::GetDangerState(int i , int j)const
 {
-	if(0 <= i && i < GameConst::MAP_ROW && 0 <= j && j < GameConst::MAP_LINE)
+	if(0 <= i && i < BombBombCrash::MAP_ROW && 0 <= j && j < BombBombCrash::MAP_LINE)
 	{
 		return node[i][j].danger;
 	}
@@ -200,7 +200,7 @@ int DangerState::GetDangerState(int i , int j)const
 
 int DangerState::GetFireState(int i, int j)const
 {
-	if(0 <= i && i < GameConst::MAP_ROW && 0 <= j && j < GameConst::MAP_LINE)
+	if(0 <= i && i < BombBombCrash::MAP_ROW && 0 <= j && j < BombBombCrash::MAP_LINE)
 	{
 		return fireNode[i][j];
 	}

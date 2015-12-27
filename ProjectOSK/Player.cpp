@@ -8,6 +8,7 @@
 #include "KeyboardPlayerInput.h"
 #include "Bomb.h"
 #include "GameManager.h"
+#include "MapObject.h"
 
 using namespace BombBombCrash;
 
@@ -20,21 +21,21 @@ enum
 	NOHIT,
 };
 
-Player::Player(const ln::Vector2& position, KeyState device)
-	:
-	image_left(Image::GetInstance()->GetCharacterImage(id, Image::LEFT)),
-	image_right(Image::GetInstance()->GetCharacterImage(id, Image::RIGHT)),
-	image_up(Image::GetInstance()->GetCharacterImage(id, Image::UP)),
-	image_down(Image::GetInstance()->GetCharacterImage(id, Image::DOWN)),
-	image_death(Image::GetInstance()->GetCharacterImage(id, Image::DEATH)),
-	hasFinished(0),
-	animationTime(new Timer),
-	animationFrame(0),
-	isJoypad(device),
-	input(new KeyboardPlayerInput()),
-	bomb(std::make_unique<BombController>()),
-	speed(1),
-	fireLevel(1)
+Player::Player(const ln::Vector2& position, KeyState device):
+Character(position,GameConstant::BlockWidth, GameConstant::BlockHeight),
+image_left(Image::GetInstance()->GetCharacterImage(id, Image::LEFT)),
+image_right(Image::GetInstance()->GetCharacterImage(id, Image::RIGHT)),
+image_up(Image::GetInstance()->GetCharacterImage(id, Image::UP)),
+image_down(Image::GetInstance()->GetCharacterImage(id, Image::DOWN)),
+image_death(Image::GetInstance()->GetCharacterImage(id, Image::DEATH)),
+hasFinished(0),
+animationTime(new Timer),
+animationFrame(0),
+isJoypad(device),
+input(new KeyboardPlayerInput()),
+bomb(std::make_unique<BombController>()),
+speed(1),
+fireLevel(1)
 {
 	SetPosition(position);
 	muki = DOWN;
@@ -49,7 +50,7 @@ Player::Player(const ln::Vector2& position, KeyState device)
 
 	if(isJoypad == JOYPAD)
 	{
-		SetPosition(ln::Vector2(GameConst::FIRST_X_RIGHT, GameConst::FIRST_Y_DOWN));
+		SetPosition(ln::Vector2(BombBombCrash::FIRST_X_RIGHT, BombBombCrash::FIRST_Y_DOWN));
 	}
 }
 
@@ -202,6 +203,7 @@ void Player::Draw(const GameManager& game)
 
 		auto pos = Position();
 		DrawGraph(pos.X, pos.Y, image, TRUE);
+		DrawBox(X(), Y(), RX(), DY(), GetColor(0, 0, 255), false);
 	}
 	else		//死亡時のアニメーション
 	{

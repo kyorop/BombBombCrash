@@ -1,4 +1,5 @@
 #include "MapObject.h"
+#include "Rect.h"
 
 using namespace BombBombCrash;
 
@@ -22,7 +23,7 @@ MapObject::~MapObject(void)
 {
 }
 
-int MapObject::GetX()const
+int MapObject::X()const
 {
 	return upperLeftPos.X;
 }
@@ -30,15 +31,14 @@ int MapObject::GetX()const
 void MapObject::SetX(int x)
 {
 	SetPosition(ln::Vector2(x, upperLeftPos.Y));
-
 }
 
-int MapObject::GetRX()const
+int MapObject::RX()const
 {
 	return lowerRightPos.X;
 }
 
-int MapObject::GetY()const
+int MapObject::Y()const
 {
 	return upperLeftPos.Y;
 }
@@ -48,7 +48,7 @@ void MapObject::SetY(int y)
 	SetPosition(ln::Vector2(upperLeftPos.X, y));
 }
 
-int MapObject::GetDY()const
+int MapObject::DY()const
 {
 	return lowerRightPos.Y;
 }
@@ -100,6 +100,11 @@ int MapObject::Width() const
 int MapObject::Height() const
 {
 	return lowerRightPos.Y - upperLeftPos.Y;
+}
+
+Rect MapObject::Rect() const
+{
+	return ::Rect(upperLeftPos, lowerRightPos);
 }
 
 void MapObject::Translate(const ln::Vector2& translation)

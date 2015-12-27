@@ -19,8 +19,8 @@ namespace BombBombCrash
 		};
 
 	public:
-		DangerNode node[GameConst::MAP_ROW][GameConst::MAP_LINE];
-		int fireNode[GameConst::MAP_ROW][GameConst::MAP_LINE];
+		DangerNode node[BombBombCrash::MAP_ROW][BombBombCrash::MAP_LINE];
+		int fireNode[BombBombCrash::MAP_ROW][BombBombCrash::MAP_LINE];
 	private:
 		DangerState(void);
 		DangerState(const DangerState &ds);

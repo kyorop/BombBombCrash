@@ -26,9 +26,9 @@ void ItemManager::Initialize(const Block &block)
 	std::vector<int> j_block;
 	std::vector<int> history;
 
-	for (int i = 0; i < GameConst::MAP_ROW; i++)
+	for (int i = 0; i < BombBombCrash::MAP_ROW; i++)
 	{
-		for (int j = 0; j < GameConst::MAP_LINE; j++)
+		for (int j = 0; j < BombBombCrash::MAP_LINE; j++)
 		{
 //			if(block.IsSoftBlock(i, j))
 			{

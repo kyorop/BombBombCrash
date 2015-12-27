@@ -104,22 +104,22 @@ void Dijkstra::SetRoute(int i_start, int j_start, int i_goal, int j_goal, std::l
 	{
 		if(i_now > graph->GetPreNode_i(i_now, j_now) && j_now == graph->GetPreNode_j(i_now, j_now))
 		{
-			shortestRoute->push_back(GameConst::EnemyAction::UP);
+			shortestRoute->push_back(BombBombCrash::EnemyAction::UP);
 			i_now = graph->GetPreNode_i(i_now, j_now);
 		}
 		else if(i_now < graph->GetPreNode_i(i_now, j_now) && j_now == graph->GetPreNode_j(i_now, j_now))
 		{
-			shortestRoute->push_back(GameConst::EnemyAction::DOWN);
+			shortestRoute->push_back(BombBombCrash::EnemyAction::DOWN);
 			i_now = graph->GetPreNode_i(i_now, j_now);
 		}
 		else if(i_now == graph->GetPreNode_i(i_now, j_now) && j_now > graph->GetPreNode_j(i_now, j_now))
 		{
-			shortestRoute->push_back(GameConst::EnemyAction::LEFT);
+			shortestRoute->push_back(BombBombCrash::EnemyAction::LEFT);
 			j_now = graph->GetPreNode_j(i_now, j_now);
 		}
 		else if(i_now == graph->GetPreNode_i(i_now, j_now) && j_now < graph->GetPreNode_j(i_now, j_now))
 		{
-			shortestRoute->push_back(GameConst::EnemyAction::RIGHT);
+			shortestRoute->push_back(BombBombCrash::EnemyAction::RIGHT);
 			j_now = graph->GetPreNode_j(i_now, j_now);
 		}
 	}

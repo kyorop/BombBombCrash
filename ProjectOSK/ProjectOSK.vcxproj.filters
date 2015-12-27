@@ -193,6 +193,12 @@
     <ClCompile Include="GameManager.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionUtil.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Rect.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameConstant.h">
@@ -362,6 +368,12 @@
       <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="IGameProgress.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionUtil.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Rect.h">
       <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>

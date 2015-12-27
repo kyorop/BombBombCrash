@@ -1,4 +1,4 @@
-#include "Search.h"
+ï»¿#include "Search.h"
 #include "MapState.h"
 #include "GameConstant.h"
 #include "DangerState.h"
@@ -18,9 +18,9 @@ Search::Search(void):
 	checkedOtherLine(0),
 	success(0)
 {
-	for (int i = 0; i < GameConst::MAP_ROW; i++)
+	for (int i = 0; i < BombBombCrash::MAP_ROW; i++)
 	{
-		for (int j = 0; j < GameConst::MAP_LINE; j++)
+		for (int j = 0; j < BombBombCrash::MAP_LINE; j++)
 			hasVisited[i][j] = 0;
 	}
 }
@@ -29,13 +29,13 @@ int Search::SetGoal(const int i, const int j, std::vector<int> *i_goal, std::vec
 {
 	success = 0;
 
-	memset(hasVisited[0], 0, sizeof(int)*GameConst::MAP_ROW*GameConst::MAP_LINE);
+	memset(hasVisited[0], 0, sizeof(int)*BombBombCrash::MAP_ROW*BombBombCrash::MAP_LINE);
 
-	//ƒuƒƒbƒN‚ª‚ ‚é‚©ƒ`ƒFƒbƒN
+	//ï¿½uï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½é‚©ï¿½`ï¿½Fï¿½bï¿½N
 	int blockNum = 0;
-	for (int row = 0; row < GameConst::MAP_ROW; ++row)
+	for (int row = 0; row < BombBombCrash::MAP_ROW; ++row)
 	{
-		for (int line = 0; line < GameConst::MAP_LINE; ++line)
+		for (int line = 0; line < BombBombCrash::MAP_LINE; ++line)
 		{
 			if(MapState::GetInstance()->GetState(row, line, MapState::BLOCK) == 1)
 				++blockNum;
@@ -49,10 +49,10 @@ int Search::SetGoal(const int i, const int j, std::vector<int> *i_goal, std::vec
 
 int Search::SetGoal_base(const int i, const int j, std::vector<int> *i_goal, std::vector<int> *j_goal)
 {
-	//ˆê“x’Ê‚Á‚½‚Æ‚±‚ë‚É‚Ü‚½’Ê‚ç‚È‚¢‚æ‚¤‚É’Ê‰ßƒtƒ‰ƒO‚ğ—§‚Ä‚é
+	//ï¿½ï¿½xï¿½Ê‚ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½É‚Ü‚ï¿½ï¿½Ê‚ï¿½È‚ï¿½ï¿½æ‚¤ï¿½É’Ê‰ßƒtï¿½ï¿½ï¿½Oï¿½ğ—§‚Ä‚ï¿½
 	hasVisited[i][j] = 1;
 
-	//–Ú“I’n‚É‚È‚é‚©’²¸
+	//ï¿½Ú“Iï¿½nï¿½É‚È‚é‚©ï¿½ï¿½ï¿½ï¿½
 	if(MapState::GetInstance()->GetState(i-1, j, MapState::BLOCK) == 1
 		|| MapState::GetInstance()->GetState(i+1, j, MapState::BLOCK) == 1
 		|| MapState::GetInstance()->GetState(i, j-1, MapState::BLOCK) == 1
@@ -63,7 +63,7 @@ int Search::SetGoal_base(const int i, const int j, std::vector<int> *i_goal, std
 		success = 1;
 	}
 
-	//’Ê‚ê‚é‚Æ‚±‚ë‚Éi‚Ş
+	//ï¿½Ê‚ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½Éiï¿½ï¿½
 	if(hasVisited[i-1][j] == 0 && MAP(i, -1, j, 0) == 0 && BLOCK(i, -1, j, 0) == 0 && MapState::GetInstance()->GetState(i-1, j, MapState::BOMB) == 0 && DangerState::GetInstance()->GetDangerState(i-1, j) == 0 && DangerState::GetInstance()->GetFireState(i-1, j) == 0) SetGoal_base(i-1, j, i_goal, j_goal);
 	if(hasVisited[i+1][j] == 0 && MAP(i, 1, j, 0) == 0 && BLOCK(i, 1, j, 0) == 0 && MapState::GetInstance()->GetState(i+1, j, MapState::BOMB) == 0 && DangerState::GetInstance()->GetDangerState(i+1, j) == 0 && DangerState::GetInstance()->GetFireState(i+1, j) == 0) SetGoal_base(i+1, j, i_goal,  j_goal);
 	if(hasVisited[i][j-1] == 0 && MAP(i, 0, j, -1) == 0 && BLOCK(i, 0, j, -1) == 0 && MapState::GetInstance()->GetState(i, j-1,MapState:: BOMB) == 0 && DangerState::GetInstance()->GetDangerState(i, j-1) == 0 && DangerState::GetInstance()->GetFireState(i, j-1) == 0) SetGoal_base(i, j-1, i_goal, j_goal);
@@ -74,7 +74,7 @@ int Search::SetGoal_base(const int i, const int j, std::vector<int> *i_goal, std
 
 //int Search::CheckAbleToMoveInitialized(const int i_start, const int j_start, int *const i_safe, int *const j_safe)
 //{
-//	//‰Šú‰»BÄ‹AŠÖ”‚È‚Ì‚Å‚»‚ÌŠÖ”’†‚Å‰Šú‰»‚Å‚«‚È‚¢‚½‚ß
+//	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Bï¿½Ä‹Aï¿½Öï¿½ï¿½È‚Ì‚Å‚ï¿½ï¿½ÌŠÖï¿½ï¿½ï¿½ï¿½Åï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å‚ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½ï¿½
 //	//for (int i = 0; i < GameConst::MAP_ROW; i++)
 //	//{
 //	//	for (int j = 0; j < GameConst::MAP_LINE; j++)
@@ -88,7 +88,7 @@ int Search::SetGoal_base(const int i, const int j, std::vector<int> *i_goal, std
 
 //int Search::CheckAbleToMove(const int i, const int j, int *const i_safe, int *const j_safe)
 //{
-//	//ˆÚ“®‚µ‚Ä‚à”š•—‚ÉŠª‚«‚Ü‚ê‚È‚¢‚È‚ç
+//	//ï¿½Ú“ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½ÉŠï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½È‚ï¿½ï¿½È‚ï¿½
 //	if(MAP(i, 0, j, 0) == 0 && BLOCK(i, 0, j, 0) == 0 && MapState::GetInstance()->GetState(i, j, BOMB) == 0 && DangerState::GetInstance()->GetDangerState(i, j) == 0)
 //	{
 //		*i_safe = i;
@@ -96,7 +96,7 @@ int Search::SetGoal_base(const int i, const int j, std::vector<int> *i_goal, std
 //		success = 1;
 //	}
 //
-//	//’Ê‚ê‚é‚Æ‚±‚ë‚Éi‚Ş
+//	//ï¿½Ê‚ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½Éiï¿½ï¿½
 //	if(success == 0 && hasVisited[i-1][j] == 0 && MAP(i, -1, j, 0) == 0 && BLOCK(i, -1, j, 0) == 0 && MapState::GetInstance()->GetDangerState(i-1, j) == NODENGER)
 //	{
 //		CheckAbleToMove(i-1, j, i_safe, j_safe);
@@ -121,18 +121,18 @@ int Search::SetEscapeRouteWhenInDanger(int i_start, int j_start, std::list<int> 
 {
 	std::queue<int> que_i;
 	std::queue<int> que_j;
-	int visited[GameConst::MAP_ROW][GameConst::MAP_LINE];
-	//‚Ç‚¤‚â‚Á‚Ä‚»‚±‚É’…‚¢‚½‚©
-	int pred[GameConst::MAP_ROW][GameConst::MAP_LINE];
+	int visited[BombBombCrash::MAP_ROW][BombBombCrash::MAP_LINE];
+	//ï¿½Ç‚ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½É’ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int pred[BombBombCrash::MAP_ROW][BombBombCrash::MAP_LINE];
 
-	memset(visited[0], 0, sizeof(int)*GameConst::MAP_ROW*GameConst::MAP_LINE);
-	memset(pred[0], 0, sizeof(int)*GameConst::MAP_ROW*GameConst::MAP_LINE);
+	memset(visited[0], 0, sizeof(int)*BombBombCrash::MAP_ROW*BombBombCrash::MAP_LINE);
+	memset(pred[0], 0, sizeof(int)*BombBombCrash::MAP_ROW*BombBombCrash::MAP_LINE);
 
-	//ƒXƒ^[ƒgƒm[ƒh‚Ì‰Šú‰»
+	//ï¿½Xï¿½^ï¿½[ï¿½gï¿½mï¿½[ï¿½hï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½
 	visited[i_start][j_start] = 1;
 	pred[i_start][j_start] = -1;
 
-	//‰ŠúˆÊ’u‚ğƒLƒ…[‚É’Ç‰Á
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Ê’uï¿½ï¿½Lï¿½ï¿½ï¿½[ï¿½É’Ç‰ï¿½
 	que_i.push(i_start);
 	que_j.push(j_start);
 	
@@ -159,37 +159,37 @@ int Search::SetEscapeRouteWhenInDanger(int i_start, int j_start, std::list<int> 
 				}
 			}
 
-			//“¦‚°‚ê‚È‚¢‚È‚çƒLƒ…[‚ÌXV
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½È‚ï¿½Lï¿½ï¿½ï¿½[ï¿½ÌXï¿½V
 			if(visited[i-1][j] == 0 && MAP(i, -1, j, 0) == 0 && BLOCK(i, -1, j, 0) == 0 && MapState::GetInstance()->GetState(i-1, j, MapState::BOMB) == 0 && DangerState::GetInstance()->GetFireState(i-1, j) == 0/* && MapState::GetInstance()->GetState(i-1, j, FIRE) == 0*/)
 			{
 				visited[i-1][j] = 1;
-				pred[i-1][j] = GameConst::EnemyAction::UP;//‚±‚±‚Ü‚ÅUP‚µ‚Ä—ˆ‚½
+				pred[i-1][j] = BombBombCrash::EnemyAction::UP;//ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½UPï¿½ï¿½ï¿½Ä—ï¿½ï¿½ï¿½
 				que_i.push(i-1);
 				que_j.push(j);
 			}
 			if(visited[i+1][j] == 0 && MAP(i, 1, j, 0) == 0 && BLOCK(i, 1, j, 0) == 0 && MapState::GetInstance()->GetState(i+1, j, MapState::BOMB) == 0 && DangerState::GetInstance()->GetFireState(i+1, j) == 0/* && MapState::GetInstance()->GetState(i+1, j, FIRE) == 0*/)
 			{
 				visited[i+1][j] = 1;
-				pred[i+1][j] = GameConst::EnemyAction::DOWN;//‚±‚±‚Ü‚ÅDOWN‚µ‚Ä‚«‚½
+				pred[i+1][j] = BombBombCrash::EnemyAction::DOWN;//ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½DOWNï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½
 				que_i.push(i+1);
 				que_j.push(j);
 			}
 			if(visited[i][j-1] == 0 && MAP(i, 0, j, -1) == 0 && BLOCK(i, 0, j, -1) == 0 && MapState::GetInstance()->GetState(i, j-1, MapState::BOMB) == 0 && DangerState::GetInstance()->GetFireState(i, j-1) == 0/* && MapState::GetInstance()->GetState(i, j-1, FIRE) == 0*/)
 			{
 				visited[i][j-1] = 1;
-				pred[i][j-1] = GameConst::EnemyAction::LEFT;//‚±‚±‚Ü‚ÅLEFT‚µ‚Ä—ˆ‚½
+				pred[i][j-1] = BombBombCrash::EnemyAction::LEFT;//ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½LEFTï¿½ï¿½ï¿½Ä—ï¿½ï¿½ï¿½
 				que_i.push(i);
 				que_j.push(j-1);
 			}
 			if(visited[i][j+1] == 0 && MAP(i, 0, j, 1) == 0 && BLOCK(i, 0, j, 1) == 0 && MapState::GetInstance()->GetState(i, j+1, MapState::BOMB) == 0 && DangerState::GetInstance()->GetFireState(i, j+1) == 0/* && MapState::GetInstance()->GetState(i, j+1, FIRE) == 0*/)
 			{
 				visited[i][j+1] = 1;
-				pred[i][j+1] = GameConst::EnemyAction::RIGHT;//‚±‚±‚Ü‚ÅRIGHT‚µ‚Ä—ˆ‚½
+				pred[i][j+1] = BombBombCrash::EnemyAction::RIGHT;//ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½RIGHTï¿½ï¿½ï¿½Ä—ï¿½ï¿½ï¿½
 				que_i.push(i);
 				que_j.push(j+1);
 			}
 
-			//ŒŸõ‚µI‚í‚Á‚½•s•K—v‚ÈƒLƒ…[‚Ìíœ
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sï¿½Kï¿½vï¿½ÈƒLï¿½ï¿½ï¿½[ï¿½Ìíœ
 			que_i.pop();
 			que_j.pop();
 	}
@@ -199,24 +199,24 @@ int Search::SetEscapeRouteWhenInDanger(int i_start, int j_start, std::list<int> 
 		int i_current = i_goal;
 		int j_current = j_goal;
 		
-		while(pred[i_current][j_current] != -1)		//-1‚Í©•ª‚Ì‚¢‚é‚Æ‚±‚ë
+		while(pred[i_current][j_current] != -1)		//-1ï¿½Íï¿½ï¿½ï¿½ï¿½Ì‚ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½
 		{
 			switch(pred[i_current][j_current])
 			{
-			case GameConst::EnemyAction::UP:
-				escapeRoute->push_front(GameConst::EnemyAction::UP);
+			case BombBombCrash::EnemyAction::UP:
+				escapeRoute->push_front(BombBombCrash::EnemyAction::UP);
 				i_current += 1;
 				break;
-			case GameConst::EnemyAction::DOWN:
-				escapeRoute->push_front(GameConst::EnemyAction::DOWN);
+			case BombBombCrash::EnemyAction::DOWN:
+				escapeRoute->push_front(BombBombCrash::EnemyAction::DOWN);
 				i_current -= 1;
 				break;
-			case GameConst::EnemyAction::LEFT:
-				escapeRoute->push_front(GameConst::EnemyAction::LEFT);
+			case BombBombCrash::EnemyAction::LEFT:
+				escapeRoute->push_front(BombBombCrash::EnemyAction::LEFT);
 				j_current += 1;
 				break;
-			case GameConst::EnemyAction::RIGHT:
-				escapeRoute->push_front(GameConst::EnemyAction::RIGHT);
+			case BombBombCrash::EnemyAction::RIGHT:
+				escapeRoute->push_front(BombBombCrash::EnemyAction::RIGHT);
 				j_current -= 1;
 				break;
 			}
@@ -241,7 +241,7 @@ int Search::SetEscapeRouteWhenInDanger(int i_start, int j_start, std::list<int> 
 //		success = 1;
 //	}
 //
-//	//’Ê‚ê‚é‚Æ‚±‚ë‚Éi‚Ş
+//	//ï¿½Ê‚ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½Éiï¿½ï¿½
 //	if(success == 0 && hasVisited[i-1][j] == 0 && MAP(i, -1, j, 0) == 0 && BLOCK(i, -1, j, 0) == 0 && MapState::GetInstance()->GetDangerState(i-1, j) == NODENGER)
 //	{
 //		OnlyCheckAbleToMove(i-1, j, i_end, j_end);
@@ -270,27 +270,27 @@ int Search::CheckInClosedInterval(int i_now, int j_now)
 {
 	std::queue<int> que_i;
 	std::queue<int> que_j;
-	int visited[GameConst::MAP_ROW][GameConst::MAP_LINE];
+	int visited[BombBombCrash::MAP_ROW][BombBombCrash::MAP_LINE];
 
-	memset(visited[0], 0, sizeof(int)*GameConst::MAP_ROW*GameConst::MAP_LINE);
+	memset(visited[0], 0, sizeof(int)*BombBombCrash::MAP_ROW*BombBombCrash::MAP_LINE);
 
-	//‰ŠúˆÊ’u‚ğƒLƒ…[‚É’Ç‰Á
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Ê’uï¿½ï¿½Lï¿½ï¿½ï¿½[ï¿½É’Ç‰ï¿½
 	que_i.push(i_now);
 	que_j.push(j_now);
 	
 	int i;
 	int j;
 
-	//s‚¯‚é‚Æ‚±‚ë‚ª‚È‚¯‚ê‚ÎƒLƒ…[‚ÌXV‚ª‚È‚­‚È‚é‚Ì‚ÅA‚»‚Ì‚ÉI—¹
+	//ï¿½sï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ë‚ªï¿½È‚ï¿½ï¿½ï¿½ÎƒLï¿½ï¿½ï¿½[ï¿½ÌXï¿½Vï¿½ï¿½ï¿½È‚ï¿½ï¿½È‚ï¿½Ì‚ÅAï¿½ï¿½ï¿½Ìï¿½ï¿½ÉIï¿½ï¿½
 	while(que_i.empty() == 0)
 	{
-		//size = que_i.size();		//‚·‚Å‚É“ü‚Á‚Ä‚¢‚½ƒLƒ…[‚Ì”‚¾‚¯XV‚ğ‚·‚é
+		//size = que_i.size();		//ï¿½ï¿½ï¿½Å‚É“ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½Lï¿½ï¿½ï¿½[ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½
 		//for(int n=0; n<size; ++n)
 
 		i = que_i.front();
 		j = que_j.front();
 
-		//“¦‚°‚ê‚È‚¢‚È‚çƒLƒ…[‚ÌXV
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½È‚ï¿½Lï¿½ï¿½ï¿½[ï¿½ÌXï¿½V
 		if(visited[i-1][j] == 0 && MAP(i, -1, j, 0) == 0 && BLOCK(i, -1, j, 0) == 0 && MapState::GetInstance()->GetState(i-1, j, MapState::BOMB) == 0 && DangerState::GetInstance()->GetFireState(i-1, j) == 0 && DangerState::GetInstance()->GetDangerState(i-1, j) == 0)
 		{
 			visited[i-1][j] = 1;
@@ -316,7 +316,7 @@ int Search::CheckInClosedInterval(int i_now, int j_now)
 			que_j.push(j+1);
 		}
 
-		//ŒŸõ‚µI‚í‚Á‚½•s•K—v‚ÈƒLƒ…[‚Ìíœ
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sï¿½Kï¿½vï¿½ÈƒLï¿½ï¿½ï¿½[ï¿½Ìíœ
 		que_i.pop();
 		que_j.pop();
 	}
@@ -325,9 +325,9 @@ int Search::CheckInClosedInterval(int i_now, int j_now)
 	const int j_start = j_now;
 	int i_change = 0;
 	int j_change = 0;
-	for (int i = 0; i < GameConst::MAP_ROW; i++)
+	for (int i = 0; i < BombBombCrash::MAP_ROW; i++)
 	{
-		for (int j = 0; j < GameConst::MAP_LINE; j++)
+		for (int j = 0; j < BombBombCrash::MAP_LINE; j++)
 		{
 			if(visited[i][j] == 1)
 			{
@@ -370,7 +370,7 @@ Search::~Search(void)
 //		que_j.pop();
 //	}
 //
-//	//‰ŠúˆÊ’u‚ğƒLƒ…[‚É’Ç‰Á
+//	//ï¿½ï¿½ï¿½ï¿½ï¿½Ê’uï¿½ï¿½Lï¿½ï¿½ï¿½[ï¿½É’Ç‰ï¿½
 //	que_i.push(i_start);
 //	que_j.push(j_start);
 //	
@@ -379,13 +379,13 @@ Search::~Search(void)
 //	int j;
 //	while(*i_safe == -1 || *j_safe == -1)
 //	{
-//		size = que_i.size();		//‚·‚Å‚É“ü‚Á‚Ä‚¢‚½ƒLƒ…[‚Ì”‚¾‚¯XV‚ğ‚·‚é
+//		size = que_i.size();		//ï¿½ï¿½ï¿½Å‚É“ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½Lï¿½ï¿½ï¿½[ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½
 //		for(int n=0; n<size; ++n)
 //		{
 //			i = que_i.front();
 //			j = que_j.front();
 //
-//			//“¦‚°‚ê‚é‚©ƒ`ƒFƒbƒN
+//			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é‚©ï¿½`ï¿½Fï¿½bï¿½N
 //			//if( i != i_start && j != j_start)
 //			if(MAP(i, 0, j, 0) == 0 && BLOCK(i, 0, j, 0) == 0 && MapState::GetInstance()->GetDangerState(i, j) == NODENGER && MapState::GetInstance()->GetState(i, j, BOMB) == 0)
 //			{
@@ -394,7 +394,7 @@ Search::~Search(void)
 //				break;
 //			}
 //
-//			//“¦‚°‚ê‚È‚¢‚È‚çƒLƒ…[‚ÌXV
+//			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½È‚ï¿½Lï¿½ï¿½ï¿½[ï¿½ÌXï¿½V
 //			if(hasVisited[i-1][j] == 0 && MAP(i, -1, j, 0) == 0 && BLOCK(i, -1, j, 0) == 0 && MapState::GetInstance()->GetDangerState(i-1, j) == NODENGER && MapState::GetInstance()->GetState(i-1, j, BOMB) == 0)
 //			{
 //				hasVisited[i-1][j] = 1;
@@ -420,7 +420,7 @@ Search::~Search(void)
 //				que_j.push(j+1);
 //			}
 //
-//			//ŒŸõ‚µI‚í‚Á‚½•s•K—v‚ÈƒLƒ…[‚Ìíœ
+//			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sï¿½Kï¿½vï¿½ÈƒLï¿½ï¿½ï¿½[ï¿½Ìíœ
 //			que_i.pop();
 //			que_j.pop();
 //		}
@@ -430,23 +430,23 @@ Search::~Search(void)
 
 int Search::CheckAbleToGoTo(int i_start, int j_start, int i_goal, int j_goal)
 {
-	//‰Šú‰»
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	success = 0;
-	memset(hasVisited[0], 0, sizeof(int)*GameConst::MAP_ROW*GameConst::MAP_LINE);
+	memset(hasVisited[0], 0, sizeof(int)*BombBombCrash::MAP_ROW*BombBombCrash::MAP_LINE);
 
 	return CheckAbleToGoTo_base(i_start, j_start, i_goal, j_goal);
 }
 
 int Search::CheckAbleToGoTo_base(const int i, const int j, const int i_goal, const int j_goal)
 {
-	//ˆê“x’Ê‚Á‚½‚Æ‚±‚ë‚É‚Ü‚½’Ê‚ç‚È‚¢‚æ‚¤‚É’Ê‰ßƒtƒ‰ƒO‚ğ—§‚Ä‚é
+	//ï¿½ï¿½xï¿½Ê‚ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½É‚Ü‚ï¿½ï¿½Ê‚ï¿½È‚ï¿½ï¿½æ‚¤ï¿½É’Ê‰ßƒtï¿½ï¿½ï¿½Oï¿½ğ—§‚Ä‚ï¿½
 	hasVisited[i][j] = 1;
 
-	//–Ú“I’n‚É‚Â‚¢‚½‚ç
+	//ï¿½Ú“Iï¿½nï¿½É‚Â‚ï¿½ï¿½ï¿½ï¿½ï¿½
 	if(i == i_goal && j == j_goal)
 		success = 1;
 
-	//’Ê‚ê‚é‚Æ‚±‚ë‚Éi‚Ş
+	//ï¿½Ê‚ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½Éiï¿½ï¿½
 	if(success == 0 && hasVisited[i-1][j] == 0 && CheckAbleToPass(i-1, j) == 1) CheckAbleToGoTo_base(i-1, j, i_goal, j_goal);
 	if(success == 0 && hasVisited[i+1][j] == 0 && CheckAbleToPass(i+1, j) == 1) CheckAbleToGoTo_base(i+1, j, i_goal, j_goal);
 	if(success == 0 && hasVisited[i][j-1] == 0 && CheckAbleToPass(i, j-1) == 1) CheckAbleToGoTo_base(i, j-1, i_goal, j_goal);
@@ -457,7 +457,7 @@ int Search::CheckAbleToGoTo_base(const int i, const int j, const int i_goal, con
 
 int Search::CheckAbleToPass(int i, int j)
 {
-	//ƒ_ƒCƒNƒXƒgƒ‰‚ªl—¶‚·‚éáŠQ•¨‚Æ“¯‚¶‚É‚µ‚È‚¯‚ê‚Î‚È‚ç‚È‚¢
+	//ï¿½_ï¿½Cï¿½Nï¿½Xï¿½gï¿½ï¿½ï¿½ï¿½ï¿½lï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Qï¿½ï¿½ï¿½Æ“ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½È‚ï¿½ï¿½ï¿½Î‚È‚ï¿½È‚ï¿½
 	if(MapState::GetInstance()->GetState(i, j, MapState::MAP) == 0
 		&& MapState::GetInstance()->GetState(i, j, MapState::BLOCK) == 0
 		&& MapState::GetInstance()->GetState(i, j, MapState::BOMB) == 0 

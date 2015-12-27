@@ -4,6 +4,7 @@
 
 namespace BombBombCrash
 {
+	class ControlPassingCollision;
 	class Drawing;
 
 	class TestScene:public Scene_Base
@@ -11,6 +12,7 @@ namespace BombBombCrash
 		std::shared_ptr<Player> player;
 		std::shared_ptr<Drawing> drawer;
 		std::shared_ptr<GameManager> gameManager;
+		std::shared_ptr<ControlPassingCollision> passingCollision;
 	public:
 		void Draw() override;
 

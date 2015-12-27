@@ -25,7 +25,7 @@ EnemyAI::~EnemyAI(void)
 
 void EnemyAI::UpdateState()
 {
-	if(myself.GetX()%32 == 0 && myself.GetY()%32 == 0)
+	if(myself.X()%32 == 0 && myself.Y()%32 == 0)
 	{
 		if(nextState != IStateChanger::NOCHAGE)
 		{

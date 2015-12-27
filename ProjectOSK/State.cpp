@@ -1,4 +1,4 @@
-#include "State.h"
+ï»¿#include "State.h"
 #include "Search.h"
 #include "Dijkstra.h"
 #include "Enemy.h"
@@ -34,8 +34,8 @@ State::~State(void)
 
 void State::UpdateCoordinate()
 {
-	x_center = (myself.GetX()+myself.GetX()+32)/2;
-	y_center = (myself.GetY()+myself.GetY()+32)/2;
+	x_center = (myself.X()+myself.X()+32)/2;
+	y_center = (myself.Y()+myself.Y()+32)/2;
 	i_center = y_center/32;
 	j_center = x_center/32;
 }
@@ -49,9 +49,9 @@ int State::CheckAroundMyself(int i_now, int j_now, int TRAGET, int radius)
 		{
 			if(i != i_now && j != j_now)
 			{
-				if(MapState::GetInstance()->GetState(i, j, TRAGET) == 1)//‘¼‚ÌƒLƒƒƒ‰ƒNƒ^[‚ğŒ©‚Â‚¯‚½‚ç
+				if(MapState::GetInstance()->GetState(i, j, TRAGET) == 1)//ï¿½ï¿½ï¿½ÌƒLï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½^ï¿½[ï¿½ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½ï¿½ï¿½
 				{
-					if(search->CheckAbleToGoTo(i_now, j_now, i, j) == 1)//‚»‚±‚És‚¯‚é‚©’²‚×‚Ä
+					if(search->CheckAbleToGoTo(i_now, j_now, i, j) == 1)//ï¿½ï¿½ï¿½ï¿½ï¿½Ésï¿½ï¿½ï¿½é‚©ï¿½ï¿½ï¿½×‚ï¿½
 					{
 						success = 1;
 					}
@@ -72,9 +72,9 @@ int State::CheckObjectAroundAndAbleToGoThere(int i_now, int j_now, int* i_to, in
 		{
 			if(i != i_now && j != j_now)
 			{
-				if(MapState::GetInstance()->GetState(i, j, OBJECT))//‘¼‚ÌƒLƒƒƒ‰ƒNƒ^[‚ğŒ©‚Â‚¯‚½‚ç
+				if(MapState::GetInstance()->GetState(i, j, OBJECT))//ï¿½ï¿½ï¿½ÌƒLï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½^ï¿½[ï¿½ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½ï¿½ï¿½
 				{
-					if(search->CheckAbleToGoTo(i_now, j_now, i, j))//‚»‚±‚És‚¯‚é‚©’²‚×‚Ä
+					if(search->CheckAbleToGoTo(i_now, j_now, i, j))//ï¿½ï¿½ï¿½ï¿½ï¿½Ésï¿½ï¿½ï¿½é‚©ï¿½ï¿½ï¿½×‚ï¿½
 					{
 						*i_to = i;
 						*j_to = j;
@@ -91,23 +91,23 @@ int State::CheckObjectAroundAndAbleToGoThere(int i_now, int j_now, int* i_to, in
 void State::ChangeStateBase()
 {
 	int i_next, j_next;
-	int i_current = y_next / 32;		//Œ»İ‚ÌˆÚ“®‚ªŠ®—¹‚µ‚½‚É‚¢‚éêŠ
+	int i_current = y_next / 32;		//ï¿½ï¿½ï¿½İ‚ÌˆÚ“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½êŠ
 	int j_current = x_next / 32;
 	switch(routeList.empty() ? -1 : routeList.front())
 	{
-		case GameConst::EnemyAction::UP:
+		case BombBombCrash::EnemyAction::UP:
 			i_next = i_current-1;
 			j_next = j_current;
 			break;
-		case GameConst::EnemyAction::DOWN:
+		case BombBombCrash::EnemyAction::DOWN:
 			i_next = i_current+1;
 			j_next = j_current;
 			break;
-		case GameConst::EnemyAction::LEFT:
+		case BombBombCrash::EnemyAction::LEFT:
 			i_next = i_current;
 			j_next = j_current-1;
 			break;
-		case GameConst::EnemyAction::RIGHT:
+		case BombBombCrash::EnemyAction::RIGHT:
 			i_next = i_current;
 			j_next = j_current+1;
 			break;
@@ -123,9 +123,9 @@ void State::ChangeStateBase()
 	}
 	else if(search->CheckInClosedInterval(i_center, j_center) == 1)
 	{
-		//ã‚ÌğŒ‚ğ”²‚¯‚Ä‚«‚½‚©‚çŠëŒ¯’n‚É‚Í‚¢‚È‚¢
+		//ï¿½ï¿½Ìï¿½ï¿½ï¿½ğ”²‚ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ëŒ¯ï¿½nï¿½É‚Í‚ï¿½ï¿½È‚ï¿½
 		routeList.clear();
-		routeList.push_back(GameConst::EnemyAction::STOP);
+		routeList.push_back(BombBombCrash::EnemyAction::STOP);
 		resetRoute = 0;
 	}else if(search->CheckInClosedInterval(i_next, j_next) == 1)
 	{
@@ -140,62 +140,62 @@ void State::ChangeStateBase()
 
 int State::GetRoute()
 {	
-	if(myself.GetX() == x_next && myself.GetY() == y_next)
+	if(myself.X() == x_next && myself.Y() == y_next)
 		resetCalc = 1;
 
 	if(resetCalc == 1)
 	{
-		//Ÿ‚Éi‚ŞêŠ‚ÌÀ•W‚ÌŒvZ
+		//ï¿½ï¿½ï¿½Éiï¿½ŞêŠï¿½Ìï¿½ï¿½Wï¿½ÌŒvï¿½Z
 		int x_center, y_center;
-		int i_current, j_current;		//ŒÄ‚Ño‚µ‚É‚¢‚½ƒ}ƒX‚Ì¬•ª
+		int i_current, j_current;		//ï¿½Ä‚Ñoï¿½ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½ï¿½}ï¿½Xï¿½Ìï¿½ï¿½ï¿½
 		
-		x_center = (myself.GetX() + myself.GetX()+32) / 2;	//ƒLƒƒƒ‰‚Ì’†SÀ•W‚ÌŒvZ
-		y_center = (myself.GetY() + myself.GetY()+32) / 2;
+		x_center = (myself.X() + myself.X()+32) / 2;	//ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½Ì’ï¿½ï¿½Sï¿½ï¿½ï¿½Wï¿½ÌŒvï¿½Z
+		y_center = (myself.Y() + myself.Y()+32) / 2;
 		
-		i_current = y_center / 32;		//’†SÀ•W‚Ì‚ ‚éˆÊ’u‚ğ¡‚¢‚éƒ}ƒX‚Æ‚·‚é
+		i_current = y_center / 32;		//ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½Wï¿½Ì‚ï¿½ï¿½ï¿½Ê’uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½}ï¿½Xï¿½Æ‚ï¿½ï¿½ï¿½
 		j_current = x_center / 32;
 	
 		if( !routeList.empty() )
 		{
 			switch( routeList.front() )
 			{
-			case GameConst::EnemyAction::STOP:
+			case BombBombCrash::EnemyAction::STOP:
 				currentAction = routeList.front();
 				routeList.pop_front();
 				break;
-			case GameConst::EnemyAction::UP:
+			case BombBombCrash::EnemyAction::UP:
 				x_next = (j_current + 0) * 32;
 				y_next = (i_current - 1) * 32;
 				currentAction = routeList.front();
 				routeList.pop_front();
 				resetCalc = 0;
 				break;
-			case GameConst::EnemyAction::DOWN:
+			case BombBombCrash::EnemyAction::DOWN:
 				x_next = (j_current + 0) * 32;
 				y_next = (i_current + 1) * 32;
 				currentAction = routeList.front();
 				routeList.pop_front();
 				resetCalc = 0;
 				break;
-			case GameConst::EnemyAction::LEFT:
+			case BombBombCrash::EnemyAction::LEFT:
 				x_next = (j_current - 1) * 32;
 				y_next = (i_current + 0) * 32;
 				currentAction = routeList.front();
 				routeList.pop_front();
 				resetCalc = 0;
 				break;
-			case GameConst::EnemyAction::RIGHT:
+			case BombBombCrash::EnemyAction::RIGHT:
 				x_next = (j_current + 1) * 32;
 				y_next = (i_current + 0) * 32;
 				currentAction = routeList.front();
 				routeList.pop_front();
 				resetCalc = 0;
 				break;
-			case GameConst::EnemyAction::BOMBREADY:
+			case BombBombCrash::EnemyAction::BOMBREADY:
 				routeList.pop_front();
-				currentAction = GameConst::EnemyAction::STOP;
+				currentAction = BombBombCrash::EnemyAction::STOP;
 				break;
-			case GameConst::EnemyAction::BOMBSET:
+			case BombBombCrash::EnemyAction::BOMBSET:
 				currentAction = routeList.front();
 				routeList.pop_front();
 				break;

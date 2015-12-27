@@ -1,6 +1,6 @@
 #pragma once
 
-namespace GameConst
+namespace BombBombCrash
 {
 	namespace EnemyAction
 	{
@@ -23,4 +23,10 @@ namespace GameConst
 	const int FIRST_Y_UP = 32;
 	const int FIRST_X_RIGHT = 32*14;
 	const int FIRST_Y_DOWN = 32*11;
+
+	struct GameConstant
+	{
+		static const int BlockWidth = 32;
+		static const int BlockHeight = 32;
+	};
 }
