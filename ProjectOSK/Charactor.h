@@ -30,6 +30,8 @@ namespace BombBombCrash
 
 		virtual void Update() = 0;
 		virtual void Move() = 0;
+
+		int Id() const;
 	};
 }
 

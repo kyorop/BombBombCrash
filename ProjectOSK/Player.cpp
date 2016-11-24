@@ -9,17 +9,11 @@
 #include "Bomb.h"
 #include "GameManager.h"
 #include "MapObject.h"
+#include "PlayerAnimation.h"
 
 using namespace BombBombCrash;
 
-enum
-{
-	LEFT,
-	RIGHT,
-	UP,
-	DOWN,
-	NOHIT,
-};
+
 
 Player::Player(const ln::Vector2& position, KeyState device):
 Character(position,GameConstant::BlockWidth, GameConstant::BlockHeight),
@@ -35,7 +29,9 @@ isJoypad(device),
 input(new KeyboardPlayerInput()),
 bomb(std::make_unique<BombController>()),
 speed(1),
-fireLevel(1)
+fireLevel(1),
+isWalking(false),
+animation(new PlayerAnimation(*this))
 {
 	SetPosition(position);
 	muki = DOWN;
@@ -69,39 +65,69 @@ void Player::Move()
 		{
 			Translate(ln::Vector2(-speed, 0));
 			this->muki = LEFT;
+			isWalking = true;
 			if(input->GetInputMoveUp())
+			{
 				Translate(ln::Vector2(0, -speed));
+				muki = UP;
+			}
 			if(input->GetInputMoveDown())
+			{
 				Translate(ln::Vector2(0, speed));
+				muki = DOWN;
+			}
 		}	
-		else if(input->GetInputMoveRight() && input->GetInputMoveDown() == 0 && input->GetInputMoveUp() == 0)	
+		else if(input->GetInputMoveRight() && !input->GetInputMoveDown() && !input->GetInputMoveUp())	
 		{
 			Translate(ln::Vector2(speed, 0));
 			this->muki = RIGHT;
+			isWalking = true;
 			if(input->GetInputMoveUp())
+			{
 				Translate(ln::Vector2(0, -speed));
+				muki = UP;
+			}
 			if(input->GetInputMoveDown())
+			{
 				Translate(ln::Vector2(0, speed));
+				muki = DOWN;
+			}
 		
 		}			
 		else if(input->GetInputMoveUp()  && input->GetInputMoveDown() == 0)
 		{
 			Translate(ln::Vector2(0, -speed));
 			this->muki = UP; 
+			isWalking = true;
 			if(input->GetInputMoveLeft())
+			{
 				Translate(ln::Vector2(-speed, 0));
-			if(input->GetInputMoveRight()) 
+				muki = LEFT;
+			}
+			if(input->GetInputMoveRight())
+			{
 				Translate(ln::Vector2(speed, 0));
+				muki = RIGHT;
+			}
 		}			
-		else if(input->GetInputMoveDown())
+		else if (input->GetInputMoveDown())
 		{
 			Translate(ln::Vector2(0, speed));
-			this->muki = DOWN; 
-			if(input->GetInputMoveLeft()) 
+			this->muki = DOWN;
+			isWalking = true;
+			if (input->GetInputMoveLeft())
+			{
 				Translate(ln::Vector2(-speed, 0));
-			if(input->GetInputMoveRight())
+				muki = LEFT;
+			}
+			if (input->GetInputMoveRight())
+			{
 				Translate(ln::Vector2(speed, 0));
+				muki = RIGHT;
+			}
 		}
+		else
+			isWalking = false;
 
 		auto pos = Position();
 		if (pos.X < 64)
@@ -112,8 +138,6 @@ void Player::Move()
 			SetPosition(ln::Vector2(pos.X, 32));
 		if (pos.Y > 32 * 11)
 			SetPosition(ln::Vector2(pos.X, 32 * 11));
-
-		animpat = ( (GetNowCount() & INT_MAX) / (1000 / 12)) % 4;
 	}
 }
 
@@ -175,50 +199,9 @@ void Player::Update(GameManager& game)
 void Player::Draw(const GameManager& game)
 {
 	if (Exists())
-	{
-		int image;
-		{
-			if (input->GetInputMoveLeft())
-				image = image_left[animpat];
-			else if (input->GetInputMoveRight())
-				image = image_right[animpat];
-			else if (input->GetInputMoveUp())
-				image = image_up[animpat];
-			else if (input->GetInputMoveDown())
-				image = image_down[animpat];
-			else
-			{
-				//キーを押してないときはアニメーションしないことを意味する
-				animpat = 0;
-				if (muki == LEFT)
-					image = image_left[animpat];
-				else if (muki == RIGHT)
-					image = image_right[animpat];
-				else if (muki == UP)
-					image = image_up[animpat];
-				else if (muki == DOWN)
-					image = image_down[animpat];
-			}
-		}
-
-		auto pos = Position();
-		DrawGraph(pos.X, pos.Y, image, TRUE);
-		DrawBox(X(), Y(), RX(), DY(), GetColor(0, 0, 255), false);
-	}
-	else		//死亡時のアニメーション
-	{
-		if (!hasFinished)
-		{
-			if (animationTime->CountDownFrame(1 * 1000))
-			{
-				++animationFrame;
-				if (animationFrame == 3)
-					hasFinished = 1;
-			}
-			auto pos = Position();
-			DrawGraph(pos.X, pos.Y, image_death[animationFrame], true);
-		}
-	}
+		animation->Walk();
+	else
+		animation->Killed();
 }
 
 void Player::Destroy(const GameManager& game)

@@ -16,6 +16,11 @@ namespace BombBombCrash
 	{
 		--idGenerator;
 	}
+
+	int Character::Id() const
+	{
+		return id;
+	}
 }
 
 

@@ -12,8 +12,18 @@ namespace BombBombCrash
 	class BombController;
 	class IPlayerInput;
 	class Timer;
+	class PlayerAnimation;
 	class Player: public Character,public IGameProgress
 	{
+	public:
+		enum
+		{
+			LEFT,
+			RIGHT,
+			UP,
+			DOWN,
+			NOHIT,
+		};
 	protected:
 		bool PutBomb() override
 		{
@@ -44,6 +54,8 @@ namespace BombBombCrash
 		std::unique_ptr<BombController> bomb;
 		int speed;
 		int fireLevel;
+		bool isWalking;
+		std::unique_ptr<PlayerAnimation> animation;
 
 	public:
 		Player(const ln::Vector2& position, KeyState device);
@@ -66,7 +78,12 @@ namespace BombBombCrash
 		void IncrementBomb() override;
 		void IncrementFireLevel() override;
 
+		int Direction() const
+		{
+			return muki;
+		}
 
+		bool IsWalking()const{ return isWalking; }
 	};
 }
 
