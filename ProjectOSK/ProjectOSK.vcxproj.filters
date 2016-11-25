@@ -205,6 +205,9 @@
     <ClCompile Include="GameEffect.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Task.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameConstant.h">
@@ -386,6 +389,9 @@
       <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="GameEffect.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Task.h">
       <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>

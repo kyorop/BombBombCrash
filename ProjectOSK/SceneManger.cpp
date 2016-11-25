@@ -14,7 +14,6 @@ nextScene(NOCHANGE),
 scene()
 {
 	scene = std::make_shared<TestScene>();
-	Drawing::Add(scene);
 	scene->SetManager(this);
 	scene->Initialize();
 }
@@ -47,7 +46,6 @@ void SceneManger::Update(void)
 			scene = std::make_shared<Scene_Score>();
 			break;
 		}
-		Drawing::Add(scene);
 		nextScene = NOCHANGE;
 		scene->Initialize();
 		scene->SetManager(this);
@@ -60,6 +58,7 @@ void SceneManger::Update(void)
 void SceneManger::Draw(void)
 {
 	drawing->Update();
+	scene->Draw();
 }
 
 
