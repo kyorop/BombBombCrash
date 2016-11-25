@@ -62,26 +62,26 @@ void Enemy::Move()
 		
 		switch(AI->GetAction(*this))
 		{
-		case BombBombCrash::EnemyAction::STOP:
+		case EnemyAction::STOP:
 			stop = 1;
 			break;
-		case BombBombCrash::EnemyAction::UP:
-			this->muki = BombBombCrash::EnemyAction::UP;
+		case EnemyAction::UP:
+			this->muki = EnemyAction::UP;
 			Translate(ln::Vector2(0, -speed));
 			break;
-		case BombBombCrash::EnemyAction::DOWN:
-			this->muki = BombBombCrash::EnemyAction::DOWN;
+		case EnemyAction::DOWN:
+			this->muki = EnemyAction::DOWN;
 			Translate(ln::Vector2(0, speed));
 			break;
-		case BombBombCrash::EnemyAction::LEFT:
-			this->muki = BombBombCrash::EnemyAction::LEFT;
+		case EnemyAction::LEFT:
+			this->muki = EnemyAction::LEFT;
 			Translate(ln::Vector2(-speed, 0));
 			break;
-		case BombBombCrash::EnemyAction::RIGHT:
-			this->muki = BombBombCrash::EnemyAction::RIGHT;
+		case EnemyAction::RIGHT:
+			this->muki = EnemyAction::RIGHT;
 			Translate(ln::Vector2(speed, 0));
 			break;
-		case BombBombCrash::EnemyAction::BOMBSET:
+		case EnemyAction::BOMBSET:
 			this->bombSet = 1;
 			break;
 		case -1:

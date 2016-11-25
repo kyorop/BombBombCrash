@@ -11,7 +11,6 @@ namespace BombBombCrash
 
 	class BombController;
 	class IPlayerInput;
-	class Timer;
 	class PlayerAnimation;
 	class Player: public Character,public IGameProgress
 	{
@@ -40,15 +39,6 @@ namespace BombBombCrash
 
 	private:
 		int muki;
-		int animpat;
-		const int* image_left;
-		const int* image_right;
-		const int* image_up;
-		const int* image_down;
-		const int* image_death;
-		int hasFinished;
-		Timer* animationTime;
-		int animationFrame;
 		const int isJoypad;
 		std::unique_ptr<IPlayerInput> input;
 		std::unique_ptr<BombController> bomb;

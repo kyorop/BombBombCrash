@@ -18,7 +18,3 @@ void Scene_Base::SetManager(ISceneChanger *sceneManager)
 	sceneMrg = sceneManager;
 }
 
-void Scene_Base::AddElement(std::shared_ptr<ISceneProgress> gameSystem)
-{
-	systems.push_back(gameSystem);
-}

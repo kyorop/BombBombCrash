@@ -11,7 +11,6 @@
 #include "Drawing.h"
 #include "MapFactory.h"
 #include "ControlPassingCollision.h"
-#include "Map.h"
 
 using namespace BombBombCrash;
 
@@ -57,11 +56,9 @@ void Scene_Game::Initialize()
 	Sound::GetInstance()->InitializeForGame();
 	MapState::GetInstance()->Initialize();
 	player = std::make_shared<Player>(ln::Vector2(32,32), Player::KEYBORAD);
-	map = MapFactory::Craete();
+//	map = MapFactory::Craete();
 	graphics = std::make_shared<Drawing>();
 	timer = std::make_shared<Timer>();
-	gameEffect = std::make_shared<GameEffect>(timer);
-	Drawing::Add(gameEffect);
 	passingCollision = std::make_shared<ControlPassingCollision>();
 
 	//	enemy.push_back(new CharacterSet(new Enemy(GameConst::FIRST_X_RIGHT,GameConst::FIRST_Y_UP)));
@@ -112,80 +109,4 @@ void Scene_Game::Update()
 
 void Scene_Game::Draw()
 {
-}
-
-void Scene_Game::PlaySE()
-{
-	Sound::GetInstance()->PlaySE();
-}
-
-
-
-
-
-GameEffect::GameEffect(const std::shared_ptr<Timer>& timer) :
-	white(GetColor(255, 255, 255)),
-	x(32 * 20),
-	y(32 * 4),
-	timer(timer)
-{
-}
-
-GameEffect::~GameEffect(void)
-{
-}
-
-
-void GameEffect::Update()
-{
-
-}
-
-
-void GameEffect::DrawGameEffect()
-{
-
-}
-
-
-void GameEffect::DrawMenuEffect()
-{
-
-}
-
-void GameEffect::Draw()
-{
-	int black = GetColor(255, 255, 255);
-	int red = GetColor(255, 0, 0);
-	int blue = GetColor(0, 0, 255);
-	int deepskyblue = GetColor(0, 191, 255);
-	int cannotWalkBlockColor;
-	for (int i = 0; i<BombBombCrash::MAP_ROW; ++i)
-	{
-		for (int j = 0; j<BombBombCrash::MAP_LINE; ++j)
-		{
-			if (i == 0 || i == 12 || j == 0 || j == 1 || j == 15 || j == 16 || MapState::GetInstance()->GetState(i, j, MapState::MAP) == 1)
-				cannotWalkBlockColor = deepskyblue;
-			else
-				cannotWalkBlockColor = black;
-
-			//DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",MapState::GetInstance()->GetState(i,j,MapState::BOMB));
-			//DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",MapState::GetInstance()->GetState(i, j, CHARACTOR));
-			//DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",DangerState::GetInstance()->GetDangerState(i, j));
-			//DrawFormatString(640+15*j,80+15*i,cannotWalkBlockColor,"%d",DangerState::GetInstance()->GetFireState(i, j));
-		}
-	}
-	timer->DrawGraphicalTime(32 * 18 + 10, 10);
-
-
-	int newBlue = GetColor(0, 119, 182);
-	int white = GetColor(255, 255, 255);
-
-	DrawString(x - 82, y - 30, "プレイヤーステータス", newBlue);
-	DrawFormatString(x - 39, y, white, "BOMB  LEVEL		%d", MapState::GetInstance()->GetPlayerState()->bombLevel);
-	DrawFormatString(x - 39, y + 25, white, "FIRE  LEVEL		%d", MapState::GetInstance()->GetPlayerState()->fireLevel);
-	DrawFormatString(x - 39, y + 25 + 25, white, "SPEED LEVEL		%d", MapState::GetInstance()->GetPlayerState()->speedLevel);
-
-	DrawFormatString(32 * 1, 32 * 14, white, "ｚキー　　　爆弾を置く");
-	DrawFormatString(32 * 1, 32 * 14 + 30, white, "矢印キー　　各方向へ移動");
 }

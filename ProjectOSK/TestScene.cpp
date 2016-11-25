@@ -1,16 +1,21 @@
 #include "TestScene.h"
-#include "Drawing.h"
 #include "Image.h"
 #include "GameManager.h"
 #include "Block.h"
 #include "ControlPassingCollision.h"
+#include "Timer.h"
+#include "GameEffect.h"
+#include "MapState.h"
+#include "MapFactory.h"
 
 using namespace BombBombCrash;
 
 TestScene::TestScene() :
-player(std::make_shared<Player>(ln::Vector2(32*12, 32), Player::KEYBORAD)),
+player(std::make_shared<Player>(ln::Vector2(32*13, 32), Player::KEYBORAD)),
 gameManager(std::make_shared<GameManager>()),
-passingCollision(std::make_shared<ControlPassingCollision>())
+passingCollision(std::make_shared<ControlPassingCollision>()),
+timer(std::make_shared<Timer>()),
+gameEffect(std::make_shared<GameEffect>())
 {
 }
 
@@ -20,26 +25,26 @@ TestScene::~TestScene()
 
 void TestScene::Initialize()
 {
+	timer->CountDownRealTime(5 * 60 * 1000);
+	MapState::GetInstance()->Initialize();
 	Image::GetInstance()->Initialize();
 	gameManager->Initialize();
-	gameManager->AddElement(player);
+	gameManager->AddElement(gameEffect);
 
 	for (size_t i = 1; i < 8; i+=2)
 	{
 		for (size_t j = 1; j < 10; j+=2)
 		{
-			auto block = std::make_shared<Block>(ln::Vector2(32 * j, 32 * i), Image::GetInstance()->GetImage(Image::HARDBLOCK));
-			ControlPassingCollision::Add(block);
-			gameManager->AddElement(block);
+			auto map = MapFactory::Create();
+			for (auto itr = begin(map); itr != end(map); ++itr)
+			{
+				gameManager->AddElement(*itr);
+				ControlPassingCollision::Add(*itr);
+			}
 		}
 	}
-
+	gameManager->AddElement(player);
 	ControlPassingCollision::Add(static_cast<std::shared_ptr<Character>>(player));
-
-	for (size_t i = 0; i < 10; i++)
-	{
-		player->IncrementBomb();
-	}
 }
 
 void TestScene::Finalize()
@@ -54,8 +59,6 @@ void TestScene::UpdateScene()
 
 void TestScene::Update()
 {
-	player->Update();
-	drawer->Update();
 	gameManager->Update();
 	passingCollision->Update();
 }

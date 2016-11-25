@@ -72,9 +72,6 @@
     <ClCompile Include="Timer.cpp">
       <Filter>Source\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>Source\Map</Filter>
-    </ClCompile>
     <ClCompile Include="GameField.cpp">
       <Filter>Source\Map</Filter>
     </ClCompile>
@@ -202,6 +199,12 @@
     <ClCompile Include="PlayerAnimation.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyAnimation.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEffect.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameConstant.h">
@@ -215,9 +218,6 @@
     </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>Source\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>Source\Map</Filter>
     </ClInclude>
     <ClInclude Include="GameField.h">
       <Filter>Source\Map</Filter>
@@ -380,6 +380,12 @@
       <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="PlayerAnimation.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyAnimation.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEffect.h">
       <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>

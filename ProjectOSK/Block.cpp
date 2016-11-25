@@ -8,55 +8,7 @@
 using namespace BombBombCrash;
 
 int SoftBlock::imageHandle;
-
-SoftBlock::SoftBlock(int imageHandle)
-{
-	this->imageHandle = imageHandle;
-}
-
-SoftBlock::~SoftBlock(void)
-{
-}
-
-void SoftBlock::Draw()
-{
-	if (Exists())
-	{
-		DrawGraph(X(), Y(), imageHandle, false);
-	}
-}
-
-
-
 int HardBlock::imageHandle;
-
-HardBlock::HardBlock(int imageHandle)
-{
-	this->imageHandle = imageHandle;
-}
-
-void HardBlock::Draw()
-{
-	if (Exists())
-		DrawGraph(X(), Y(), imageHandle, false);
-}
-
-
-
-int Floor::imageHandle;
-
-Floor::Floor(int imageHandle)
-{
-	this->imageHandle = imageHandle;
-}
-
-void Floor::Draw()
-{
-	if (Exists())
-	{
-		DrawGraph(X(), Y(), imageHandle, false);
-	}
-}
 
 void Block::Initialize(GameManager& game)
 {
@@ -64,12 +16,6 @@ void Block::Initialize(GameManager& game)
 
 void Block::Update(GameManager& game)
 {
-}
-
-void Block::Draw(const GameManager& game)
-{
-	if (Exists())
-		DrawGraph(X(), Y(), imageHandle, false);
 }
 
 void Block::Destroy(const GameManager& game)
@@ -81,16 +27,37 @@ bool Block::CanRemove()
 	return !Exists();
 }
 
-Block::Block(const ln::Vector2& position, int imageHandle):
-MapObject(position, GameConstant::BlockWidth,GameConstant::BlockHeight),
-imageHandle(imageHandle)
+Block::Block(const ln::Vector2& position):
+MapObject(position, GameConstant::BlockWidth,GameConstant::BlockHeight)
 {
 }
 
-void SoftBlock::Register()
+HardBlock::HardBlock(const ln::Vector2& position, int imageHandle): 
+Block(position)
+{
+	if (!this->imageHandle)
+		this->imageHandle = imageHandle;
+}
+
+void HardBlock::Draw(const GameManager& game)
 {
 	if (Exists())
-		MapState::GetInstance()->SetBlockState(X(), Y(), 1);
-	else
-		MapState::GetInstance()->SetBlockState(X(), Y(), 0);
+	{
+		DrawGraph(X(), Y(), imageHandle, false);
+	}
+}
+
+void SoftBlock::Draw(const GameManager& game)
+{
+	if (Exists())
+	{
+		DrawGraph(X(), Y(), imageHandle, false);
+	}
+}
+
+SoftBlock::SoftBlock(const ln::Vector2& position, int imageHandle):
+Block(position)
+{
+	if (!this->imageHandle)
+		this->imageHandle = imageHandle;
 }

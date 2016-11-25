@@ -1,15 +1,14 @@
 #include "Player.h"
 #include "MapState.h"
 #include "Collision.h"
-#include "Image.h"
 #include "SecretCommand.h"
-#include "Timer.h"
 #include "GameConstant.h"
 #include "KeyboardPlayerInput.h"
 #include "Bomb.h"
 #include "GameManager.h"
 #include "MapObject.h"
 #include "PlayerAnimation.h"
+#include "Timer.h"
 
 using namespace BombBombCrash;
 
@@ -17,25 +16,16 @@ using namespace BombBombCrash;
 
 Player::Player(const ln::Vector2& position, KeyState device):
 Character(position,GameConstant::BlockWidth, GameConstant::BlockHeight),
-image_left(Image::GetInstance()->GetCharacterImage(id, Image::LEFT)),
-image_right(Image::GetInstance()->GetCharacterImage(id, Image::RIGHT)),
-image_up(Image::GetInstance()->GetCharacterImage(id, Image::UP)),
-image_down(Image::GetInstance()->GetCharacterImage(id, Image::DOWN)),
-image_death(Image::GetInstance()->GetCharacterImage(id, Image::DEATH)),
-hasFinished(0),
-animationTime(new Timer),
-animationFrame(0),
 isJoypad(device),
 input(new KeyboardPlayerInput()),
 bomb(std::make_unique<BombController>()),
 speed(1),
 fireLevel(1),
 isWalking(false),
-animation(new PlayerAnimation(*this))
+animation(new PlayerAnimation(*this)),
+muki(DOWN)
 {
 	SetPosition(position);
-	muki = DOWN;
-	animpat = 0;
 	MapState::GetInstance()->RegisterWithCharacter(this);
 	Collision::Instance()->Register(this);
 	//‰B‚µƒRƒ}ƒ“ƒh
@@ -53,7 +43,6 @@ animation(new PlayerAnimation(*this))
 
 Player::~Player(void)
 {
-	delete animationTime;
 }
 
 

@@ -37,34 +37,5 @@ namespace BombBombCrash
 		void Finalize() override;
 		void Update() override;
 		void Draw() override;
-		void PlaySE() override;
-	};
-}
-
-
-class BombController;
-
-namespace BombBombCrash
-{
-	class GameEffect:public IDrawable
-	{
-	private:
-		int image_bombLevel;
-		int image_fireLevel;
-		const int white;
-		const int x;
-		const int y;
-		BombController* bomb;
-		std::shared_ptr<Timer> timer;
-
-
-	public:
-		explicit GameEffect(const std::shared_ptr<Timer>& timer);
-		~GameEffect(void);
-
-		void Update();
-		void DrawGameEffect();
-		void DrawMenuEffect();
-		void Draw() override;
 	};
 }

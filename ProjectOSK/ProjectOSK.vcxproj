@@ -100,7 +100,9 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyAI.cpp" />
     <ClCompile Include="Avoid.cpp" />
+    <ClCompile Include="EnemyAnimation.cpp" />
     <ClCompile Include="FireCollision.cpp" />
+    <ClCompile Include="GameEffect.cpp" />
     <ClCompile Include="GameField.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GetItem.cpp" />
@@ -112,7 +114,6 @@
     <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="KeyboardPlayerInput.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapFactory.cpp" />
     <ClCompile Include="MapObject.cpp" />
     <ClCompile Include="MapObstacle.cpp" />
@@ -152,8 +153,10 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyAI.h" />
     <ClInclude Include="Avoid.h" />
+    <ClInclude Include="EnemyAnimation.h" />
     <ClInclude Include="FireCollision.h" />
     <ClInclude Include="GameConstant.h" />
+    <ClInclude Include="GameEffect.h" />
     <ClInclude Include="GameField.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GetItem.h" />
@@ -177,7 +180,6 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemManager.h" />
     <ClInclude Include="KeyboardPlayerInput.h" />
-    <ClInclude Include="Map.h" />
     <ClInclude Include="MapFactory.h" />
     <ClInclude Include="MapObject.h" />
     <ClInclude Include="MapObstacle.h" />

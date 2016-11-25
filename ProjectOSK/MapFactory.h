@@ -2,7 +2,7 @@
 
 namespace BombBombCrash
 {
-	class MapObject;
+	class Block;
 	class Map;
 	class MapFactory
 	{
@@ -10,10 +10,7 @@ namespace BombBombCrash
 		MapFactory();
 		~MapFactory();
 
-		static std::unique_ptr<Map> Craete();
-
-	private:
-		static void InitBlock(const std::shared_ptr<MapObject>& block ,int i, int j);
+		static std::vector<std::shared_ptr<Block>> Create();
 	};
 }
 
