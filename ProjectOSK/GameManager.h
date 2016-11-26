@@ -32,7 +32,7 @@ namespace BombBombCrash
 
 		void Finalize() override;
 
-		void AddGameObject(const std::shared_ptr<CollisionableObject> & object) const;
+		void AddGameObject(const std::shared_ptr<CollisionableObject>& object);
 	};
 }
 

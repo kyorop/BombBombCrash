@@ -61,7 +61,7 @@ void GameManager::Finalize()
 	collisionMng->Finalize();
 }
 
-void GameManager::AddGameObject(const std::shared_ptr<CollisionableObject> & object) const
+void GameManager::AddGameObject(const std::shared_ptr<CollisionableObject>& object)
 {
 	gameObjects->AddElement(object);
 	collisionMng->Add(object);

@@ -29,14 +29,14 @@ void GameObjectManager::Update()
 		addedElements.clear();
 	}
 
+	for (auto& element : gameElements)
+		element->Update(*gameManager);
+
 	auto killedItr = remove_if(begin(gameElements), end(gameElements), [](const std::shared_ptr<MapObject>& object)
 	{
 		return !object->Exists();
 	});
 	gameElements.erase(killedItr, end(gameElements));
-
-	for (auto& element : gameElements)
-		element->Update(*gameManager);
 }
 
 void GameObjectManager::Draw()

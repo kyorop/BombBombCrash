@@ -6,6 +6,8 @@
 #include "Explosion.h"
 #include "Timer.h"
 #include "GameManager.h"
+#include "FireManager.h"
+#include "NewFire.h"
 #define DHIT 5
 #define KBHABA 16
 
@@ -18,12 +20,12 @@ void Bomb::OnCollide(CollisionableObject* object)
 
 Bomb::Bomb(const ln::Vector2& position, int fireLevel) :
 CollisionableObject(AdjustPosition(position), 32, 32),
-explosion(std::make_unique<BombBombCrash::Fire>(position)), 
 timer(std::make_unique<Timer>()),
 count(0),
 image_bomb(Image::GetInstance()->GetBombImage()),
 animpat(0),
-soundOn(0)
+soundOn(0),
+fire(std::make_unique<FireManager>())
 {
 	Collision::Instance()->Register(this);
 	Sound::GetInstance()->Register(this);
@@ -98,12 +100,16 @@ void Bomb::Update(GameManager& game)
 	{
 		if (timer->CountDownFrame(bombExistTime))
 		{
-//			game.AddElement(std::make_shared<Fire>(Position()));
+			fire->IncreaseFirePower();
+			auto fires = fire->Create(Position());
+			for (auto itr = begin(fires); itr != end(fires); ++itr)
+			{
+				game.AddGameObject(*itr);
+			}
 			SetExists(false);
 		}
 	}
 
-	explosion->Register();
 }
 
 void Bomb::Draw(const GameManager& game)

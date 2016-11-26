@@ -103,6 +103,7 @@
     <ClCompile Include="Avoid.cpp" />
     <ClCompile Include="EnemyAnimation.cpp" />
     <ClCompile Include="FireCollision.cpp" />
+    <ClCompile Include="FireManager.cpp" />
     <ClCompile Include="GameEffect.cpp" />
     <ClCompile Include="GameField.cpp" />
     <ClCompile Include="GameManager.cpp" />
@@ -120,6 +121,7 @@
     <ClCompile Include="MapObject.cpp" />
     <ClCompile Include="MapObstacle.cpp" />
     <ClCompile Include="MapState.cpp" />
+    <ClCompile Include="NewFire.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerAnimation.cpp" />
     <ClCompile Include="Rect.cpp" />
@@ -159,6 +161,7 @@
     <ClInclude Include="Avoid.h" />
     <ClInclude Include="EnemyAnimation.h" />
     <ClInclude Include="FireCollision.h" />
+    <ClInclude Include="FireManager.h" />
     <ClInclude Include="GameConstant.h" />
     <ClInclude Include="GameEffect.h" />
     <ClInclude Include="GameField.h" />
@@ -185,6 +188,7 @@
     <ClInclude Include="MapObject.h" />
     <ClInclude Include="MapObstacle.h" />
     <ClInclude Include="MapState.h" />
+    <ClInclude Include="NewFire.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerAnimation.h" />
     <ClInclude Include="Rect.h" />

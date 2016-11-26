@@ -10,7 +10,7 @@ namespace BombBombCrash
 	class Player;
 	class Map;
 	class Character;
-
+	class FireManager;
 	class Bomb: public CollisionableObject, public ISoundPlayer
 	{
 	public:
@@ -20,7 +20,7 @@ namespace BombBombCrash
 	private:
 		static const int bombExistTime = 2500;
 
-		std::unique_ptr<BombBombCrash::Fire> explosion;
+		std::unique_ptr<FireManager> fire;
 		std::unique_ptr<Timer> timer;
 		int count;
 		int* image_bomb;
