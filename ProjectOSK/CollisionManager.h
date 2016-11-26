@@ -10,7 +10,10 @@ namespace BombBombCrash
 		void Update() override;
 		void Add(const std::shared_ptr<CollisionableObject>& object);
 	private:
-		std::vector<std::shared_ptr<CollisionableObject>> objects;
+		std::list<std::shared_ptr<CollisionableObject>> objects;
+
+		void CheckCollide();
+		void CheckRemove();
 	};
 }
 

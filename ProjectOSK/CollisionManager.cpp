@@ -7,18 +7,32 @@ using namespace BombBombCrash;
 
 void BombBombCrash::CollisionManager::Update()
 {
-	const int size = objects.size();
-	for (size_t i = 0; i < size; i++)
+	CheckRemove();
+	CheckCollide();
+}
+
+void CollisionManager::CheckCollide()
+{
+	for (auto i = begin(objects); i != end(objects); ++i)
 	{
-		for (size_t j = i+1; j < size; j++)
+		auto temp_i = i;
+		for (auto j = ++temp_i ; j != end(objects); ++j)
 		{
-			if (CollisionUtil::Test(objects[i]->Rect(), objects[j]->Rect()))
+			if (CollisionUtil::Test((*i)->Rect(), (*j)->Rect()))
 			{
-				objects[i]->OnCollide(objects[j].get());
-				objects[j]->OnCollide(objects[i].get());
+				(*i)->OnCollide((*j).get());
+				(*j)->OnCollide((*i).get());
 			}
 		}
 	}
+}
+
+void CollisionManager::CheckRemove()
+{
+	objects.remove_if([](const std::shared_ptr<CollisionableObject> object)
+	{
+		return !object->Exists();
+	});
 }
 
 void CollisionManager::Add(const std::shared_ptr<CollisionableObject>& object)
