@@ -28,10 +28,11 @@ namespace BombBombCrash
 		mutable int soundOn;
 
 		explicit Bomb(const ln::Vector2& position, int fireLevel);
-		
-		ln::Vector2 AdjustPosition(const ln::Vector2& position) const;
+
 	
 	public:
+		static ln::Vector2 AdjustPosition(const ln::Vector2& position);
+
 		void IncrementFire() const;
 		
 		int EnableToPlaySound()const override;

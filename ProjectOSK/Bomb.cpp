@@ -31,7 +31,7 @@ soundOn(0)
 }
 
 
-ln::Vector2 Bomb::AdjustPosition(const ln::Vector2& position) const
+ln::Vector2 Bomb::AdjustPosition(const ln::Vector2& position)
 {
 	//プレイヤーの重心のいるマス
 	int xMasuNum = (position.X + position.X + 32) / 2 / 32;//左から何マス目か
@@ -162,7 +162,7 @@ std::shared_ptr<Bomb> BombController::Request(const ln::Vector2& position, int f
 		if (!(*itr)->Exists())
 		{
 			(*itr)->SetExists(true);
-			(*itr)->SetPosition(position);
+			(*itr)->SetPosition(Bomb::AdjustPosition(position));
 			return *itr;
 		}
 	}
