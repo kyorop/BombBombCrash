@@ -93,7 +93,7 @@ void Bomb::Update(GameManager& game)
 	{
 		if (timer->CountDownFrame(bombExistTime))
 		{
-			game.AddElement(std::make_shared<Fire>(Position()));
+//			game.AddElement(std::make_shared<Fire>(Position()));
 			SetExists(false);
 		}
 	}

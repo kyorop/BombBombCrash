@@ -105,6 +105,7 @@
     <ClCompile Include="GameEffect.cpp" />
     <ClCompile Include="GameField.cpp" />
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="GetItem.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="Image.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="GameEffect.h" />
     <ClInclude Include="GameField.h" />
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="GetItem.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="IColleague.h" />

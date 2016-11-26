@@ -1,50 +1,67 @@
 ﻿#include "GameManager.h"
-#include "IGameProgress.h"
+#include "Image.h"
+#include "GameManager.h"
+#include "Block.h"
+#include "ControlPassingCollision.h"
+#include "Timer.h"
+#include "GameEffect.h"
+#include "MapState.h"
+#include "MapFactory.h"
+#include "Player.h"
+#include "GameObjectManager.h"
 
-void BombBombCrash::GameManager::AddElement(const std::shared_ptr<IGameProgress>& element)
+using namespace BombBombCrash;
+
+void GameManager::GenerateObjects()
 {
-	if (element == nullptr)
-		return;
-	addedElements.push_back(element);
-}
+	gameObjects->AddElement(gameEffect);
 
-void BombBombCrash::GameManager::Initialize()
-{
-	for (auto& element : addedElements)
-		element->Initialize(*this);
-
-	gameElements = addedElements;
-	addedElements.clear();
-}
-
-void BombBombCrash::GameManager::Update()
-{
-	if (!addedElements.empty())
+	for (size_t i = 1; i < 8; i += 2)
 	{
-		for (auto& newElement : addedElements)
-			newElement->Initialize(*this);
-		gameElements.insert(end(gameElements), begin(addedElements), end(addedElements));
-		addedElements.clear();
+		for (size_t j = 1; j < 10; j += 2)
+		{
+			auto map = MapFactory::Create();
+			for (auto itr = begin(map); itr != end(map); ++itr)
+			{
+				gameObjects->AddElement(*itr);
+				ControlPassingCollision::Add(*itr);
+			}
+		}
 	}
-
-	auto killedItr = remove_if(begin(gameElements), end(gameElements), [](const std::shared_ptr<IGameProgress>& object)
-	{
-		return object->CanRemove();
-	});
-	gameElements.erase(killedItr, end(gameElements));
-
-	for (auto& element : gameElements)
-		element->Update(*this);
+	gameObjects->AddElement(player);
+	ControlPassingCollision::Add(static_cast<std::shared_ptr<Character>>(player));
 }
 
-void BombBombCrash::GameManager::Draw()
+GameManager::GameManager() :
+player(std::make_shared<Player>(ln::Vector2(32 * 13, 32), Player::KEYBORAD)),
+passingCollision(std::make_shared<ControlPassingCollision>()),
+timer(std::make_shared<Timer>()),
+gameEffect(std::make_shared<GameEffect>())
 {
-	for (auto& element : gameElements)
-		element->Draw(*this);
 }
 
-void BombBombCrash::GameManager::Destroy()
+void GameManager::Initialize()
 {
-	for (auto& element : gameElements)
-		element->Destroy(*this);
+	timer->CountDownRealTime(5 * 60 * 1000);
+	MapState::GetInstance()->Initialize();
+	Image::GetInstance()->Initialize();
+	GenerateObjects();
+	gameObjects->Initialize();
+}
+
+void GameManager::Update()
+{
+	gameObjects->Update();
+	passingCollision->Update();
+}
+
+void GameManager::Draw()
+{
+	gameObjects->Draw();
+}
+
+void GameManager::Finalize()
+{
+	gameObjects->Finalize();
+	Image::GetInstance()->Finalize();
 }

@@ -181,7 +181,7 @@ void Player::Update(GameManager& game)
 
 	if (input->GetInputPutBomb())
 	{
-		game.AddElement(bomb->Request(Position(), fireLevel));
+//		game.AddElement(bomb->Request(Position(), fireLevel));
 	}
 }
 
