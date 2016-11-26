@@ -12,8 +12,12 @@
 using namespace BombBombCrash;
 
 
+void Bomb::OnCollide(CollisionableObject* object)
+{
+}
+
 Bomb::Bomb(const ln::Vector2& position, int fireLevel) :
-MapObject(AdjustPosition(position), 32, 32),
+CollisionableObject(AdjustPosition(position), 32, 32),
 explosion(std::make_unique<BombBombCrash::Fire>(position)), 
 timer(std::make_unique<Timer>()),
 count(0),
@@ -75,6 +79,7 @@ int Bomb::EnableToPlaySound()const
 std::shared_ptr<Bomb> Bomb::Create(const ln::Vector2& position, int fireLevel)
 {
 	auto bomb = new Bomb(position, fireLevel);
+	bomb->SetExists(false);
 	return std::shared_ptr<Bomb>(bomb);
 }
 
@@ -112,17 +117,8 @@ void Bomb::Draw(const GameManager& game)
 	}
 }
 
-void Bomb::Destroy(const GameManager& game)
-{
-}
 
-bool Bomb::CanRemove()
-{
-	return !Exists();
-}
-
-BombController::BombController(void):
-maxSize(1)
+BombController::BombController(void)
 {
 }
 
@@ -148,9 +144,9 @@ maxSize(1)
 //}
 
 
-void BombController::IncrementBomb(void)
+void BombController::IncrementBomb(int fireLevel)
 {
-	++maxSize;
+	bombs.push_back(Bomb::Create(ln::Vector2(), fireLevel));
 }
 
 
@@ -161,14 +157,15 @@ int BombController::MaxSize() const
 
 std::shared_ptr<Bomb> BombController::Request(const ln::Vector2& position, int fireLevel)
 {
-	bombs.remove_if([](const std::shared_ptr<Bomb>& bomb)
+	for (auto itr = begin(bombs); itr != end(bombs); ++itr)
 	{
-		return !bomb->Exists();
-	});
-	if (bombs.size() >= maxSize)
-		return nullptr;
+		if (!(*itr)->Exists())
+		{
+			(*itr)->SetExists(true);
+			(*itr)->SetPosition(position);
+			return *itr;
+		}
+	}
 
-	auto bomb = Bomb::Create(position, fireLevel);
-	bombs.push_back(bomb);
-	return bomb;
+	return nullptr;
 }

@@ -14,8 +14,6 @@ using namespace BombBombCrash;
 
 void GameManager::GenerateObjects()
 {
-	gameObjects->AddElement(gameEffect);
-
 	auto map = MapFactory::Create();
 	for (auto itr = begin(map); itr != end(map); ++itr)
 	{
@@ -46,12 +44,14 @@ void GameManager::Initialize()
 
 void GameManager::Update()
 {
+	gameEffect->Update(*this);
 	gameObjects->Update();
 	collisionMng->Update();
 }
 
 void GameManager::Draw()
 {
+	gameEffect->Draw(*this);
 	gameObjects->Draw();
 }
 
@@ -59,4 +59,10 @@ void GameManager::Finalize()
 {
 	gameObjects->Finalize();
 	collisionMng->Finalize();
+}
+
+void GameManager::AddGameObject(const std::shared_ptr<CollisionableObject> & object) const
+{
+	gameObjects->AddElement(object);
+	collisionMng->Add(object);
 }

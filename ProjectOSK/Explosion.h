@@ -25,6 +25,9 @@ namespace BombBombCrash
 	class FireBlock:public MapObject
 	{
 	public:
+		void Update(GameManager& game) override;
+		void Draw(const GameManager& game) override;
+
 		GameObjectType Type() const override{ return GameObjectType::Fire; }
 	private:
 		const int fireImageHandle;

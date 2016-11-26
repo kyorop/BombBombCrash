@@ -1,6 +1,7 @@
 #pragma once
 #include "ICollisionable.h"
 #include "IGettable.h"
+#include "IGameProgress.h"
 
 namespace BombBombCrash
 {
@@ -48,6 +49,11 @@ public:
 	int Height() const;
 	Rect Rect() const;
 	virtual GameObjectType Type() const = 0;
+
+	virtual void Initialize(GameManager& game){}
+	virtual void Update(GameManager& game) = 0;
+	virtual void Draw(const GameManager& game) = 0;
+	virtual void Finalize(const GameManager& game){}
 };
 }
 

@@ -16,8 +16,9 @@ using namespace BombBombCrash;
 
 void Player::OnCollide(CollisionableObject* object)
 {
-	if (object->Type() == GameObjectType::HardBlock 
-		|| object->Type() == GameObjectType::SoftBlock)
+	if (object->Type() == GameObjectType::HardBlock
+		|| object->Type() == GameObjectType::SoftBlock
+		|| object->Type() == GameObjectType::Bomb)
 	{
 		const int padding = 5;
 		float wallW = object->Width();
@@ -74,6 +75,7 @@ isWalking(false),
 animation(new PlayerAnimation(*this)),
 muki(DOWN)
 {
+	bomb->IncrementBomb(fireLevel);
 	SetPosition(position);
 	MapState::GetInstance()->RegisterWithCharacter(this);
 	Collision::Instance()->Register(this);
@@ -212,7 +214,7 @@ int Player::FireLevel()
 
 void Player::IncrementBomb()
 {
-	bomb->IncrementBomb();
+	bomb->IncrementBomb(fireLevel);
 }
 
 void Player::IncrementFireLevel()
@@ -230,7 +232,9 @@ void Player::Update(GameManager& game)
 
 	if (input->GetInputPutBomb())
 	{
-//		game.AddElement(bomb->Request(Position(), fireLevel));
+		auto newBomb = bomb->Request(Position(), fireLevel);
+		if (newBomb != nullptr)
+			game.AddGameObject(newBomb);
 	}
 }
 

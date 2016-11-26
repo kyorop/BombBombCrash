@@ -8,6 +8,9 @@ namespace BombBombCrash
 	class Item:public MapObject, public IDrawable
 	{
 	public:
+		void Update(GameManager& game) override;
+		void Draw(const GameManager& game) override;
+
 		enum
 		{
 			FIRE,

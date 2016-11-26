@@ -13,6 +13,14 @@ using namespace std;
 FireBlock
 */
 
+void FireBlock::Update(GameManager& game)
+{
+}
+
+void FireBlock::Draw(const GameManager& game)
+{
+}
+
 FireBlock::FireBlock(const ln::Vector2& position, int fireImage):
 MapObject(position, 32,32),
 fireImageHandle(fireImage)

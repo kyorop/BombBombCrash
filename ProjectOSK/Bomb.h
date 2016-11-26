@@ -2,6 +2,7 @@
 #include "MapObject.h"
 #include "ISoundPlayer.h"
 #include "IGameProgress.h"
+#include "CollisionableObject.h"
 
 namespace BombBombCrash
 {
@@ -11,9 +12,11 @@ namespace BombBombCrash
 	class Map;
 	class Character;
 
-	class Bomb: public MapObject, public ISoundPlayer, public IGameProgress
+	class Bomb: public CollisionableObject, public ISoundPlayer
 	{
 	public:
+		void OnCollide(CollisionableObject* object) override;
+
 		GameObjectType Type() const override{ return GameObjectType::Bomb; }
 	private:
 		static const int bombExistTime = 2500;
@@ -41,10 +44,6 @@ namespace BombBombCrash
 		void Update(GameManager& game) override;
 		
 		void Draw(const GameManager& game) override;
-		
-		void Destroy(const GameManager& game) override;
-		
-		bool CanRemove() override;
 	};
 }
 
@@ -53,14 +52,13 @@ namespace BombBombCrash
 {
 	class BombController
 	{
-		std::list<std::shared_ptr<Bomb>> bombs;
-		int maxSize;
+		std::vector<std::shared_ptr<Bomb>> bombs;
 
 	public:
 		BombController(void);
 
 		std::shared_ptr<Bomb> Request(const ln::Vector2& position, int fireLevel);
-		void IncrementBomb();
+		void IncrementBomb(int fireLevel);
 		int MaxSize() const;
 	};
 }

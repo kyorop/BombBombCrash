@@ -5,6 +5,14 @@
 using namespace BombBombCrash;
 
 
+void Item::Update(GameManager& game)
+{
+}
+
+void Item::Draw(const GameManager& game)
+{
+}
+
 Item::Item():
 	i_graph(GetRand(itemNum - 1)),
 	image_item(Image::GetInstance()->GetItemImage(i_graph))

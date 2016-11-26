@@ -1,5 +1,6 @@
 ﻿#include "GameObjectManager.h"
 #include "IGameProgress.h"
+#include "MapObject.h"
 
 using namespace BombBombCrash;
 
@@ -28,9 +29,9 @@ void GameObjectManager::Update()
 		addedElements.clear();
 	}
 
-	auto killedItr = remove_if(begin(gameElements), end(gameElements), [](const std::shared_ptr<IGameProgress>& object)
+	auto killedItr = remove_if(begin(gameElements), end(gameElements), [](const std::shared_ptr<MapObject>& object)
 	{
-		return object->CanRemove();
+		return !object->Exists();
 	});
 	gameElements.erase(killedItr, end(gameElements));
 
@@ -47,10 +48,10 @@ void GameObjectManager::Draw()
 void GameObjectManager::Finalize()
 {
 	for (auto& element : gameElements)
-		element->Destroy(*gameManager);
+		element->Finalize(*gameManager);
 }
 
-void GameObjectManager::AddElement(const std::shared_ptr<IGameProgress>& element)
+void GameObjectManager::AddElement(const std::shared_ptr<MapObject>& element)
 {
 	if (element == nullptr)
 		return;

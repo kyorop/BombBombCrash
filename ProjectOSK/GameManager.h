@@ -12,6 +12,7 @@ namespace BombBombCrash
 	class Player;
 	class GameObjectManager;
 	class CollisionManager;
+	class CollisionableObject;
 	class GameManager:public Task
 	{
 		std::shared_ptr<Player> player;
@@ -32,6 +33,8 @@ namespace BombBombCrash
 		void Draw() override;
 
 		void Finalize() override;
+
+		void AddGameObject(const std::shared_ptr<CollisionableObject> & object) const;
 	};
 }
 
