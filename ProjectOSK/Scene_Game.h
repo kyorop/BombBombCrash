@@ -1,7 +1,5 @@
 #pragma once
 #include "Scene_Base.h"
-#include <vector>
-#include "IDrawable.h"
 
 
 namespace BombBombCrash
@@ -23,7 +21,6 @@ namespace BombBombCrash
 		std::shared_ptr<Timer> winTimer;
 		std::shared_ptr<Timer> loseTimer;
 		std::shared_ptr<GameEffect> gameEffect;
-		std::shared_ptr<Drawing> graphics;
 		std::shared_ptr<Map> map;
 		
 		std::shared_ptr<ControlPassingCollision> passingCollision;

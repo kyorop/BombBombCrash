@@ -245,12 +245,3 @@ void Player::Draw(const GameManager& game)
 	else
 		animation->Killed();
 }
-
-void Player::Destroy(const GameManager& game)
-{
-}
-
-bool Player::CanRemove()
-{
-	return !Exists();
-}

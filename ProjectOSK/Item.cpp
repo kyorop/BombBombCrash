@@ -25,12 +25,6 @@ Item::~Item()
 }
 
 
-void Item::Draw()
-{
-	if (Exists())
-		DrawGraph(Position().X, Position().Y, image_item,FALSE);
-}
-
 
 int Item::GetKind() const
 {

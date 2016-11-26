@@ -1,5 +1,5 @@
 ﻿#include "GameObjectManager.h"
-#include "IGameProgress.h"
+
 #include "MapObject.h"
 
 using namespace BombBombCrash;

@@ -10,7 +10,6 @@ namespace BombBombCrash
 	{
 		int nextScene;
 		std::shared_ptr<Scene_Base> scene;
-		std::shared_ptr<Drawing> drawing;
 	public:
 		SceneManger(void);
 		~SceneManger(void);

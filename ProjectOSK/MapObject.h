@@ -1,12 +1,12 @@
 #pragma once
 #include "ICollisionable.h"
 #include "IGettable.h"
-#include "IGameProgress.h"
+
 
 namespace BombBombCrash
 {
 	class Rect;
-
+	class GameManager;
 class MapObject:public ICollisionable,public IGettable
 {
 	bool visible;

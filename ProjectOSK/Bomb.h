@@ -1,7 +1,6 @@
 #pragma once
 #include "MapObject.h"
 #include "ISoundPlayer.h"
-#include "IGameProgress.h"
 #include "CollisionableObject.h"
 
 namespace BombBombCrash

@@ -98,7 +98,6 @@
     <ClCompile Include="ControlPassingCollision.cpp" />
     <ClCompile Include="DangerState.cpp" />
     <ClCompile Include="Dijkstra.cpp" />
-    <ClCompile Include="Drawing.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyAI.cpp" />
     <ClCompile Include="Avoid.cpp" />
@@ -155,7 +154,6 @@
     <ClInclude Include="ControlPassingCollision.h" />
     <ClInclude Include="DangerState.h" />
     <ClInclude Include="Dijkstra.h" />
-    <ClInclude Include="Drawing.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyAI.h" />
     <ClInclude Include="Avoid.h" />
@@ -168,18 +166,14 @@
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="GetItem.h" />
     <ClInclude Include="Graph.h" />
-    <ClInclude Include="IColleague.h" />
     <ClInclude Include="ICollisionable.h" />
-    <ClInclude Include="IDrawable.h" />
     <ClInclude Include="IFireIterator.h" />
     <ClInclude Include="IFreAggregate.h" />
-    <ClInclude Include="IGameProgress.h" />
     <ClInclude Include="IGettable.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="IPlayerInput.h" />
     <ClInclude Include="IRegister.h" />
     <ClInclude Include="ISceneChanger.h" />
-    <ClInclude Include="ISceneProgress.h" />
     <ClInclude Include="ISoundPlayer.h" />
     <ClInclude Include="IStateChanger.h" />
     <ClInclude Include="Key.h" />

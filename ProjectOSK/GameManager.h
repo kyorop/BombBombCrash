@@ -1,5 +1,4 @@
 ﻿#pragma once
-#include "ISceneProgress.h"
 #include "Task.h"
 
 namespace BombBombCrash
@@ -16,7 +15,6 @@ namespace BombBombCrash
 	class GameManager:public Task
 	{
 		std::shared_ptr<Player> player;
-		std::shared_ptr<Drawing> drawer;
 		std::shared_ptr<Timer> timer;
 		std::shared_ptr<GameEffect> gameEffect;
 

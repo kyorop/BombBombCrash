@@ -2,7 +2,7 @@
 #include "MapObject.h"
 #include "IFireIterator.h"
 #include "IFreAggregate.h"
-#include "IGameProgress.h"
+
 
 
 namespace BombBombCrash
@@ -66,7 +66,7 @@ namespace BombBombCrash
 	};
 
 
-	class Fire : public IGameProgress
+	class Fire
 	{
 		std::vector<FireBlock*> vex;
 
@@ -88,12 +88,6 @@ namespace BombBombCrash
 		int GetSize()const;
 		void Register(void);
 		void Maintain();
-
-		void Initialize(GameManager& game) override;
-		void Update(GameManager& game) override;
-		void Draw(const GameManager& game) override;
-		void Destroy(const GameManager& game) override;
-		bool CanRemove() override;
 
 		std::shared_ptr<IFireIterator> Iterator(FirePillarDirection direction);
 		void Remove(FireId id);

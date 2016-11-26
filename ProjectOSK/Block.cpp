@@ -18,15 +18,6 @@ void Block::Update(GameManager& game)
 {
 }
 
-void Block::Destroy(const GameManager& game)
-{
-}
-
-bool Block::CanRemove()
-{
-	return !Exists();
-}
-
 Block::Block(const ln::Vector2& position):
 CollisionableObject(position, GameConstant::BlockWidth,GameConstant::BlockHeight)
 {

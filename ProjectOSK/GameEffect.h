@@ -1,18 +1,17 @@
 ﻿#pragma once
-#include "IGameProgress.h"
+
 class BombController;
 
 namespace BombBombCrash
 {
+	class GameManager;
 	class Timer;
-	class GameEffect : public IGameProgress
+	class GameEffect
 	{
 	public:
-		void Initialize(GameManager& game) override;
-		void Update(GameManager& game) override;
-		void Draw(const GameManager& game) override;
-		void Destroy(const GameManager& game) override;
-		bool CanRemove() override;
+		void Initialize(GameManager& game);
+		void Update(GameManager& game);
+		void Draw(const GameManager& game);
 	private:
 		int image_bombLevel;
 		int image_fireLevel;

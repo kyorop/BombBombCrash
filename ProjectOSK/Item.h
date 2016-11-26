@@ -1,11 +1,10 @@
 #pragma once
 #include "MapObject.h"
-#include "IDrawable.h"
 
 
 namespace BombBombCrash
 {
-	class Item:public MapObject, public IDrawable
+	class Item:public MapObject
 	{
 	public:
 		void Update(GameManager& game) override;
@@ -26,7 +25,6 @@ namespace BombBombCrash
 	public:
 		Item();
 		~Item();
-		void Draw() override;
 		int GetKind()const;
 		GameObjectType Type()const override{ return GameObjectType::Item; }
 	};

@@ -4,7 +4,6 @@
 #include "Scene_Game.h"
 #include "Scene_Round.h"
 #include "Scene_Score.h"
-#include "Drawing.h"
 #include "TestScene.h"
 
 using namespace BombBombCrash;
@@ -57,7 +56,6 @@ void SceneManger::Update(void)
 
 void SceneManger::Draw(void)
 {
-	drawing->Update();
 	scene->Draw();
 }
 

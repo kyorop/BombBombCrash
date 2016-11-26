@@ -134,66 +134,63 @@ firePillars()
 {
 }
 
-void Fire::Initialize(GameManager& game)
-{
-	timer->TurnReset();
-	firePillars.clear();
-	firePillars.push_back(make_shared<FirePillar>(FirePillarDirection::Up, 1, center));
-	firePillars.push_back(make_shared<FirePillar>(FirePillarDirection::Right, 1, center));
-	firePillars.push_back(make_shared<FirePillar>(FirePillarDirection::Down, 1, center));
-	firePillars.push_back(make_shared<FirePillar>(FirePillarDirection::Left, 1, center));
-	for (auto& pillar : firePillars)
-		pillar->Initialize();
-	
-	Collision::Instance()->RegisterWithFire(this);
-}
+//void Fire::Initialize(GameManager& game)
+//{
+//	timer->TurnReset();
+//	firePillars.clear();
+//	firePillars.push_back(make_shared<FirePillar>(FirePillarDirection::Up, 1, center));
+//	firePillars.push_back(make_shared<FirePillar>(FirePillarDirection::Right, 1, center));
+//	firePillars.push_back(make_shared<FirePillar>(FirePillarDirection::Down, 1, center));
+//	firePillars.push_back(make_shared<FirePillar>(FirePillarDirection::Left, 1, center));
+//	for (auto& pillar : firePillars)
+//		pillar->Initialize();
+//	
+//	Collision::Instance()->RegisterWithFire(this);
+//}
 
-void Fire::Update(GameManager& game)
-{
-	if (timer->CountDownFrame(fireTime))
-	{
-		for (auto& pillar: firePillars)
-		{
-			auto itr = pillar->Iterator();
-			if (itr->HasNext())
-			{
-				itr->Next()->SetExists(false);
-			}
-		}
-	}
-}
+//void Fire::Update(GameManager& game)
+//{
+//	if (timer->CountDownFrame(fireTime))
+//	{
+//		for (auto& pillar: firePillars)
+//		{
+//			auto itr = pillar->Iterator();
+//			if (itr->HasNext())
+//			{
+//				itr->Next()->SetExists(false);
+//			}
+//		}
+//	}
+//}
 
-void Fire::Draw(const GameManager& game)
-{
-	center->Draw();
-	for (auto& fire:firePillars)
-	{
-		auto itr = fire->Iterator();
-		if (itr->HasNext())
-		{
-			itr->Next()->Draw();
-		}
-	}
-}
+//void Fire::Draw(const GameManager& game)
+//{
+//	center->Draw();
+//	for (auto& fire:firePillars)
+//	{
+//		auto itr = fire->Iterator();
+//		if (itr->HasNext())
+//		{
+//			itr->Next()->Draw();
+//		}
+//	}
+//}
 
-void Fire::Destroy(const GameManager& game)
-{
-}
-
-bool Fire::CanRemove()
-{
-	for (auto& pillar : firePillars)
-	{
-		auto itr = pillar->Iterator();
-		while (itr->HasNext())
-		{
-			if (itr->Next()->Exists())
-				return false;
-		}
-	}
-
-	return true;
-}
+//
+//bool Fire::CanRemove()
+//{
+//	for (auto& pillar : firePillars)
+//	{
+//		auto itr = pillar->Iterator();
+//		while (itr->HasNext())
+//		{
+//			if (itr->Next()->Exists())
+//				return false;
+//		}
+//	}
+//
+//	return true;
+//}
 
 
 void Fire::Maintain()

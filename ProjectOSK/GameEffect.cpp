@@ -88,15 +88,6 @@ void GameEffect::Draw(const GameManager& game)
 	}
 }
 
-void GameEffect::Destroy(const GameManager& game)
-{
-}
-
-bool GameEffect::CanRemove()
-{
-	return false;
-}
-
 
 
 

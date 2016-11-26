@@ -8,7 +8,6 @@
 #include "Sound.h"
 #include "ISceneChanger.h"
 #include "Timer.h"
-#include "Drawing.h"
 #include "MapFactory.h"
 #include "ControlPassingCollision.h"
 
@@ -57,7 +56,6 @@ void Scene_Game::Initialize()
 	MapState::GetInstance()->Initialize();
 	player = std::make_shared<Player>(ln::Vector2(32,32), Player::KEYBORAD);
 //	map = MapFactory::Craete();
-	graphics = std::make_shared<Drawing>();
 	timer = std::make_shared<Timer>();
 	passingCollision = std::make_shared<ControlPassingCollision>();
 
@@ -99,7 +97,6 @@ void Scene_Game::Update()
 	}
 	Collision::Instance()->CheckAllCollision();
 
-	graphics->Update();
 	passingCollision->Update();
 
 	//ƒV[ƒ“Ø‚è‘Ö‚¦

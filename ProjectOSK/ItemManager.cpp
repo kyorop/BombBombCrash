@@ -1,6 +1,5 @@
 #include "ItemManager.h"
 #include "Item.h"
-#include "Drawing.h"
 #include "GameConstant.h"
 
 using namespace BombBombCrash;
@@ -12,7 +11,6 @@ ItemManager::ItemManager(void)
 	{
 		auto item = std::make_shared<Item>();
 		items.push_back(item);
-		Drawing::Add(item);
 	}
 }
 

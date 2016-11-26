@@ -136,9 +136,6 @@
     <ClCompile Include="KeyboardPlayerInput.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Drawing.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="MapObstacle.cpp">
       <Filter>Source\Map\Base</Filter>
     </ClCompile>
@@ -243,12 +240,6 @@
     <ClInclude Include="ICollisionable.h">
       <Filter>Interface</Filter>
     </ClInclude>
-    <ClInclude Include="IDrawable.h">
-      <Filter>Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="IColleague.h">
-      <Filter>Interface</Filter>
-    </ClInclude>
     <ClInclude Include="Charactor.h">
       <Filter>Source\Character</Filter>
     </ClInclude>
@@ -309,9 +300,6 @@
     </ClInclude>
     <ClInclude Include="ISoundPlayer.h">
       <Filter>Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="Drawing.h">
-      <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="KeyboardPlayerInput.h">
       <Filter>Source</Filter>
@@ -376,13 +364,7 @@
     <ClInclude Include="TestScene.h">
       <Filter>Source\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="ISceneProgress.h">
-      <Filter>Header</Filter>
-    </ClInclude>
     <ClInclude Include="GameManager.h">
-      <Filter>Header</Filter>
-    </ClInclude>
-    <ClInclude Include="IGameProgress.h">
       <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="CollisionUtil.h">

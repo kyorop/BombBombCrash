@@ -1,7 +1,5 @@
 #pragma once
 #include "Charactor.h"
-#include "IDrawable.h"
-#include "IGameProgress.h"
 
 namespace BombBombCrash
 {
@@ -12,7 +10,7 @@ namespace BombBombCrash
 	class BombController;
 	class IPlayerInput;
 	class PlayerAnimation;
-	class Player: public Character,public IGameProgress
+	class Player: public Character
 	{
 	public:
 		void OnCollide(CollisionableObject* object) override;
@@ -61,8 +59,6 @@ namespace BombBombCrash
 		void Initialize(GameManager& game) override;
 		void Update(GameManager& game) override;
 		void Draw(const GameManager& game) override;
-		void Destroy(const GameManager& game) override;
-		bool CanRemove() override;
 
 		int Speed() override;
 		int BombSize() override;

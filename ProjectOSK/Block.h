@@ -1,6 +1,6 @@
 #pragma once
 #include "MapObstacle.h"
-#include "IGameProgress.h"
+
 #include "CollisionableObject.h"
 #define MAPSIZE_X 17
 #define MAPSIZE_Y 13
@@ -14,14 +14,12 @@ namespace BombBombCrash
 		SOFTBLOCK,
 	};
 
-	class Block :public CollisionableObject, public IGameProgress
+	class Block :public CollisionableObject
 	{
 	public:
 		Block(const ln::Vector2& position);
 		void Initialize(GameManager& game) override;
 		void Update(GameManager& game) override;
-		void Destroy(const GameManager& game) override;
-		bool CanRemove() override;
 	};
 
 
