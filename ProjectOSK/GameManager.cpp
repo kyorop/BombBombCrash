@@ -2,13 +2,13 @@
 #include "Image.h"
 #include "GameManager.h"
 #include "Block.h"
-#include "ControlPassingCollision.h"
 #include "Timer.h"
 #include "GameEffect.h"
 #include "MapState.h"
 #include "MapFactory.h"
 #include "Player.h"
 #include "GameObjectManager.h"
+#include "CollisionManager.h"
 
 using namespace BombBombCrash;
 
@@ -16,27 +16,22 @@ void GameManager::GenerateObjects()
 {
 	gameObjects->AddElement(gameEffect);
 
-	for (size_t i = 1; i < 8; i += 2)
+	auto map = MapFactory::Create();
+	for (auto itr = begin(map); itr != end(map); ++itr)
 	{
-		for (size_t j = 1; j < 10; j += 2)
-		{
-			auto map = MapFactory::Create();
-			for (auto itr = begin(map); itr != end(map); ++itr)
-			{
-				gameObjects->AddElement(*itr);
-				ControlPassingCollision::Add(*itr);
-			}
-		}
+		gameObjects->AddElement(*itr);
+		collisionMng->Add(*itr);
 	}
 	gameObjects->AddElement(player);
-	ControlPassingCollision::Add(static_cast<std::shared_ptr<Character>>(player));
+	collisionMng->Add(player);
 }
 
 GameManager::GameManager() :
 player(std::make_shared<Player>(ln::Vector2(32 * 13, 32), Player::KEYBORAD)),
-passingCollision(std::make_shared<ControlPassingCollision>()),
 timer(std::make_shared<Timer>()),
-gameEffect(std::make_shared<GameEffect>())
+gameEffect(std::make_shared<GameEffect>()),
+gameObjects(std::make_shared<GameObjectManager>(this)),
+collisionMng(std::make_shared<CollisionManager>())
 {
 }
 
@@ -44,15 +39,15 @@ void GameManager::Initialize()
 {
 	timer->CountDownRealTime(5 * 60 * 1000);
 	MapState::GetInstance()->Initialize();
-	Image::GetInstance()->Initialize();
 	GenerateObjects();
 	gameObjects->Initialize();
+	collisionMng->Initialize();
 }
 
 void GameManager::Update()
 {
 	gameObjects->Update();
-	passingCollision->Update();
+	collisionMng->Update();
 }
 
 void GameManager::Draw()
@@ -63,5 +58,5 @@ void GameManager::Draw()
 void GameManager::Finalize()
 {
 	gameObjects->Finalize();
-	Image::GetInstance()->Finalize();
+	collisionMng->Finalize();
 }

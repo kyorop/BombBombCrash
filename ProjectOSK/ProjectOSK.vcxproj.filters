@@ -211,6 +211,12 @@
     <ClCompile Include="GameObjectManager.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionableObject.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameConstant.h">
@@ -398,6 +404,12 @@
       <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="GameObjectManager.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionableObject.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
       <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>

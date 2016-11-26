@@ -10,8 +10,6 @@ namespace BombBombCrash
 	public:
 		explicit MapObstacle();
 		virtual ~MapObstacle();
-
-		virtual int Type()const = 0;
 	};
 }
 

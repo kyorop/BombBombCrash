@@ -13,9 +13,12 @@ namespace BombBombCrash
 
 	class Bomb: public MapObject, public ISoundPlayer, public IGameProgress
 	{
+	public:
+		GameObjectType Type() const override{ return GameObjectType::Bomb; }
+	private:
 		static const int bombExistTime = 2500;
 
-		std::unique_ptr<Fire> explosion;
+		std::unique_ptr<BombBombCrash::Fire> explosion;
 		std::unique_ptr<Timer> timer;
 		int count;
 		int* image_bomb;

@@ -7,10 +7,8 @@ namespace BombBombCrash{
 
 namespace BombBombCrash
 {
-	namespace Collision
+	namespace CollisionUtil
 	{
 		bool Test(const Rect& r1, const Rect& r2);
 	}
-
-
 }

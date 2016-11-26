@@ -14,7 +14,7 @@ using namespace BombBombCrash;
 
 Bomb::Bomb(const ln::Vector2& position, int fireLevel) :
 MapObject(AdjustPosition(position), 32, 32),
-explosion(std::make_unique<Fire>(position)), 
+explosion(std::make_unique<BombBombCrash::Fire>(position)), 
 timer(std::make_unique<Timer>()),
 count(0),
 image_bomb(Image::GetInstance()->GetBombImage()),

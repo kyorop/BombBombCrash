@@ -9,10 +9,59 @@
 #include "MapObject.h"
 #include "PlayerAnimation.h"
 #include "Timer.h"
-
+#include "CollisionUtil.h"
+#include "Rect.h"
 using namespace BombBombCrash;
 
 
+void Player::OnCollide(CollisionableObject* object)
+{
+	if (object->Type() == GameObjectType::HardBlock 
+		|| object->Type() == GameObjectType::SoftBlock)
+	{
+		const int padding = 5;
+		float wallW = object->Width();
+		float wallH = object->Height();
+		auto wallPos = object->Position();
+		auto wallLowerRightPos = object->LowerRightPosition();
+
+		ln::Vector2 upperPading(padding, 0);
+		ln::Vector2 lowerPadding(-padding, -(wallH - padding));
+		::Rect upperBlock(wallPos + upperPading, wallLowerRightPos + lowerPadding);
+		if (CollisionUtil::Test(this->Rect(), upperBlock))
+		{
+			this->Translate(ln::Vector2(0, -(this->DY() - upperBlock.Top())));
+			return;
+		}
+
+		ln::Vector2 leftPaddingForUpper(0, padding);
+		ln::Vector2 leftPaddingForLower(-(wallW - padding), -padding);
+		::Rect leftBlock(wallPos + leftPaddingForUpper, wallLowerRightPos + leftPaddingForLower);
+		if (CollisionUtil::Test(this->Rect(), leftBlock))
+		{
+			this->Translate(ln::Vector2(-(this->X() - wallPos.X + this->Width()), 0));
+			return;
+		}
+
+		ln::Vector2 bottomPaddingForUpper(padding, wallH - padding);
+		ln::Vector2 bottomPaddingForLower(-padding, 0);
+		::Rect bottomBlock(wallPos + bottomPaddingForUpper, wallLowerRightPos + bottomPaddingForLower);
+		if (CollisionUtil::Test(this->Rect(), bottomBlock))
+		{
+			this->Translate(ln::Vector2(0, wallLowerRightPos.Y - this->Y()));
+			return;
+		}
+
+		ln::Vector2 rightPaddingForUpper(wallW - padding, padding);
+		ln::Vector2 rightPaddingForLower(0, -padding);
+		::Rect rightBlock(wallPos + rightPaddingForUpper, wallLowerRightPos + rightPaddingForLower);
+		if (CollisionUtil::Test(this->Rect(), rightBlock))
+		{
+			this->Translate(ln::Vector2(wallLowerRightPos.X - this->X(), 0));
+			return;
+		}
+	}
+}
 
 Player::Player(const ln::Vector2& position, KeyState device):
 Character(position,GameConstant::BlockWidth, GameConstant::BlockHeight),

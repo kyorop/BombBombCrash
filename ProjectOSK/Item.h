@@ -25,6 +25,7 @@ namespace BombBombCrash
 		~Item();
 		void Draw() override;
 		int GetKind()const;
+		GameObjectType Type()const override{ return GameObjectType::Item; }
 	};
 }
 

@@ -28,7 +28,7 @@ bool Block::CanRemove()
 }
 
 Block::Block(const ln::Vector2& position):
-MapObject(position, GameConstant::BlockWidth,GameConstant::BlockHeight)
+CollisionableObject(position, GameConstant::BlockWidth,GameConstant::BlockHeight)
 {
 }
 
@@ -47,6 +47,11 @@ void HardBlock::Draw(const GameManager& game)
 	}
 }
 
+MapObject::GameObjectType SoftBlock::Type() const
+{
+	return GameObjectType::SoftBlock;
+}
+
 void SoftBlock::Draw(const GameManager& game)
 {
 	if (Exists())
@@ -60,4 +65,9 @@ Block(position)
 {
 	if (!this->imageHandle)
 		this->imageHandle = imageHandle;
+}
+
+MapObject::GameObjectType HardBlock::Type() const
+{
+	return GameObjectType::HardBlock;
 }

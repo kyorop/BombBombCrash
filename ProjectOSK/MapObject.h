@@ -6,7 +6,7 @@ namespace BombBombCrash
 {
 	class Rect;
 
-	class MapObject:public ICollisionable,public IGettable
+class MapObject:public ICollisionable,public IGettable
 {
 	bool visible;
 	bool exists;
@@ -14,6 +14,16 @@ namespace BombBombCrash
 	ln::Vector2 lowerRightPos;
 
 public:
+	enum GameObjectType
+	{
+		Player,
+		Enemy,
+		Bomb,
+		HardBlock,
+		SoftBlock,
+		Item,
+		Fire,
+	};
 	MapObject();
 	MapObject(const ln::Vector2& position, int width, int height);
 
@@ -37,6 +47,7 @@ public:
 	int Width() const;
 	int Height() const;
 	Rect Rect() const;
+	virtual GameObjectType Type() const = 0;
 };
 }
 

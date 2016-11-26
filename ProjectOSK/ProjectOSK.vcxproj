@@ -92,6 +92,8 @@
     <ClCompile Include="BreakBlock.cpp" />
     <ClCompile Include="Charactor.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="CollisionableObject.cpp" />
+    <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="CollisionUtil.cpp" />
     <ClCompile Include="ControlPassingCollision.cpp" />
     <ClCompile Include="DangerState.cpp" />
@@ -147,6 +149,8 @@
     <ClInclude Include="BreakBlock.h" />
     <ClInclude Include="Charactor.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="CollisionableObject.h" />
+    <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="CollisionUtil.h" />
     <ClInclude Include="ControlPassingCollision.h" />
     <ClInclude Include="DangerState.h" />

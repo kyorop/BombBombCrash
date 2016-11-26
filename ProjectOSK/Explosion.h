@@ -24,10 +24,14 @@ namespace BombBombCrash
 
 	class FireBlock:public MapObject
 	{
+	public:
+		GameObjectType Type() const override{ return GameObjectType::Fire; }
+	private:
 		const int fireImageHandle;
 	public:
 		FireBlock(const ln::Vector2& position, int fireImage);
 		void Draw() const;
+
 	};
 
 

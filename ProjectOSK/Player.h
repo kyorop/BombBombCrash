@@ -15,6 +15,8 @@ namespace BombBombCrash
 	class Player: public Character,public IGameProgress
 	{
 	public:
+		void OnCollide(CollisionableObject* object) override;
+
 		enum
 		{
 			LEFT,
@@ -74,6 +76,7 @@ namespace BombBombCrash
 		}
 
 		bool IsWalking()const{ return isWalking; }
+		GameObjectType Type() const override { return GameObjectType::Player; }
 	};
 }
 

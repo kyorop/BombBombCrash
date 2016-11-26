@@ -1,9 +1,9 @@
 #pragma once
-#include "MapObject.h"
+#include "CollisionableObject.h"
 
 namespace BombBombCrash
 {
-	class Character:public MapObject
+	class Character:public CollisionableObject
 	{
 	protected:
 		int preX;

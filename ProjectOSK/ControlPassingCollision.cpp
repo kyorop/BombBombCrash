@@ -45,26 +45,26 @@ void ControlPassingCollision::Update()
 			ln::Vector2 upperPading(padding, 0);
 			ln::Vector2 lowerPadding(-padding, - (wallH - padding));
 			Rect upperBlock(wallPos + upperPading, wallLowerRightPos + lowerPadding);
-			if (Collision::Test(mover->Rect(), upperBlock))
+			if (CollisionUtil::Test(mover->Rect(), upperBlock))
 				mover->Translate(ln::Vector2(0, -(mover->DY() - upperBlock.Top())));
 
 
 			ln::Vector2 leftPaddingForUpper(0, padding);
 			ln::Vector2 leftPaddingForLower(-(wallW-padding), -padding);
 			Rect leftBlock(wallPos + leftPaddingForUpper, wallLowerRightPos + leftPaddingForLower);
-			if (Collision::Test(mover->Rect(), leftBlock))
+			if (CollisionUtil::Test(mover->Rect(), leftBlock))
 				mover->Translate(ln::Vector2(-(mover->X() - wallPos.X + mover->Width()), 0));
 
 			ln::Vector2 bottomPaddingForUpper(padding, wallH-padding);
 			ln::Vector2 bottomPaddingForLower(-padding, 0);
 			Rect bottomBlock(wallPos + bottomPaddingForUpper, wallLowerRightPos + bottomPaddingForLower);
-			if (Collision::Test(mover->Rect(), bottomBlock))
+			if (CollisionUtil::Test(mover->Rect(), bottomBlock))
 				mover->Translate(ln::Vector2(0, wallLowerRightPos.Y - mover->Y()));
 
 			ln::Vector2 rightPaddingForUpper(wallW-padding, padding);
 			ln::Vector2 rightPaddingForLower(0, -padding);
 			Rect rightBlock(wallPos + rightPaddingForUpper, wallLowerRightPos + rightPaddingForLower);
-			if (Collision::Test(mover->Rect(), rightBlock))
+			if (CollisionUtil::Test(mover->Rect(), rightBlock))
 				mover->Translate(ln::Vector2(wallLowerRightPos.X - mover->X(), 0));
 		}
 	}

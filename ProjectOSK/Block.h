@@ -1,6 +1,7 @@
 #pragma once
 #include "MapObstacle.h"
 #include "IGameProgress.h"
+#include "CollisionableObject.h"
 #define MAPSIZE_X 17
 #define MAPSIZE_Y 13
 
@@ -13,7 +14,7 @@ namespace BombBombCrash
 		SOFTBLOCK,
 	};
 
-	class Block :public MapObject, public IGameProgress
+	class Block :public CollisionableObject, public IGameProgress
 	{
 	public:
 		Block(const ln::Vector2& position);
@@ -21,7 +22,6 @@ namespace BombBombCrash
 		void Update(GameManager& game) override;
 		void Destroy(const GameManager& game) override;
 		bool CanRemove() override;
-		virtual MapType Type() = 0;
 	};
 
 
@@ -29,12 +29,11 @@ namespace BombBombCrash
 	class SoftBlock:public Block
 	{
 	public:
+		void OnCollide(CollisionableObject* object) override{}
+		GameObjectType Type() const override;
 		void Draw(const GameManager& game) override;
 	
 		SoftBlock(const ln::Vector2& position, int imageHandle);
-
-		MapType Type() override{ return SOFTBLOCK; }
-
 	private:
 		static int imageHandle;
 	};
@@ -44,10 +43,11 @@ namespace BombBombCrash
 	class HardBlock:public Block
 	{
 	public:
+		GameObjectType Type() const override;
+		void OnCollide(CollisionableObject* object) override{}
 		explicit HardBlock(const ln::Vector2& position, int imageHandle);
 
 		void Draw(const GameManager& game) override;
-		MapType Type() override{ return HARDBLOCK; }
 	private:
 		static int imageHandle;
 	};

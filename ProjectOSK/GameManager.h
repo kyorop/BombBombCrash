@@ -11,16 +11,16 @@ namespace BombBombCrash
 	class Timer;
 	class Player;
 	class GameObjectManager;
-	class GameManager:public ISceneProgress, public Task
+	class CollisionManager;
+	class GameManager:public Task
 	{
 		std::shared_ptr<Player> player;
 		std::shared_ptr<Drawing> drawer;
-		std::shared_ptr<ControlPassingCollision> passingCollision;
 		std::shared_ptr<Timer> timer;
 		std::shared_ptr<GameEffect> gameEffect;
 
 		std::shared_ptr<GameObjectManager> gameObjects;
-
+		std::shared_ptr<CollisionManager> collisionMng;
 		void GenerateObjects();
 	public:
 		GameManager();
