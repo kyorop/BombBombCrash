@@ -19,6 +19,8 @@ namespace BombBombCrash
 		float Right() const;
 		float Bottom() const;
 		float Left() const;
+		float Width()const;
+		float Height()const;
 	};
 }
 

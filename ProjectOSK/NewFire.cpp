@@ -1,5 +1,6 @@
 ﻿#include "NewFire.h"
 #include "Image.h"
+#include "Timer.h"
 
 using namespace BombBombCrash;
 
@@ -34,7 +35,8 @@ NewFire::NewFire(ln::Vector2 position, int width, int height, const std::weak_pt
 CollisionableObject(position, width, height),
 next(next),
 pre(pre),
-deletedObject(nullptr)
+deletedObject(nullptr),
+timer(std::make_shared<Timer>())
 {
 }
 
@@ -52,6 +54,10 @@ void NewFire::Initialize(GameManager& game)
 void BombBombCrash::NewFire::Update(GameManager& game)
 {
 	deletedObject = nullptr;
+	if (timer->CountDownFrame(1 * 1000))
+	{
+		SetExists(false);
+	}
 }
 
 void BombBombCrash::NewFire::Draw(const GameManager& game)

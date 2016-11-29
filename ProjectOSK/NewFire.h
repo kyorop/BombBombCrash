@@ -3,6 +3,7 @@
 
 namespace BombBombCrash
 {
+	class Timer;
 	class NewFire:public CollisionableObject
 	{
 	private:
@@ -10,6 +11,7 @@ namespace BombBombCrash
 		std::weak_ptr<NewFire> next;
 		CollisionableObject* deletedObject;
 		static int imageHandle;
+		std::shared_ptr<Timer> timer;
 
 		void KillForwardFire();
 		void RecordDeletedObjectBackward(CollisionableObject* deletedObject);

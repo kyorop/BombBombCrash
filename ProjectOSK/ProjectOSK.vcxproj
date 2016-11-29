@@ -60,7 +60,8 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\K.S\Documents\SourceTreeRepositories\bombbombcrash\Library\Lumino.Math-master\include;C:\Users\K.S\Documents\SourceTreeRepositories\bombbombcrash\Library\DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\K.S\Documents\SourceTreeRepositories\bombbombcrash\Library\Lumino.Math-master\lib;C:\Users\K.S\Documents\SourceTreeRepositories\bombbombcrash\Library\DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalLibraryDirectories>
+      <AdditionalDependencies>LuminoMath_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -81,8 +82,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\Users\K.S\Documents\SourceTreeRepositories\bombbombcrash\Library\Lumino.Math-master\include;C:\Users\K.S\Documents\SourceTreeRepositories\bombbombcrash\Library\DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\K.S\Documents\SourceTreeRepositories\bombbombcrash\Library\Lumino.Math-master\lib;C:\Users\K.S\Documents\SourceTreeRepositories\bombbombcrash\Library\DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalLibraryDirectories>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <AdditionalDependencies>LuminoMath_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

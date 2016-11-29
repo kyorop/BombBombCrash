@@ -16,6 +16,13 @@ using namespace BombBombCrash;
 
 void Player::OnCollide(CollisionableObject* object)
 {
+	if (object->Type()==Bomb)
+	{
+		if (preBombRect!=nullptr)
+			return;
+
+	}
+
 	if (object->Type() == GameObjectType::HardBlock
 		|| object->Type() == GameObjectType::SoftBlock
 		|| object->Type() == GameObjectType::Bomb)
@@ -64,8 +71,8 @@ void Player::OnCollide(CollisionableObject* object)
 	}
 }
 
-Player::Player(const ln::Vector2& position, KeyState device):
-Character(position,GameConstant::BlockWidth, GameConstant::BlockHeight),
+Player::Player(const ln::Vector2& position, KeyState device) :
+Character(position, GameConstant::BlockWidth, GameConstant::BlockHeight),
 isJoypad(device),
 input(new KeyboardPlayerInput()),
 bomb(std::make_unique<BombController>()),
@@ -73,7 +80,8 @@ speed(1),
 fireLevel(1),
 isWalking(false),
 animation(new PlayerAnimation(*this)),
-muki(DOWN)
+muki(DOWN),
+preBombRect(nullptr)
 {
 	bomb->IncrementBomb(fireLevel);
 	SetPosition(position);
@@ -230,11 +238,27 @@ void Player::Update(GameManager& game)
 {
 	Move();
 
+	if (preBombRect)
+	{
+		auto playerCenter = ln::Vector2(
+			X()+Width()/2, 
+			Y()+Height()/2);
+		auto bombCenter = ln::Vector2(
+			preBombRect->Left() + preBombRect->Width() / 2, 
+			preBombRect->Top() + preBombRect->Height() / 2);
+		auto distance = playerCenter - bombCenter;
+		if (distance.GetLength() >= 32)
+			preBombRect = nullptr;
+	}
+
 	if (input->GetInputPutBomb())
 	{
 		auto newBomb = bomb->Request(Position(), fireLevel);
 		if (newBomb != nullptr)
+		{
 			game.AddGameObject(newBomb);
+			preBombRect = std::make_unique<BombBombCrash::Rect>(newBomb->Rect());
+		}
 	}
 }
 

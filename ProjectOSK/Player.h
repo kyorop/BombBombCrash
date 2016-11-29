@@ -46,6 +46,7 @@ namespace BombBombCrash
 		int fireLevel;
 		bool isWalking;
 		std::unique_ptr<PlayerAnimation> animation;
+		std::unique_ptr<BombBombCrash::Rect> preBombRect;
 
 	public:
 		Player(const ln::Vector2& position, KeyState device);
