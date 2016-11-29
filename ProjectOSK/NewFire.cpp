@@ -71,21 +71,21 @@ void NewFire::SetNext(const std::weak_ptr<NewFire>& next)
 
 void BombBombCrash::NewFire::OnCollide(CollisionableObject* object)
 {
-	if (object->Type() != HardBlock)
-	{
-		KillForwardFire();
-		if (deletedObject != nullptr)
-			deletedObject->SetExists(true);
-		object->SetExists(false);
-		SetExists(false);
-		RecordDeletedObjectBackward(object);
-	}
+	if (!Exists())
+		return;
+
+	KillForwardFire();
+	if (deletedObject != nullptr)
+		deletedObject->SetExists(true);
+	this->SetExists(false);
+
+	if (object->Type()==HardBlock)
+		deletedObject = nullptr;
 	else
 	{
-		KillForwardFire();
-		if (deletedObject != nullptr)
-			deletedObject->SetExists(true);
-		SetExists(false);
-		RecordDeletedObjectBackward(object);
+		object->SetExists(false);
+		deletedObject = object;
 	}
+
+	RecordDeletedObjectBackward(deletedObject);
 }
