@@ -6,7 +6,6 @@
 namespace BombBombCrash
 {
 	class Timer;
-	class Fire;
 	class Player;
 	class Map;
 	class Character;

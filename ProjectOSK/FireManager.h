@@ -2,17 +2,17 @@
 
 namespace BombBombCrash
 {
-	class NewFire;
+	class Fire;
 	class FireManager
 	{
-		std::shared_ptr<NewFire> center;
-		std::vector<std::shared_ptr<NewFire>> up;
-		std::vector<std::shared_ptr<NewFire>> right;
-		std::vector<std::shared_ptr<NewFire>> down;
-		std::vector<std::shared_ptr<NewFire>> left;
+		std::shared_ptr<Fire> center;
+		std::vector<std::shared_ptr<Fire>> up;
+		std::vector<std::shared_ptr<Fire>> right;
+		std::vector<std::shared_ptr<Fire>> down;
+		std::vector<std::shared_ptr<Fire>> left;
 	public:
 		FireManager();
-		std::vector<std::shared_ptr<NewFire>> Create(const ln::Vector2& centerPosition);
+		std::vector<std::shared_ptr<Fire>> Create(const ln::Vector2& centerPosition);
 		void IncreaseFirePower();
 	};
 }

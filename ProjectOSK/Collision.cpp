@@ -5,7 +5,6 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "MapObject.h"
-#include "Explosion.h"
 #include "Item.h"
 #include "Charactor.h"
 #include "Block.h"
@@ -20,7 +19,6 @@ namespace BombBombCrash
 		 softBlock(),
 		 hardBlock(),
 		 map(),
-		 fire(),
 		 fragile(),
 		 item()
 	{
@@ -47,7 +45,6 @@ namespace BombBombCrash
 		softBlock.clear();
 		hardBlock.clear();
 		map.clear();
-		fire.clear();
 		fragile.clear();
 		item.clear();
 	}
@@ -82,12 +79,6 @@ namespace BombBombCrash
 				fragile.push_front(anythingCollisionable);
 			}
 		}
-	}
-
-
-	void Collision::RegisterWithFire(Fire *pFire)
-	{
-		fire.push_back(pFire);
 	}
 
 
@@ -163,7 +154,7 @@ namespace BombBombCrash
 
 	void Collision::CheckCollisionWithFire()
 	{
-		std::list<Fire*>::iterator itrFire;
+/*		std::list<Fire*>::iterator itrFire;
 		std::list<ICollisionable*>::iterator itrHardBlock;
 	
 		for (itrFire=fire.begin(); itrFire != fire.end() ; ++itrFire)
@@ -199,13 +190,13 @@ namespace BombBombCrash
 					}
 				}
 			}
-		}
+		}*/
 	}
 
 
 	void Collision::CheckCollisionFireAndFragile()
 	{
-		std::list<Fire*>::iterator itrFire;
+/*		std::list<Fire*>::iterator itrFire;
 		std::list<ICollisionable*>::iterator itrFragile;
 	
 		for (itrFire=fire.begin(); itrFire != fire.end() ; ++itrFire)
@@ -245,7 +236,7 @@ namespace BombBombCrash
 					}
 				}
 			}
-		}
+		}*/
 	}
 
 

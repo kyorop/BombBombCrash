@@ -61,9 +61,6 @@
     <Filter Include="Source\Collision">
       <UniqueIdentifier>{8ca21e62-3ee3-4c6c-9e41-f0734f1bf879}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fire">
-      <UniqueIdentifier>{d3f2bbd9-651c-455d-80d2-3d3780154da6}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EnemyAI.cpp">
@@ -211,17 +208,11 @@
     <ClCompile Include="CollisionManager.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Explosion.cpp">
-      <Filter>Fire</Filter>
-    </ClCompile>
-    <ClCompile Include="FireCollision.cpp">
-      <Filter>Fire</Filter>
-    </ClCompile>
-    <ClCompile Include="NewFire.cpp">
-      <Filter>Fire</Filter>
-    </ClCompile>
     <ClCompile Include="FireManager.cpp">
-      <Filter>Source</Filter>
+      <Filter>Source\Bomb</Filter>
+    </ClCompile>
+    <ClCompile Include="Fire.cpp">
+      <Filter>Source\Bomb</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -391,23 +382,11 @@
     <ClInclude Include="CollisionManager.h">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="IFreAggregate.h">
-      <Filter>Fire</Filter>
-    </ClInclude>
-    <ClInclude Include="IFireIterator.h">
-      <Filter>Fire</Filter>
-    </ClInclude>
-    <ClInclude Include="Explosion.h">
-      <Filter>Fire</Filter>
-    </ClInclude>
-    <ClInclude Include="FireCollision.h">
-      <Filter>Fire</Filter>
-    </ClInclude>
-    <ClInclude Include="NewFire.h">
-      <Filter>Fire</Filter>
-    </ClInclude>
     <ClInclude Include="FireManager.h">
-      <Filter>Header</Filter>
+      <Filter>Source\Bomb</Filter>
+    </ClInclude>
+    <ClInclude Include="Fire.h">
+      <Filter>Source\Bomb</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

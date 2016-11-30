@@ -3,11 +3,10 @@
 #include "Collision.h"
 #include "Image.h"
 #include "Sound.h"
-#include "Explosion.h"
 #include "Timer.h"
 #include "GameManager.h"
 #include "FireManager.h"
-#include "NewFire.h"
+#include "Fire.h"
 #define DHIT 5
 #define KBHABA 16
 

@@ -9,7 +9,6 @@
 namespace BombBombCrash
 {
 	class ICollisionable;
-	class Fire;
 	class Item;
 
 	class Collision
@@ -20,7 +19,6 @@ namespace BombBombCrash
 		std::list<ICollisionable*> softBlock;
 		std::list<ICollisionable*> hardBlock;
 		std::list<ICollisionable*> map;
-		std::list<Fire*> fire;
 		std::list<ICollisionable*> fragile;
 		std::list<Item*> item;
 
@@ -51,7 +49,6 @@ namespace BombBombCrash
 		static Collision* Instance();
 		void Finalize();
 		void Register(ICollisionable *anythingCollisionable);
-		void RegisterWithFire(Fire *fire);
 		void RegisterWithItem(Item *item);
 		void CheckAllCollision();
 	};

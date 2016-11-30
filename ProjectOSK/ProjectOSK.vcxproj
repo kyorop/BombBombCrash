@@ -104,7 +104,6 @@
     <ClCompile Include="EnemyAI.cpp" />
     <ClCompile Include="Avoid.cpp" />
     <ClCompile Include="EnemyAnimation.cpp" />
-    <ClCompile Include="FireCollision.cpp" />
     <ClCompile Include="FireManager.cpp" />
     <ClCompile Include="GameEffect.cpp" />
     <ClCompile Include="GameField.cpp" />
@@ -114,7 +113,6 @@
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Key.cpp" />
-    <ClCompile Include="Explosion.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="KeyboardPlayerInput.cpp" />
@@ -123,7 +121,7 @@
     <ClCompile Include="MapObject.cpp" />
     <ClCompile Include="MapObstacle.cpp" />
     <ClCompile Include="MapState.cpp" />
-    <ClCompile Include="NewFire.cpp" />
+    <ClCompile Include="Fire.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerAnimation.cpp" />
     <ClCompile Include="Rect.cpp" />
@@ -162,7 +160,6 @@
     <ClInclude Include="EnemyAI.h" />
     <ClInclude Include="Avoid.h" />
     <ClInclude Include="EnemyAnimation.h" />
-    <ClInclude Include="FireCollision.h" />
     <ClInclude Include="FireManager.h" />
     <ClInclude Include="GameConstant.h" />
     <ClInclude Include="GameEffect.h" />
@@ -172,8 +169,6 @@
     <ClInclude Include="GetItem.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="ICollisionable.h" />
-    <ClInclude Include="IFireIterator.h" />
-    <ClInclude Include="IFreAggregate.h" />
     <ClInclude Include="IGettable.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="IPlayerInput.h" />
@@ -182,7 +177,6 @@
     <ClInclude Include="ISoundPlayer.h" />
     <ClInclude Include="IStateChanger.h" />
     <ClInclude Include="Key.h" />
-    <ClInclude Include="Explosion.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemManager.h" />
     <ClInclude Include="KeyboardPlayerInput.h" />
@@ -190,7 +184,7 @@
     <ClInclude Include="MapObject.h" />
     <ClInclude Include="MapObstacle.h" />
     <ClInclude Include="MapState.h" />
-    <ClInclude Include="NewFire.h" />
+    <ClInclude Include="Fire.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerAnimation.h" />
     <ClInclude Include="Rect.h" />

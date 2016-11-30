@@ -1,20 +1,20 @@
 ﻿#include "FireManager.h"
 #include "GameConstant.h"
-#include "NewFire.h"
+#include "Fire.h"
 
 BombBombCrash::FireManager::FireManager():
 center()
 {
-	auto nullFire = std::shared_ptr<NewFire>(nullptr);
+	auto nullFire = std::shared_ptr<Fire>(nullptr);
 
-	center = std::make_shared<NewFire>(ln::Vector2(), GameConstant::BlockWidth, GameConstant::BlockHeight, nullFire, nullFire);
-	up.push_back(std::make_shared<NewFire>(ln::Vector2(), GameConstant::BlockWidth, GameConstant::BlockHeight, nullFire, nullFire));
-	right.push_back(std::make_shared<NewFire>(ln::Vector2(), GameConstant::BlockWidth, GameConstant::BlockHeight, nullFire, nullFire));
-	down.push_back(std::make_shared<NewFire>(ln::Vector2(), GameConstant::BlockWidth, GameConstant::BlockHeight, nullFire, nullFire));
-	left.push_back(std::make_shared<NewFire>(ln::Vector2(), GameConstant::BlockWidth, GameConstant::BlockHeight, nullFire, nullFire));
+	center = std::make_shared<Fire>(ln::Vector2(), GameConstant::BlockWidth, GameConstant::BlockHeight, nullFire, nullFire);
+	up.push_back(std::make_shared<Fire>(ln::Vector2(), GameConstant::BlockWidth, GameConstant::BlockHeight, nullFire, nullFire));
+	right.push_back(std::make_shared<Fire>(ln::Vector2(), GameConstant::BlockWidth, GameConstant::BlockHeight, nullFire, nullFire));
+	down.push_back(std::make_shared<Fire>(ln::Vector2(), GameConstant::BlockWidth, GameConstant::BlockHeight, nullFire, nullFire));
+	left.push_back(std::make_shared<Fire>(ln::Vector2(), GameConstant::BlockWidth, GameConstant::BlockHeight, nullFire, nullFire));
 }
 
-std::vector<std::shared_ptr<BombBombCrash::NewFire>> BombBombCrash::FireManager::Create(const ln::Vector2& centerPosition)
+std::vector<std::shared_ptr<BombBombCrash::Fire>> BombBombCrash::FireManager::Create(const ln::Vector2& centerPosition)
 {
 	const int width = GameConstant::BlockWidth;
 	const int height = GameConstant::BlockHeight;
@@ -33,7 +33,7 @@ std::vector<std::shared_ptr<BombBombCrash::NewFire>> BombBombCrash::FireManager:
 		down[i]->SetExists(true);
 		left[i]->SetExists(true);
 	}
-	std::vector<std::shared_ptr<NewFire>> newFire;
+	std::vector<std::shared_ptr<Fire>> newFire;
 	newFire.push_back(center);
 	newFire.insert(end(newFire), begin(up), end(up));
 	newFire.insert(end(newFire), begin(right), end(right));
@@ -44,20 +44,20 @@ std::vector<std::shared_ptr<BombBombCrash::NewFire>> BombBombCrash::FireManager:
 
 void BombBombCrash::FireManager::IncreaseFirePower()
 {
-	auto nullFire = std::shared_ptr<NewFire>(nullptr);
-	auto newUp = std::make_shared<NewFire>(ln::Vector2(), GameConstant::BlockWidth, GameConstant::BlockHeight, up[up.size() - 1], nullFire);
+	auto nullFire = std::shared_ptr<Fire>(nullptr);
+	auto newUp = std::make_shared<Fire>(ln::Vector2(), GameConstant::BlockWidth, GameConstant::BlockHeight, up[up.size() - 1], nullFire);
 	up[up.size() - 1]->SetNext(newUp);
 	up.push_back(newUp);
 
-	auto newRight = std::make_shared<NewFire>(ln::Vector2(), GameConstant::BlockWidth, GameConstant::BlockHeight, right[right.size() - 1], nullFire);
+	auto newRight = std::make_shared<Fire>(ln::Vector2(), GameConstant::BlockWidth, GameConstant::BlockHeight, right[right.size() - 1], nullFire);
 	right[right.size() - 1]->SetNext(newRight);
 	right.push_back(newRight);
 
-	auto newDown = std::make_shared<NewFire>(ln::Vector2(), GameConstant::BlockWidth, GameConstant::BlockHeight, down[down.size() - 1], nullFire);
+	auto newDown = std::make_shared<Fire>(ln::Vector2(), GameConstant::BlockWidth, GameConstant::BlockHeight, down[down.size() - 1], nullFire);
 	down[down.size() - 1]->SetNext(newDown);
 	down.push_back(newDown);
 
-	auto newLeft = std::make_shared<NewFire>(ln::Vector2(), GameConstant::BlockWidth, GameConstant::BlockHeight, left[left.size() - 1], nullFire);
+	auto newLeft = std::make_shared<Fire>(ln::Vector2(), GameConstant::BlockWidth, GameConstant::BlockHeight, left[left.size() - 1], nullFire);
 	left[left.size() - 1]->SetNext(newLeft);
 	left.push_back(newLeft);
 }

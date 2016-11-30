@@ -1,12 +1,12 @@
-﻿#include "NewFire.h"
+﻿#include "Fire.h"
 #include "Image.h"
 #include "Timer.h"
 
 using namespace BombBombCrash;
 
-int NewFire::imageHandle;
+int Fire::imageHandle;
 
-void BombBombCrash::NewFire::KillForwardFire()
+void BombBombCrash::Fire::KillForwardFire()
 {
 	SetExists(false);
 	if (!next.expired())
@@ -18,7 +18,7 @@ void BombBombCrash::NewFire::KillForwardFire()
 }
 
 
-void BombBombCrash::NewFire::RecordDeletedObjectBackward(CollisionableObject* deletedObject)
+void BombBombCrash::Fire::RecordDeletedObjectBackward(CollisionableObject* deletedObject)
 {
 	if (!pre.expired())
 	{
@@ -31,7 +31,7 @@ void BombBombCrash::NewFire::RecordDeletedObjectBackward(CollisionableObject* de
 	}
 }
 
-NewFire::NewFire(ln::Vector2 position, int width, int height, const std::weak_ptr<NewFire>& pre, const std::weak_ptr<NewFire>& next): 
+Fire::Fire(ln::Vector2 position, int width, int height, const std::weak_ptr<Fire>& pre, const std::weak_ptr<Fire>& next): 
 CollisionableObject(position, width, height),
 next(next),
 pre(pre),
@@ -41,17 +41,17 @@ timer(std::make_shared<Timer>())
 }
 
 
-BombBombCrash::MapObject::GameObjectType NewFire::Type() const
+BombBombCrash::MapObject::GameObjectType Fire::Type() const
 {
 	return GameObjectType::Fire;
 }
 
-void NewFire::Initialize(GameManager& game)
+void Fire::Initialize(GameManager& game)
 {
 	imageHandle = Image::GetInstance()->GetImage(Image::FIRE);
 }
 
-void BombBombCrash::NewFire::Update(GameManager& game)
+void BombBombCrash::Fire::Update(GameManager& game)
 {
 	deletedObject = nullptr;
 	if (timer->CountDownFrame(1 * 1000))
@@ -60,22 +60,22 @@ void BombBombCrash::NewFire::Update(GameManager& game)
 	}
 }
 
-void BombBombCrash::NewFire::Draw(const GameManager& game)
+void BombBombCrash::Fire::Draw(const GameManager& game)
 {
 	DrawGraph(X(), Y(), imageHandle, true);
 }
 
-void NewFire::SetPre(const std::weak_ptr<NewFire>& pre)
+void Fire::SetPre(const std::weak_ptr<Fire>& pre)
 {
 	this->pre = pre;
 }
 
-void NewFire::SetNext(const std::weak_ptr<NewFire>& next)
+void Fire::SetNext(const std::weak_ptr<Fire>& next)
 {
 	this->next = next;
 }
 
-void BombBombCrash::NewFire::OnCollide(CollisionableObject* object)
+void BombBombCrash::Fire::OnCollide(CollisionableObject* object)
 {
 	if (!Exists())
 		return;
