@@ -98,10 +98,9 @@ void Bomb::Update(GameManager& game)
 {
 	if (Exists())
 	{
-//		if (timer->CountDownFrame(bombExistTime))
-		if (CheckHitKey(KEY_INPUT_1))
+		if (timer->CountDownFrame(bombExistTime))
+//		if (CheckHitKey(KEY_INPUT_1))
 		{
-			fire->IncreaseFirePower();
 			auto fires = fire->Create(Position());
 			for (auto itr = begin(fires); itr != end(fires); ++itr)
 			{

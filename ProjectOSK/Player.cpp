@@ -20,7 +20,6 @@ void Player::OnCollide(CollisionableObject* object)
 	{
 		if (preBombRect!=nullptr)
 			return;
-
 	}
 
 	if (object->Type() == GameObjectType::HardBlock
@@ -238,6 +237,9 @@ void Player::Update(GameManager& game)
 {
 	Move();
 
+	if (CheckHitKey(KEY_INPUT_1))
+		bomb->IncrementBomb(fireLevel);
+
 	if (preBombRect)
 	{
 		auto playerCenter = ln::Vector2(
@@ -251,7 +253,7 @@ void Player::Update(GameManager& game)
 			preBombRect = nullptr;
 	}
 
-	if (input->GetInputPutBomb())
+	if (input->GetInputPutBomb() && !preBombRect)
 	{
 		auto newBomb = bomb->Request(Position(), fireLevel);
 		if (newBomb != nullptr)
