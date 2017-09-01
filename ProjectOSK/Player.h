@@ -3,8 +3,8 @@
 
 namespace BombBombCrash
 {
-#define MAPSIZE_X 17
-#define MAPSIZE_Y 13
+//#define MAPSIZE_X 17
+//#define MAPSIZE_Y 13
 
 
 	class BombController;
@@ -59,7 +59,7 @@ namespace BombBombCrash
 
 		void Initialize(GameManager& game) override;
 		void Update(GameManager& game) override;
-		void Draw(const GameManager& game) override;
+		void Draw(GameManager& game) override;
 
 		int Speed() override;
 		int BombSize() override;

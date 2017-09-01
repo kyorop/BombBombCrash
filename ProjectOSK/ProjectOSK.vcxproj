@@ -91,6 +91,7 @@
     <ClCompile Include="AttackOtherCharacter.cpp" />
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="Bomb.cpp" />
+    <ClCompile Include="BombUpItem.cpp" />
     <ClCompile Include="BreakBlock.cpp" />
     <ClCompile Include="Charactor.cpp" />
     <ClCompile Include="Collision.cpp" />
@@ -105,8 +106,8 @@
     <ClCompile Include="Avoid.cpp" />
     <ClCompile Include="EnemyAnimation.cpp" />
     <ClCompile Include="FireManager.cpp" />
+    <ClCompile Include="FireUpItem.cpp" />
     <ClCompile Include="GameEffect.cpp" />
-    <ClCompile Include="GameField.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="GetItem.cpp" />
@@ -134,6 +135,7 @@
     <ClCompile Include="Search.cpp" />
     <ClCompile Include="SecretCommand.cpp" />
     <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="SpeedUpItem.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -147,6 +149,7 @@
     <ClInclude Include="AttackOtherCharacter.h" />
     <ClInclude Include="Block.h" />
     <ClInclude Include="Bomb.h" />
+    <ClInclude Include="BombUpItem.h" />
     <ClInclude Include="BreakBlock.h" />
     <ClInclude Include="Charactor.h" />
     <ClInclude Include="Collision.h" />
@@ -161,9 +164,9 @@
     <ClInclude Include="Avoid.h" />
     <ClInclude Include="EnemyAnimation.h" />
     <ClInclude Include="FireManager.h" />
+    <ClInclude Include="FireUpItem.h" />
     <ClInclude Include="GameConstant.h" />
     <ClInclude Include="GameEffect.h" />
-    <ClInclude Include="GameField.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="GetItem.h" />
@@ -197,6 +200,7 @@
     <ClInclude Include="Search.h" />
     <ClInclude Include="SecretCommand.h" />
     <ClInclude Include="Sound.h" />
+    <ClInclude Include="SpeedUpItem.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Task.h" />

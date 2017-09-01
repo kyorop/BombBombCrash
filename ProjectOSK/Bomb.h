@@ -42,7 +42,7 @@ namespace BombBombCrash
 
 		void Update(GameManager& game) override;
 		
-		void Draw(const GameManager& game) override;
+		void Draw(GameManager& game) override;
 	};
 }
 

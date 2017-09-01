@@ -111,7 +111,7 @@ void Bomb::Update(GameManager& game)
 
 }
 
-void Bomb::Draw(const GameManager& game)
+void Bomb::Draw(GameManager& game)
 {
 	animpat = ((GetNowCount() & INT_MAX) / (1000 / 12)) % 3;
 	if (Exists())

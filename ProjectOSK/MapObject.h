@@ -24,6 +24,9 @@ public:
 		SoftBlock,
 		Item,
 		Fire,
+		FireUpItem,
+		BombUpItem,
+		SpeedUpItem,
 	};
 	MapObject();
 	MapObject(const ln::Vector2& position, int width, int height);
@@ -52,8 +55,8 @@ public:
 
 	virtual void Initialize(GameManager& game){}
 	virtual void Update(GameManager& game) = 0;
-	virtual void Draw(const GameManager& game) = 0;
-	virtual void Finalize(const GameManager& game){}
+	virtual void Draw(GameManager& game) = 0;
+	virtual void Finalize(GameManager& game){}
 };
 }
 

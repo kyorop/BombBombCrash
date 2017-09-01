@@ -20,7 +20,7 @@ namespace BombBombCrash
 		GameObjectType Type() const override;
 		void Initialize(GameManager& game) override;
 		void Update(GameManager& game) override;
-		void Draw(const GameManager& game) override;
+		void Draw(GameManager& game) override;
 		void OnCollide(CollisionableObject* object) override;
 		void SetPre(const std::weak_ptr<Fire>& pre);
 		void SetNext(const std::weak_ptr<Fire>& next);

@@ -1,32 +1,24 @@
 #pragma once
-#include "MapObject.h"
+#include "CollisionableObject.h"
 
 
 namespace BombBombCrash
 {
-	class Item:public MapObject
+	class Item:public CollisionableObject
 	{
 	public:
-		void Update(GameManager& game) override;
-		void Draw(const GameManager& game) override;
-
-		enum
-		{
-			FIRE,
-			BOMB, 
-			SPEED,
-		};
-
-	private:
-		static const int itemNum = 3;
-		const int i_graph;
-		const int image_item;
+		Item(const ln::Vector2& position, int width, int height, int imageHandle);
 
 	public:
-		Item();
+		void OnCollide(CollisionableObject* object) override;
+		void Update(GameManager& game) override;
+		void Draw(GameManager& game) override;
+
+	private:
+		const int imageHandle;
+
+	public:
 		~Item();
-		int GetKind()const;
-		GameObjectType Type()const override{ return GameObjectType::Item; }
 	};
 }
 

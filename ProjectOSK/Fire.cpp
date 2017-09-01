@@ -60,7 +60,7 @@ void BombBombCrash::Fire::Update(GameManager& game)
 	}
 }
 
-void BombBombCrash::Fire::Draw(const GameManager& game)
+void BombBombCrash::Fire::Draw(GameManager& game)
 {
 	DrawGraph(X(), Y(), imageHandle, true);
 }

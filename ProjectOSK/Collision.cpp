@@ -255,20 +255,20 @@ namespace BombBombCrash
 					{
 						if(CheckOneUponAnother((*itrItem)->X(), (*itrItem)->Y(), chara->X(), chara->Y(), degreeOfHit))
 						{
-							switch ((*itrItem)->GetKind())
-							{
-							case Item::BOMB:
-								chara->IncrementBomb();
-								break;
-							case Item::FIRE:
-								chara->IncrementFireLevel();
-								break;
-							case Item::SPEED:
-								chara->IncrementSpeed();
-								break;
-							default:
-								break;
-							}
+//							switch ((*itrItem)->GetKind())
+//							{
+//							case Item::BOMB:
+//								chara->IncrementBomb();
+//								break;
+//							case Item::FIRE:
+//								chara->IncrementFireLevel();
+//								break;
+//							case Item::SPEED:
+//								chara->IncrementSpeed();
+//								break;
+//							default:
+//								break;
+//							}
 							(*itrItem)->SetExists(0);
 						}
 					}

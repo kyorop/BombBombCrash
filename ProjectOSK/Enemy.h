@@ -13,7 +13,7 @@ namespace BombBombCrash
 	{
 	public:
 		void Update(GameManager& game) override;
-		void Draw(const GameManager& game)override;
+		void Draw(GameManager& game)override;
 	protected:
 		bool PutBomb() override;
 	public:

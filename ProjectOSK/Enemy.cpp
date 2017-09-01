@@ -13,7 +13,7 @@ void Enemy::Update(GameManager& game)
 
 }
 
-void Enemy::Draw(const GameManager& game)
+void Enemy::Draw(GameManager& game)
 {
 	if (Exists())
 	{

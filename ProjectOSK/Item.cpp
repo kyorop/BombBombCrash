@@ -5,29 +5,29 @@
 using namespace BombBombCrash;
 
 
+Item::Item(const ln::Vector2& position, int width, int height, int imageHandle): 
+CollisionableObject(position, width, height),
+imageHandle(imageHandle)
+{
+}
+
+void Item::OnCollide(CollisionableObject* object)
+{
+	if (object->Type() != SoftBlock)
+		SetExists(false);
+}
+
 void Item::Update(GameManager& game)
 {
+
 }
 
-void Item::Draw(const GameManager& game)
+void Item::Draw(GameManager& game)
 {
-}
-
-Item::Item():
-	i_graph(GetRand(itemNum - 1)),
-	image_item(Image::GetInstance()->GetItemImage(i_graph))
-{
-	Collision::Instance()->RegisterWithItem(this);
+	DrawGraph(X(), Y(), imageHandle, false);
 }
 
 Item::~Item()
 {
-}
-
-
-
-int Item::GetKind() const
-{
-	return i_graph;
 }
 

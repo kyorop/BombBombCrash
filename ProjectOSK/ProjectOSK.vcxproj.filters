@@ -72,9 +72,6 @@
     <ClCompile Include="Timer.cpp">
       <Filter>Source\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="GameField.cpp">
-      <Filter>Source\Map</Filter>
-    </ClCompile>
     <ClCompile Include="Bomb.cpp">
       <Filter>Source\Bomb</Filter>
     </ClCompile>
@@ -214,6 +211,15 @@
     <ClCompile Include="Fire.cpp">
       <Filter>Source\Bomb</Filter>
     </ClCompile>
+    <ClCompile Include="FireUpItem.cpp">
+      <Filter>Source\Map\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="BombUpItem.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SpeedUpItem.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameConstant.h">
@@ -227,9 +233,6 @@
     </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>Source\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="GameField.h">
-      <Filter>Source\Map</Filter>
     </ClInclude>
     <ClInclude Include="Bomb.h">
       <Filter>Source\Bomb</Filter>
@@ -387,6 +390,15 @@
     </ClInclude>
     <ClInclude Include="Fire.h">
       <Filter>Source\Bomb</Filter>
+    </ClInclude>
+    <ClInclude Include="FireUpItem.h">
+      <Filter>Source\Map\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="BombUpItem.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="SpeedUpItem.h">
+      <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

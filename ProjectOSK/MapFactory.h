@@ -1,4 +1,5 @@
 #pragma once
+#include "GameConstant.h"
 
 namespace BombBombCrash
 {
@@ -6,11 +7,17 @@ namespace BombBombCrash
 	class Map;
 	class MapFactory
 	{
+		static const int map[MAP_ROW][MAP_LINE];
+		std::vector<std::shared_ptr<Block>> mapSource;
+	private:
+		void MakeHardblock();
+		void MakeSoftBlock();
+		void MakeItem();
+		ln::Vector2 ConvertToBlockPos(const int i, const int j);
 	public:
 		MapFactory();
 		~MapFactory();
-
-		static std::vector<std::shared_ptr<Block>> Create();
+		std::vector<std::shared_ptr<Block>> Create();
 	};
 }
 

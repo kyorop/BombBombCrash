@@ -1,60 +1,55 @@
+#include <random>
 #include "ItemManager.h"
 #include "Item.h"
 #include "GameConstant.h"
+#include "BombUpItem.h"
+#include "FireUpItem.h"
+#include "SpeedUpItem.h"
+#include "Image.h"
+#include "Block.h"
 
 using namespace BombBombCrash;
-
-ItemManager::ItemManager(void)
-	:items()
-{
-	for (int i = 0; i < itemNum; i++)
-	{
-		auto item = std::make_shared<Item>();
-		items.push_back(item);
-	}
-}
 
 ItemManager::~ItemManager(void)
 {
 }
 
-void ItemManager::Initialize(const Block &block)
+ItemManager::ItemManager()
 {
-	std::vector<int> i_block;
-	std::vector<int> j_block;
-	std::vector<int> history;
+}
 
-	for (int i = 0; i < BombBombCrash::MAP_ROW; i++)
+std::vector<std::shared_ptr<Item>> ItemManager::Create()
+{
+	for (size_t i = 0; i < itemNum / 3; i++)
 	{
-		for (int j = 0; j < BombBombCrash::MAP_LINE; j++)
-		{
-//			if(block.IsSoftBlock(i, j))
-			{
-				i_block.push_back(i);
-				j_block.push_back(j);
-			}
-		}
+		items.push_back(std::make_shared<FireUpItem>(ln::Vector2(), GameConstant::BlockWidth, GameConstant::BlockHeight, Image::GetInstance()->GetItemImage(Image::FIREUP)));
+		items.push_back(std::make_shared<BombUpItem>(ln::Vector2(), GameConstant::BlockWidth, GameConstant::BlockHeight, Image::GetInstance()->GetItemImage(Image::BOMBUP)));
+		items.push_back(std::make_shared<SpeedUpItem>(ln::Vector2(), GameConstant::BlockWidth, GameConstant::BlockHeight, Image::GetInstance()->GetItemImage(Image::SPEEDUP)));
 	}
 
-	for (int k = 0; k < itemNum; k++)
-	{
-		int m = -1;
-		while(m == -1)
-		{
-			m = GetRand(i_block.size()-1);
-			for (int count = 0,size = history.size(); count < size; count++)
-			{
-				if(m == history[count])
-				{
-					m = -1;
-					break;
-				}
-			}
-		}
 
-		history.push_back(m);
-		items[k]->SetX(32 * j_block[m]);
-		items[k]->SetY(32 * i_block[m]);
-		items[k]->SetExists(1);
-	}
+//	std::vector<ln::Vector2> softBlockPos;
+//	for (auto itr = begin(map); itr != end(map); ++itr)
+//	{
+//		if ((*itr)->Type() == MapObject::SoftBlock)
+//		{
+//			softBlockPos.push_back((*itr)->Position());
+//		}
+//	}
+//
+//	std::random_device rd;
+//	std::mt19937 mt(rd());
+//	while (items.size() < softBlockPos.size())
+//	{
+//		std::uniform_int_distribution<> softBlockNumDistribution(0, softBlockPos.size());
+//		int m = softBlockNumDistribution(mt);
+//		softBlockPos.erase(begin(softBlockPos) + m);
+//	}
+//
+//	for (size_t i = 0; i < items.size(); i++)
+//	{
+//		items[i]->SetPosition(softBlockPos[i]);
+//	}
+//
+	return items;
 }

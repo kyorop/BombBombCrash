@@ -264,7 +264,7 @@ void Player::Update(GameManager& game)
 	}
 }
 
-void Player::Draw(const GameManager& game)
+void Player::Draw(GameManager& game)
 {
 	if (Exists())
 		animation->Walk();

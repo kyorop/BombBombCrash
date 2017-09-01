@@ -23,17 +23,22 @@ namespace BombBombCrash
 	};
 
 
-
+	class Item;
 	class SoftBlock:public Block
 	{
 	public:
+
 		void OnCollide(CollisionableObject* object) override{}
 		GameObjectType Type() const override;
-		void Draw(const GameManager& game) override;
+		void Draw(GameManager& game) override;
+		void Finalize(GameManager& game) override;
 	
+		SoftBlock(const ln::Vector2& position, int imageHandle,const std::shared_ptr<BombBombCrash::Item>& item);
 		SoftBlock(const ln::Vector2& position, int imageHandle);
+		void SetItem(const std::shared_ptr<BombBombCrash::Item>& item);
 	private:
 		static int imageHandle;
+		std::shared_ptr<BombBombCrash::Item> item;
 	};
 
 
@@ -45,7 +50,7 @@ namespace BombBombCrash
 		void OnCollide(CollisionableObject* object) override{}
 		explicit HardBlock(const ln::Vector2& position, int imageHandle);
 
-		void Draw(const GameManager& game) override;
+		void Draw(GameManager& game) override;
 	private:
 		static int imageHandle;
 	};

@@ -1,6 +1,8 @@
 #include "Block.h"
 #include "MapState.h"
 #include "GameConstant.h"
+#include "GameManager.h"
+#include "Item.h"
 #define HABA 0
 #define DHIT 5
 #define KBHABA 16
@@ -30,7 +32,7 @@ Block(position)
 		this->imageHandle = imageHandle;
 }
 
-void HardBlock::Draw(const GameManager& game)
+void HardBlock::Draw(GameManager& game)
 {
 	if (Exists())
 	{
@@ -43,7 +45,7 @@ MapObject::GameObjectType SoftBlock::Type() const
 	return GameObjectType::SoftBlock;
 }
 
-void SoftBlock::Draw(const GameManager& game)
+void SoftBlock::Draw(GameManager& game)
 {
 	if (Exists())
 	{
@@ -51,11 +53,31 @@ void SoftBlock::Draw(const GameManager& game)
 	}
 }
 
-SoftBlock::SoftBlock(const ln::Vector2& position, int imageHandle):
-Block(position)
+void SoftBlock::Finalize(GameManager& game)
+{
+	if (item)
+		game.AddGameObject(item);
+}
+
+SoftBlock::SoftBlock(const ln::Vector2& position, int imageHandle,const std::shared_ptr<BombBombCrash::Item>& item):
+Block(position),
+item(item)
 {
 	if (!this->imageHandle)
 		this->imageHandle = imageHandle;
+}
+
+SoftBlock::SoftBlock(const ln::Vector2& position, int imageHandle):
+Block(position),
+item(nullptr)
+{
+	if (!this->imageHandle)
+		this->imageHandle = imageHandle;
+}
+
+void SoftBlock::SetItem(const std::shared_ptr<BombBombCrash::Item>& item)
+{
+	this->item = item;
 }
 
 MapObject::GameObjectType HardBlock::Type() const

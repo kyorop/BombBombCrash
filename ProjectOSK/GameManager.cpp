@@ -9,17 +9,24 @@
 #include "Player.h"
 #include "GameObjectManager.h"
 #include "CollisionManager.h"
+#include "ItemManager.h"
 
 using namespace BombBombCrash;
 
 void GameManager::GenerateObjects()
 {
-	auto map = MapFactory::Create();
+	auto map = MapFactory().Create();
+//	auto items = ItemManager(map).Create();
 	for (auto itr = begin(map); itr != end(map); ++itr)
 	{
 		gameObjects->AddElement(*itr);
 		collisionMng->Add(*itr);
 	}
+//	for (auto itr = begin(items); itr != end(items); ++itr)
+//	{
+//		gameObjects->AddElement(*itr);
+//		collisionMng->Add(*itr);
+//	}
 	gameObjects->AddElement(player);
 	collisionMng->Add(player);
 }
@@ -61,7 +68,7 @@ void GameManager::Finalize()
 	collisionMng->Finalize();
 }
 
-void GameManager::AddGameObject(const std::shared_ptr<CollisionableObject>& object)
+void GameManager::AddGameObject(const std::shared_ptr<CollisionableObject>& object) const
 {
 	gameObjects->AddElement(object);
 	collisionMng->Add(object);
