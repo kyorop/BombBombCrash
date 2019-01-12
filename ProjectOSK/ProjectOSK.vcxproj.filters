@@ -16,32 +16,14 @@
     <Filter Include="Source\Utility">
       <UniqueIdentifier>{ef042950-328b-4a6e-b458-cf8c700e6089}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Bomb">
-      <UniqueIdentifier>{c56bb18a-019e-4616-ba3d-17064fbbd24a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Character">
       <UniqueIdentifier>{d5b548ba-ff68-4dab-a74b-1984a00e9685}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\GameState">
       <UniqueIdentifier>{33908562-84a2-4dd5-9ebc-529ec501c71c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Map">
-      <UniqueIdentifier>{811da8c8-b229-4314-bf9c-2536e847e583}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Resource">
       <UniqueIdentifier>{93593741-6d8c-4f41-8b8b-b657625fcb68}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Interface">
-      <UniqueIdentifier>{ce653aa3-d2b8-41a7-a60e-2f196b14a5a5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Map\Base">
-      <UniqueIdentifier>{2d90c7a7-e349-4a0f-b5cb-a8257f4bd895}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Map\Item">
-      <UniqueIdentifier>{445cb6ae-db31-4dab-b3c6-c3280455e8cf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Map\Block">
-      <UniqueIdentifier>{df4d9eeb-1d5b-448e-a41c-731a52612ecb}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source\Scene">
       <UniqueIdentifier>{27dff125-c8be-4686-91a4-a1bbd06fc9ac}</UniqueIdentifier>
@@ -58,9 +40,6 @@
     <Filter Include="Source\Ai\State">
       <UniqueIdentifier>{ce5d6ff7-37a0-4b52-8049-dd31fad6af7e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Collision">
-      <UniqueIdentifier>{8ca21e62-3ee3-4c6c-9e41-f0734f1bf879}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EnemyAI.cpp">
@@ -71,9 +50,6 @@
     </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>Source\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Bomb.cpp">
-      <Filter>Source\Bomb</Filter>
     </ClCompile>
     <ClCompile Include="DangerState.cpp">
       <Filter>Source\GameState</Filter>
@@ -130,24 +106,6 @@
     <ClCompile Include="KeyboardPlayerInput.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="MapObstacle.cpp">
-      <Filter>Source\Map\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="MapObject.cpp">
-      <Filter>Source\Map\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Item.cpp">
-      <Filter>Source\Map\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemManager.cpp">
-      <Filter>Source\Map\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="Block.cpp">
-      <Filter>Source\Map\Block</Filter>
-    </ClCompile>
-    <ClCompile Include="MapFactory.cpp">
-      <Filter>Source\Map\Block</Filter>
-    </ClCompile>
     <ClCompile Include="Scene_Base.cpp">
       <Filter>Source\Scene</Filter>
     </ClCompile>
@@ -166,15 +124,6 @@
     <ClCompile Include="SceneManger.cpp">
       <Filter>Source\Scene\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="Collision.cpp">
-      <Filter>Source\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="ControlPassingCollision.cpp">
-      <Filter>Source\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="TestScene.cpp">
-      <Filter>Source\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="GameManager.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -184,40 +133,52 @@
     <ClCompile Include="Rect.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerAnimation.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyAnimation.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="GameEffect.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Task.cpp">
+    <ClCompile Include="StandardBomb.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="GameObjectManager.cpp">
+    <ClCompile Include="AnimationClip.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionableObject.cpp">
+    <ClCompile Include="BombAnimation.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionManager.cpp">
+    <ClCompile Include="Animator.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="FireManager.cpp">
-      <Filter>Source\Bomb</Filter>
+    <ClCompile Include="PlayerWalkingAnimation.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterKilledAnimation.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="HardBlock.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="BreakableBlock.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="BombBag.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ISubject.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="FireSpreadingObserver.cpp">
+      <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Fire.cpp">
-      <Filter>Source\Bomb</Filter>
-    </ClCompile>
-    <ClCompile Include="FireUpItem.cpp">
-      <Filter>Source\Map\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="BombUpItem.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="SpeedUpItem.cpp">
+    <ClCompile Include="MapObject.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="MapFactory.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -234,14 +195,8 @@
     <ClInclude Include="Timer.h">
       <Filter>Source\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="Bomb.h">
-      <Filter>Source\Bomb</Filter>
-    </ClInclude>
     <ClInclude Include="DangerState.h">
       <Filter>Source\GameState</Filter>
-    </ClInclude>
-    <ClInclude Include="ICollisionable.h">
-      <Filter>Interface</Filter>
     </ClInclude>
     <ClInclude Include="Charactor.h">
       <Filter>Source\Character</Filter>
@@ -263,9 +218,6 @@
     </ClInclude>
     <ClInclude Include="MapState.h">
       <Filter>Source\GameState</Filter>
-    </ClInclude>
-    <ClInclude Include="IStateChanger.h">
-      <Filter>Interface</Filter>
     </ClInclude>
     <ClInclude Include="Avoid.h">
       <Filter>Source\Ai\State</Filter>
@@ -291,39 +243,9 @@
     <ClInclude Include="GetItem.h">
       <Filter>Source\Ai\State</Filter>
     </ClInclude>
-    <ClInclude Include="IPlayerInput.h">
-      <Filter>Interface</Filter>
-    </ClInclude>
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="IGettable.h">
-      <Filter>Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="ISoundPlayer.h">
-      <Filter>Interface</Filter>
-    </ClInclude>
     <ClInclude Include="KeyboardPlayerInput.h">
       <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="MapObject.h">
-      <Filter>Source\Map\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="MapObstacle.h">
-      <Filter>Source\Map\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="IRegister.h">
-      <Filter>Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="Item.h">
-      <Filter>Source\Map\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemManager.h">
-      <Filter>Source\Map\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="Block.h">
-      <Filter>Source\Map\Block</Filter>
-    </ClInclude>
-    <ClInclude Include="MapFactory.h">
-      <Filter>Source\Map\Block</Filter>
     </ClInclude>
     <ClInclude Include="Scene_Base.h">
       <Filter>Source\Scene</Filter>
@@ -346,15 +268,6 @@
     <ClInclude Include="SceneManger.h">
       <Filter>Source\Scene\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="Collision.h">
-      <Filter>Source\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="ControlPassingCollision.h">
-      <Filter>Source\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="TestScene.h">
-      <Filter>Source\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="GameManager.h">
       <Filter>Header</Filter>
     </ClInclude>
@@ -364,40 +277,76 @@
     <ClInclude Include="Rect.h">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerAnimation.h">
-      <Filter>Header</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyAnimation.h">
-      <Filter>Header</Filter>
-    </ClInclude>
     <ClInclude Include="GameEffect.h">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="Task.h">
+    <ClInclude Include="ICharacterAction.h">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="GameObjectManager.h">
+    <ClInclude Include="StandardBomb.h">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionableObject.h">
+    <ClInclude Include="IBombAction.h">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionManager.h">
+    <ClInclude Include="AnimationClip.h">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="FireManager.h">
-      <Filter>Source\Bomb</Filter>
+    <ClInclude Include="BombAnimation.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Animator.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerWalkingAnimation.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterKilledAnimation.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="HardBlock.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="BreakableBlock.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="BombBag.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="IObserver.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ISubject.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="FireSpreadingObserver.h">
+      <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="Fire.h">
-      <Filter>Source\Bomb</Filter>
-    </ClInclude>
-    <ClInclude Include="FireUpItem.h">
-      <Filter>Source\Map\Item</Filter>
-    </ClInclude>
-    <ClInclude Include="BombUpItem.h">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="SpeedUpItem.h">
+    <ClInclude Include="MapObject.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="MapFactory.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="IGettable.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="IPlayerInput.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="IRegister.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ISoundPlayer.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="IStateChanger.h">
       <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,29 +1,28 @@
 ﻿#pragma once
-#include "CollisionableObject.h"
+#include "MapObject.h"
+#include "AnimationClip.h"
+#include "Timer.h"
+#include "ISubject.h"
 
 namespace BombBombCrash
 {
-	class Timer;
-	class Fire:public CollisionableObject
+	class Fire :public MapObject
 	{
-	private:
-		std::weak_ptr<Fire> pre;
-		std::weak_ptr<Fire> next;
-		CollisionableObject* deletedObject;
-		static int imageHandle;
-		std::shared_ptr<Timer> timer;
-
-		void KillForwardFire();
-		void RecordDeletedObjectBackward(CollisionableObject* deletedObject);
+		static AnimationClip image_;
+		Timer timer_;
+		int remaining_fire_num_;
+		ln::Vector2 fire_spreading_direction_;
+		static std::unique_ptr<Fire> CreateSpreadingFire(const ln::Vector2& position, const ln::Vector2& fire_spreading_direction, int remaining_fire_num);
 	public:
-		Fire(ln::Vector2 position, int width, int height, const std::weak_ptr<Fire>& pre, const std::weak_ptr<Fire>& next);
-		GameObjectType Type() const override;
-		void Initialize(GameManager& game) override;
-		void Update(GameManager& game) override;
-		void Draw(GameManager& game) override;
-		void OnCollide(CollisionableObject* object) override;
-		void SetPre(const std::weak_ptr<Fire>& pre);
-		void SetNext(const std::weak_ptr<Fire>& next);
+		Fire(ln::Vector2 position, int fire_level);
+
+		ObjectType Type() const override{ return ObjectType::Fire; }
+		void Initialize() override;
+		void Update() override;
+		void LateUpdate() override;
+		void Draw() override;
+		void Finalize() override{}
+		void OnCollide(MapObject& other) override;
 	};
 }
 

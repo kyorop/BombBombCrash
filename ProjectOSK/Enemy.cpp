@@ -1,19 +1,18 @@
 #include "Enemy.h"
 #include "MapState.h"
 #include "EnemyAI.h"
-#include "Collision.h"
 #include "Image.h"
 #include "GameConstant.h"
 #include "Timer.h"
 
 using namespace BombBombCrash;
 
-void Enemy::Update(GameManager& game)
+void Enemy::Update()
 {
 
 }
 
-void Enemy::Draw(GameManager& game)
+void Enemy::Draw()
 {
 	if (Exists())
 	{
@@ -52,30 +51,38 @@ void Enemy::Draw(GameManager& game)
 	}
 }
 
-bool Enemy::PutBomb()
-{
-	if (bombSet == 1)
-	{
-		bombSet = 0;
-		return 1;
-	}
-	else
-		return 0;
+void Enemy::Initialize(){
+
 }
 
-void Enemy::Update()
-{
-	Move();
-	PutBomb();
+void Enemy::Finalize(){
+	
 }
+
+void Enemy::PutBomb()
+{
+	// if (bombSet == 1)
+	// {
+	// 	bombSet = 0;
+	// 	return 1;
+	// }
+	// else
+	// 	return 0;
+}
+
+// void Enemy::Update()
+// {
+// 	Move();
+// 	PutBomb();
+// }
 
 Enemy::Enemy(int x, int y)
 	:Character(ln::Vector2(x,y), GameConstant::BlockWidth, GameConstant::BlockHeight),
-	image_left(Image::GetInstance()->GetCharacterImage(id, Image::LEFT)),
-	image_right(Image::GetInstance()->GetCharacterImage(id, Image::RIGHT)),
-	image_up(Image::GetInstance()->GetCharacterImage(id, Image::UP)),
-	image_down(Image::GetInstance()->GetCharacterImage(id, Image::DOWN)),
-	image_death(Image::GetInstance()->GetCharacterImage(id, Image::DEATH)),
+	image_left(0),
+	image_right(0),
+	image_up(0),
+	image_down(0),
+	image_death(0),
 	muki(EnemyAction::STOP),
 	stop(0),
 	bombSet(0),
@@ -87,7 +94,6 @@ Enemy::Enemy(int x, int y)
 	speed(1)
 {
 	SetPosition(ln::Vector2(x, y));
-	Collision::Instance()->Register(this);
 	MapState::GetInstance()->RegisterWithCharacter(this);
 }
 
@@ -147,14 +153,14 @@ void Enemy::Move()
 	}
 }
 
-void Enemy::IncrementSpeed()
-{
-	if(speed < 4)
-	{
-		++hitNumSpeedUpItem;
-		if(32%(speed+1) == 0)
-			++speed;
-		else if(32%hitNumSpeedUpItem == 0)
-			speed = hitNumSpeedUpItem;
-	}
-}
+// void Enemy::IncrementSpeed()
+// {
+// 	if(speed < 4)
+// 	{
+// 		++hitNumSpeedUpItem;
+// 		if(32%(speed+1) == 0)
+// 			++speed;
+// 		else if(32%hitNumSpeedUpItem == 0)
+// 			speed = hitNumSpeedUpItem;
+// 	}
+// }

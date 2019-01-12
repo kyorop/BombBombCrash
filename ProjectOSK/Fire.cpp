@@ -4,94 +4,66 @@
 
 using namespace BombBombCrash;
 
-int Fire::imageHandle;
+AnimationClip Fire::image_;
 
-void BombBombCrash::Fire::KillForwardFire()
+std::unique_ptr<Fire> Fire::CreateSpreadingFire(const ln::Vector2& position,
+	const ln::Vector2& fire_spreading_direction, int remaining_fire_num)
 {
-	SetExists(false);
-	if (!next.expired())
-	{
-		auto nextptr = next.lock();
-		if (nextptr != nullptr)
-			nextptr->KillForwardFire();
-	}
+	auto spreading_fire = std::make_unique<Fire>(position, remaining_fire_num - 1);
+	spreading_fire->fire_spreading_direction_ = fire_spreading_direction;
+	return spreading_fire;
+}
+
+Fire::Fire(ln::Vector2 position, int fire_level):
+MapObject(position),
+remaining_fire_num_(fire_level),
+fire_spreading_direction_(ln::Vector2(0,0))
+{
 }
 
 
-void BombBombCrash::Fire::RecordDeletedObjectBackward(CollisionableObject* deletedObject)
+void Fire::Initialize()
 {
-	if (!pre.expired())
+	if (image_.Length() == 0)
+		image_ = Image::GetInstance()->Load("Images\\fire.bmp");
+}
+
+void Fire::Update()
+{
+	if (timer_.CountDownFrame(1 * 1000))
+		Delete();
+}
+
+void Fire::LateUpdate()
+{
+	if (remaining_fire_num_ > 0)
 	{
-		auto preptr = pre.lock();
-		if (preptr != nullptr)
+		if (fire_spreading_direction_ == ln::Vector2(0,0))
 		{
-			preptr->deletedObject = deletedObject;
-			preptr->RecordDeletedObjectBackward(deletedObject);
+			Create(CreateSpreadingFire(Position() + ln::Vector2(0, -Width()), ln::Vector2(0, -Width()), remaining_fire_num_ - 1));
+			Create(CreateSpreadingFire(Position() + ln::Vector2(-Width(), 0), ln::Vector2(-Width(), 0), remaining_fire_num_ - 1));
+			Create(CreateSpreadingFire(Position() + ln::Vector2(Width(), 0), ln::Vector2(Width(), 0), remaining_fire_num_ - 1));
+			Create(CreateSpreadingFire(Position() + ln::Vector2(0, Width()), ln::Vector2(0, Width()), remaining_fire_num_ - 1));
 		}
+		else
+		{
+			Create(CreateSpreadingFire(Position() + fire_spreading_direction_, fire_spreading_direction_, remaining_fire_num_ - 1));
+		}
+		remaining_fire_num_ = 0;
 	}
 }
 
-Fire::Fire(ln::Vector2 position, int width, int height, const std::weak_ptr<Fire>& pre, const std::weak_ptr<Fire>& next): 
-CollisionableObject(position, width, height),
-next(next),
-pre(pre),
-deletedObject(nullptr),
-timer(std::make_shared<Timer>())
+void Fire::Draw()
 {
+	DrawGraph(X(), Y(), image_.get_handle(), true);
 }
 
-
-BombBombCrash::MapObject::GameObjectType Fire::Type() const
+void Fire::OnCollide(MapObject& other)
 {
-	return GameObjectType::Fire;
-}
-
-void Fire::Initialize(GameManager& game)
-{
-	imageHandle = Image::GetInstance()->GetImage(Image::FIRE);
-}
-
-void BombBombCrash::Fire::Update(GameManager& game)
-{
-	deletedObject = nullptr;
-	if (timer->CountDownFrame(1 * 1000))
+	if (other.Type() == HardBlock ||
+		other.Type() == BREAKABLE_BLOCK||
+		other.Type() == Bomb)
 	{
-		SetExists(false);
+		Delete();
 	}
-}
-
-void BombBombCrash::Fire::Draw(GameManager& game)
-{
-	DrawGraph(X(), Y(), imageHandle, true);
-}
-
-void Fire::SetPre(const std::weak_ptr<Fire>& pre)
-{
-	this->pre = pre;
-}
-
-void Fire::SetNext(const std::weak_ptr<Fire>& next)
-{
-	this->next = next;
-}
-
-void BombBombCrash::Fire::OnCollide(CollisionableObject* object)
-{
-	if (!Exists())
-		return;
-
-	KillForwardFire();
-	if (deletedObject != nullptr)
-		deletedObject->SetExists(true);
-	this->SetExists(false);
-
-	if (object->Type()==HardBlock)
-		deletedObject = nullptr;
-	else
-	{
-		object->SetExists(false);
-		deletedObject = object;
-	}
-
-	RecordDeletedObjectBackward(deletedObject);
 }

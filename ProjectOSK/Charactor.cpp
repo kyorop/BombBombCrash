@@ -2,24 +2,10 @@
 
 namespace BombBombCrash
 {
-	int Character::idGenerator;
 
-	Character::Character(const ln::Vector2& position, int width, int height): 
-	CollisionableObject(position, width, height),
-	preX(),
-	preY(),
-	id(idGenerator++)
+	Character::Character(const ln::Vector2& position, int width, int height):
+		MapObject(position , width , height), speed(1), fireLevel(1), bombNum(1)
 	{
-	}
-
-	Character::~Character(void)
-	{
-		--idGenerator;
-	}
-
-	int Character::Id() const
-	{
-		return id;
 	}
 }
 

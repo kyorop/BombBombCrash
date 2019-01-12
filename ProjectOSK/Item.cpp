@@ -1,33 +1,21 @@
 #include "Item.h"
-#include "Collision.h"
 #include "Image.h"
 
 using namespace BombBombCrash;
 
 
-Item::Item(const ln::Vector2& position, int width, int height, int imageHandle): 
-CollisionableObject(position, width, height),
-imageHandle(imageHandle)
+
+void Item::Draw()
 {
+	DrawGraph(X(), Y(), image_.get_handle(), false);
 }
 
-void Item::OnCollide(CollisionableObject* object)
+void Item::OnCollide(MapObject& other)
 {
-	if (object->Type() != SoftBlock)
-		SetExists(false);
+	if (other.Type() == Fire ||
+		other.Type() == Player ||
+		other.Type() == Enemy)
+	{
+		Delete();
+	}
 }
-
-void Item::Update(GameManager& game)
-{
-
-}
-
-void Item::Draw(GameManager& game)
-{
-	DrawGraph(X(), Y(), imageHandle, false);
-}
-
-Item::~Item()
-{
-}
-

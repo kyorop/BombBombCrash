@@ -1,39 +1,63 @@
 ﻿#pragma once
-#include "Task.h"
+#include "MapObject.h"
 
 namespace BombBombCrash
 {
-	interface IGameProgress;
-	class ControlPassingCollision;
-	class Drawing;
-	class GameEffect;
-	class Timer;
-	class Player;
-	class GameObjectManager;
-	class CollisionManager;
-	class CollisionableObject;
-	class GameManager:public Task
-	{
-		std::shared_ptr<Player> player;
-		std::shared_ptr<Timer> timer;
-		std::shared_ptr<GameEffect> gameEffect;
+interface IGameProgress;
+class ControlPassingCollision;
+class Drawing;
+class GameEffect;
+class Timer;
+class Player;
+class GameObjectManager;
+class CollisionManager;
+class CollisionableObject;
+class GameManager
+{
+	GameManager();
+	~GameManager(){}
+	GameManager(const GameManager&);
+	GameManager& operator=(const GameManager&);
+	GameManager(GameManager&&);
+	GameManager& operator=(GameManager&&);
+	std::shared_ptr<GameEffect> gameEffect;
+	std::list<std::unique_ptr<MapObject>> tasks_;
+	std::list<std::unique_ptr<MapObject>> new_tasks_;
+	std::list<MapObject*> delete_reserved_tasks_;
+	std::list<std::pair<MapObject*, MapObject*>> collision_task_pairs_;
 
-		std::shared_ptr<GameObjectManager> gameObjects;
-		std::shared_ptr<CollisionManager> collisionMng;
-		void GenerateObjects();
-	public:
-		GameManager();
+	void Collide();
 
-		void Initialize() override;
+	void CollisionExit();
 
-		void Update() override;
-		
-		void Draw() override;
+	void DeleteTask(std::list<std::unique_ptr<MapObject>>& original_tasks,
+		std::list<MapObject*>& delete_tasks);
+	
+	void AddNewTask(std::list<std::unique_ptr<MapObject>>& original_tasks,
+		std::list<std::unique_ptr<MapObject>>& new_tasks);
 
-		void Finalize() override;
+	void UpdateTaskList(std::list<std::unique_ptr<MapObject>>& original_tasks,
+		std::list<std::unique_ptr<MapObject>>& new_tasks, 
+		std::list<MapObject*>& delete_tasks);
 
-		void AddGameObject(const std::shared_ptr<CollisionableObject>& object) const;
-	};
+	bool IsRegistered(MapObject*);
+
+public:
+	static GameManager& Instance(){
+		static GameManager instance;
+		return instance;
+	}
+
+	void Initialize();
+	void Update();
+	void Draw();
+	void Finalize();
+
+	void AddTask(std::unique_ptr<MapObject> task);
+	
+	void DeleteTask(MapObject* task);
+};
+
 }
 
 

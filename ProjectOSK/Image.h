@@ -1,4 +1,5 @@
 #pragma once
+#include "AnimationClip.h"
 
 namespace BombBombCrash
 {
@@ -45,6 +46,7 @@ namespace BombBombCrash
 		int purpleEnemy[characterDivideNum];
 		int bomb[bombDivideNum];
 		int fire;
+		std::map<std::string, std::vector<int>> loaded_handles_;
 	public:
 		int number[10];
 		int colon;
@@ -67,6 +69,9 @@ namespace BombBombCrash
 		int GetItemImage(int kindofItem);
 		int* GetCharacterImage(int id, int direction);
 		int* GetBombImage();
+
+		AnimationClip Load(const std::string& file_path, int all_num, int x_num, int y_num, int x_size, int y_size);
+		AnimationClip Load(const std::string& file_path);
 	};
 
 	

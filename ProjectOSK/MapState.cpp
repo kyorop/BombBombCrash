@@ -2,7 +2,6 @@
 #include "GameConstant.h"
 #include "Player.h"
 #include "Enemy.h"
-#include "Bomb.h"
 #include "IGettable.h"
 #include <typeinfo>
 
@@ -61,7 +60,7 @@ namespace BombBombCrash
 
 	void MapState::Finalize()
 	{
-		bomb.clear();
+		// bomb.clear();
 		enemy.clear();
 		delete playerInfo;
 		for(int i=0;i<row;++i)
@@ -131,8 +130,8 @@ namespace BombBombCrash
 	{
 		const type_info& type = typeid(*anythigGettable);
 
-		if(type == typeid(Bomb))
-			bomb.push_back(dynamic_cast<Bomb*>(anythigGettable));
+		// if(type == typeid(Bomb))
+			// bomb.push_back(dynamic_cast<Bomb*>(anythigGettable));
 	}
 
 
@@ -148,18 +147,18 @@ namespace BombBombCrash
 
 		InitOneObject(BOMB);
 		//	std::list<const Bomb*>::iterator itr = bomb.begin();
-		for (auto& b : bomb)
-		{
-			if (b->Exists())
-			{
-				int x_center = (b->X() + b->X() + 32) / 2;
-				int y_center = (b->Y() + b->Y() + 32) / 2;
-				int i_center = x_center / 32;
-				int j_center = y_center / 32;
-				SetState(x_center, y_center, BOMB, 1);
-//				SetState(x_center, y_center, BOMB, b->FireLevel(), 1);
-			}
-		}
+// 		for (auto& b : bomb)
+// 		{
+// 			if (b->Exists())
+// 			{
+// 				int x_center = (b->X() + b->X() + 32) / 2;
+// 				int y_center = (b->Y() + b->Y() + 32) / 2;
+// 				int i_center = x_center / 32;
+// 				int j_center = y_center / 32;
+// 				SetState(x_center, y_center, BOMB, 1);
+// //				SetState(x_center, y_center, BOMB, b->FireLevel(), 1);
+// 			}
+// 		}
 
 		//	for(itr; itr != bomb.end(); ++itr)
 		//	{

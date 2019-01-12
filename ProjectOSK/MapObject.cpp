@@ -1,114 +1,89 @@
 #include "MapObject.h"
 #include "Rect.h"
+#include "GameManager.h"
 
 using namespace BombBombCrash;
 
-MapObject::MapObject(void):
-visible(true),
-exists(true),
-upperLeftPos(),
-lowerRightPos()
-{
-}
+int MapObject::id_generator_ = 0;
+
+MapObject::MapObject():
+	id_(id_generator_++)
+{}
 
 MapObject::MapObject(const ln::Vector2& position, int width, int height):
-visible(true),
-exists(true),
-upperLeftPos(position),
-lowerRightPos(position + ln::Vector2(width,height))
+	upperLeftPos(position),
+id_(id_generator_++),
+width_(width),
+height_(height)
+{}
+
+MapObject::MapObject(ln::Vector2 initial_position)
+	:
+	upperLeftPos(initial_position),
+	id_(id_generator_++)
 {
 }
 
-MapObject::~MapObject(void)
+MapObject::MapObject(int i, int j)
+	:
+	upperLeftPos(ln::Vector2(j*32, i*32)),
+	id_(id_generator_++)
 {
 }
 
-int MapObject::X()const
-{
-	return upperLeftPos.X;
-}
-
-void MapObject::SetX(int x)
+void MapObject::SetX(float x)
 {
 	SetPosition(ln::Vector2(x, upperLeftPos.Y));
 }
 
-int MapObject::RX()const
-{
-	return lowerRightPos.X;
-}
 
-int MapObject::Y()const
-{
-	return upperLeftPos.Y;
-}
-
-void MapObject::SetY(int y)
+void MapObject::SetY(float y)
 {
 	SetPosition(ln::Vector2(upperLeftPos.X, y));
 }
 
-int MapObject::DY()const
-{
-	return lowerRightPos.Y;
-}
-
-bool MapObject::Exists() const
-{
-	return exists;
-}
-
-bool MapObject::Visible() const
-{
-	return visible;
-}
-
-void MapObject::SetVisible(bool isVisible)
-{
-	this->visible = isVisible;
-}
-
-void MapObject::SetExists(int flag)
-{
-	this->exists = flag;
-}
-
-ln::Vector2 MapObject::Position() const
-{
-	return upperLeftPos;
-}
-
 ln::Vector2 MapObject::LowerRightPosition() const
 {
-	return lowerRightPos;
+	return upperLeftPos + ln::Vector2(width_, height_);
 }
 
 void MapObject::SetPosition(const ln::Vector2& position)
 {
-	int currentW = Width();
-	int currentH = Height();
 	upperLeftPos = position;
-	lowerRightPos.X = upperLeftPos.X + currentW;
-	lowerRightPos.Y = upperLeftPos.Y + currentH;
+}
+
+void MapObject::SetPosition(int i, int j)
+{
+	SetPosition(ln::Vector2(j*Width(), i*Height()));
 }
 
 int MapObject::Width() const
 {
-	return lowerRightPos.X - upperLeftPos.X;
+	return width_;
 }
 
 int MapObject::Height() const
 {
-	return lowerRightPos.Y - upperLeftPos.Y;
+	return height_;
 }
 
 Rect MapObject::Rect() const
 {
-	return ::Rect(upperLeftPos, lowerRightPos);
+	return ::Rect(upperLeftPos, upperLeftPos + ln::Vector2(width_, height_));
+}
+
+void MapObject::Create(std::unique_ptr<MapObject> new_entity)
+{
+	GameManager::Instance().AddTask(move(new_entity));
+}
+
+void MapObject::Delete()
+{
+	exists = false;
+	GameManager::Instance().DeleteTask(this);
 }
 
 void MapObject::Translate(const ln::Vector2& translation)
 {
 	upperLeftPos += translation;
-	lowerRightPos += translation;
 }

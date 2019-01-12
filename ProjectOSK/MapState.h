@@ -46,7 +46,7 @@ namespace BombBombCrash
 		Character* player;
 		PlayerState* playerInfo;
 		std::list<const Character*> enemy;
-		std::list<const Bomb*> bomb;
+		// std::list<const Bomb*> bomb;
 
 		MapState(void);
 		MapState(const MapState &ms);

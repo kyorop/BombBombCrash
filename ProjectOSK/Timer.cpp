@@ -1,5 +1,4 @@
 #include "Timer.h"
-#include "Image.h"
 
 using namespace BombBombCrash;
 
@@ -68,26 +67,4 @@ int Timer::GetLeftedRealTime()const
 		return limitedTime - (GetNowCount() - startTime);
 	else
 		return -1;
-}
-
-
-void Timer::DrawGraphicalTime(int x, int y)
-{
-	if(limitedTime > 0)
-	{
-		int leftedTime = limitedTime - (GetNowCount() - startTime);
-		int minute = leftedTime / (60*1000);
-		int second = ( leftedTime % (60*1000) ) / 1000;
-
-		int minute_onesplace = minute;
-		int second_tensplace = second/10;
-		int second_onesplace = second - 10*second_tensplace;
-
-		int blue = GetColor(0,119,182);
-		DrawString(x-25, y,"Žc‚èŽžŠÔ", blue);
-		DrawGraph(x, y-10, Image::GetInstance()->number[minute_onesplace], true);
-		DrawGraph(x+43, y+30, Image::GetInstance()->colon, true);
-		DrawGraph(x+49, y-10, Image::GetInstance()->number[second_tensplace], true);
-		DrawGraph(x+83, y-10, Image::GetInstance()->number[second_onesplace], true);
-	}
 }

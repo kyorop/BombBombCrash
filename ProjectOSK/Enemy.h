@@ -1,5 +1,6 @@
 #pragma once
 #include "Charactor.h"
+#include "ICharacterAction.h"
 
 namespace BombBombCrash
 {
@@ -9,15 +10,15 @@ namespace BombBombCrash
 	class Player;
 	class EnemyAI;
 	class Timer;
-	class Enemy:public Character
+	class Enemy:public Character, public ICharacterAction
 	{
 	public:
-		void Update(GameManager& game) override;
-		void Draw(GameManager& game)override;
-	protected:
-		bool PutBomb() override;
-	public:
+		void Initialize() override;
 		void Update() override;
+		void Draw() override;
+		void Finalize() override;
+	protected:
+		void PutBomb() override;
 	private:
 		const int* image_left;
 		const int* image_right;
@@ -40,7 +41,7 @@ namespace BombBombCrash
 		~Enemy();
 
 		void Move()override;
-		void IncrementSpeed()override;
+		// void IncrementSpeed()override;
 	};
 }
 

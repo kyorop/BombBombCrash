@@ -4,15 +4,13 @@
 #include "Scene_Game.h"
 #include "Scene_Round.h"
 #include "Scene_Score.h"
-#include "TestScene.h"
 
 using namespace BombBombCrash;
 
 SceneManger::SceneManger(void):
 nextScene(NOCHANGE),
-scene()
+scene(std::make_unique<Scene_Game>())
 {
-	scene = std::make_shared<TestScene>();
 	scene->SetManager(this);
 	scene->Initialize();
 }
@@ -33,16 +31,16 @@ void SceneManger::Update(void)
 		switch(nextScene)
 		{
 		case SCENE_MENU:
-			scene = std::make_shared<Scene_Menu>();
+			scene = std::make_unique<Scene_Menu>();
 			break;
 		case SCENE_GAME:
-			scene = std::make_shared<Scene_Game>();
+			scene = std::make_unique<Scene_Game>();
 			break;
 		case SCENE_ROUND:
-			scene = std::make_shared<Scene_Round>();
+			scene = std::make_unique<Scene_Round>();
 			break;
 		case SCENE_SCORE:
-			scene = std::make_shared<Scene_Score>();
+			scene = std::make_unique<Scene_Score>();
 			break;
 		}
 		nextScene = NOCHANGE;

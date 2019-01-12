@@ -16,7 +16,6 @@ namespace BombBombCrash
 		~Timer(void);
 		void TurnReset(void);
 		int GetLeftedRealTime()const;
-		void DrawGraphicalTime(int x, int y);
 	};
 }
 

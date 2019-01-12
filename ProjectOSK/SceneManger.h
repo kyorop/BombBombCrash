@@ -1,21 +1,20 @@
 #pragma once
 #include "ISceneChanger.h"
-#include "Task.h"
 
 namespace BombBombCrash
 {
 	class Drawing;
 	class Scene_Base;
-	class SceneManger:public ISceneChanger, public Task
+	class SceneManger:public ISceneChanger
 	{
 		int nextScene;
-		std::shared_ptr<Scene_Base> scene;
+		std::unique_ptr<Scene_Base> scene;
 	public:
-		SceneManger(void);
-		~SceneManger(void);
+		SceneManger();
+		virtual ~SceneManger();
 
-		void Update() override;
-		void Draw() override;
+		virtual void Update();
+		virtual void Draw();
 		void ChangeScene(int nextScene) override;
 	};
 

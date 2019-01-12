@@ -1,12 +1,11 @@
 #pragma once
 #include "ISceneChanger.h"
-#include "Task.h"
 
 namespace BombBombCrash
 {
 	struct ISceneProgress;
 
-	class Scene_Base:public Task
+	class Scene_Base
 	{
 	protected:
 		ISceneChanger *sceneMrg;
@@ -14,9 +13,14 @@ namespace BombBombCrash
 		virtual void UpdateScene() = 0;
 	public:
 		Scene_Base();
-		virtual ~Scene_Base(void);
+		virtual ~Scene_Base();
 
 		void SetManager(ISceneChanger *sceneManager);
+
+		virtual void Initialize(){}
+		virtual void Update(){}
+		virtual void Draw(){}
+		virtual void Finalize(){}
 	};
 }
 

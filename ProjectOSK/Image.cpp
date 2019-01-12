@@ -153,8 +153,36 @@ int* Image::GetCharacterImage(int id, int direction)
 	}
 }
 
-
 int* Image::GetBombImage()
 {
 	return bomb;
+}
+
+AnimationClip Image::Load(const std::string& file_path,int all_num, int x_num, int y_num, int x_size, int y_size)
+{
+	auto itr = loaded_handles_.find(file_path);
+	if (itr != end(loaded_handles_))
+	{
+		return AnimationClip(itr->second);
+	}
+
+	auto p_handles = new int[all_num];
+	LoadDivGraph(file_path.c_str(), all_num, x_num, y_num, x_size, y_size, p_handles);
+	std::vector<int> handles(p_handles, p_handles+all_num);
+	loaded_handles_.insert(std::make_pair(file_path, handles));
+	delete[] p_handles;
+	return AnimationClip(handles);
+}
+
+AnimationClip Image::Load(const std::string& file_path)
+{
+	auto itr = loaded_handles_.find(file_path);
+	if (itr != end(loaded_handles_))
+	{
+		return AnimationClip(itr->second);
+	}
+
+	std::vector<int> handle(1, LoadGraph(file_path.c_str()));
+	loaded_handles_.insert(std::make_pair(file_path, handle));
+	return AnimationClip(handle);
 }

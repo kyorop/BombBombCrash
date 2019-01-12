@@ -1,37 +1,34 @@
 #pragma once
-#include "CollisionableObject.h"
+#include "MapObject.h"
 
 namespace BombBombCrash
 {
-	class Character:public CollisionableObject
+	class Character:public MapObject
 	{
-	protected:
-		int preX;
-		int preY;
-		const int id;
-		static int idGenerator;
-
-		virtual bool PutBomb() = 0;
+	public:
+		enum Direction
+		{
+			LEFT,
+			RIGHT,
+			UP,
+			DOWN,
+		};
+	private:
+		int speed;
+		int fireLevel;
+		int bombNum;
 
 	public:
 
 		Character(const ln::Vector2& position, int width, int height);
 
-		Character(void);
-		virtual ~Character(void);
+		int Speed(){ return speed; }
+		int BombSize(){ return bombNum; }
+		int FireLevel(){ return fireLevel; }
 
-		virtual int Speed()=0;
-		virtual int BombSize()=0;
-		virtual int FireLevel()=0;
-
-		virtual void IncrementSpeed() = 0;
-		virtual void IncrementBomb()=0;
-		virtual void IncrementFireLevel()=0;
-
-		virtual void Update() = 0;
-		virtual void Move() = 0;
-
-		int Id() const;
+		void IncrementSpeed(){ ++speed; }
+		void IncrementBomb(){ ++bombNum; }
+		void IncrementFireLevel(){ ++fireLevel; }
 	};
 }
 

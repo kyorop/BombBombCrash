@@ -1,19 +1,17 @@
 #pragma once
 #include "Charactor.h"
-
+#include "ICharacterAction.h"
+#include "Animator.h"
+#include "BombBag.h"
+#include "IPlayerInput.h"
 namespace BombBombCrash
 {
-//#define MAPSIZE_X 17
-//#define MAPSIZE_Y 13
-
-
 	class BombController;
 	class IPlayerInput;
 	class PlayerAnimation;
-	class Player: public Character
+	class Player final : public Character, public ICharacterAction
 	{
 	public:
-		void OnCollide(CollisionableObject* object) override;
 
 		enum
 		{
@@ -21,15 +19,7 @@ namespace BombBombCrash
 			RIGHT,
 			UP,
 			DOWN,
-			NOHIT,
 		};
-	protected:
-		bool PutBomb() override
-		{
-			return false;
-		}
-
-	public:
 
 		enum KeyState
 		{
@@ -38,42 +28,26 @@ namespace BombBombCrash
 		};
 
 	private:
-		int muki;
 		const int isJoypad;
 		std::unique_ptr<IPlayerInput> input;
-		std::unique_ptr<BombController> bomb;
-		int speed;
-		int fireLevel;
-		bool isWalking;
-		std::unique_ptr<PlayerAnimation> animation;
-		std::unique_ptr<BombBombCrash::Rect> preBombRect;
+		std::unique_ptr<Animator> walking_animation_;
+		std::shared_ptr<BombBag> bomb_bag_;
+		std::list<int> on_bomb_ids_;
 
 	public:
 		Player(const ln::Vector2& position, KeyState device);
-		~Player();
 
-		void Update() override;
 		void Move()override;
-		void IncrementSpeed()override;
+		void PutBomb()override;
+		
+		void Initialize() override;
+		void Update() override;
+		void Draw() override;
+		void Finalize() override{}
 
-
-		void Initialize(GameManager& game) override;
-		void Update(GameManager& game) override;
-		void Draw(GameManager& game) override;
-
-		int Speed() override;
-		int BombSize() override;
-		int FireLevel() override;
-		void IncrementBomb() override;
-		void IncrementFireLevel() override;
-
-		int Direction() const
-		{
-			return muki;
-		}
-
-		bool IsWalking()const{ return isWalking; }
-		GameObjectType Type() const override { return GameObjectType::Player; }
+		ObjectType Type()const override;
+		void OnCollide(MapObject& other) override;
+		void OnCollisionExit(MapObject& other) override;
 	};
 }
 
